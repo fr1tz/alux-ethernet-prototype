@@ -67,9 +67,9 @@ function aiAdd(%teamid, %weaponNum)
 	else
 	{
 		if(%teamid == 1)
-			%playerData = RedStandardCat;
+			%playerData = RedInfantryCat;
 		else
-			%playerData = BlueStandardCat;
+			%playerData = BlueInfantryCat;
 	}
 
 	%player = new AiPlayer() {
@@ -175,9 +175,9 @@ function xxx_aiFire(%player)
 	%target = %player.getAimObject();
 	if(isObject(%target))
 	{
-		%x = 0;
-		%y = 0;
-		%z = 0;
+		%x = getRandom(3)+1;
+		%y = getRandom(3)+1;
+		%z = getRandom(3)+1;
 
 	  %enemypos = %player.getAimLocation();
 	  %mypos = %player.getPosition();

@@ -245,6 +245,7 @@ function startNewRound()
 	else
 	{
 		TerritoryZones_reset();
+		TerritorySurfaces_reset();
 	}
 	
 	for( %clientIndex = 0; %clientIndex < ClientGroup.getCount(); %clientIndex++ )
@@ -308,14 +309,14 @@ function checkRoundEnd()
 	}
 	else
 	{
-		if($Team1.numTerritoryZones == 0 && $Team1.numCATs == 0)
+		if($Team1.numTerritorySurfaces == 0 && $Team1.numCATs == 0)
 		{
 			centerPrintAll($Team2.name @ " have won!",3);
 			serverPlay2D(BlueVictorySound);
 			schedule(5000, MissionEnvironment, "startNewRound");
 			$Game::RoundRestarting = true;
 		}
-		else if($Team2.numTerritoryZones == 0 && $Team2.numCATs == 0)
+		else if($Team2.numTerritorySurfaces == 0 && $Team2.numCATs == 0)
 		{
 			centerPrintAll($Team1.name @ " have won!",3);
 			serverPlay2D(RedVictorySound);

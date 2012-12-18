@@ -78,14 +78,14 @@ datablock PlayerData(RedStandardCat)
 	density = 10;
 	gravityMod = 1.0;
 
-	maxDamage = 75;
-	damageBuffer = 25;
+	maxDamage = 100;
+	damageBuffer = 0;
 	maxEnergy = 100;
 
 	repairRate = 0.8;
 	damageBufferRechargeRate = 0.15;
 	damageBufferDischargeRate = 0.15;
-	energyRechargeRate = 0.4;
+	energyRechargeRate = 0.5;
 
 	skidSpeed = 20 * $Server::Game.slowpokemod;
 	skidFactor = 0.4;
@@ -269,7 +269,7 @@ if($Game::GameType != $Game::Ethernet)
 function RedStandardCat::onAdd(%this, %obj)
 {
 	Parent::onAdd(%this, %obj);
-	%obj.mountImage(RedCatLightImage, 3);
+	//%obj.mountImage(RedCatLightImage, 3);
 }
 
 datablock PlayerData(BlueStandardCat : RedStandardCat)
@@ -299,6 +299,6 @@ datablock PlayerData(BlueStandardCat : RedStandardCat)
 function BlueStandardCat::onAdd(%this, %obj)
 {
 	Parent::onAdd(%this, %obj);
-	%obj.mountImage(BlueCatLightImage, 3);
+	//%obj.mountImage(BlueCatLightImage, 3);
 }
 

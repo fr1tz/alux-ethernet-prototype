@@ -627,16 +627,16 @@ function ShapeBaseData::updateZone(%this, %obj, %enterZone, %leftZone)
 	else
 		TerritoryZones_enableRepair(%obj);
           
-	if(%inZone)
-	{
-		//echo(" in zone");
-        %this.onEnterMissionArea(%obj);
-	}
-	else
-	{
-		//echo(" not in zone");
-        %this.onLeaveMissionArea(%obj);  
-   }
+//	if(%inZone)
+//	{
+//		//echo(" in zone");
+//        %this.onEnterMissionArea(%obj);
+//	}
+//	else
+//	{
+//		//echo(" not in zone");
+//        %this.onLeaveMissionArea(%obj);
+//   }
 
 	// save these...
 	%obj.zInZone = %inZone;
@@ -668,8 +668,8 @@ function ShapeBaseData::onHitEnemy(%this, %obj, %enemy, %healthDmg, %bufDmg)
 	}
 
     // tagging...
-    %enemy.setTagged();
-    %obj.setCurrTagged(%enemy);
+    //%enemy.setTagged();
+    //%obj.setCurrTagged(%enemy);
     
     %obj.incGrenadeAmmo((%healthDmg+%bufDmg)/250);
 

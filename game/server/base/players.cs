@@ -61,7 +61,7 @@ $PlayerDeathAnim::ExplosionBlowBack = 11;
 //
 
 $PlayerShapeFxSlot::GridConnection  = 0;
-$PlayerShapeFxSlot::Shield = 1;
+$PlayerShapeFxSlot::Shield = 2;
 $PlayerShapeFxSlot::Barrier = 2;
 $PlayerShapeFxSlot::Misc = 3;
 
@@ -115,15 +115,15 @@ function PlayerData::onAdd(%this,%obj)
 	%obj.specialWeapon = %obj.client ? %obj.client.specialWeapon : 0;
 	if(%obj.getTeamId() == 1)
 	{
-		%obj.mountImage(RedDiscImage, 1, -1, true);
-		if(%client.hasGrenade)
-			%obj.mountImage(RedGrenade2Image, 2, -1, true);
+		//%obj.mountImage(RedDiscImage, 1, -1, true);
+		//if(%client.hasGrenade)
+		//	%obj.mountImage(RedGrenade2Image, 2, -1, true);
 	}
 	else
 	{
-		%obj.mountImage(BlueDiscImage, 1, -1, true);
-		if(%client.hasGrenade)
-			%obj.mountImage(BlueGrenade2Image, 2, -1, true);
+		//%obj.mountImage(BlueDiscImage, 1, -1, true);
+		//if(%client.hasGrenade)
+		//	%obj.mountImage(BlueGrenade2Image, 2, -1, true);
 	}
 	%obj.useWeapon(1);
 
@@ -138,6 +138,12 @@ function PlayerData::onAdd(%this,%obj)
 	//
 	%obj.setGrenadeAmmo(1);
     %obj.setGrenadeAmmoDt(0.125);
+
+   //%obj.startFade(0, 0, true);
+	//%obj.shapeFxSetTexture($PlayerShapeFxSlot::GridConnection, 0);
+	//%obj.shapeFxSetColor($PlayerShapeFxSlot::GridConnection, 1);
+	//%obj.shapeFxSetFade($PlayerShapeFxSlot::GridConnection, 1, 0);
+	//%obj.shapeFxSetActive($PlayerShapeFxSlot::GridConnection, false, true, true);
 
 	%obj.updateRegeneration();
 	%obj.updateGridConnection();
@@ -176,12 +182,15 @@ function PlayerData::onAdd(%this,%obj)
 function PlayerData::onRemove(%this, %obj)
 {
 	Parent::onRemove(%this,%obj);
-	
+
 	if(%obj.isCAT)
 		%obj.getTeamObject().numCATs--;
 
 	if(%obj.client.player == %obj)
-		%obj.client.player = 0;
+   {
+      %obj.client.togglePlayerForm();
+		//%obj.client.player = 0;
+   }
 		
 	checkRoundEnd();
 }
@@ -370,7 +379,7 @@ function PlayerData::damage(%this, %obj, %sourceObject, %pos, %damage, %damageTy
 		{
 			//%client.onDeath(%sourceObject, %sourceClient, %damageType, %location);
 			%client.showReceivedDamageInfo(true);
-			%client.togglePlayerForm();
+			//%client.togglePlayerForm();
 		}
 		else if(%obj.getControllingClient())
 		{
@@ -463,7 +472,7 @@ function PlayerData::onDisabled(%this,%obj,%prevState)
 		// schedule corpse removal to keep the place clean
 		//%obj.setOverrideTexture("base/data/textures/deathTexture"); [mag] TODO: re-implement this?
 		%obj.startFade(4000, 0, true);
-		%obj.schedule(4500, "delete");
+      %obj.schedule(4500, "delete");
 	}
 }
 
@@ -542,10 +551,10 @@ function PlayerData::onTrigger(%this, %obj, %triggerNum, %val)
 	//--------------------------------------------------------------------------
 	if( %triggerNum == 2 && %obj.isCAT )
 	{
-        if(%val)
-        {
-            %obj.schedule(0, "checkReJump");
-        }
+//        if(%val)
+//        {
+//            %obj.schedule(0, "checkReJump");
+//        }
 	}
 	
 	//--------------------------------------------------------------------------
@@ -567,9 +576,9 @@ function PlayerData::onTrigger(%this, %obj, %triggerNum, %val)
 		if(%val)
         {
             if(%triggerNum == 4)
-    			%obj.nonSnipingBodyPose = $PlayerBodyPose::Marching;
-            else if(%triggerNum == 5 && %obj.client.hasEtherboard)
-    			%obj.nonSnipingBodyPose = $PlayerBodyPose::Sliding;
+    			   %obj.nonSnipingBodyPose = $PlayerBodyPose::Marching;
+            else if(%triggerNum == 5)
+               %obj.nonSnipingBodyPose = $PlayerBodyPose::Crouched;
         }
 		else
 			%obj.nonSnipingBodyPose = $PlayerBodyPose::Standard;
@@ -691,6 +700,8 @@ function Player::setGridConnection(%this, %val)
 
 function Player::updateGridConnection(%this)
 {
+   return;
+
 	if(!isObject(%this.client))
 		return;
 
@@ -814,13 +825,13 @@ function Player::updateGridConnection(%this)
 //				%color = 3;
 //			}
 			%color = 1;						
-			%this.shapeFxSetTexture($PlayerShapeFxSlot::GridConnection, 0);					
-			%this.shapeFxSetColor($PlayerShapeFxSlot::GridConnection, %color);			
-			%this.shapeFxSetFade($PlayerShapeFxSlot::GridConnection, %this.gridConnection, %this.gridConnectionDt * 20);					
+			%this.shapeFxSetTexture($PlayerShapeFxSlot::GridConnection, 0);
+			%this.shapeFxSetColor($PlayerShapeFxSlot::GridConnection, %color);
+			%this.shapeFxSetFade($PlayerShapeFxSlot::GridConnection, %this.gridConnection, %this.gridConnectionDt * 20);
 		}
 				
 		%this.shapeFxSetBalloon($PlayerShapeFxSlot::GridConnection, 1.00, 0);	
-		%this.shapeFxSetActive($PlayerShapeFxSlot::GridConnection, true, true);   	
+		//%this.shapeFxSetActive($PlayerShapeFxSlot::GridConnection, true, true);
 	}	
 }
 
@@ -898,7 +909,7 @@ function Player::activateBarrier(%this, %time)
         cancel(%this.deactivateBarrierThread);
 
     %this.barrier = 1;
-    %this.shapeFxSetActive($PlayerShapeFxSlot::Barrier, true, true);
+    //%this.shapeFxSetActive($PlayerShapeFxSlot::Barrier, true, true);
     %this.shapeFxSetTexture($PlayerShapeFxSlot::Barrier, 2);
 	%this.shapeFxSetBalloon($PlayerShapeFxSlot::Barrier, 1, 0);
 	if(%time == 0)
@@ -929,7 +940,7 @@ function Player::deactivateBarrier(%this)
 	%this.shapeFxSetTexture($PlayerShapeFxSlot::Barrier, 0);
 	%this.shapeFxSetBalloon($PlayerShapeFxSlot::Barrier, 1, 0);
 	%this.shapeFxSetFade($PlayerShapeFxSlot::Barrier, 1.0, -1/1);
-    %this.shapeFxSetActive($PlayerShapeFxSlot::Barrier, true, true);
+    //%this.shapeFxSetActive($PlayerShapeFxSlot::Barrier, true, true);
 }
 
 //-----------------------------------------------------------------------------
@@ -1332,7 +1343,7 @@ function Player::playDeathAnimation(%this, %damageLocation, %damageType)
 		%curDie = 1;
 
 	%this.setArmThread("look");
-	%this.setActionThread("Death" @ %curDie);
+	%this.setActionThread("Death" @ %curDie, true, true);
 }
 
 function Player::playPartyAnimation(%this,%key)

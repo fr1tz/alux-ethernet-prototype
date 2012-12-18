@@ -1,3 +1,0 @@
-exec("./common.cs");
-$MissionInfo::Name = "/env/bcons/alpha";
-$MissionInfo::Desc = "Smaller sized arena";

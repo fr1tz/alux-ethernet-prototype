@@ -16,7 +16,7 @@ new GuiBitmapCtrl(Shell) {
    Visible = "1";
    hovertime = "1000";
    bitmap = "./pixmaps/root.png";
-   wrap = "1";
+   wrap = "0";
 
    new GuiBitmapCtrl() {
       canSaveDynamicFields = "0";
@@ -24,8 +24,8 @@ new GuiBitmapCtrl(Shell) {
       HorizSizing = "center";
       VertSizing = "center";
       Position = "0 0";
-      Extent = "640 480";
-      MinExtent = "480 480";
+      Extent = "299 120";
+      MinExtent = "299 120";
       canSave = "1";
       Visible = "1";
       hovertime = "1000";
@@ -191,7 +191,7 @@ new GuiBitmapCtrl(Shell) {
          Visible = "1";
          Command = "quit();";
          hovertime = "1000";
-         text = "Quit ROTC";
+         text = "Quit Alux";
          groupNum = "-1";
          buttonType = "PushButton";
       };

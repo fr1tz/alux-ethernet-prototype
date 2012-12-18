@@ -142,25 +142,6 @@ function GameConnection::showLoadout(%this, %no, %expandslot, %showInfo, %infoPo
          }
          %L3 = %L3 @ "\n";
       }
-
-      %L3 = %L3 @ "CAT Specs:\n";
-		%L3 = %L3 @ "<bitmap:share/ui/rotc/cat.blueprint.200x500>\n";
-		%L3 = %L3 @ " Hull:\n";
-		%L3 = %L3 @ "    <bitmap:share/hud/rotc/icon.damper.20x20> Damper " @ LoadoutMenu_InfoLink(%no,%L3,"4.1") @ "\n\n";
-		%L3 = %L3 @ "    <bitmap:share/hud/rotc/icon.shield.20x20> Shield " @ LoadoutMenu_InfoLink(%no,%L3,"4.2") @ "\n\n";
-		%L3 = %L3 @ "    <bitmap:share/hud/rotc/icon.barrier.20x20> Barrier " @ LoadoutMenu_InfoLink(%no,%L3,"4.3") @ "\n\n";
-		%L3 = %L3 @ "    <bitmap:share/hud/rotc/icon.bounce.20x20> B.O.U.N.C.E. " @ LoadoutMenu_InfoLink(%no,%L3,"7.2") @ "\n\n";
-		%L3 = %L3 @ " Head:\n";
-		%L3 = %L3 @ "    <bitmap:share/hud/rotc/icon.repeldisc.20x20> Repel Disc Launcher " @ LoadoutMenu_InfoLink(%no,%L3,"5.1") @ "\n\n";
-		%L3 = %L3 @ "    <bitmap:share/hud/rotc/icon.explosivedisc.20x20> Explosive Disc Launcher " @ LoadoutMenu_InfoLink(%no,%L3,"5.2") @ "\n\n";
-		%L3 = %L3 @ " Arm:\n";
-		%L3 = %L3 @ "    <bitmap:share/hud/rotc/icon.grenade.20x20> Grenade " @ LoadoutMenu_InfoLink(%no,%L3,"6.4") @ "\n\n";
-		%L3 = %L3 @ " Torso:\n";
-		%L3 = %L3 @ "    <bitmap:share/hud/rotc/icon.vamp.20x20> V-AMP " @ LoadoutMenu_InfoLink(%no,%L3,"4.5") @ "\n\n";
-		%L3 = %L3 @ " Pelvis:\n";
-		%L3 = %L3 @ "    <bitmap:share/hud/rotc/icon.anchor.20x20> Anchor " @ LoadoutMenu_InfoLink(%no,%L3,"4.4") @ "\n\n";
-		%L3 = %L3 @ " Feet:\n";
-		%L3 = %L3 @ "    <bitmap:share/hud/rotc/icon.booster.20x20> Jump Booster " @ LoadoutMenu_InfoLink(%no,%L3,"8.3") @ "\n\n";
 	}
 
    %L4 = om_init();
@@ -169,9 +150,9 @@ function GameConnection::showLoadout(%this, %no, %expandslot, %showInfo, %infoPo
    else
       %L4 = %L4 @ "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
    %L4 = %L4 @ "<tab:70,125>";
-   %L4 = %L4 @ "\tHealth:\t75\n";
-   %L4 = %L4 @ "\tShield:\t25\n";
-   %L4 = %L4 @ "\tEnergy:\t100\n";
+//   %L4 = %L4 @ "\tHealth:\t75\n";
+//   %L4 = %L4 @ "\tShield:\t25\n";
+//   %L4 = %L4 @ "\tEnergy:\t100\n";
 
    if(%showInfo > 0)
    {

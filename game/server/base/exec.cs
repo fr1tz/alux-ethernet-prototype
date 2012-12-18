@@ -29,6 +29,7 @@ exec("./camera.cs");
 exec("./markers.cs");
 exec("./triggers.cs");
 exec("./tacticalzones.cs");
+exec("./tacticalsurfaces.cs");
 exec("./shapebase.cs");
 exec("./simplecontrol.cs");
 exec("./staticshape.cs");

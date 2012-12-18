@@ -1,3 +1,0 @@
-exec("./common.cs");
-$MissionInfo::Name = "ETH1";
-$MissionInfo::Desc = "Snowy wasteland";

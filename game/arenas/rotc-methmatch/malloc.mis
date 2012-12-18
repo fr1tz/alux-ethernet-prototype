@@ -1,5 +1,0 @@
-$MissionInfo::Name       = "/env/malloc";
-$MissionInfo::Type       = "ROTC: mEthMatch" SPC "(" @ $GameVersionString @ ")";
-$MissionInfo::Desc       = "Minimalist arena for testing / template for new arenas." SPC
-                           "See https://github.com/fr1tz/rotc-ethernet-game/wiki/Mapping";
-$MissionInfo::InitScript = "game/server/missions/rotc-meth.cs";

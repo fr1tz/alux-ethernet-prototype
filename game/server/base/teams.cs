@@ -38,7 +38,7 @@ function createTeams()
 			name = "Reds";
 			score = 0;
 			numPlayers = 0;
-			numTerritoryZones = 0;
+			numTerritorySurfaces = 0;
 			numCATs = 0;
             repairSpeed = 0.5;
 		};
@@ -56,7 +56,7 @@ function createTeams()
 			name = "Blues";
 			score = 0;
 			numPlayers = 0;
-			numTerritoryZones = 0;
+			numTerritorySurfaces = 0;
 			numCATs = 0;
             repairSpeed = 0.5;
 		};

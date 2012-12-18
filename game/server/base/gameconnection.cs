@@ -42,8 +42,8 @@ function GameConnection::prepareCookies(%this, %cookies)
    // Loadouts
 	for(%i = 1; %i <= 10; %i++)
    {
-		%cookies.push_back("ETH_LNAME" @ %i, "");
-		%cookies.push_back("ETH_LCODE" @ %i, "");
+		%cookies.push_back("LOL_LNAME" @ %i, "");
+		%cookies.push_back("LOL_LCODE" @ %i, "");
    }
 }
 
@@ -62,8 +62,8 @@ function GameConnection::onCookiesReceived(%this, %cookies)
 	for(%i = 1; %i <= 10; %i++)
    {
       %this.loadDefaultLoadout(%i);
-      %name = arrayGetValue(%cookies, "ETH_LNAME" @ %i);
-      %code = arrayGetValue(%cookies, "ETH_LCODE" @ %i);
+      %name = arrayGetValue(%cookies, "LOL_LNAME" @ %i);
+      %code = arrayGetValue(%cookies, "LOL_LCODE" @ %i);
       if(%name !$= "")
    		%this.loadoutName[%i] = %name;
       if(%code !$= "")
@@ -492,13 +492,14 @@ function GameConnection::togglePlayerForm(%this, %forced)
 			%inOwnTerritory = false;
 			%inEnemyZone = false;
 	
-			InitContainerRadiusSearch(%pos, 0.0001, $TypeMasks::TacticalZoneObjectType);
+			InitContainerRadiusSearch(%pos, 0.0001, $TypeMasks::TacticalSurfaceObjectType);
 			while((%srchObj = containerSearchNext()) != 0)
 			{
 				// object actually in this zone?
 				%inSrchZone = false;
 				for(%i = 0; %i < %srchObj.getNumObjects(); %i++)
 				{
+               error(%srchObj.getObject(%i).getDataBlock().getName());
 					if(%srchObj.getObject(%i) == %this.player)
 					{
 						%inSrchZone = true;
@@ -507,7 +508,7 @@ function GameConnection::togglePlayerForm(%this, %forced)
 				}
 				if(!%inSrchZone)
 					continue;
-	
+
 				%zoneTeamId = %srchObj.getTeamId();
 				%zoneBlocked = %srchObj.zBlocked;
 	
@@ -519,7 +520,7 @@ function GameConnection::togglePlayerForm(%this, %forced)
 				else if(%zoneTeamId == %ownTeamId)
 				{
 					%inOwnZone = true;
-					if(%srchObj.getDataBlock().getName() $= "TerritoryZone"
+					if(%srchObj.getDataBlock().getName() $= "TerritorySurface"
 					|| %srchObj.getDataBlock().isTerritoryZone)
 						%inOwnTerritory = true;
 				}
@@ -584,11 +585,11 @@ function GameConnection::togglePlayerForm(%this, %forced)
 			}
 			else
 			{
-				// Manifest into standard CAT form
+				// Manifest into infantry CAT
 				if( %this.team == $Team1 )
-					%data = RedStandardCat;
+					%data = RedInfantryCat;
 				else
-					%data = BlueStandardCat;
+					%data = BlueInfantryCat;
 			}
 
 			%obj = new Player() {
@@ -1174,7 +1175,7 @@ function GameConnection::setHudMenuC(%this, %slot, %text, %repetitions, %visible
 
 function GameConnection::updateQuickbar(%this)
 {
-   %head = "<just:center><font:NovaSquare:16>";
+   %head = "<just:center><font:NovaSquare:16><linkcolor:0044FF>";
 
    %B1 = true;
    %B2 = true;

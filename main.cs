@@ -8,8 +8,8 @@
 // Copyright (C) GarageGames.com, Inc.
 //-----------------------------------------------------------------------------
 
-$GameNameString = "rotc-ethernet";
-$GameVersionString = "p.5.2+dev2";
+$GameNameString = "alux";
+$GameVersionString = "0.0+dev";
 
 //------------------------------------------------------------------------------
 

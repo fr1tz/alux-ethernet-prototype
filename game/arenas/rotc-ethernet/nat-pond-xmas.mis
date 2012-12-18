@@ -1,2 +1,0 @@
-exec("./common.cs");
-$MissionInfo::Name = "/env/nat/pond-xmas";

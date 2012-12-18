@@ -246,6 +246,7 @@ function Hud::setCrosshair(%this, %option, %arg1, %arg2, %arg3, %arg4, %arg5)
       Crosshair.crossLineWidth = 2;
       Crosshair.crossLineLength = 100;
       Crosshair.crossParts = 15;
+      Crosshair.animationMode = 1;
       Crosshair.setBitmap("");
    }
    else if(%option == 1)
@@ -292,6 +293,10 @@ function Hud::setCrosshair(%this, %option, %arg1, %arg2, %arg3, %arg4, %arg5)
          %height = %arg3;
       CrosshairStatic.setBitmap(%bmp);
       CrosshairStatic.setExtent(%width, %height);
+   }
+   else if(%option == 7)
+   {
+      if(%arg1 !$= "") Crosshair.animationMode = %arg1;
    }
 }
 

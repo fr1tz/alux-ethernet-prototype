@@ -20,6 +20,10 @@ function executeCatScripts()
 	$CatEquipment::MiniGun         = %i; %i++;
 	$CatEquipment::RepelGun        = %i; %i++;
 	$CatEquipment::GrenadeLauncher = %i; %i++;
+	$CatEquipment::Python          = $CatEquipment::BattleRifle;
+	$CatEquipment::Trident         = $CatEquipment::Blaster;
+	$CatEquipment::Raptor          = $CatEquipment::RepelGun;
+	$CatEquipment::Laserhawk       = $CatEquipment::SniperRifle;
 	// Discs...
 	$CatEquipment::SlasherDisc     = %i; %i++;
 	$CatEquipment::RepelDisc       = %i; %i++;
@@ -93,57 +97,31 @@ function StandardCat::useWeapon(%this, %obj, %nr)
 
 	%wpn = %client.weapons[%obj.currWeapon-1];
 
-	if(%wpn == 1)
+	if(%wpn == $CatEquipment::Python)
 	{
-		if($Server::Game.superblaster)
-		{
-			if(%obj.getTeamId() == $CatEquipment::Blaster)
-				%obj.mountImage(RedBlaster3Image, 0, -1, true);
-			else
-				%obj.mountImage(BlueBlaster3Image, 0, -1, true);
-		}
-		else
-		{
-			if(%obj.getTeamId() == $CatEquipment::Blaster)
-				%obj.mountImage(RedBlaster2Image, 0, -1, true);
-			else
-				%obj.mountImage(BlueBlaster2Image, 0, -1, true);
-		}
-	}
-	else if(%wpn == $CatEquipment::BattleRifle)
-	{
-		if(%obj.getTeamId() == 1)
-			%obj.mountImage(RedAssaultRifleImage, 0, -1, true);
-		else
-			%obj.mountImage(BlueAssaultRifleImage, 0, -1, true);
-	}
-	else if(%wpn == $CatEquipment::SniperRifle)
-	{
-		if(%obj.getTeamId() == 1)
-			%obj.mountImage(RedSniperRifleImage, 0, -1, true);
-		else
-			%obj.mountImage(BlueSniperRifleImage, 0, -1, true);
+		%obj.mountImage(WpnBadgerImage, 0, -1, true);
 	}
 	else if(%wpn == $CatEquipment::MiniGun)
 	{
-		if(%obj.getTeamId() == 1)
-			%obj.mountImage(RedMinigunImage, 0, -1, true);
-		else
-			%obj.mountImage(BlueMinigunImage, 0, -1, true);
+		%obj.mountImage(WpnMinihawkImage, 0, -1, true);
 	}
-	else if(%wpn == $CatEquipment::RepelGun)
+	else if(%wpn == $CatEquipment::Trident)
+	{
+		%obj.mountImage(WpnStyckImage, 0, -1, true);
+	}
+	else if(%wpn == $CatEquipment::Raptor)
 	{
 		if(%obj.getTeamId() == 1)
-			%obj.mountImage(RedRepelGunImage, 0, -1, true);
+			%obj.mountImage(WpnRedRaptorImage, 0, -1, true);
 		else
-			%obj.mountImage(BlueRepelGunImage, 0, -1, true);
+			%obj.mountImage(WpnRedRaptorImage, 0, -1, true);
 	}
-	else if(%wpn == $CatEquipment::GrenadeLauncher)
+	else if(%wpn == $CatEquipment::Laserhawk)
 	{
 		if(%obj.getTeamId() == 1)
-			%obj.mountImage(RedGrenadeLauncherImage, 0, -1, true);
+			%obj.mountImage(WpnRedLaserhawkImage, 0, -1, true);
 		else
-			%obj.mountImage(BlueGrenadeLauncherImage, 0, -1, true);
+			%obj.mountImage(WpnBlueLaserhawkImage, 0, -1, true);
 	}
 }
 

@@ -40,8 +40,8 @@ function GameConnection::defaultLoadout(%this)
 		%this.loadout[1] = $CatEquipment::BattleRifle;
 		%this.loadout[2] = $CatEquipment::Blaster;
 		%this.loadout[3] = $CatEquipment::Etherboard;
-		%this.loadout[4] = $CatEquipment::Damper;
-		%this.loadout[5] = $CatEquipment::VAMP;
+		//%this.loadout[4] = $CatEquipment::Damper;
+		//%this.loadout[5] = $CatEquipment::VAMP;
 		%this.loadout[6] = $CatEquipment::Anchor;
 		%this.loadout[7] = $CatEquipment::Grenade;
 		%this.loadout[8] = $CatEquipment::Bounce;

@@ -14,8 +14,8 @@ if(isObject(DefaultCursor))
 
     new GuiCursor(DefaultCursor)
     {
-	   hotSpot = "6 6";
-	   bitmapName = "./pixmaps/mg_arrow6";
+	   hotSpot = "0 0";
+	   bitmapName = "./pixmaps/mg_3darrow2";
     };
 }
 

@@ -4,13 +4,13 @@
 //------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Torque Game Engine 
+// Torque Game Engine
 // Copyright (C) GarageGames.com, Inc.
 //-----------------------------------------------------------------------------
 
 function om_init()
 {
-	return "<font:NovaSquare:16>";
+	return "<font:NovaSquare:16><linkcolor:0044FF>";
 }
 
 function om_head(%client, %title, %prev, %refresh)
@@ -35,7 +35,13 @@ function om_head(%client, %title, %prev, %refresh)
 		}
 
 		%r = %r @
-			"<spop>\n\n";
+			"<spop>\n";
+
+      %r = %r @ "<just:center><spush><color:FFFF00>";
+      %r = %r @ "You are playing a very early, crude and incomplete";
+      %r = %r @ " version of Alux!\n";
+		%r = %r @ "<bitmap:share/ui/rotc/construction><sbreak>";
+      %r = %r @ "<spop><just:left>";
 	}
 
 	return %r;

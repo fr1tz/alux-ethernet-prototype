@@ -1,0 +1,7 @@
+exec("./common.cs");
+$MissionInfo::Name = "Staub \cp\c20.1\co";
+$MissionInfo::Desc = "A dig in the digital wasteland unearthed "
+                   @ "some ancient structure. It looks... strangely familiar ;)";
+
+
+

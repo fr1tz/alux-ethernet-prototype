@@ -213,15 +213,15 @@ datablock TacticalZoneData(TerritoryZone)
 
 	colorChangeTimeMS = 200;
 
-	colors[1]  = "1 1 1 0.05";  // neutral
-	colors[2]  = "1 0 0 0.1";   // red
-	colors[3]  = "0 0 1 0.1";   // blue
+	colors[1]  = "1 1 1 0.1";  // neutral
+	colors[2]  = "1 0 1 0.2";   // red
+	colors[3]  = "0 1 1 0.2";   // blue
 	colors[4]  = "1 0.5 0 0.1";   // red zBlocked
 	colors[5]  = "0 0.5 1 0.1";   // blue zBlocked
 
 	colors[6]  = "1 1 1 0.75";  // white flash
-	colors[7]  = "1 0 0 0.75";   // red flash
-	colors[8]  = "0 0 1 0.75";   // blue flash
+	colors[7]  = "1 0 1 0.75";   // red flash
+	colors[8]  = "0 1 1 0.75";   // blue flash
 	colors[9]  = "1 0.5 0 0.75";   // red zBlocked flash
 	colors[10] = "0 0.5 1 0.75";   // blue zBlocked flash
 
@@ -329,6 +329,10 @@ function TerritoryZone::updateOwner(%this, %zone)
 				%connectedToBlue = true;
 		}
 	}
+
+   // quick hack...
+	%connectedToRed = true;
+	%connectedToBlue = true;
 
 	if(%zone.zNumReds > 0 && %zone.zNumBlues == 0
 	&& %connectedToRed)
