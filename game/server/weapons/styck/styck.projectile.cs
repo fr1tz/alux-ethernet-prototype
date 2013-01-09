@@ -11,7 +11,7 @@ datablock ShotgunProjectileData(WpnStyckProjectile)
 	stat = "styck";
 
 	// script damage properties...
-	impactDamage       = 12;
+	impactDamage       = 17;
 	impactImpulse      = 400;
 	splashDamage       = 0;
 	splashDamageRadius = 0;
@@ -73,35 +73,6 @@ datablock ShotgunProjectileData(WpnStyckProjectile)
 function WpnStyckProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist)
 {
     Parent::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist);
-
-	if( !(%col.getType() & $TypeMasks::ShapeBaseObjectType) )
-		return;
-
-    %src =  %obj.getSourceObject();
-    if(!%src)
-        return;
-
-    %currTime = getSimTime();
-
-	// FIXME: strange linux version bug:
-	//        after the game has been running a long time
-	//        (%currTime == %obj.hitTime)
-	//        often evaluates to false even if the
-	//        values appear to be equal.
-	//        (%currTime - %obj.hitTime) evaluates to 1
-	//        in those cases.
-    //if(%currTime == %obj.hitTime)
-	if(%currTime - %obj.hitTime <= 1)
-    {
-        %col.numBlaster3BulletHits += 1;
-        if(%col.numBlaster3BulletHits == 4)
-            %src.setDiscTarget(%col);
-    }
-    else
-    {
-        %obj.hitTime = %currTime;
-        %col.numBlaster3BulletHits = 1;
-    }
 }
 
 

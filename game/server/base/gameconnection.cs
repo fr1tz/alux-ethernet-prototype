@@ -42,8 +42,8 @@ function GameConnection::prepareCookies(%this, %cookies)
    // Loadouts
 	for(%i = 1; %i <= 10; %i++)
    {
-		%cookies.push_back("LOL_LNAME" @ %i, "");
-		%cookies.push_back("LOL_LCODE" @ %i, "");
+		%cookies.push_back("ALUX_LNAME" @ %i, "");
+		%cookies.push_back("ALUX_LCODE" @ %i, "");
    }
 }
 
@@ -62,8 +62,8 @@ function GameConnection::onCookiesReceived(%this, %cookies)
 	for(%i = 1; %i <= 10; %i++)
    {
       %this.loadDefaultLoadout(%i);
-      %name = arrayGetValue(%cookies, "LOL_LNAME" @ %i);
-      %code = arrayGetValue(%cookies, "LOL_LCODE" @ %i);
+      %name = arrayGetValue(%cookies, "ALUX_LNAME" @ %i);
+      %code = arrayGetValue(%cookies, "ALUX_LCODE" @ %i);
       if(%name !$= "")
    		%this.loadoutName[%i] = %name;
       if(%code !$= "")
@@ -468,7 +468,7 @@ function GameConnection::togglePlayerForm(%this, %forced)
 			teamId = %this.team.teamId;
 		};	
 	}
-	else
+	else if(false)
 	{
 		// Etherform -> Manifestation
 
@@ -596,11 +596,39 @@ function GameConnection::togglePlayerForm(%this, %forced)
 				dataBlock = %data;
 				client = %this;
 				teamId = %this.team.teamId;
-			};			
+			};
 		}
 
 		$aiTarget = %obj;
 	}
+   else
+   {
+      %closest = 0;
+      %distmin = 5.0;
+		InitContainerRadiusSearch(%pos, %distmin, $TypeMasks::ShapeBaseObjectType);
+		while((%srchObj = containerSearchNext()) != 0)
+		{
+         if(%srchObj == %this.player)
+            continue;
+         if(%srchObj.getTeamId() != %this.player.getTeamId())
+            continue;
+         if(isObject(%srchObj.getControllingClient()))
+            continue;
+         if(!isObject(%srchObj.getDataBlock()))
+            continue;
+         if(!%srchObj.getDataBlock().isMethod("dematerialize"))
+            continue;
+         %dist = VectorLen(VectorSub(%srchObj.getWorldBoxCenter(), %pos));
+         if(%dist < %distmin)
+         {
+            %closest = %srchObj;
+            %distmin = %dist;
+         }
+      }
+      if(isObject(%closest))
+         %closest.getDataBlock().dematerialize(%closest);
+      return;
+   }
 	
 	MissionCleanup.add(%obj);
 	
@@ -620,7 +648,7 @@ function GameConnection::togglePlayerForm(%this, %forced)
 
 	%this.control(%obj);
 	
-	if(%this.player.getClassName() $= "Etherform")
+	if(false && %this.player.getClassName() $= "Etherform")
 	{
 		// Etherform -> Manifestation
 		
@@ -635,7 +663,7 @@ function GameConnection::togglePlayerForm(%this, %forced)
 		%obj.startFade(1000,0,false);
 		%obj.playAudio(0, CatSpawnSound);		
 	}
-	else
+	else if(%this.player.getClassName() !$= "Etherform")
 	{
 		// Manifestation -> Etherform
 	
@@ -648,8 +676,9 @@ function GameConnection::togglePlayerForm(%this, %forced)
 			//}
 			//else
 			//{
-				%this.player.setDamageState("Destroyed");
+				//%this.player.setDamageState("Destroyed");
 			//}
+         //%this.player.client = 0;
 		}
 		
 		%obj.setEnergyLevel(%nrg - 50);
@@ -1270,6 +1299,8 @@ function GameConnection::setHandicap(%this, %handicap)
 
 function GameConnection::getEtherformDataBlock(%this)
 {
+   return FrmLight;
+
 	if(strstr(strlwr(getTaggedString(%this.name)),"nyan") != -1)
 	{
 		if( %this.team == $Team1 )

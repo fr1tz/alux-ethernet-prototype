@@ -102,7 +102,7 @@ datablock ShapeBaseImageData(WpnStyckImage)
 	mountPoint  = 0;
 	offset      = "0 0 0";
 	rotation    = "0 0 0";
-	eyeOffset	= "0.05 0.00 0.07";
+	eyeOffset	= "0.05 0.07 -0.03";
 	eyeRotation = "0 0 0";
 
 	// Adjust firing vector to eye's LOS point?
@@ -141,7 +141,7 @@ datablock ShapeBaseImageData(WpnStyckImage)
 		stateTransitionOnNoAmmo[2]       = "NoAmmo";
 		stateTransitionOnNotLoaded[2]    = "Disabled";
 		stateTransitionOnTriggerDown[2]  = "Fire";
-		stateArmThread[2]                = "holdblaster";
+		stateArmThread[2]                = "holdrifle";
 		stateSpinThread[2]               = "Stop";
 		//stateSequence[2]                 = "idle";
 
@@ -154,7 +154,7 @@ datablock ShapeBaseImageData(WpnStyckImage)
 		stateRecoil[3]                   = MediumRecoil;
 		stateAllowImageChange[3]         = false;
 		stateEjectShell[3]               = true;
-		stateArmThread[3]                = "aimblaster";
+		stateArmThread[3]                = "aimrifle";
 		stateSequence[3]                 = "fire";
 		stateSound[3]                    = WpnStyckFireSound;
 		stateEmitter[3]                  = WpnStyckFireEmitter;

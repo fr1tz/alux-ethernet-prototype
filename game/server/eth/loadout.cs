@@ -8,23 +8,23 @@ function GameConnection::loadDefaultLoadout(%this, %no)
    switch(%no)
    {
       case 1:
-         %this.loadoutName[%no] = "Commando";
-         %this.loadoutCode[%no] = "216";
+         %this.loadoutName[%no] = "Parrot";
+         %this.loadoutCode[%no] = "1";
       case 2:
-         %this.loadoutName[%no] = "Ranger";
-         %this.loadoutCode[%no] = "236";
+         %this.loadoutName[%no] = "Bumblebee";
+         %this.loadoutCode[%no] = "2";
       case 3:
-         %this.loadoutName[%no] = "Skirmisher";
-         %this.loadoutCode[%no] = "276";
+         %this.loadoutName[%no] = "Crate";
+         %this.loadoutCode[%no] = "3";
       case 4:
-         %this.loadoutName[%no] = "Protector";
-         %this.loadoutCode[%no] = "275";
+         %this.loadoutName[%no] = "Soldier";
+         %this.loadoutCode[%no] = "4 0 1 5 2";
       case 5:
-         %this.loadoutName[%no] = "Backup";
-         %this.loadoutCode[%no] = "477";
+         %this.loadoutName[%no] = "Sniper";
+         %this.loadoutCode[%no] = "4 0 4 0 3";
       default:
          %this.loadoutName[%no] = "";
-         %this.loadoutCode[%no] = "216";
+         %this.loadoutCode[%no] = "1";
    }
 }
 
@@ -174,6 +174,15 @@ function GameConnection::updateLoadout(%this)
 			%this.numWeapons++;
 		}
 	}
+   if(isObject(%this.form))
+      %this.form.delete();
+   %this.form = new StaticShape() {
+	  dataBlock = FrmCrate;
+	  client = %this;
+     teamId = %this.team.teamId;
+   };
+   MissionCleanup.add(%this.form);
+   %this.form.setCollisionsDisabled(true);
 }
 
 function GameConnection::displayInventory(%this, %obj)
@@ -477,7 +486,9 @@ function GameConnection::changeInventory(%this, %nr)
          if(%this.loadoutName[%nr] $= "")
             return;
 
-         for(%i = 0; %i < 3; %i++)
+         %this.activeLoadout = %this.loadoutCode[%nr];
+
+         for(%i = 0; %i < 1; %i++)
          {
             %c = getSubStr(%this.loadoutCode[%nr], %i, 1);
             if(%c < 1 || %c > 7)

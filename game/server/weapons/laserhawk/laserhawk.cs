@@ -17,7 +17,7 @@ datablock ShapeBaseImageData(WpnRedLaserhawkImage)
 	className = WeaponImage;
 
 	// basic item properties
-	shapeFile = "share/shapes/rotc/weapons/missilelauncher/image2.red.dts";
+	shapeFile = "share/shapes/alux/laserhawk.image.dts";
 	emap = true;
 
 	// mount point & mount offset...

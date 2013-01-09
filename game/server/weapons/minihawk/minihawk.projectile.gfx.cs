@@ -172,7 +172,7 @@ datablock ParticleData(WpnMinihawkProjectileHit_Particle)
 	gravityCoefficient	= 0.0;
 	inheritedVelFactor	= 0.0;
 
-	lifetimeMS			  = 500;
+	lifetimeMS			  = 1000;
 	lifetimeVarianceMS	= 0;
 
 	useInvAlpha =  false;

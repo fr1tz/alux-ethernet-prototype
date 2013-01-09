@@ -158,7 +158,7 @@ datablock ShapeBaseImageData(WpnBadgerImage)
 		stateRecoil[3]                   = MediumRecoil;
 		stateAllowImageChange[3]         = false;
 		stateEjectShell[3]               = true;
-		stateArmThread[3]                = "aimblaster";
+		stateArmThread[3]                = "aimarmcannon";
 		stateSequence[3]                 = "fire";
 		stateSound[3]                    = WpnBadgerFireSound;
 		//stateEmitter[3]                  = RedBlaster3FireEmitter;

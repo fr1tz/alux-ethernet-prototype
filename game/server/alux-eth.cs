@@ -28,7 +28,6 @@ function executeEnvironmentScript()
 function executeGameScripts()
 {
 	exec("game/server/base/exec.cs");
-	exec("game/server/cats/soldiercat.cs");
 	exec("game/server/eth/exec.cs");
 	exec("game/server/weapons/weapons.cs");
 	exec("game/server/weapons/styck/styck.cs");
@@ -36,7 +35,20 @@ function executeGameScripts()
 	exec("game/server/weapons/laserhawk/exec.cs");
 	exec("game/server/weapons/minihawk/exec.cs");
 	exec("game/server/weapons/badger/exec.cs");
-	exec("game/server/blueprints/exec.cs");	
+	exec("game/server/forms/light/exec.cs");
+	exec("game/server/forms/parrot/exec.cs");
+	exec("game/server/forms/soldier/exec.cs");
+	exec("game/server/forms/crate/exec.cs");
+   $Server::Game.form[0] = FrmLight;
+   $Server::Game.form[1] = FrmParrot;
+   $Server::Game.form[2] = FrmBumblebee;
+   $Server::Game.form[3] = FrmCrate;
+   $Server::Game.form[4] = RedInfantryCat;
+   $Server::Game.weapon[1] = WpnBadgerImage;
+   $Server::Game.weapon[2] = WpnStyckImage;
+   $Server::Game.weapon[3] = WpnRedLaserhawkImage;
+   $Server::Game.weapon[4] = WpnMinihawkImage;
+   $Server::Game.weapon[5] = WpnRaptorImage;
 }
 
 function loadManual()

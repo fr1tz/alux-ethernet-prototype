@@ -112,12 +112,12 @@ function ProjectileData::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist)
 	%col.damage(%obj, %pos, %this.impactDamage, $DamageType::Impact);
 	
 	// if projectile was fired by a player, regain some of his energy...
-	%sourceObject = %obj.getSourceObject();
-	if(%sourceObject.getType() & $TypeMasks::PlayerObjectType)
-	{
-		%newSrcEnergy = %sourceObject.getEnergyLevel() + %this.energyDrain;
-		%sourceObject.setEnergyLevel(%newSrcEnergy);
-	}
+	//%sourceObject = %obj.getSourceObject();
+	//if(%sourceObject.getType() & $TypeMasks::PlayerObjectType)
+	//{
+	//	%newSrcEnergy = %sourceObject.getEnergyLevel() + %this.energyDrain;
+	//	%sourceObject.setEnergyLevel(%newSrcEnergy);
+	//}
 }
 
 function ProjectileData::onExplode(%this,%obj,%pos,%normal,%fade,%dist,%expType)

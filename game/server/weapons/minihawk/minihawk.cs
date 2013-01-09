@@ -105,7 +105,7 @@ datablock ShapeBaseImageData(WpnMinihawkImage)
 	mountPoint  = 0;
 	offset      = "0 0 0";
 	rotation    = "0 0 0";
-   eyeOffset   = "0.1 0.2 0.0";
+   eyeOffset   = "0.1 0.2 -0.025";
 	eyeRotation = "0 0 0 0";
 
 	// Adjust firing vector to eye's LOS point?
@@ -157,7 +157,7 @@ datablock ShapeBaseImageData(WpnMinihawkImage)
 		stateRecoil[3]                   = MediumRecoil;
 		stateAllowImageChange[3]         = false;
 		stateEjectShell[3]               = true;
-		stateArmThread[3]                = "aimblaster";
+		stateArmThread[3]                = "aimarmcannon";
 		stateSequence[3]                 = "fire";
 		stateSound[3]                    = WpnMinihawkFireSound;
 		//stateEmitter[3]                  = RedBlaster3FireEmitter;

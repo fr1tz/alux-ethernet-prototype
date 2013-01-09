@@ -61,7 +61,7 @@ datablock LaserBeamData(WpnRedRaptorProjectileLaserTail)
 	innerBetweenColor = "1.00 0.00 1.00 1.0";
 	innerEndColor = "1.00 0.00 1.00 1.0";
 	innerStartWidth = "0.05";
-	innerBetweenWidth = "0.25";
+	innerBetweenWidth = "0.05";
 	innerEndWidth = "0.05";
 
 	hasOuter = false;
