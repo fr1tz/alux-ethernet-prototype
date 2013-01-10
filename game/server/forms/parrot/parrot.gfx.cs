@@ -327,7 +327,7 @@ datablock MultiNodeLaserBeamData(BlueFrmParrot_LaserTrail)
 //-----------------------------------------------------------------------------
 // contrail...
 
-datablock ParticleData(RedFrmParrot_ContrailParticle)
+datablock ParticleData(FrmParrot_ContrailParticle)
 {
    dragCoefficient      = 1;
    gravityCoefficient   = 0.2;
@@ -348,7 +348,7 @@ datablock ParticleData(RedFrmParrot_ContrailParticle)
 
 };
 
-datablock ParticleEmitterData(RedFrmParrot_ContrailEmitter)
+datablock ParticleEmitterData(FrmParrot_ContrailEmitter)
 {
    ejectionPeriodMS = 3;
    periodVarianceMS = 0;
@@ -362,7 +362,7 @@ datablock ParticleEmitterData(RedFrmParrot_ContrailEmitter)
    overrideAdvances = false;
    orientParticles  = true;
    lifetimeMS       = 0;
-   particles = "RedFrmParrot_ContrailParticle";
+   particles = "FrmParrot_ContrailParticle";
 };
 
 //-----------------------------------------------------------------------------

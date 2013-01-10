@@ -3,11 +3,29 @@
 // Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 //------------------------------------------------------------------------------
 
+datablock StaticShapeData(FrmParrotProxy : FrmCrateProxy)
+{
+   form = FrmParrot; // script field
+	shapeFile = "share/shapes/alux/parrot.dts";
+};
+
+function FrmParrotProxy::adjustTransform(%this, %pos, %normal, %eyeVec)
+{
+   %vec = getWord(%eyeVec,0) SPC getWord(%eyeVec,1) SPC 0;
+   %transform = createOrientFromDir(%vec);
+   %transform = setWord(%transform, 0, getWord(%pos, 0));
+   %transform = setWord(%transform, 1, getWord(%pos, 1));
+   %transform = setWord(%transform, 2, getWord(%pos, 2)+1);
+   return %transform;
+}
+
 //-----------------------------------------------------------------------------
 // FlyingVehicleData
 
 datablock FlyingVehicleData(FrmParrot)
 {
+   proxy = FrmParrotProxy; // script field
+
    // @name dynamic fields, needed for certain in-script checks -mag
    // @{
    isAircraft = true;
@@ -17,12 +35,21 @@ datablock FlyingVehicleData(FrmParrot)
 //   category = "Vehicles"; don't appear in mission editor
    shapeFile = "share/shapes/alux/parrot.dts";
    emap = true;
+
+	hudImageNameFriendly = "~/client/ui/hud/pixmaps/teammate.cat.png";
+	hudImageNameEnemy = "~/client/ui/hud/pixmaps/enemy.cat.png";
    
    renderWhenDestroyed = false;
    //explosion = ScoutDroneExplosion;
    //defunctEffect = ScoutDroneDefunctEffect;
    //debris = BomberDebris;
    //debrisShapeName = "~/data/vehicles/bomber/vehicle.dts";
+
+	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
+	shapeFxTexture[0] = "share/textures/alux/shiny.png";
+	shapeFxTexture[1] = "share/textures/alux/grid1.png";
+	shapeFxTexture[2] = "share/textures/alux/grid2.png";
+	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
 
    drag    = 0.15;
    density = 1.0;
@@ -34,26 +61,28 @@ datablock FlyingVehicleData(FrmParrot)
    cameraLag = 0.05;           // Velocity lag of camera
    cameraDecay = 0.75;        // Decay per sec. rate of velocity lag
    
-   maxDamage = 75;
-   maxEnergy = 100;           // Afterburner and any energy weapon pool
+	maxDamage = 100;
+	damageBuffer = 0;
+	maxEnergy = 100; // Afterburner and any energy weapon pool
+
    energyRechargeRate = 0.4;
 
    // drag...
-   minDrag = 60;           // Linear Drag (eventually slows you down when not thrusting...constant drag)
+   minDrag = 120;           // Linear Drag (eventually slows you down when not thrusting...constant drag)
    rotationalDrag = 10;         // Angular Drag (dampens the drift after you stop moving the mouse...also tumble drag)
 
    // autostabilizer...
    maxAutoSpeed = 15;            // Autostabilizer kicks in when less than this speed. (meters/second)
-   autoAngularForce = 500;  // Angular stabilizer force (this force levels you out when autostabilizer kicks in)
+   autoAngularForce = 200;  // Angular stabilizer force (this force levels you out when autostabilizer kicks in)
    autoLinearForce = 500;   // Linear stabilzer force (this slows you down when autostabilizer kicks in)
-   autoInputDamping = 0.95;      // Dampen control input so you don't` whack out at very slow speeds
+   autoInputDamping = 1.00; // Dampen control input so you don't` whack out at very slow speeds
 
    // maneuvering...
-   maxSteeringAngle = 6;          // Max radiens you can rotate the wheel. Smaller number is more maneuverable.
-   horizontalSurfaceForce = 10;   // Horizontal center "wing" (provides "bite" into the wind for climbing/diving and turning)
-   verticalSurfaceForce = 8;      // Vertical center "wing" (controls side slip. lower numbers make MORE slide.)
+   maxSteeringAngle = 3;          // Max radiens you can rotate the wheel. Smaller number is more maneuverable.
+   horizontalSurfaceForce = 16;   // Horizontal center "wing" (provides "bite" into the wind for climbing/diving and turning)
+   verticalSurfaceForce = 2;      // Vertical center "wing" (controls side slip. lower numbers make MORE slide.)
    maneuveringForce = 8000;  // Horizontal jets (W,S,D,A key thrust)
-   steeringForce = 250*5;      // Steering jets (force applied when you move the mouse)
+   steeringForce = 2000;      // Steering jets (force applied when you move the mouse)
    steeringRollForce = 750; // Steering jets (how much you heel over when you turn)
    rollForce = 0;                 // Auto-roll (self-correction to right you after you roll/invert)
    hoverHeight = 3;               // Height off the ground at rest
@@ -86,8 +115,8 @@ datablock FlyingVehicleData(FrmParrot)
    speedDamageScale = 100.0;   // Dynamic field: impact damage multiplier
 
    // contrail...
-   minTrailSpeed = 10;      // The speed your contrail shows up at
-   trailEmitter = FrmParrot_ContrailEmitter;
+   //minTrailSpeed = 1;      // The speed your contrail shows up at
+   //trailEmitter = FrmParrot_ContrailEmitter;
    
    // laser trail...
    //laserTrail = FrmParrot_LaserTrail;
@@ -130,6 +159,12 @@ datablock FlyingVehicleData(FrmParrot)
 //   splashEmitter[0] = VehicleFoamDropletsEmitter;
 //   splashEmitter[1] = VehicleFoamEmitter;
 
+	// damage info eyecandy...
+	//damageBufferParticleEmitter = RedCatDamageBufferEmitter;
+	//repairParticleEmitter = RedCatRepairEmitter;
+	//bufferRepairParticleEmitter = RedCatBufferRepairEmitter;
+	damageParticleEmitter = FrmCrate_DamageEmitter;
+
    //
    // dynamic fields for in-script vehicle-implementation...
    //
@@ -142,14 +177,13 @@ function FrmParrot::onAdd(%this, %obj)
 {
    Parent::onAdd(%this, %obj);
 
+   %obj.mountImage(WpnParrotMinigunImage, 0, -1, true);
+
    // create engine light...
 //   %obj.light = new sgLightObject() {
 //      dataBlock = "FrmParrotLight";
 //   };
 //   %obj.light.attachtoobject(%obj);
-   
-   // mount ScoutDrone blaster...
-//   %obj.mountImage(ScoutDroneBlasterImage, 0);
    
    // accelerate constantly...
 //   %obj.setFlyMode();
@@ -163,23 +197,23 @@ function FrmParrot::onRemove(%this, %obj)
 //   %obj.light.delete();
 }
 
-// invoked by ShapeBase code whenever the object's damage level changes...
+// *** Callback function:
+// Invoked by ShapeBase code whenever the object's damage level changes
 function FrmParrot::onDamage(%this, %obj, %delta)
 {
-   Parent::onDamage(%this, %obj, %delta);
-
-   // 75% damage? -> defunct!
-//   if(%obj.getDamageLevel() >= %this.maxDamage*0.75)
-//     %obj.setDefunct(); // go DOWN!!! :)
+	%totalDamage = %obj.getDamageLevel();
+	if(%totalDamage >= %this.maxDamage)
+	{
+      createExplosion(FrmLightProjectileExplosion, %obj.getPosition(), "0 0 1");
+      %obj.schedule(0, "delete");
+	}
 }
 
 // *** Callback function:
 // Invoked by ShapeBase code when object's damageState was set to 'Destroyed'
 function FrmParrot::onDestroyed(%this, %obj, %prevState)
 {
-   // the stuff here had to be moved into FrmParrot::damage()
-   // and this empty function is needed so that Vehicle::onDestroyed doesn't
-   // get called - mag
+   // nothing here right now
 }
 
 function FrmParrot::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
@@ -230,11 +264,13 @@ function FrmParrot::damage(%this, %obj, %sourceObject, %position, %damage, %dama
    }
 }
 
+// Script function
 function FrmParrot::canMaterialize(%this, %client, %pos, %normal, %transform)
 {
    return FrmSoldier::canMaterialize(%this, %client, %pos, %normal, %transform);
 }
 
+// Script function
 function FrmParrot::materialize(%this, %client, %pos, %normal, %transform)
 {
 	%player = new FlyingVehicle() {
@@ -243,8 +279,28 @@ function FrmParrot::materialize(%this, %client, %pos, %normal, %transform)
 		teamId = %client.team.teamId;
 	};
    MissionCleanup.add(%player);
-   %player.setTransform(%pos SPC getWords(%transform, 3));
+
+   %this.materializeFx(%player);
+
+	%player.playAudio(0, CatSpawnSound);
+
    return %player;
 }
 
+function FrmParrot::materializeFx(%this, %obj)
+{
+   FrmCrate::materializeFx(%this, %obj);
+}
+
+// Script function
+function FrmParrot::dematerialize(%this, %obj)
+{
+   %obj.schedule(0, "delete");
+}
+
+// called by ShapeBase script code...
+function FrmParrot::getBleed(%this, %obj, %dmg, %src)
+{
+   return Player::getBleed(%this, %obj, %dmg, %src);
+}
 

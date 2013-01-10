@@ -75,13 +75,17 @@ datablock StaticShapeData(FrmCrate)
 	damageBuffer = 0;
 	maxEnergy = 100;
 
-	shapeFxTexture[0] = "share/textures/alux/grid1.png";
-	shapeFxTexture[1] = "share/textures/alux/circuit1.png";
-
+	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
+	shapeFxTexture[0] = "share/textures/alux/shiny.png";
+	shapeFxTexture[1] = "share/textures/alux/grid1.png";
+	shapeFxTexture[2] = "share/textures/alux/grid2.png";
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
-	shapeFxColor[1] = "1.0 0.0 0.0 1.0";
-	shapeFxColor[2] = "1.0 1.0 0.0 1.0";
-	shapeFxColor[3] = "0.0 1.0 0.0 1.0";
+
+	// damage info eyecandy...
+	//damageBufferParticleEmitter = RedCatDamageBufferEmitter;
+	//repairParticleEmitter = RedCatRepairEmitter;
+	//bufferRepairParticleEmitter = RedCatBufferRepairEmitter;
+	damageParticleEmitter = FrmCrate_DamageEmitter;
 };
 
 function FrmCrate::onAdd(%this, %obj)
@@ -187,9 +191,38 @@ function FrmCrate::materialize(%this, %client, %pos, %normal, %transform)
      teamId = %client.team.teamId;
    };
    MissionCleanup.add(%player);
-   %player.setTransform(%pos);
-   //%player.setPosition(%pos);
+   %this.materializeFx(%player);
+	%player.playAudio(0, CatSpawnSound);
    return %player;
+}
+
+function FrmCrate::materializeFx(%this, %obj)
+{
+   //%obj.startFade(1000, 0, false);
+
+	%obj.shapeFxSetTexture(0, 1);
+	%obj.shapeFxSetColor(0, 0);
+	%obj.shapeFxSetBalloon(0, 1.0, 0.0);
+	%obj.shapeFxSetFade(0, 1.0, -0.5);
+	%obj.shapeFxSetActive(0, true, true);
+
+	%obj.shapeFxSetTexture(1, 0);
+	%obj.shapeFxSetColor(1, 0);
+	%obj.shapeFxSetBalloon(1, 1.0, 0.0);
+	%obj.shapeFxSetFade(1, 1.0, -0.5);
+	%obj.shapeFxSetActive(1, true, true);
+
+	%obj.shapeFxSetTexture(2, 2);
+	%obj.shapeFxSetColor(2, 0);
+	%obj.shapeFxSetBalloon(2, 1.0, 0.0);
+	%obj.shapeFxSetFade(2, 1.0, -1.0);
+	%obj.shapeFxSetActive(2, true, true);
+
+	//%obj.shapeFxSetTexture(3, 2);
+	//%obj.shapeFxSetColor(3, 0);
+	//%obj.shapeFxSetBalloon(3, 5.0, -20.0);
+	//%obj.shapeFxSetFade(3, 1.0, -1.0);
+	//%obj.shapeFxSetActive(3, true, false);
 }
 
 function FrmCrate::dematerialize(%this, %obj)

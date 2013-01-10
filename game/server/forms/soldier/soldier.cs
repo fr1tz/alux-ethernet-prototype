@@ -131,7 +131,6 @@ datablock PlayerData(FrmSoldier)
 	shapeFxTexture[0] = "share/textures/alux/shiny.png";
 	shapeFxTexture[1] = "share/textures/alux/grid1.png";
 	shapeFxTexture[2] = "share/textures/alux/grid2.png";
-
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";  
 
 	computeCRC = true;
@@ -277,10 +276,10 @@ datablock PlayerData(FrmSoldier)
 	skidParticleTrailEmitter[1] = CatSkidTrailEmitter1;
 	
 	// damage info eyecandy...
-	damageBufferParticleEmitter = RedCatDamageBufferEmitter;
-	repairParticleEmitter = RedCatRepairEmitter;
-	bufferRepairParticleEmitter = RedCatBufferRepairEmitter;
-	damageParticleEmitter = RedCatDamageEmitter;
+	//damageBufferParticleEmitter = RedCatDamageBufferEmitter;
+	//repairParticleEmitter = RedCatRepairEmitter;
+	//bufferRepairParticleEmitter = RedCatBufferRepairEmitter;
+	damageParticleEmitter = FrmCrate_DamageEmitter;
 	//bufferDamageParticleEmitter = RedCatBufferDamageEmitter;
 	//damageDebris = RedCatDamageDebris;
 	//bufferDamageDebris = CatBufferDamageDebris;
@@ -429,39 +428,16 @@ function FrmSoldier::materialize(%this, %client, %pos, %normal, %transform)
 
    %player.setTransform(%pos SPC getWords(%transform, 3));
 
-   //%player.startFade(1000, 0, false);
-
-	%player.shapeFxSetTexture(0, 1);
-	%player.shapeFxSetColor(0, 0);
-	%player.shapeFxSetBalloon(0, 1.0, 0.0);
-	%player.shapeFxSetFade(0, 1.0, -1.0);
-	%player.shapeFxSetActive(0, true, true);
-
-	%player.shapeFxSetTexture(1, 1);
-	%player.shapeFxSetColor(1, 0);
-	%player.shapeFxSetBalloon(1, 1.0, 0.0);
-	%player.shapeFxSetFade(1, 1.0, -1.0);
-	%player.shapeFxSetActive(1, true, true);
-
-	%player.shapeFxSetTexture(2, 2);
-	%player.shapeFxSetColor(2, 0);
-	%player.shapeFxSetBalloon(2, 1.0, 0.0);
-	%player.shapeFxSetFade(2, 1.0, -1.0);
-	%player.shapeFxSetActive(2, true, true);
-
-	//%player.shapeFxSetTexture(3, 2);
-	//%player.shapeFxSetColor(3, 0);
-	//%player.shapeFxSetBalloon(3, 5.0, -20.0);
-	//%player.shapeFxSetFade(3, 1.0, -1.0);
-	//%player.shapeFxSetActive(3, true, false);
-
-   %player.schedule(1000, "shapeFxSetActive", 0, false, false);
-   %player.schedule(1000, "shapeFxSetActive", 1, false, false);
-
+   %this.materializeFx(%player);
 
 	%player.playAudio(0, CatSpawnSound);
 
    return %player;
+}
+
+function FrmSoldier::materializeFx(%this, %obj)
+{
+   FrmCrate::materializeFx(%this, %obj);
 }
 
 function FrmSoldier::dematerialize(%this, %obj)
