@@ -3,16 +3,15 @@
 // Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 //------------------------------------------------------------------------------
 
-datablock StaticShapeData(FrmParrotProxy : FrmCrateProxy)
+datablock StaticShapeData(FrmBumblebeeProxy : FrmCrateProxy)
 {
-   form = FrmParrot; // script field
-	shapeFile = "share/shapes/alux/parrot.dts";
+   form = FrmBumblebee; // script field
+	shapeFile = "share/shapes/alux/bumblebee.dts";
 };
 
-function FrmParrotProxy::adjustTransform(%this, %pos, %normal, %eyeVec)
+function FrmBumblebeeProxy::adjustTransform(%this, %pos, %normal, %eyeVec)
 {
-   %vec = getWord(%eyeVec,0) SPC getWord(%eyeVec,1) SPC 0;
-   %transform = createOrientFromDir(%vec);
+   %transform = createOrientFromDir(%normal);
    %transform = setWord(%transform, 0, getWord(%pos, 0));
    %transform = setWord(%transform, 1, getWord(%pos, 1));
    %transform = setWord(%transform, 2, getWord(%pos, 2)+1);
@@ -22,18 +21,18 @@ function FrmParrotProxy::adjustTransform(%this, %pos, %normal, %eyeVec)
 //-----------------------------------------------------------------------------
 // FlyingVehicleData
 
-datablock FlyingVehicleData(FrmParrot)
+datablock FlyingVehicleData(FrmBumblebee)
 {
-   proxy = FrmParrotProxy; // script field
+   proxy = FrmBumblebeeProxy; // script field
 
    // @name dynamic fields, needed for certain in-script checks -mag
    // @{
    isAircraft = true;
-   class = "Parrot";
+   class = "Bumblebee";
    // @}
 
 //   category = "Vehicles"; don't appear in mission editor
-   shapeFile = "share/shapes/alux/parrot.dts";
+   shapeFile = "share/shapes/alux/bumblebee.dts";
    emap = true;
 
 	hudImageNameFriendly = "~/client/ui/hud/pixmaps/teammate.cat.png";
@@ -61,18 +60,18 @@ datablock FlyingVehicleData(FrmParrot)
    cameraLag = 0.05;           // Velocity lag of camera
    cameraDecay = 0.75;        // Decay per sec. rate of velocity lag
    
-	maxDamage = 100;
+	maxDamage = 50;
 	damageBuffer = 0;
 	maxEnergy = 100; // Afterburner and any energy weapon pool
 
    energyRechargeRate = 0.4;
 
    // drag...
-   minDrag = 160;           // Linear Drag (eventually slows you down when not thrusting...constant drag)
+   minDrag = 120;           // Linear Drag (eventually slows you down when not thrusting...constant drag)
    rotationalDrag = 10;         // Angular Drag (dampens the drift after you stop moving the mouse...also tumble drag)
 
    // autostabilizer...
-   maxAutoSpeed = 15;            // Autostabilizer kicks in when less than this speed. (meters/second)
+   maxAutoSpeed = 0;            // Autostabilizer kicks in when less than this speed. (meters/second)
    autoAngularForce = 200;  // Angular stabilizer force (this force levels you out when autostabilizer kicks in)
    autoLinearForce = 500;   // Linear stabilzer force (this slows you down when autostabilizer kicks in)
    autoInputDamping = 1.00; // Dampen control input so you don't` whack out at very slow speeds
@@ -82,14 +81,14 @@ datablock FlyingVehicleData(FrmParrot)
    horizontalSurfaceForce = 16;   // Horizontal center "wing" (provides "bite" into the wind for climbing/diving and turning)
    verticalSurfaceForce = 2;      // Vertical center "wing" (controls side slip. lower numbers make MORE slide.)
    maneuveringForce = 8000;  // Horizontal jets (W,S,D,A key thrust)
-   steeringForce = 2000;      // Steering jets (force applied when you move the mouse)
+   steeringForce = 500;      // Steering jets (force applied when you move the mouse)
    steeringRollForce = 750; // Steering jets (how much you heel over when you turn)
    rollForce = 0;                 // Auto-roll (self-correction to right you after you roll/invert)
    hoverHeight = 3;               // Height off the ground at rest
    createHoverHeight = 3;         // Height off the ground when created
 
    // turbo jet...
-   jetForce = 3000;              // Afterburner thrust (this is in addition to normal thrust)
+   jetForce = 0;              // Afterburner thrust (this is in addition to normal thrust)
    minJetEnergy = 0;             // Afterburner can't be used if below this threshhold.
    jetEnergyDrain = 0.0;         // Energy use of the afterburners (low number is less drain...can be fractional)                                                                                                                                                                                                                                                                                          // Auto stabilize speed
    vertThrustMultiple = 2.0;
@@ -115,11 +114,11 @@ datablock FlyingVehicleData(FrmParrot)
    speedDamageScale = 100.0;   // Dynamic field: impact damage multiplier
 
    // contrail...
-   //minTrailSpeed = 1;      // The speed your contrail shows up at
-   //trailEmitter = FrmParrot_ContrailEmitter;
+   minTrailSpeed = 0;      // The speed your contrail shows up at
+   trailEmitter = FrmBumblebee_ContrailEmitter;
    
    // laser trail...
-   //laserTrail = FrmParrot_LaserTrail;
+   laserTrail = FrmBumblebee_LaserTrail;
    
    // various emitters...
    //forwardJetEmitter = ScoutDroneJetEmitter;
@@ -173,23 +172,13 @@ datablock FlyingVehicleData(FrmParrot)
    mountPose[0] = "ScoutDrone";
 };
 
-function FrmParrot::onAdd(%this, %obj)
+function FrmBumblebee::onAdd(%this, %obj)
 {
    Parent::onAdd(%this, %obj);
-
-   %obj.mountImage(WpnParrotMinigunImage, 0, -1, true);
-
-   // create engine light...
-//   %obj.light = new sgLightObject() {
-//      dataBlock = "FrmParrotLight";
-//   };
-//   %obj.light.attachtoobject(%obj);
-   
-   // accelerate constantly...
-//   %obj.setFlyMode();
+   %obj.setFlyMode();
 }
 
-function FrmParrot::onRemove(%this, %obj)
+function FrmBumblebee::onRemove(%this, %obj)
 {
    Parent::onRemove(%this, %obj);
    
@@ -199,24 +188,34 @@ function FrmParrot::onRemove(%this, %obj)
 
 // *** Callback function:
 // Invoked by ShapeBase code whenever the object's damage level changes
-function FrmParrot::onDamage(%this, %obj, %delta)
+function FrmBumblebee::onDamage(%this, %obj, %delta)
 {
 	%totalDamage = %obj.getDamageLevel();
 	if(%totalDamage >= %this.maxDamage)
 	{
       createExplosion(FrmLightProjectileExplosion, %obj.getPosition(), "0 0 1");
-      %obj.schedule(0, "delete");
+      %this.explode(%obj);
 	}
 }
 
 // *** Callback function:
 // Invoked by ShapeBase code when object's damageState was set to 'Destroyed'
-function FrmParrot::onDestroyed(%this, %obj, %prevState)
+function FrmBumblebee::onDestroyed(%this, %obj, %prevState)
 {
    // nothing here right now
 }
 
-function FrmParrot::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
+// *** Callback function: called by engine
+function FrmBumblebee::onTrigger(%this, %obj, %triggerNum, %val)
+{
+	if(%triggerNum == 0 && !%val)
+	{
+      %this.explode(%obj);
+   }
+}
+
+// Called from script
+function FrmBumblebee::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
 {
    if(%obj.getDamageState() $= "Destroyed")
       return;
@@ -264,14 +263,84 @@ function FrmParrot::damage(%this, %obj, %sourceObject, %position, %damage, %dama
    }
 }
 
-// Script function
-function FrmParrot::canMaterialize(%this, %client, %pos, %normal, %transform)
+// Called from script
+function FrmBumblebee::explode(%this, %obj)
+{
+   %pos = %obj.getPosition();
+	%radius = 10;
+	%damage = 1000;
+	%damageType = $DamageType::Splash;
+   %splashImpulse = 2000;
+   %splashDamageFalloff = $SplashDamageFalloff::Linear;
+
+	%targets = new SimSet();
+
+	InitContainerRadiusSearch(%pos, %radius, $TypeMasks::ShapeBaseObjectType);
+	while( (%targetObject = containerSearchNext()) != 0 )
+		%targets.add(%targetObject);
+
+	for(%idx = %targets.getCount()-1; %idx >= 0; %idx-- )
+	{
+		%targetObject = %targets.getObject(%idx);
+
+      if(%targetObject == %obj)
+         continue;
+
+        // the observer cameras are ShapeBases; ignore them...
+      if(%targetObject.getType() & $TypeMasks::CameraObjectType)
+         continue;
+
+		%coverage = calcExplosionCoverage(%pos, %targetObject,
+			$TypeMasks::InteriorObjectType |  $TypeMasks::TerrainObjectType |
+			$TypeMasks::ForceFieldObjectType | $TypeMasks::VehicleObjectType |
+			$TypeMasks::TurretObjectType);
+
+		if (%coverage == 0)
+			continue;
+
+		%dist1 = containerSearchCurrRadiusDist();
+         // FIXME: can't call containerSearchCurrRadiusDist(); from here
+
+      %center = %targetObject.getWorldBoxCenter();
+		%col = containerRayCast(%pos, %center, $TypeMasks::ShapeBaseObjectType, %obj);
+		%col = getWord(%col, 1) SPC getWord(%col, 2) SPC getWord(%col, 3);
+		%dist2 = VectorLen(VectorSub(%col, %pos));
+
+		%dist = %dist2;
+		%prox = %radius - %dist;
+		if(%splashDamageFalloff == $SplashDamageFalloff::Exponential)
+			%distScale = (%prox*%prox) / (%radius*%radius);
+		else if(%splashDamageFalloff == $SplashDamageFalloff::None)
+			%distScale = 1;
+		else
+			%distScale = %prox / %radius;
+
+		// apply impulse...
+		if(%splashImpulse > 0)
+		{
+			%impulseVec = VectorNormalize(VectorSub(%center, %pos));
+			%impulseVec = VectorScale(%impulseVec, %splashImpulse);
+			%targetObject.impulse(%pos, %impulseVec);
+		}
+
+		// call damage func...
+		%targetObject.damage(%obj, %pos,
+			%damage * %coverage * %distScale, %damageType);
+	}
+
+	%targets.delete();
+
+   %obj.schedule(0, "delete");
+}
+
+// Called from script
+function FrmBumblebee::canMaterialize(%this, %client, %pos, %normal, %transform)
 {
    return FrmSoldier::canMaterialize(%this, %client, %pos, %normal, %transform);
 }
 
-// Script function
-function FrmParrot::materialize(%this, %client, %pos, %normal, %transform)
+// Called from script
+function FrmBumblebee::materialize(%this, %client, %pos, %normal, %transform)
 {
 	%player = new FlyingVehicle() {
 		dataBlock = %this;
@@ -287,19 +356,20 @@ function FrmParrot::materialize(%this, %client, %pos, %normal, %transform)
    return %player;
 }
 
-function FrmParrot::materializeFx(%this, %obj)
+// Called from script
+function FrmBumblebee::materializeFx(%this, %obj)
 {
    FrmCrate::materializeFx(%this, %obj);
 }
 
-// Script function
-function FrmParrot::dematerialize(%this, %obj)
+// Called from script
+function FrmBumblebee::dematerialize(%this, %obj)
 {
    %obj.schedule(0, "delete");
 }
 
 // called by ShapeBase script code...
-function FrmParrot::getBleed(%this, %obj, %dmg, %src)
+function FrmBumblebee::getBleed(%this, %obj, %dmg, %src)
 {
    return Player::getBleed(%this, %obj, %dmg, %src);
 }

@@ -38,6 +38,7 @@ function executeGameScripts()
 	exec("game/server/forms/light/exec.cs");
 	exec("game/server/forms/crate/exec.cs");
 	exec("game/server/forms/parrot/exec.cs");
+	exec("game/server/forms/bumblebee/exec.cs");
 	exec("game/server/forms/soldier/exec.cs");
    $Server::Game.form[0] = FrmLight;
    $Server::Game.form[1] = FrmParrot;
