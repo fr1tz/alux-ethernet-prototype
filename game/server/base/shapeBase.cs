@@ -287,6 +287,9 @@ function ShapeBaseData::onRemove(%this, %obj)
 		
 	if(isObject(%obj.ssc))
 		%obj.ssc.delete();
+
+	if(%obj.client && %obj.client == %obj.getControllingClient())
+      %obj.client.leaveForm();
 }
 
 // callback function: called by engine
@@ -477,7 +480,6 @@ function ShapeBaseData::damage(%this, %obj, %sourceObject, %pos, %damage, %damag
 	{
 		%damageBufStore = %obj.getDamageBufferLevel();
 		%healthDamageDealt = %obj.applyDamage(%damage);
-      error(%damage SPC "->" SPC %healthDamageDealt);
 		%bufDamageDealt = %damageBufStore - %obj.getDamageBufferLevel();
 		%this.updateShieldFx(%obj);	
 		if(%dstat)

@@ -3,5 +3,7 @@
 // Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 //------------------------------------------------------------------------------
 
-exec("./soldiercat.cs");
+exec("./soldier.sfx.cs");
+exec("./soldier.gfx.cs");
+exec("./soldier.cs");
 

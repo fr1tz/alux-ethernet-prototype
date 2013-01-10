@@ -33,7 +33,7 @@ function serverCmdPlayerAction(%client, %nr, %val)
 
 	if(%nr == 0 && %val && %client.menuVisible == false)
 	{
-		%client.togglePlayerForm();
+		%client.leaveForm(true);
 	}
 	else if(%nr <= 10 && %val)
 	{
@@ -49,9 +49,9 @@ function serverCmdPlayerAction(%client, %nr, %val)
 		%client.player.setImageTrigger(2, true);
 		%client.player.setImageTrigger(2, false);
 	}
-	else if(%nr == 13 && %val)
+	else if(%nr == 13 && %val && %client.menuVisible == false)
 	{
-		%client.getControlObject().useWeapon(6);
+		%client.leaveForm(false);
 	}
 	else if(%nr == 14 && %val)
 	{

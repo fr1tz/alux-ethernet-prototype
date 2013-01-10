@@ -172,19 +172,19 @@ datablock ParticleData(WpnBadgerProjectileHit_Particle)
 	gravityCoefficient	= 0.0;
 	inheritedVelFactor	= 0.0;
 
-	lifetimeMS			  = 500;
+	lifetimeMS			  = 250;
 	lifetimeVarianceMS	= 0;
 
 	useInvAlpha =  false;
 
 	textureName	= "share/textures/alux/circle1";
 
-	colors[0]	  = "1.0 0.0 1.0 1.0";
-	colors[1]	  = "1.0 0.0 1.0 1.0";
+	colors[0]	  = "1.0 1.0 1.0 1.0";
+	colors[1]	  = "1.0 0.0 1.0 0.5";
 	colors[2]	  = "1.0 0.0 1.0 0.0";
 	sizes[0]		= 0.5;
-	sizes[1]		= 0.5;
-	sizes[2]		= 0.5;
+	sizes[1]		= 1.0;
+	sizes[2]		= 1.5;
 	times[0]		= 0.0;
 	times[1]		= 0.5;
 	times[2]		= 1.0;
@@ -300,7 +300,7 @@ datablock ExplosionData(WpnBadgerProjectileImpact)
 {
 	soundProfile = WpnBadgerProjectileImpactSound;
 
-	lifetimeMS = 3000;
+	lifetimeMS = 150;
 
  	// shape...
 	//explosionShape = "share/shapes/rotc/weapons/blaster/projectile.impact.red.dts";
@@ -327,11 +327,11 @@ datablock ExplosionData(WpnBadgerProjectileImpact)
 	//debrisVelocityVariance = 5.0;
 
 	// Dynamic light
-	lightStartRadius = 0;
+	lightStartRadius = 2;
 	lightEndRadius = 0;
-	lightStartColor = "1.0 0.0 0.0";
-	lightEndColor = "0.0 0.0 0.0";
-    lightCastShadows = false;
+	lightStartColor = "1.0 1.0 1.0";
+	lightEndColor = "1.0 1.0 1.0";
+   lightCastShadows = false;
 
 	shakeCamera = false;
 };

@@ -9,7 +9,7 @@
 //-----------------------------------------------------------------------------
 
 // Default mission for the server
-$Server::MissionFile = "game/arenas/rotc-ethernet/eth-pond.mis";
+$Server::MissionFile = "game/arenas/alux-ethernet/staub.mis";
 
 // Information about the server
 $Pref::Server::RegionMask = 2;

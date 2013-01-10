@@ -174,15 +174,17 @@ function GameConnection::updateLoadout(%this)
 			%this.numWeapons++;
 		}
 	}
-   if(isObject(%this.form))
-      %this.form.delete();
-   %this.form = new StaticShape() {
-	  dataBlock = FrmCrate;
+   if(isObject(%this.proxy))
+      %this.proxy.delete();
+   %this.proxy = new StaticShape() {
+	  dataBlock = $Server::Game.form[getWord(%this.activeLoadout, 0)].proxy;
 	  client = %this;
      teamId = %this.team.teamId;
    };
-   MissionCleanup.add(%this.form);
-   %this.form.setCollisionsDisabled(true);
+   MissionCleanup.add(%this.proxy);
+   %this.proxy.setGhostingListMode("GhostOnly");
+   %this.proxy.getHudInfo().setActive(false);
+   %this.proxy.setCollisionsDisabled(true);
 }
 
 function GameConnection::displayInventory(%this, %obj)

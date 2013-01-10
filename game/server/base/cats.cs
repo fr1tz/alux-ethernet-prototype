@@ -111,17 +111,11 @@ function StandardCat::useWeapon(%this, %obj, %nr)
 	}
 	else if(%wpn == $CatEquipment::Raptor)
 	{
-		if(%obj.getTeamId() == 1)
-			%obj.mountImage(WpnRedRaptorImage, 0, -1, true);
-		else
-			%obj.mountImage(WpnRedRaptorImage, 0, -1, true);
+		%obj.mountImage(WpnRaptorImage, 0, -1, true);
 	}
 	else if(%wpn == $CatEquipment::Laserhawk)
 	{
-		if(%obj.getTeamId() == 1)
-			%obj.mountImage(WpnRedLaserhawkImage, 0, -1, true);
-		else
-			%obj.mountImage(WpnBlueLaserhawkImage, 0, -1, true);
+      %obj.mountImage(WpnLaserhawkImage, 0, -1, true);
 	}
 }
 

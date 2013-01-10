@@ -3,13 +3,10 @@
 // Copyright (C) 2008, mEthLab Interactive
 //------------------------------------------------------------------------------
 
-exec("./laserhawk.projectile.gfx.red.cs");
-exec("./laserhawk.projectile.gfx.blue.cs");
-
 //-----------------------------------------------------------------------------
 // projectile datablock...
 
-datablock ShotgunProjectileData(WpnRedLaserhawkProjectile)
+datablock ShotgunProjectileData(WpnLaserhawkProjectile)
 {
 	stat = "sniper";
 
@@ -37,26 +34,26 @@ datablock ShotgunProjectileData(WpnRedLaserhawkProjectile)
 
     //projectileShapeName = "share/shapes/rotc/weapons/blaster/projectile.red.dts";
 
-	explosion               = WpnRedLaserhawkProjectileExplosion;
-	hitEnemyExplosion       = WpnRedLaserhawkProjectileHit;
-    hitTeammateExplosion    = WpnRedLaserhawkProjectileHit;
+	explosion               = WpnLaserhawkProjectileExplosion;
+	hitEnemyExplosion       = WpnLaserhawkProjectileHit;
+    hitTeammateExplosion    = WpnLaserhawkProjectileHit;
     //nearEnemyExplosion	= DefaultProjectileNearEnemyExplosion;
     //hitDeflectorExplosion = SeekerDiscBounceEffect;
 
-    //fxLight					= WpnRedLaserhawkProjectileFxLight;
+    //fxLight					= WpnLaserhawkProjectileFxLight;
 
-	missEnemyEffect		 = WpnRedLaserhawkProjectileMissedEnemyEffect;
+	missEnemyEffect		 = WpnLaserhawkProjectileMissedEnemyEffect;
 
-	fireExplosion = WpnRedLaserhawkProjectileFireExplosion; // script field
+	fireExplosion = WpnLaserhawkProjectileFireExplosion; // script field
 
-    //laserTail	 = WpnRedLaserhawkProjectileLaserTail;
+    //laserTail	 = WpnLaserhawkProjectileLaserTail;
     //laserTailLen = 10.0;
 
-	laserTrail[0] = WpnRedLaserhawkProjectileLaserTrailHit;
-	laserTrail[1] = WpnRedLaserhawkProjectileLaserTrailHit;
-	laserTrail[2] = WpnRedLaserhawkProjectileLaserTrailMissed;
+	laserTrail[0] = WpnLaserhawkProjectileLaserTrailHit;
+	laserTrail[1] = WpnLaserhawkProjectileLaserTrailHit;
+	laserTrail[2] = WpnLaserhawkProjectileLaserTrailMissed;
 
-	//particleEmitter = WpnRedLaserhawkProjectileEmitter;
+	//particleEmitter = WpnLaserhawkProjectileEmitter;
 
 	muzzleVelocity   = 9999;
 	velInheritFactor = 0.0;
@@ -75,7 +72,7 @@ datablock ShotgunProjectileData(WpnRedLaserhawkProjectile)
 	lightColor  = "0.0 1.0 0.0";
 };
 
-function WpnRedLaserhawkProjectile::onAdd(%this, %obj)
+function WpnLaserhawkProjectile::onAdd(%this, %obj)
 {
 	Parent::onAdd(%this, %obj);
 	%vel = %obj.initialVelocity;
@@ -85,7 +82,7 @@ function WpnRedLaserhawkProjectile::onAdd(%this, %obj)
 	createExplosion(%this.fireExplosion, %pos, %norm);
 }
 
-function WpnRedLaserhawkProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist)
+function WpnLaserhawkProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist)
 {
     Parent::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist);
     
@@ -99,35 +96,4 @@ function WpnRedLaserhawkProjectile::onCollision(%this,%obj,%col,%fade,%pos,%norm
     %src.sniperTarget = %col;
 }
 
-//-----------------------------------------------------------------------------
 
-datablock ShotgunProjectileData(WpnBlueLaserhawkProjectile : WpnRedLaserhawkProjectile)
-{
-    //projectileShapeName = "share/shapes/rotc/weapons/blaster/projectile.blue.dts";
-
-	explosion               = WpnBlueLaserhawkProjectileExplosion;
-	hitEnemyExplosion       = WpnBlueLaserhawkProjectileHit;
-    hitTeammateExplosion    = WpnBlueLaserhawkProjectileHit;
-
-	missEnemyEffect    = WpnBlueLaserhawkProjectileMissedEnemyEffect;
-
-	//laserTail          = WpnBlueLaserhawkProjectileLaserTail;
-
-	fireExplosion = WpnBlueLaserhawkProjectileFireExplosion; // script field
-
-	laserTrail[0] = WpnBlueLaserhawkProjectileLaserTrailHit;
-	laserTrail[1] = WpnBlueLaserhawkProjectileLaserTrailHit;
-	laserTrail[2] = WpnBlueLaserhawkProjectileLaserTrail;
-
-	lightColor  = "1.0 0.5 0.0";
-};
-
-function WpnBlueLaserhawkProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist)
-{
-    WpnRedLaserhawkProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist);
-}
-
-function WpnBlueLaserhawkProjectile::onAdd(%this, %obj)
-{
-	WpnRedLaserhawkProjectile::onAdd(%this, %obj);
-}

@@ -186,12 +186,6 @@ function PlayerData::onRemove(%this, %obj)
 	if(%obj.isCAT)
 		%obj.getTeamObject().numCATs--;
 
-	if(%obj.client.player == %obj)
-   {
-      %obj.client.togglePlayerForm();
-		//%obj.client.player = 0;
-   }
-		
 	checkRoundEnd();
 }
 
@@ -375,11 +369,11 @@ function PlayerData::damage(%this, %obj, %sourceObject, %pos, %damage, %damageTy
 		%damageLoc = %obj.getDamageLocation(%pos);
 		%obj.playDeathAnimation(%damageLoc, %damageType);
 	
-		if(%client)
+		if(%client && %client == %obj.getControllingClient())
 		{
 			//%client.onDeath(%sourceObject, %sourceClient, %damageType, %location);
 			%client.showReceivedDamageInfo(true);
-			//%client.togglePlayerForm();
+			%client.leaveForm();
 		}
 		else if(%obj.getControllingClient())
 		{

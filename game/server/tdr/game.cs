@@ -143,7 +143,7 @@ function advanceTeamDragRace()
 				if(!%client.player.zCurrentZone.startZone)
 					continue;
 					
-		  		%client.togglePlayerForm(true);
+		  		%client.leaveForm(true);
 				%player = %client.player;
 				if(%player.isCAT)
 				{

@@ -191,7 +191,7 @@ function serverAdvanceTeamJoust()
 	  		%client = ClientGroup.getObject( %clientIndex );
 	  		if( %client.team == $Team1 || %client.team == $Team2 )
 	  		{
-	  			%client.togglePlayerForm();
+	  			%client.leaveForm();
 				%player = %client.player;
 				if(%player.isCAT)
 				{

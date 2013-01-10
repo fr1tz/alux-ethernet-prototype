@@ -3,10 +3,58 @@
 // Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 //------------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------
+// Placement proxy for actual form
+
+datablock StaticShapeData(FrmCrateProxy)
+{
+   form = FrmCrate; // script field
+
+	shadowEnable = false;
+	shapeFile = "share/shapes/alux/crate.dts";
+   emap = false;
+   hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
+   hudImageNameEnemy = "~/client/ui/hud/pixmaps/hudfill.png";
+
+	shapeFxTexture[0] = "share/textures/alux/grid1.png";
+	shapeFxTexture[1] = "share/textures/alux/circuit1.png";
+
+	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
+	shapeFxColor[1] = "1.0 0.0 0.0 1.0";
+	shapeFxColor[2] = "1.0 1.0 0.0 1.0";
+	shapeFxColor[3] = "0.0 1.0 0.0 1.0";
+};
+
+function FrmCrateProxy::adjustTransform(%this, %pos, %normal, %eyeVec)
+{
+   %vec = getWord(%eyeVec,0) SPC getWord(%eyeVec,1) SPC 0;
+   %yaw = getWord(getAnglesFromVector(%vec), 0);
+   %yaw = (%yaw*180.0)/3.14159265358979323846; // rad to deg
+   %yaw = mFloor(%yaw);
+   if((%yaw % 90) > 45)
+      %yaw += 90;
+   else
+      %yaw += 0;
+   %yaw -= (%yaw % 90);
+   %yaw = (%yaw*3.14159265358979323846)/180.0; // deg to rad
+   %vec = getVectorFromAngles(%yaw, 0);
+   %transform = createOrientFromDir(%vec);
+   %transform = setWord(%transform, 0, getWord(%pos, 0));
+   %transform = setWord(%transform, 1, getWord(%pos, 1));
+   %transform = setWord(%transform, 2, getWord(%pos, 2));
+   return %transform;
+}
+
+//------------------------------------------------------------------------------
+
 datablock StaticShapeData(FrmCrate)
 {
+   proxy = FrmCrateProxy; // script field
+
 	//category = "Blueprints"; // for the mission editor
 	//className = Blueprint;
+
+   dynamicType = $TypeMasks::DamagableItemObjectType;
 
 	fistPersonOnly = true;
 
@@ -23,23 +71,17 @@ datablock StaticShapeData(FrmCrate)
 
    hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
 
-	maxDamage = 100;
+	maxDamage = 400;
 	damageBuffer = 0;
 	maxEnergy = 100;
 
-	shapeFxTexture[0] = "share/textures/rotc/connection2.png";
-	shapeFxTexture[1] = "share/textures/rotc/connection.png";
-	shapeFxTexture[2] = "share/textures/rotc/barrier.green.png";
-	shapeFxTexture[3] = "share/textures/rotc/armor.white.png";
-	shapeFxTexture[4] = "share/textures/rotc/armor.orange.png";
+	shapeFxTexture[0] = "share/textures/alux/grid1.png";
+	shapeFxTexture[1] = "share/textures/alux/circuit1.png";
 
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
 	shapeFxColor[1] = "1.0 0.0 0.0 1.0";
-	shapeFxColor[2] = "1.0 0.5 0.0 1.0";
-	shapeFxColor[3] = "0.0 0.5 1.0 1.0";
-	shapeFxColor[4] = "1.0 0.0 0.0 1.0";
-	shapeFxColor[5] = "1.0 0.5 0.5 1.0";
-	shapeFxColor[6] = "0.0 1.0 0.0 1.0";
+	shapeFxColor[2] = "1.0 1.0 0.0 1.0";
+	shapeFxColor[3] = "0.0 1.0 0.0 1.0";
 };
 
 function FrmCrate::onAdd(%this, %obj)
@@ -63,6 +105,15 @@ function FrmCrate::onDamage(%this, %obj, %delta)
       createExplosion(FrmLightProjectileExplosion, %obj.getPosition(), "0 0 1");
       %obj.delete();
 	}
+}
+
+// *** Callback function: called by engine
+function FrmCrate::onTrigger(%this, %obj, %triggerNum, %val)
+{
+	if(%triggerNum == 1 && %val)
+	{
+      %obj.client.leaveForm();
+   }
 }
 
 function FrmCrate::canMaterialize(%this, %client, %pos, %normal, %transform)

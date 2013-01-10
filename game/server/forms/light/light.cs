@@ -3,7 +3,6 @@
 // Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 //------------------------------------------------------------------------------
 
-
 //-----------------------------------------------------------------------------
 
 function EtherformData::useWeapon(%this, %obj, %nr)
@@ -139,6 +138,7 @@ function FrmLight::onAdd(%this,%obj)
    FrmLight_updateProxyThread(%this, %obj);
 }
 
+// *** Callback function: called by engine
 function FrmLight::onTrigger(%this, %obj, %triggerNum, %val)
 {
 	if(%triggerNum == 0 && %val)
@@ -173,51 +173,74 @@ function FrmLight_updateProxyThread(%this, %obj)
    schedule(32, %obj, "FrmLight_updateProxyThread", %this, %obj);
 
    %client = %obj.client;
-   if(!isObject(%client) || !isObject(%client.form))
+   if(!isObject(%client) || !isObject(%client.proxy))
       return;
 
+   %eyeVec = %obj.getEyeVector();
    %start = %obj.getWorldBoxCenter();
-   %end = VectorAdd(%start, VectorScale(%obj.getEyeVector(), 9999));
+   %end = VectorAdd(%start, VectorScale(%eyeVec, 9999));
 
    %c = containerRayCast(%start, %end, $TypeMasks::TerrainObjectType |
-      $TypeMasks::InteriorObjectType , %obj);
+      $TypeMasks::InteriorObjectType | $TypeMasks::ShapeBaseObjectType , %obj);
 
    if(!%c)
+   {
+      %client.proxy.removeClientFromGhostingList(%client);
+      %client.proxy.setTransform("0 0 0");
       return;
+   }
 
-   %x = getWord(%c,1); %x = mFloor(%x); %x -= (%x % 2);
-   %y = getWord(%c,2); %y = mFloor(%y); %y -= (%y % 2);
+   %x = getWord(%c,1); %x = mFloor(%x); //%x -= (%x % 2);
+   %y = getWord(%c,2); %y = mFloor(%y); //%y -= (%y % 2);
    %z = getWord(%c,3);
    %pos = %x SPC %y SPC %z;
    %normal = getWord(%c,4) SPC getWord(%c,5) SPC getWord(%c,6);
-   if(%pos $= %client.form.getPosition())
+   if(%pos $= %client.proxy.getPosition())
       return;
 
-   error("yay");
    %transform = %pos SPC %normal SPC "0";
-   %client.form.setTransform(%transform);
-   %materializeError = "The selected form can't materialize";
-   if(%client.form.getDataBlock().isMethod("canMaterialize"))
+   if(%client.proxy.getDataBlock().isMethod("adjustTransform"))
    {
-      %materializeError = %client.form.getDataBlock().canMaterialize(%client,
-         %pos, %normal, %transform);
+      %transform = %client.proxy.getDataBlock().adjustTransform(
+         %pos, %normal, %eyeVec);
+   }
+   %client.proxy.addClientToGhostingList(%client);
+   %client.proxy.setTransform(%transform);
+
+   %client.spawnError = "The selected form can't materialize";
+   if(%client.proxy.getDataBlock().form.isMethod("canMaterialize"))
+   {
+      %client.spawnError = %client.proxy.getDataBlock().form.canMaterialize(
+         %client, %pos, %normal, %transform);
    }
 
-   if(%materializeError $= "")
+   if(%client.spawnError $= "")
    {
-      %client.form.shapeFxSetTexture(1, 1);
-      %client.form.shapeFxSetColor(1, 6);
-      %client.form.shapeFxSetBalloon(1, 1.0, 0.0);
-      %client.form.shapeFxSetFade(1, 1.0, 0.0);
-      %client.form.shapeFxSetActive(1, true, true);
+      %client.proxy.shapeFxSetTexture(0, 0);
+      %client.proxy.shapeFxSetColor(0, 3);
+      %client.proxy.shapeFxSetBalloon(0, 1.0, 0.0);
+      %client.proxy.shapeFxSetFade(0, 1.0, 0.0);
+      %client.proxy.shapeFxSetActive(0, true, true);
+
+      %client.proxy.shapeFxSetTexture(1, 1);
+      %client.proxy.shapeFxSetColor(1, 3);
+      %client.proxy.shapeFxSetBalloon(1, 1.0, 0.0);
+      %client.proxy.shapeFxSetFade(1, 1.0, 0.0);
+      %client.proxy.shapeFxSetActive(1, true, true);
    }
    else
    {
-      %client.form.shapeFxSetTexture(1, 1);
-      %client.form.shapeFxSetColor(1, 1);
-      %client.form.shapeFxSetBalloon(1, 1.0, 0.0);
-      %client.form.shapeFxSetFade(1, 1.0, 0.0);
-      %client.form.shapeFxSetActive(1, true, true);
+      %client.proxy.shapeFxSetTexture(0, 0);
+      %client.proxy.shapeFxSetColor(0, 1);
+      %client.proxy.shapeFxSetBalloon(0, 1.0, 0.0);
+      %client.proxy.shapeFxSetFade(0, 1.0, 0.0);
+      %client.proxy.shapeFxSetActive(0, true, true);
+
+      %client.proxy.shapeFxSetTexture(1, 1);
+      %client.proxy.shapeFxSetColor(1, 1);
+      %client.proxy.shapeFxSetBalloon(1, 1.0, 0.0);
+      %client.proxy.shapeFxSetFade(1, 1.0, 0.0);
+      %client.proxy.shapeFxSetActive(1, true, true);
    }
-   %client.form.startFade(0, 0, true);
+   %client.proxy.startFade(0, 0, true);
 }

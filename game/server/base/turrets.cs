@@ -30,6 +30,7 @@ function TurretData::create(%data)
 	return %obj;
 }
 
+// *** Callback function: called by engine
 function TurretData::onTrigger(%this, %obj, %triggerNum, %val)
 {
 	//--------------------------------------------------------------------------

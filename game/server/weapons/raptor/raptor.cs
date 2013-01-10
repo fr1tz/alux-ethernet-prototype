@@ -3,13 +3,15 @@
 // Copyright (C) 2008, mEthLab Interactive
 //------------------------------------------------------------------------------
 
-exec("./raptor.projectile.cs");
 exec("./raptor.sfx.cs");
+exec("./raptor.projectile.sfx.cs");
+exec("./raptor.projectile.gfx.cs");
+exec("./raptor.projectile.cs");
 
 //-----------------------------------------------------------------------------
 // fire particle emitter
 
-datablock ParticleData(WpnRedRaptorFireEmitter_Particles)
+datablock ParticleData(WpnRaptorFireEmitter_Particles)
 {
 	dragCoefficient       = 1;
 	gravityCoefficient    = 0.0;
@@ -31,7 +33,7 @@ datablock ParticleData(WpnRedRaptorFireEmitter_Particles)
 
 };
 
-datablock ParticleEmitterData(WpnRedRaptorFireEmitter)
+datablock ParticleEmitterData(WpnRaptorFireEmitter)
 {
 	ejectionPeriodMS = 10;
 	periodVarianceMS = 0;
@@ -45,7 +47,7 @@ datablock ParticleEmitterData(WpnRedRaptorFireEmitter)
 	overrideAdvances = false;
 	orientParticles  = false;
 	lifetimeMS       = 0;
-	particles        = "WpnRedRaptorFireEmitter_Particles";
+	particles        = "WpnRaptorFireEmitter_Particles";
 };
 
 datablock ParticleData(WpnBlueRaptorFireEmitter_Particles)
@@ -92,7 +94,7 @@ datablock ParticleEmitterData(WpnBlueRaptorFireEmitter)
 // (images do not normally exist in the world, they can only
 // be mounted on ShapeBase objects)
 
-datablock ShapeBaseImageData(WpnRedRaptorImage)
+datablock ShapeBaseImageData(WpnRaptorImage)
 {
 	// add the WeaponImage namespace as a parent
 	className = WeaponImage;
@@ -114,7 +116,7 @@ datablock ShapeBaseImageData(WpnRedRaptorImage)
 	usesEnergy = true;
 	minEnergy = 2;
 
-	projectile = WpnRedRaptorProjectile;
+	projectile = WpnRaptorProjectile;
 
     // charging...
     minCharge = 0.4;
@@ -155,14 +157,14 @@ datablock ShapeBaseImageData(WpnRedRaptorImage)
 		stateTransitionOnTimeout[3]      = "Fire";
 		stateTimeoutValue[3]             = 0.06;
 		stateFire[3]                     = true;
-		stateFireProjectile[3]           = WpnRedRaptorProjectile;
+		stateFireProjectile[3]           = WpnRaptorProjectile;
 		stateRecoil[3]                   = MediumRecoil;
 		stateAllowImageChange[3]         = false;
 		stateEjectShell[3]               = true;
 		stateArmThread[3]                = "aimblaster";
 		stateSequence[3]                 = "fire";
 		stateSound[3]                    = WpnRaptorFireSound;
-		//stateEmitter[3]                  = WpnRedRaptorFireEmitter;
+		//stateEmitter[3]                  = WpnRaptorFireEmitter;
 		stateEmitterNode[3]              = "fireparticles";
 		stateEmitterTime[3]              = 0.1;
 		stateSpinThread[3]               = "FullSpeed";
@@ -205,12 +207,12 @@ datablock ShapeBaseImageData(WpnRedRaptorImage)
 	//-------------------------------------------------
 };
 
-function WpnRedRaptorImage::getBulletSpread(%this, %obj)
+function WpnRaptorImage::getBulletSpread(%this, %obj)
 {
    return 0.02;
 }
 
-function WpnRedRaptorImage::onMount(%this, %obj, %slot)
+function WpnRaptorImage::onMount(%this, %obj, %slot)
 {
    Parent::onMount(%this, %obj, %slot);
 
@@ -243,26 +245,6 @@ function WpnRedRaptorImage::onMount(%this, %obj, %slot)
    %obj.setImageMaxRecoil(%slot, 5);
    %obj.setImageRecoilAdd(%slot, 0);
    %obj.setImageRecoilDelta(%slot, -0);
-}
-
-//------------------------------------------------------------------------------
-
-datablock ShapeBaseImageData(WpnBlueRaptorImage : WpnRedRaptorImage)
-{
-	shapeFile = "share/shapes/rotc/weapons/blaster/image2.blue.dts";
-	projectile = WpnBlueRaptorProjectile;
-	stateFireProjectile[3] = WpnBlueRaptorProjectile;
-    stateEmitter[3] = WpnBlueRaptorFireEmitter;
-};
-
-function WpnBlueRaptorImage::getBulletSpread(%this, %obj)
-{
-   return WpnRedRaptorImage::getBulletSpread(%this, %obj);
-}
-
-function WpnBlueRaptorImage::onMount(%this, %obj, %slot)
-{
-   WpnRedRaptorImage::onMount(%this, %obj, %slot);
 }
 
 

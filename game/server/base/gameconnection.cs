@@ -441,167 +441,36 @@ function GameConnection::beepMsg(%this, %reason)
 	%this.play2D(BeepMessageSound);
 }
 
-function GameConnection::togglePlayerForm(%this, %forced)
+function GameConnection::leaveForm(%this, %dematerialize)
 {
 	if(!isObject(%this.player))
 		return;
-		
-	%tagged = %this.player.isTagged();
+
+   if(%this.player.getClassName() $= "Etherform")
+   {
+      %this.player.setVelocity("0 0 0");
+      return;
+   }
+
+	//%tagged = %this.player.isTagged();
 	%pos = %this.player.getWorldBoxCenter();
 
-	if(%this.player.getClassName() !$= "Etherform")
+	if($Server::NewbieHelp)
 	{
-		// Manifestation -> Etherform
-		
-		if($Server::NewbieHelp)
-		{
-			%this.newbieHelpData_NeedsRepair = 
-				(%this.player.getDamageLevel() > %this.player.getDataBlock().maxDamage*0.75);
-			%this.newbieHelpData_LowEnergy = 
-				(%this.player.getEnergyLevel() < 50);
-		}		
-	
-		%data = %this.getEtherformDataBlock();
-		%obj = new Etherform() {
-			dataBlock = %data;
-			client = %this;
-			teamId = %this.team.teamId;
-		};	
+		%this.newbieHelpData_NeedsRepair =
+			(%this.player.getDamageLevel() > %this.player.getDataBlock().maxDamage*0.75);
+		%this.newbieHelpData_LowEnergy =
+			(%this.player.getEnergyLevel() < 50);
 	}
-	else if(false)
-	{
-		// Etherform -> Manifestation
-
-		if(!%forced)
-		{
-			if(%this.player.getDamageLevel() > %this.player.getDataBlock().maxDamage*0.75)
-			{
-				%this.beepMsg("You need at least 25% health to manifest!");
-				return;
-			}
-			
-			if(%this.player.getEnergyLevel() < 50)
-			{
-				%this.beepMsg("You need at least 50% energy to manifest!");
-				return;
-			}
-
-			%ownTeamId = %this.player.getTeamId();
 	
-			%inOwnZone = false;
-			%inOwnTerritory = false;
-			%inEnemyZone = false;
+	%data = %this.getEtherformDataBlock();
+	%obj = new Etherform() {
+		dataBlock = %data;
+		client = %this;
+		teamId = %this.team.teamId;
+	};
 	
-			InitContainerRadiusSearch(%pos, 0.0001, $TypeMasks::TacticalSurfaceObjectType);
-			while((%srchObj = containerSearchNext()) != 0)
-			{
-				// object actually in this zone?
-				%inSrchZone = false;
-				for(%i = 0; %i < %srchObj.getNumObjects(); %i++)
-				{
-               error(%srchObj.getObject(%i).getDataBlock().getName());
-					if(%srchObj.getObject(%i) == %this.player)
-					{
-						%inSrchZone = true;
-						break;
-					}
-				}
-				if(!%inSrchZone)
-					continue;
-
-				%zoneTeamId = %srchObj.getTeamId();
-				%zoneBlocked = %srchObj.zBlocked;
-	
-				if(%zoneTeamId != %ownTeamId && %zoneTeamId != 0)
-				{
-					%inEnemyZone = true;
-					break;
-				}
-				else if(%zoneTeamId == %ownTeamId)
-				{
-					%inOwnZone = true;
-					if(%srchObj.getDataBlock().getName() $= "TerritorySurface"
-					|| %srchObj.getDataBlock().isTerritoryZone)
-						%inOwnTerritory = true;
-				}
-			}
-	
-			if(%inEnemyZone)
-			{
-				%this.beepMsg("You can not manifest in an enemy zone!");
-				return;
-			}
-			else if(%inOwnZone && !%inOwnTerritory)
-			{
-				%this.beepMsg("This is not a territory zone!");
-				return;
-			}
-			else if(!%inOwnZone)
-			{
-				%this.beepMsg("You can only manifest in your team's territory zones!");
-				return;
-			}
-			else if(%zoneBlocked)
-			{
-				%this.beepMsg("This zone is currently blocked!");
-				return;
-			}
-		}
-		
-		// Manifestation form from nearby blueprint?
-		%blueprint = 0; 
-		InitContainerRadiusSearch(%pos, 10, $TypeMasks::StaticShapeObjectType);
-		while((%srchObj = containerSearchNext()) != 0)
-		{
-			if(%srchObj.isBlueprint)
-			{
-				//echo("Found blueprint!");
-				%blueprint = %srchObj;
-				break;
-			}
-		}			
-		
-		if(%blueprint != 0)
-		{
-			%obj = %blueprint.getDataBlock().build(%blueprint, %this);
-			
-			if(!isObject(%obj))
-			{
-				bottomPrint(%this, "Failed to manifest!", 3, 1 );
-				return;			
-			}
-			
-			%pos = %blueprint.getTransform();
-		}
-		else
-		{
-			if($Game::GameType == $Game::GridWars)
-			{
-				// Manifest into infantry CAT
-				if( %this.team == $Team1 )
-					%data = RedInfantryCat;
-				else
-					%data = BlueInfantryCat;
-			}
-			else
-			{
-				// Manifest into infantry CAT
-				if( %this.team == $Team1 )
-					%data = RedInfantryCat;
-				else
-					%data = BlueInfantryCat;
-			}
-
-			%obj = new Player() {
-				dataBlock = %data;
-				client = %this;
-				teamId = %this.team.teamId;
-			};
-		}
-
-		$aiTarget = %obj;
-	}
-   else
+   if(false)
    {
       %closest = 0;
       %distmin = 5.0;
@@ -629,7 +498,11 @@ function GameConnection::togglePlayerForm(%this, %forced)
          %closest.getDataBlock().dematerialize(%closest);
       return;
    }
-	
+
+   if(%dematerialize)
+      if(%this.player.getDataBlock().isMethod("dematerialize"))
+         %this.player.getDataBlock().dematerialize(%this.player);
+
 	MissionCleanup.add(%obj);
 	
 	%mat = %this.player.getTransform();
@@ -642,50 +515,15 @@ function GameConnection::togglePlayerForm(%this, %forced)
 	%obj.setTransform(%pos);
 	%obj.setDamageLevel(%dmg);
 	%obj.setShieldLevel(%buf);
+
+   %obj.setEnergyLevel(%nrg - 50);
+	%obj.applyImpulse(%pos, VectorScale(%vel,100));
+	%obj.playAudio(0, EtherformSpawnSound);
 	
-	if(%tagged)
-		%obj.setTagged();
+//	if(%tagged)
+//		%obj.setTagged();
 
 	%this.control(%obj);
-	
-	if(false && %this.player.getClassName() $= "Etherform")
-	{
-		// Etherform -> Manifestation
-		
-		// remove any z-velocity...
-		%vel = getWord(%vel, 0) SPC getWord(%vel, 1) SPC "0";
-	
-		%this.player.delete();
-
-		%obj.setEnergyLevel(%nrg);
-		%obj.setVelocity(VectorScale(%vel, 0.25));
-		
-		%obj.startFade(1000,0,false);
-		%obj.playAudio(0, CatSpawnSound);		
-	}
-	else if(%this.player.getClassName() !$= "Etherform")
-	{
-		// Manifestation -> Etherform
-	
-		if(%this.player.getDamageState() $= "Enabled")
-		{
-			//if(%this.player.getDataBlock().damageBuffer - %buf > 1)
-			//{
-			//	%this.player.setDamageState("Disabled");
-			//	%this.player.playDeathAnimation(0, 0);
-			//}
-			//else
-			//{
-				//%this.player.setDamageState("Destroyed");
-			//}
-         //%this.player.client = 0;
-		}
-		
-		%obj.setEnergyLevel(%nrg - 50);
-		%obj.applyImpulse(%pos, VectorScale(%vel,100));
-		%obj.playAudio(0, EtherformSpawnSound);	
-	}
-
 	%this.player = %obj;
 }
 
@@ -917,6 +755,11 @@ function GameConnection::updateHudWarningsThread(%this)
 	  %this.setHudWarning(3, "[DAMPER]", %player.getEnergyPercent() < 0.5);
    else
 	  %this.setHudWarning(3, "[ENERGY]", %player.getEnergyPercent() < 0.5);
+
+   if(%this.spawnError $= "")
+      %this.setHudWarning(5, "Click left mouse button to materialize.", true);
+   else
+      %this.setHudWarning(5, %this.spawnError, true);
 }
 
 //-----------------------------------------------------------------------------

@@ -138,6 +138,9 @@ function FrmLightProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dis
    if(%spawn)
    {
       %player = %form.materialize(%client, %pos, %normal, %client.camera.getTransform());
+      %player.setTransform(%client.proxy.getTransform());
+      %client.proxy.removeClientFromGhostingList(%client);
+      %client.proxy.setTransform("0 0 0");
    }
    else
    {

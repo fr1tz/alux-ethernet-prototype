@@ -3,14 +3,10 @@
 // Copyright (C) 2008, mEthLab Interactive
 //------------------------------------------------------------------------------
 
-exec("./raptor.projectile.sfx.cs");
-exec("./raptor.projectile.gfx.red.cs");
-exec("./raptor.projectile.gfx.blue.cs");
-
 //-----------------------------------------------------------------------------
 // projectile datablock...
 
-datablock ShotgunProjectileData(WpnRedRaptorProjectile)
+datablock ShotgunProjectileData(WpnRaptorProjectile)
 {
 	stat = "blaster";
 
@@ -38,23 +34,23 @@ datablock ShotgunProjectileData(WpnRedRaptorProjectile)
 
 	//projectileShapeName = "share/shapes/rotc/weapons/blaster/projectile.red.dts";
 
-	explosion               = WpnRedRaptorProjectileImpact;
-	hitEnemyExplosion       = WpnRedRaptorProjectileHit;
-	hitTeammateExplosion    = WpnRedRaptorProjectileHit;
+	explosion               = WpnRaptorProjectileImpact;
+	hitEnemyExplosion       = WpnRaptorProjectileImpact;
+	hitTeammateExplosion    = WpnRaptorProjectileImpact;
 	//nearEnemyExplosion	= DefaultProjectileNearEnemyExplosion;
 	//hitDeflectorExplosion = SeekerDiscBounceEffect;
 
-	//fxLight					= WpnRedRaptorProjectileFxLight;
+	//fxLight					= WpnRaptorProjectileFxLight;
 
-	missEnemyEffect		 = WpnRedRaptorProjectileMissedEnemyEffect;
+	missEnemyEffect		 = WpnRaptorProjectileMissedEnemyEffect;
 
-   laserTail				 = WpnRedRaptorProjectileLaserTail;
+   laserTail				 = WpnRaptorProjectileLaserTail;
 	laserTailLen			 = 20.0;
 
-	laserTrail[2] = NULL; // WpnRedRaptorProjectileLaserTrail2;
+	laserTrail[2] = NULL; // WpnRaptorProjectileLaserTrail2;
 	smoothLaserTrail     = false;
 
-	//particleEmitter	  = WpnRedRaptorProjectileParticleEmitter;
+	//particleEmitter	  = WpnRaptorProjectileParticleEmitter;
 
 	muzzleVelocity   = 900; //900;
 	velInheritFactor = 0.0;
@@ -73,7 +69,7 @@ datablock ShotgunProjectileData(WpnRedRaptorProjectile)
 	lightColor  = "1.0 0.0 0.0";
 };
 
-function WpnRedRaptorProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist)
+function WpnRaptorProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist)
 {
     Parent::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist);
 
@@ -107,27 +103,4 @@ function WpnRedRaptorProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,
     }
 }
 
-//-----------------------------------------------------------------------------
 
-datablock ShotgunProjectileData(BlueWpnRaptorProjectile : WpnRedRaptorProjectile)
-{
-	//projectileShapeName = "share/shapes/rotc/weapons/blaster/projectile.blue.dts";
-
-	explosion            = BlueWpnRaptorProjectileImpact;
-	hitEnemyExplosion    = BlueWpnRaptorProjectileHit;
-	hitTeammateExplosion = BlueWpnRaptorProjectileHit;
-
-	missEnemyEffect    = BlueWpnRaptorProjectileMissedEnemyEffect;
-
-	//laserTail          = BlueWpnRaptorProjectileLaserTail;
-
-	laserTrail[0]      = BlueWpnRaptorProjectileLaserTrail;
-	laserTrail[1]      = BlueWpnRaptorProjectileLaserTrail;
-
-	lightColor  = "0.0 0.0 1.0";
-};
-
-function BlueWpnRaptorProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist)
-{
-    WpnRedRaptorProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist);
-}

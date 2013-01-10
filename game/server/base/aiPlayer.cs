@@ -67,9 +67,9 @@ function aiAdd(%teamid, %weaponNum)
 	else
 	{
 		if(%teamid == 1)
-			%playerData = RedInfantryCat;
+			%playerData = FrmSoldier;
 		else
-			%playerData = BlueInfantryCat;
+			%playerData = FrmSoldier;
 	}
 
 	%player = new AiPlayer() {

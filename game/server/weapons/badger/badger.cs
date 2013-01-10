@@ -3,8 +3,8 @@
 // Copyright (C) 2008, mEthLab Interactive
 //------------------------------------------------------------------------------
 
-exec("./badger.gfx.cs");
 exec("./badger.sfx.cs");
+exec("./badger.gfx.cs");
 exec("./badger.projectile.cs");
 
 //-----------------------------------------------------------------------------

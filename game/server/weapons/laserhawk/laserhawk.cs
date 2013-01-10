@@ -4,6 +4,7 @@
 //------------------------------------------------------------------------------
 
 exec("./laserhawk.sfx.cs");
+exec("./laserhawk.projectile.gfx.cs");
 exec("./laserhawk.projectile.cs");
 
 //------------------------------------------------------------------------------
@@ -11,7 +12,7 @@ exec("./laserhawk.projectile.cs");
 // (images do not normally exist in the world, they can only
 // be mounted on ShapeBase objects)
 
-datablock ShapeBaseImageData(WpnRedLaserhawkImage)
+datablock ShapeBaseImageData(WpnLaserhawkImage)
 {
 	// add the WeaponImage namespace as a parent
 	className = WeaponImage;
@@ -37,8 +38,8 @@ datablock ShapeBaseImageData(WpnRedLaserhawkImage)
     // charging...
     minCharge = 0.4;
     
-	projectile = WpnRedLaserhawkProjectile;
-    missile = WpnRedLaserhawkMissile;
+	projectile = WpnLaserhawkProjectile;
+    missile = WpnLaserhawkMissile;
     
 	// targeting...
     targetingMask = $TargetingMask::Heat;
@@ -102,7 +103,7 @@ datablock ShapeBaseImageData(WpnRedLaserhawkImage)
 		stateTransitionOnTimeout[5]      = "AfterFire";
 		stateTimeoutValue[5]             = 0;
 		stateFire[5]                     = true;
-		stateFireProjectile[5]           = WpnRedLaserhawkProjectile;
+		stateFireProjectile[5]           = WpnLaserhawkProjectile;
 		stateRecoil[5]                   = MediumRecoil;
 		stateAllowImageChange[5]         = false;
 		stateEjectShell[5]               = true;
@@ -160,7 +161,7 @@ datablock ShapeBaseImageData(WpnRedLaserhawkImage)
 	//-------------------------------------------------
 };
 
-function WpnRedLaserhawkImage::onMount(%this, %obj, %slot)
+function WpnLaserhawkImage::onMount(%this, %obj, %slot)
 {
     Parent::onMount(%this, %obj, %slot);
 
@@ -195,78 +196,33 @@ function WpnRedLaserhawkImage::onMount(%this, %obj, %slot)
    %obj.setImageRecoilDelta(%slot, -0);
 }
 
-function WpnRedLaserhawkImage::onUnmount(%this, %obj, %slot)
+function WpnLaserhawkImage::onUnmount(%this, %obj, %slot)
 {
     Parent::onUnmount(%this, %obj, %slot);
     %obj.setSniping(false);
 }
 
-function WpnRedLaserhawkImage::onReady(%this, %obj, %slot)
+function WpnLaserhawkImage::onReady(%this, %obj, %slot)
 {
 	//error("onReady");
     %obj.setSniping(false);
 }
 
-function WpnRedLaserhawkImage::onCharge(%this, %obj, %slot)
+function WpnLaserhawkImage::onCharge(%this, %obj, %slot)
 {
 	//error("onCharge");
     %obj.sniperTarget = "";
     %obj.setSniping(true);
 }
 
-function WpnRedLaserhawkImage::onFire(%this, %obj, %slot)
+function WpnLaserhawkImage::onFire(%this, %obj, %slot)
 {
 	//error("onFire");
     %obj.setSniping(false);
 }
 
-function WpnRedLaserhawkImage::onNoAmmo(%this, %obj, %slot)
+function WpnLaserhawkImage::onNoAmmo(%this, %obj, %slot)
 {
 	//error("onNoAmmo");
     %obj.setSniping(false);
 }
-
-//------------------------------------------------------------------------------
-
-datablock ShapeBaseImageData(WpnBlueLaserhawkImage : WpnRedLaserhawkImage)
-{
-	shapeFile = "share/shapes/rotc/weapons/missilelauncher/image2.blue.dts";
-
-	projectile = WpnBlueLaserhawkProjectile;
-    missile = WpnBlueLaserhawkMissile;
-
-	stateFireProjectile[5] = WpnBlueLaserhawkProjectile;
-	stateEmitter[6] = BlueMissileLauncherFireEmitter;
-	stateEmitter[7] = BlueMissileLauncherFireEmitter;
-};
-
-function WpnBlueLaserhawkImage::onMount(%this, %obj, %slot)
-{
-	WpnRedLaserhawkImage::onMount(%this, %obj, %slot);
-}
-
-function WpnBlueLaserhawkImage::onUnmount(%this, %obj, %slot)
-{
-	WpnRedLaserhawkImage::onUnmount(%this, %obj, %slot);
-}
-
-function WpnBlueLaserhawkImage::onReady(%this, %obj, %slot)
-{
-    WpnRedLaserhawkImage::onReady(%this, %obj, %slot);
-}
-
-function WpnBlueLaserhawkImage::onCharge(%this, %obj, %slot)
-{
-    WpnRedLaserhawkImage::onCharge(%this, %obj, %slot);
-}
-
-function WpnBlueLaserhawkImage::onFire(%this, %obj, %slot)
-{
-	WpnRedLaserhawkImage::onFire(%this, %obj, %slot);
-}
-
-function WpnBlueLaserhawkImage::onNoAmmo(%this, %obj, %slot)
-{
-    WpnRedLaserhawkImage::onNoAmmo(%this, %obj, %slot);
-}
-
