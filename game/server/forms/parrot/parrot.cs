@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
-// Revenge Of The Cats: Ethernet
-// Copyright (C) 2008, mEthLab Interactive
+// Alux
+// Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 //------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
@@ -228,6 +228,11 @@ function FrmParrot::damage(%this, %obj, %sourceObject, %position, %damage, %dama
       %obj.schedule(500,"setTransform","0 0 -10000");
       %obj.schedule(2000,"delete");
    }
+}
+
+function FrmParrot::canMaterialize(%this, %client, %pos, %normal, %transform)
+{
+   return FrmSoldier::canMaterialize(%this, %client, %pos, %normal, %transform);
 }
 
 function FrmParrot::materialize(%this, %client, %pos, %normal, %transform)

@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
-// Revenge Of The Cats: Ethernet
-// Copyright (C) 2008, mEthLab Interactive
+// Alux
+// Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 //------------------------------------------------------------------------------
 
 // The global action map is created by the engine and always active.

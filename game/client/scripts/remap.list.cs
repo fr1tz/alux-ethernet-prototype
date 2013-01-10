@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
-// Revenge Of The Cats: Ethernet
-// Copyright (C) 2008, mEthLab Interactive
+// Alux
+// Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 //------------------------------------------------------------------------------
 
 // These link a description to a function in remap.functions.cs.
