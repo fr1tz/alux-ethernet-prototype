@@ -3,7 +3,7 @@
 !define VERSION    "prototype1.10"
 !define SHORTNAME  "rotc-ethernet"
 !define TECHNAME   "rotc-ethernet-${VERSION}"
-!define PRETTYNAME "Revenge of the Cats: Ethernet"
+!define PRETTYNAME "Alux"
 
 Name "${PRETTYNAME}"
 Outfile "${TECHNAME}-win32.exe"

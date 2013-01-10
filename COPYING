@@ -1,24 +1,24 @@
 **********************************************************************
 
-Revenge Of The Cats: Ethernet
+Alux
 
-Copyright (C) 2008, mEthLab Interactive
+Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 
-Revenge Of The Cats: Ethernet is licensed under the pretty restrictive
+Alux is licensed under the pretty restrictive
 Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 
 License (http://creativecommons.org/licenses/by-nc-nd/3.0/).
 
 However, all game content is made available under the permissive 
 Creative Commons Attribution 3.0 License
 (http://creativecommons.org/licenses/by/3.0/).
-Game content refers to all files except the engine binaries (rotc.exe,
-rotc.bin and rotcd.bin) and the third-party library binaries (the .dll
+Game content refers to all files except the engine binaries (alux.exe,
+alux.bin and aluxd.bin) and the third-party library binaries (the .dll
 files and everything in the lib/ directory).
 
 
 **********************************************************************
 
-Revenge Of The Cats: Ethernet uses a font from openfontlibrary.org:
+Alux uses a font from openfontlibrary.org:
 
 NovaSquare (http://openfontlibrary.org/files/wmk69/408)
 -------------------------------------------------------
@@ -133,7 +133,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
 **********************************************************************
 
-Revenge Of The Cats: Ethernet includes the following third-party libs:
+Alux includes the following third-party libs:
 
 **********************************************************************
 

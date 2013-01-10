@@ -10,7 +10,7 @@
 
 //-----
 // audioDescriptions.cs
-// audio descriptions used by ROTC
+// audio descriptions used by Alux
 //-----
 
 //-----------------------------------------------------------------------------

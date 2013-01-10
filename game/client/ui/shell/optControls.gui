@@ -142,7 +142,7 @@ new GuiControl(OptControlsWindowForEditing) {
          canSave = "1";
          Visible = "1";
          hovertime = "1000";
-         text = "ROTC: Ethernet";
+         text = "Alux: Ethernet";
          maxLength = "1024";
          maxPopupHeight = "200";
       };

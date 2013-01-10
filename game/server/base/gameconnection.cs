@@ -35,10 +35,10 @@ function GameConnection::control(%this, %shapebase)
 // *** callback function: called by script code in "common"
 function GameConnection::prepareCookies(%this, %cookies)
 {
-   %cookies.push_back("ROTC_HudColor", "");
-   %cookies.push_back("ROTC_HudMenuTMode", "");
-   %cookies.push_back("ROTC_Handicap", "");
-   %cookies.push_back("ROTC_DamageScreenMode", "");
+   %cookies.push_back("Alux_HudColor", "");
+   %cookies.push_back("Alux_HudMenuTMode", "");
+   %cookies.push_back("Alux_Handicap", "");
+   %cookies.push_back("Alux_DamageScreenMode", "");
    // Loadouts
 	for(%i = 1; %i <= 10; %i++)
    {
@@ -50,12 +50,12 @@ function GameConnection::prepareCookies(%this, %cookies)
 // *** callback function: called by script code in "common"
 function GameConnection::onCookiesReceived(%this, %cookies)
 {
-	%this.setHandicap(arrayGetValue(%cookies, "ROTC_Handicap"));
-	%this.hudColor = arrayGetValue(%cookies, "ROTC_HudColor");
-	%this.initialTopHudMenu = arrayGetValue(%cookies, "ROTC_HudMenuTMode");
+	%this.setHandicap(arrayGetValue(%cookies, "Alux_Handicap"));
+	%this.hudColor = arrayGetValue(%cookies, "Alux_HudColor");
+	%this.initialTopHudMenu = arrayGetValue(%cookies, "Alux_HudMenuTMode");
 	if(%this.initialTopHudMenu $= "")
 		%this.initialTopHudMenu = "newbiehelp";
-	%this.damageScreenMode = arrayGetValue(%cookies, "ROTC_DamageScreenMode");
+	%this.damageScreenMode = arrayGetValue(%cookies, "Alux_DamageScreenMode");
 	if(%this.damageScreenMode $= "")
 		%this.damageScreenMode = 1;
    // Loadouts
