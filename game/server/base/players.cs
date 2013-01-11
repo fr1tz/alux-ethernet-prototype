@@ -125,7 +125,7 @@ function PlayerData::onAdd(%this,%obj)
 		//if(%client.hasGrenade)
 		//	%obj.mountImage(BlueGrenade2Image, 2, -1, true);
 	}
-	%obj.useWeapon(1);
+	%obj.schedule(0, "useWeapon", 1);
 
 	//
 	// disc management...

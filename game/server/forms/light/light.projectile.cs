@@ -142,6 +142,8 @@ function FrmLightProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dis
       %client.proxy.removeClientFromGhostingList(%client);
       %client.proxy.setTransform("0 0 0");
       $aiTarget = %player;
+
+      %player.inv[1] = getWord(%client.activeLoadout, 4);
    }
    else
    {

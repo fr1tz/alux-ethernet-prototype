@@ -92,27 +92,8 @@ function StandardCat::useWeapon(%this, %obj, %nr)
 	if(%obj.currWeapon > %client.numWeapons)
 		%obj.currWeapon = 1;	
 
-	%wpn = %client.weapons[%obj.currWeapon-1];
+	%wpn = %obj.inv[1];
 
-	if(%wpn == $CatEquipment::Python)
-	{
-		%obj.mountImage(WpnBadgerImage, 0, -1, true);
-	}
-	else if(%wpn == $CatEquipment::MiniGun)
-	{
-		%obj.mountImage(WpnMinihawkImage, 0, -1, true);
-	}
-	else if(%wpn == $CatEquipment::Trident)
-	{
-		%obj.mountImage(WpnStyckImage, 0, -1, true);
-	}
-	else if(%wpn == $CatEquipment::Raptor)
-	{
-		%obj.mountImage(WpnRaptorImage, 0, -1, true);
-	}
-	else if(%wpn == $CatEquipment::Laserhawk)
-	{
-      %obj.mountImage(WpnLaserhawkImage, 0, -1, true);
-	}
+   %obj.mountImage($Server::Game.weapon[%wpn], 0, -1, true);
 }
 
