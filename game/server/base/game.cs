@@ -218,6 +218,8 @@ function startNewRound()
 		%obj = MissionCleanup.getObject(%idx);
 		if(%obj.getType() & $TypeMasks::ProjectileObjectType
 		|| %obj.getType() & $TypeMasks::PlayerObjectType
+		|| %obj.getType() & $TypeMasks::VehicleObjectType
+		|| %obj.getType() & $TypeMasks::DamagableItemObjectType
 		|| %obj.getType() & $TypeMasks::CorpseObjectType)
 			%obj.delete();
 	}
