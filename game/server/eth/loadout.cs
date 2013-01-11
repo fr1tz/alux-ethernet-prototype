@@ -8,20 +8,29 @@ function GameConnection::loadDefaultLoadout(%this, %no)
    switch(%no)
    {
       case 1:
+         %this.loadoutName[%no] = "Soldier w/ Badger";
+         %this.loadoutCode[%no] = "4 0 0 0 1";
+      case 2:
+         %this.loadoutName[%no] = "Soldier w/ Styck";
+         %this.loadoutCode[%no] = "4 0 0 0 2";
+      case 3:
+         %this.loadoutName[%no] = "Soldier w/ Laserhawk";
+         %this.loadoutCode[%no] = "4 0 0 0 3";
+      case 4:
+         %this.loadoutName[%no] = "Soldier w/ Minihawk";
+         %this.loadoutCode[%no] = "4 0 0 0 4";
+      case 5:
+         %this.loadoutName[%no] = "Soldier w/ Raptor";
+         %this.loadoutCode[%no] = "4 0 0 0 5";
+      case 6:
          %this.loadoutName[%no] = "Parrot";
          %this.loadoutCode[%no] = "1";
-      case 2:
+      case 7:
          %this.loadoutName[%no] = "Bumblebee";
          %this.loadoutCode[%no] = "2";
-      case 3:
+      case 8:
          %this.loadoutName[%no] = "Crate";
          %this.loadoutCode[%no] = "3";
-      case 4:
-         %this.loadoutName[%no] = "Soldier";
-         %this.loadoutCode[%no] = "4 0 1 5 2";
-      case 5:
-         %this.loadoutName[%no] = "Sniper";
-         %this.loadoutCode[%no] = "4 0 4 0 3";
       default:
          %this.loadoutName[%no] = "";
          %this.loadoutCode[%no] = "1";
