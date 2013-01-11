@@ -183,7 +183,7 @@ datablock ParticleData(TFrmBumblebeeDefunctEffect_MemoryLeak0Particles)
    constantAcceleration = 0.0;
    lifetimeMS           = 1000;
    lifetimeVarianceMS   = 350;
-   textureName          = "share/textures/rotc/bin0";
+   textureName          = "share/textures/rotc/particle1";
    colors[0]     = "1.0 0.9 0.0 0.5";
    colors[1]     = "1.0 0.0 0.0 0.5";
    colors[2]     = "1.0 0.0 0.0 0.0";
@@ -223,7 +223,7 @@ datablock ParticleData(FrmBumblebeeDefunctEffect_MemoryLeak1Particles)
    constantAcceleration = 0.0;
    lifetimeMS           = 1000;
    lifetimeVarianceMS   = 350;
-   textureName          = "share/textures/rotc/bin1";
+   textureName          = "share/textures/rotc/particle1";
    colors[0]     = "1.0 0.9 0.0 0.5";
    colors[1]     = "1.0 0.0 0.0 0.5";
    colors[2]     = "1.0 0.0 0.0 0.0";
@@ -394,7 +394,7 @@ datablock ParticleData(FrmBumblebeeWreckFX_MemoryLeak0Particles)
    constantAcceleration = 0.0;
    lifetimeMS           = 5000;
    lifetimeVarianceMS   = 350;
-   textureName          = "share/textures/rotc/bin0";
+   textureName          = "share/textures/rotc/particle1";
    colors[0]     = "1.0 0.9 0.0 0.5";
    colors[1]     = "1.0 0.0 0.0 0.5";
    colors[2]     = "1.0 0.0 0.0 0.0";
@@ -432,7 +432,7 @@ datablock ParticleData(FrmBumblebeeWreckFX_MemoryLeak1Particles)
    constantAcceleration = 0.0;
    lifetimeMS           = 5000;
    lifetimeVarianceMS   = 350;
-   textureName          = "share/textures/rotc/bin1";
+   textureName          = "share/textures/rotc/particle1";
    colors[0]     = "1.0 0.9 0.0 0.5";
    colors[1]     = "1.0 0.0 0.0 0.5";
    colors[2]     = "1.0 0.0 0.0 0.0";

@@ -45,9 +45,6 @@ function executeCatScripts()
 	// partytime!
 	exec("./cats/partysounds.cs");
 	exec("./cats/partyanims.cs");
-
-	// CATs...
-	exec("./cats/standard/standard.cs");
 }
 
 executeCatScripts();

@@ -69,7 +69,7 @@ datablock EtherformData(FrmLight)
 	thirdPersonOnly = true;
 
     //category = "Vehicles"; don't appear in mission editor
-	shapeFile = "share/shapes/rotc/vehicles/etherform/vehicle.red.dts";
+	shapeFile = "share/shapes/alux/light.dts";
 	emap = true;
  
 	cameraDefaultFov = 110.0;

@@ -26,7 +26,7 @@ datablock ProjectileData(FrmLightProjectile)
 
 	sound = FrmLightProjectileSound;
  
-   projectileShapeName = "share/shapes/rotc/vehicles/etherform/vehicle.red.dts";
+   projectileShapeName = "share/shapes/alux/light.dts";
 
 	explosion             = FrmLightProjectileExplosion;
 //	bounceExplosion       = RedAssaultRifleProjectileBounceExplosion;

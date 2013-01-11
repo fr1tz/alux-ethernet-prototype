@@ -78,7 +78,7 @@ MoveMap.bind(keyboard, "alt p", takeScreenshot);
 // Player actions
 //------------------------------------------------------------------------------
 
-MoveMap.bind( keyboard, "tab", action0 );
+MoveMap.bind( keyboard, "0", action0 );
 MoveMap.bind( keyboard, "1", action1 );
 MoveMap.bind( keyboard, "2", action2 );
 MoveMap.bind( keyboard, "3", action3 );
@@ -88,11 +88,11 @@ MoveMap.bind( keyboard, "6", action6 );
 MoveMap.bind( keyboard, "7", action7 );
 MoveMap.bind( keyboard, "8", action8 );
 MoveMap.bind( keyboard, "9", action9 );
-MoveMap.bind( keyboard, "0", action10);
-MoveMap.bind( keyboard, "q", action11);
-moveMap.bind( mouse0, "shift button2", action12);
-MoveMap.bind( keyboard, "e", action13 );
-MoveMap.bind( keyboard, "r", action14 );
+MoveMap.bind( keyboard, "tab", action10);
+MoveMap.bind( keyboard, "e", action11 );
+MoveMap.bind( keyboard, "q", action12 );
+MoveMap.bind( keyboard, "r", action13 );
+moveMap.bind( mouse0, "shift button2", action14);
 MoveMap.bind( keyboard, "o", action15 );
 MoveMap.bind( keyboard, "g", action16 );
 MoveMap.bind( keyboard, "x", action17 );

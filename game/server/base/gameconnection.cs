@@ -1143,21 +1143,6 @@ function GameConnection::setHandicap(%this, %handicap)
 function GameConnection::getEtherformDataBlock(%this)
 {
    return FrmLight;
-
-	if(strstr(strlwr(getTaggedString(%this.name)),"nyan") != -1)
-	{
-		if( %this.team == $Team1 )
-			return RedNyanEtherform;
-		else
-			return BlueNyanEtherform;
-	}
-	else
-	{
-		if( %this.team == $Team1 )
-			return RedEtherform;
-		else
-			return BlueEtherform;
-	}
 }
 
 

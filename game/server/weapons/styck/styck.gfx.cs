@@ -4,48 +4,6 @@
 //------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// projectile particle emitter
-
-datablock ParticleData(WpnStyckProjectileParticleEmitter_Particles)
-{
-	dragCoefficient      = 1;
-	gravityCoefficient   = 0.0;
-	windCoefficient      = 0.0;
-	inheritedVelFactor	 = 0.0;
-	constantAcceleration = 0.0;
-	lifetimeMS			 = 100;
-	lifetimeVarianceMS	 = 0;
-	spinRandomMin        = 0;
-	spinRandomMax        = 0;
-	textureName			 = "share/shapes/rotc/weapons/blaster/projectile.impact.red";
-	colors[0]            = "1.0 0.0 0.0 10.5";
-	colors[1]            = "1.0 0.0 0.0 0.0";
-	sizes[0]             = 0.25;
-	sizes[1]             = 0.0;
-	times[0]             = 0.0;
-	times[1]             = 1.0;
-	useInvAlpha          = false;
-	renderDot            = true;
-};
-
-datablock ParticleEmitterData(WpnStyckProjectileParticleEmitter)
-{
-	ejectionPeriodMS = 10;
-	periodVarianceMS = 2;
-	ejectionVelocity = 5;
-	velocityVariance = 2.5;
-	ejectionOffset   = 0.0;
-	thetaMin         = 0;
-	thetaMax         = 0;
-	phiReferenceVel  = 0;
-	phiVariance      = 0;
-	overrideAdvances = false;
-	orientParticles  = false;
-	lifetimeMS		 = 0;
-	particles = "WpnStyckProjectileParticleEmitter_Particles";
-};
-
-//-----------------------------------------------------------------------------
 // laser tail...
 
 datablock LaserBeamData(WpnStyckProjectileLaserTail)
@@ -56,9 +14,9 @@ datablock LaserBeamData(WpnStyckProjectileLaserTail)
 	lineEndColor	  = "1.00 0.00 0.00 0.5";
 	lineWidth		  = 2.0;
 
-	hasInner = false;
-	innerStartColor = "0.00 0.00 0.90 0.5";
-	innerBetweenColor = "0.50 0.00 0.90 0.9";
+	hasInner = true;
+	innerStartColor = "1.00 0.00 0.00 0.5";
+	innerBetweenColor = "1.00 0.00 0.00 0.9";
 	innerEndColor = "1.00 1.00 1.00 0.9";
 	innerStartWidth = "0.05";
 	innerBetweenWidth = "0.05";
@@ -72,8 +30,8 @@ datablock LaserBeamData(WpnStyckProjectileLaserTail)
 	outerBetweenWidth = "0.25";
 	outerEndWidth = "0.1";
 	
-	bitmap = "share/shapes/rotc/weapons/blaster/lasertail.red";
-	bitmapWidth = 0.20;
+//	bitmap = "share/shapes/rotc/weapons/blaster/lasertail.red";
+//	bitmapWidth = 0.20;
 //	crossBitmap = "share/shapes/rotc/weapons/blaster/lasertail.red.cross";
 //	crossBitmapWidth = 0.10;
 
@@ -89,7 +47,7 @@ datablock MultiNodeLaserBeamData(WpnStyckProjectileLaserTrail)
 	hasLine = true;
 	lineColor	= "1.00 0.00 0.00 0.3";
 
-	hasInner = false;
+	hasInner = true;
 	innerColor = "1.00 0.00 0.00 0.8";
 	innerWidth = "0.10";
 
@@ -97,8 +55,8 @@ datablock MultiNodeLaserBeamData(WpnStyckProjectileLaserTrail)
 	outerColor = "1.00 0.00 1.00 0.1";
 	outerWidth = "0.90";
 
-	bitmap = "share/shapes/rotc/weapons/blaster/lasertrail.red";
-	bitmapWidth = 0.70;
+	//bitmap = "share/shapes/rotc/weapons/blaster/lasertrail.red";
+	//bitmapWidth = 0.70;
 
 	blendMode = 1;
 	renderMode = $MultiNodeLaserBeamRenderMode::FaceViewer;
@@ -196,7 +154,7 @@ datablock ExplosionData(WpnStyckProjectileImpact)
 	lifetimeMS = 3000;
  
  	// shape...
-	explosionShape = "share/shapes/rotc/weapons/blaster/projectile.impact.red.dts";
+	//explosionShape = "share/shapes/rotc/weapons/blaster/projectile.impact.red.dts";
 	faceViewer = false;
 	playSpeed = 0.4;
 	sizes[0] = "1 1 1";

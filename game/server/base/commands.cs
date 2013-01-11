@@ -31,31 +31,21 @@ function serverCmdPlayerAction(%client, %nr, %val)
 	if(%player == 0)
 		return false;
 
-	if(%nr == 0 && %val && %client.menuVisible == false)
-	{
-		%client.leaveForm(true);
-	}
-	else if(%nr <= 10 && %val)
+	if(%nr <= 9 && %val)
 	{
 		%client.getControlObject().useWeapon(%nr);
 	}
-	else if(%nr == 11 && %val)
+	else if(%nr == 10 && %val && %client.menuVisible == false)
 	{
-		%client.getControlObject().useWeapon(0);
+		%client.leaveForm(true);
 	}
-	else if(%nr == 12 && %val)
-	{
-		%client.player.fullForceGrenade = true;
-		%client.player.setImageTrigger(2, true);
-		%client.player.setImageTrigger(2, false);
-	}
-	else if(%nr == 13 && %val && %client.menuVisible == false)
+	else if(%nr == 11 && %val && %client.menuVisible == false)
 	{
 		%client.leaveForm(false);
 	}
-	else if(%nr == 14 && %val)
+	else if(%nr == 12 && %val)
 	{
-		%client.getControlObject().useWeapon(7);
+      %client.getControlObject().useWeapon(0);
 	}
 	else if(%nr == 17 && %val)
 	{		

@@ -4,35 +4,6 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// light images...
-
-datablock ShapeBaseImageData(RedEtherformLightImage)
-{
-	// basic item properties
-	shapeFile = "share/shapes/rotc/misc/nothing.dts";
-	emap = true;
-
-	// mount point & mount offset...
-	mountPoint  = 4;
-	offset = "0 0 0";
-	
-	// light properties...
-	lightType = "ConstantLight";
-	lightColor = "0.8 0.0 0.0";
-	lightTime = 1000;
-	lightRadius = 8;
-	lightCastsShadows = true;
-	lightAffectsShapes = true;
-
-	stateName[0] = "DoNothing";
-};
-
-datablock ShapeBaseImageData(BlueEtherformLightImage : RedEtherformLightImage)
-{
-	lightColor = "0.0 0.4 0.8";
-};
-
-//------------------------------------------------------------------------------
 // damage buffer particle emitter...
 
 datablock ParticleData(RedEtherformDamageBufferEmitter_Particle)

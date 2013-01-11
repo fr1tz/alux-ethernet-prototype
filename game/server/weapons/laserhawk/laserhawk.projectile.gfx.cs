@@ -444,7 +444,7 @@ datablock ParticleData(WpnLaserhawkProjectileExplosion_Sparks)
 	constantAcceleration = 0.0;
 	lifetimeMS			  = 500;
 	lifetimeVarianceMS	= 350;
-	textureName			 = "share/textures/rotc/corona1.png";
+	textureName			 = "share/textures/rotc/corona.png";
 	colors[0]	  = "1.0 1.0 1.0 1.0";
 	colors[1]	  = "1.0 1.0 1.0 1.0";
 	colors[2]	  = "1.0 1.0 1.0 0.0";

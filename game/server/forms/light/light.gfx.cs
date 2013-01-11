@@ -9,7 +9,7 @@
 datablock ShapeBaseImageData(FrmLightLightImage)
 {
 	// basic item properties
-	shapeFile = "share/shapes/rotc/misc/nothing.dts";
+	shapeFile = "share/shapes/alux/nothing.dts";
 	emap = true;
 
 	// mount point & mount offset...

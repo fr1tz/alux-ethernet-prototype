@@ -4,48 +4,6 @@
 //------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// projectile particle emitter
-
-datablock ParticleData(WpnBadgerProjectileParticleEmitter_Particles)
-{
-	dragCoefficient      = 1;
-	gravityCoefficient   = 0.0;
-	windCoefficient      = 0.0;
-	inheritedVelFactor	 = 0.0;
-	constantAcceleration = 0.0;
-	lifetimeMS			 = 100;
-	lifetimeVarianceMS	 = 0;
-	spinRandomMin        = 0;
-	spinRandomMax        = 0;
-	textureName			 = "share/shapes/rotc/weapons/blaster/projectile.impact.red";
-	colors[0]            = "1.0 0.0 0.0 10.5";
-	colors[1]            = "1.0 0.0 0.0 0.0";
-	sizes[0]             = 0.25;
-	sizes[1]             = 0.0;
-	times[0]             = 0.0;
-	times[1]             = 1.0;
-	useInvAlpha          = false;
-	renderDot            = true;
-};
-
-datablock ParticleEmitterData(WpnBadgerProjectileParticleEmitter)
-{
-	ejectionPeriodMS = 10;
-	periodVarianceMS = 2;
-	ejectionVelocity = 5;
-	velocityVariance = 2.5;
-	ejectionOffset   = 0.0;
-	thetaMin         = 0;
-	thetaMax         = 0;
-	phiReferenceVel  = 0;
-	phiVariance      = 0;
-	overrideAdvances = false;
-	orientParticles  = false;
-	lifetimeMS		 = 0;
-	particles = "WpnBadgerProjectileParticleEmitter_Particles";
-};
-
-//-----------------------------------------------------------------------------
 // laser tail...
 
 datablock LaserBeamData(WpnBadgerProjectileLaserTail)

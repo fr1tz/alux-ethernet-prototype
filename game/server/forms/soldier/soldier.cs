@@ -139,8 +139,8 @@ datablock PlayerData(FrmSoldier)
 	cmdCategory = "Clients";
 
 	renderWhenDestroyed = false;
-	debrisShapeName = "share/shapes/rotc/players/standardcat/debris.red.dts";
-	debris = StandardCatDebris;
+	//debrisShapeName = "share/shapes/rotc/players/standardcat/debris.red.dts";
+	//debris = StandardCatDebris;
 
 	aiAvoidThis = true;
 

@@ -232,7 +232,7 @@ datablock ExplosionData(RedRifle1ProjectileImpact)
 	lifetimeMS = 3000;
  
  	// shape...
-	explosionShape = "share/shapes/rotc/weapons/blaster/projectile.impact.red.dts";
+	//explosionShape = "share/shapes/rotc/weapons/blaster/projectile.impact.red.dts";
 	faceViewer = false;
 	playSpeed = 0.4;
 	sizes[0] = "1 1 1";
