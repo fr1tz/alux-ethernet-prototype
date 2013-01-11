@@ -274,26 +274,7 @@ function GameConnection::updateHudColors(%this)
 		%c1 = "255 80 255";
 		%c2 = "85 255 255";
 	}	
-	else if(%this.hudColor $= "team")
-	{
-		%teamId = %this.team.teamId;
-		if(%teamId == 0)
-		{
-			%c1 = "150 150 150";
-			%c2 = "255 255 255";
-		}
-		else if(%teamId == 1)
-		{
-			%c1 = "255 0 0";
-			%c2 = "255 200 200";
-		}
-		else if(%teamId == 2)
-		{
-			%c1 = "0 100 255";
-			%c2 = "200 200 255";
-		}
-	}
-	else
+	else if(%this.hudColor $= "based_on_condition")
 	{
 		%player = %this.player;
 		%data = %player.getDataBlock();
@@ -303,6 +284,25 @@ function GameConnection::updateHudColors(%this)
 			0;
 		%v = mFloatLength(125*(1-%v)+125, 0);
 		%c2 =  %v SPC %v SPC %v;
+	}
+	else
+	{
+		%teamId = %this.team.teamId;
+		if(%teamId == 0)
+		{
+			%c1 = "150 150 150";
+			%c2 = "255 255 255";
+		}
+		else if(%teamId == 1)
+		{
+   		%c1 = "170 0 170";
+   		%c2 = "255 80 255";
+		}
+		else if(%teamId == 2)
+		{
+			%c1 = "0 170 170";
+			%c2 = "85 255 255";
+		}
 	}
 	commandToClient(%this,'SetHudColor', %c1, %c2);	
 }
