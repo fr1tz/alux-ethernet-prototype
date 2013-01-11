@@ -149,7 +149,7 @@ function FrmLight::onTrigger(%this, %obj, %triggerNum, %val)
 {
 	if(%triggerNum == 0 && %val)
 	{
-      if(%obj.getEnergyLevel() < %this.maxEnergy)
+      if(%obj.client.spawnError !$= "")
       {
          %obj.client.play2D(BeepMessageSound);
          return;
