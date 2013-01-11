@@ -185,6 +185,20 @@ function GameConnection::updateLoadout(%this)
    %this.proxy.setGhostingListMode("GhostOnly");
    %this.proxy.getHudInfo().setActive(false);
    %this.proxy.setCollisionsDisabled(true);
+
+   %this.proxy.startFade(0, 0, true);
+
+   %this.proxy.shapeFxSetTexture(0, 0);
+   %this.proxy.shapeFxSetColor(0, 0);
+   %this.proxy.shapeFxSetBalloon(0, 1.0, 0.0);
+   %this.proxy.shapeFxSetFade(0, 1.0, 0.0);
+   %this.proxy.shapeFxSetActive(0, true, true);
+
+   %this.proxy.shapeFxSetTexture(1, 1);
+   %this.proxy.shapeFxSetColor(1, 0);
+   %this.proxy.shapeFxSetBalloon(1, 1.0, 0.0);
+   %this.proxy.shapeFxSetFade(1, 1.0, 0.0);
+   %this.proxy.shapeFxSetActive(1, true, true);
 }
 
 function GameConnection::displayInventory(%this, %obj)

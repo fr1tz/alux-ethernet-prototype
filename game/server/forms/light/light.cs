@@ -90,11 +90,11 @@ datablock EtherformData(FrmLight)
 
 	maxDamage = 0;
 	damageBuffer = 0;
-	maxEnergy = 0;
+	maxEnergy = 100;
 
 	damageBufferRechargeRate = 0.15;
 	damageBufferDischargeRate = 0.05;
-	energyRechargeRate = 0.4;
+	energyRechargeRate = 0.5;
  
     // collision box...
     boundingBox = "1.0 1.0 1.0";
@@ -140,7 +140,7 @@ function FrmLight::onAdd(%this,%obj)
    {
       %c = %obj.client;
       commandToClient(%c, 'Hud', "health", false);
-      commandToClient(%c, 'Hud', "energy", false);
+      commandToClient(%c, 'Hud', "energy", true, "game/client/ui/hud/pixmaps/energy_meter.png");
    }
 }
 
@@ -149,6 +149,12 @@ function FrmLight::onTrigger(%this, %obj, %triggerNum, %val)
 {
 	if(%triggerNum == 0 && %val)
 	{
+      if(%obj.getEnergyLevel() < %this.maxEnergy)
+      {
+         %obj.client.play2D(BeepMessageSound);
+         return;
+      }
+
       %pos = %obj.getWorldBoxCenter();
       %vec = %obj.getEyeVector();
  		%vel = VectorScale(%vec, FrmLightProjectile.muzzleVelocity);
@@ -199,6 +205,13 @@ function FrmLight_updateProxyThread(%this, %obj)
       return;
    }
 
+   if(%obj.getEnergyLevel() < %this.maxEnergy)
+   {
+      %client.spawnError = "Not enough energy to materialize.";
+      %client.proxy.shapeFxSetColor(0, 2);
+      %client.proxy.shapeFxSetColor(1, 2);
+   }
+
    %x = getWord(%c,1); %x = mFloor(%x); //%x -= (%x % 2);
    %y = getWord(%c,2); %y = mFloor(%y); //%y -= (%y % 2);
    %z = getWord(%c,3);
@@ -216,6 +229,9 @@ function FrmLight_updateProxyThread(%this, %obj)
    %client.proxy.addClientToGhostingList(%client);
    %client.proxy.setTransform(%transform);
 
+   if(%obj.getEnergyLevel() < %this.maxEnergy)
+      return;
+
    %client.spawnError = "The selected form can't materialize";
    if(%client.proxy.getDataBlock().form.isMethod("canMaterialize"))
    {
@@ -225,31 +241,12 @@ function FrmLight_updateProxyThread(%this, %obj)
 
    if(%client.spawnError $= "")
    {
-      %client.proxy.shapeFxSetTexture(0, 0);
       %client.proxy.shapeFxSetColor(0, 3);
-      %client.proxy.shapeFxSetBalloon(0, 1.0, 0.0);
-      %client.proxy.shapeFxSetFade(0, 1.0, 0.0);
-      %client.proxy.shapeFxSetActive(0, true, true);
-
-      %client.proxy.shapeFxSetTexture(1, 1);
       %client.proxy.shapeFxSetColor(1, 3);
-      %client.proxy.shapeFxSetBalloon(1, 1.0, 0.0);
-      %client.proxy.shapeFxSetFade(1, 1.0, 0.0);
-      %client.proxy.shapeFxSetActive(1, true, true);
    }
    else
    {
-      %client.proxy.shapeFxSetTexture(0, 0);
       %client.proxy.shapeFxSetColor(0, 1);
-      %client.proxy.shapeFxSetBalloon(0, 1.0, 0.0);
-      %client.proxy.shapeFxSetFade(0, 1.0, 0.0);
-      %client.proxy.shapeFxSetActive(0, true, true);
-
-      %client.proxy.shapeFxSetTexture(1, 1);
       %client.proxy.shapeFxSetColor(1, 1);
-      %client.proxy.shapeFxSetBalloon(1, 1.0, 0.0);
-      %client.proxy.shapeFxSetFade(1, 1.0, 0.0);
-      %client.proxy.shapeFxSetActive(1, true, true);
    }
-   %client.proxy.startFade(0, 0, true);
 }

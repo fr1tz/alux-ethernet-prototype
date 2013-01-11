@@ -499,24 +499,27 @@ function GameConnection::leaveForm(%this, %dematerialize)
       return;
    }
 
-   if(%dematerialize)
-      if(%this.player.getDataBlock().isMethod("dematerialize"))
-         %this.player.getDataBlock().dematerialize(%this.player);
+   %maxdmg = %this.player.getDataBlock().maxDamage;
 
-	MissionCleanup.add(%obj);
-	
 	%mat = %this.player.getTransform();
 	%dmg = %this.player.getDamageLevel();
 	%nrg = %this.player.getEnergyLevel();
 	%buf = %this.player.getDamageBufferLevel();
 	%vel = %this.player.getVelocity();
 
+   if(%dematerialize)
+      if(%this.player.getDataBlock().isMethod("dematerialize"))
+         %this.player.getDataBlock().dematerialize(%this.player);
+
 	%obj.setTransform(%mat);
 	%obj.setTransform(%pos);
 	%obj.setDamageLevel(%dmg);
 	%obj.setShieldLevel(%buf);
 
-   %obj.setEnergyLevel(%nrg - 50);
+   %prevhealth = (%maxdmg - %dmg)/%maxdmg;
+   %newenergy = (%data.maxEnergy*%prevhealth)/2;
+
+   %obj.setEnergyLevel(%newenergy);
 	%obj.applyImpulse(%pos, VectorScale(%vel,100));
 	%obj.playAudio(0, EtherformSpawnSound);
 	
@@ -745,19 +748,19 @@ function GameConnection::updateHudWarningsThread(%this)
 		return;
 	}
 
-	%health = %player.getDataBlock().maxDamage 
-		- %player.getDamageLevel() 
-		+ %player.getDamageBufferLevel();
-	%health = %health / %player.getDataBlock().maxDamage;
+//	%health = %player.getDataBlock().maxDamage
+//		- %player.getDamageLevel()
+//		+ %player.getDamageBufferLevel();
+//	%health = %health / %player.getDataBlock().maxDamage;
 
-	%this.setHudWarning(1, "[HEALTH]", %health < 0.25);
-   if(%player.isCAT)
-	  %this.setHudWarning(3, "[DAMPER]", %player.getEnergyPercent() < 0.5);
-   else
-	  %this.setHudWarning(3, "[ENERGY]", %player.getEnergyPercent() < 0.5);
+//	%this.setHudWarning(1, "[HEALTH]", %health < 0.25);
+//   if(%player.isCAT)
+//	  %this.setHudWarning(3, "[DAMPER]", %player.getEnergyPercent() < 0.5);
+//   else
+//	  %this.setHudWarning(3, "[ENERGY]", %player.getEnergyPercent() < 0.5);
 
    if(%this.spawnError $= "")
-      %this.setHudWarning(5, "Click left mouse button to materialize.", true);
+      %this.setHudWarning(5, "Click left mouse button to materialize.", false);
    else
       %this.setHudWarning(5, %this.spawnError, true);
 }

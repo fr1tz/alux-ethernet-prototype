@@ -141,6 +141,7 @@ function FrmLightProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dis
       %player.setTransform(%client.proxy.getTransform());
       %client.proxy.removeClientFromGhostingList(%client);
       %client.proxy.setTransform("0 0 0");
+      $aiTarget = %player;
    }
    else
    {
