@@ -268,7 +268,7 @@ function GameConnection::displayInventory(%this, %obj)
 	{
 		%margin = "\n\n\n\n\n\n\n\n\n\n\n\n";
 
-		%numDiscs = %obj.numDiscs;
+		%numDiscs = 0; // %obj.numDiscs;
 		%this.setHudMenuL(0, %margin, 1, 1);
 		%this.setHudMenuL(1, "<bitmap:share/hud/rotc/icon.disc.png><sbreak>", %numDiscs, 1);
 		for(%i = 2; %i < 10; %i++)
@@ -278,27 +278,27 @@ function GameConnection::displayInventory(%this, %obj)
 	{
 		%this.setHudMenuL(0, "\n", 8, 1);
 		%this.setHudMenuL(1, "<lmargin:100><font:NovaSquare:18><tab:120,175,200>" @
-         "Select Loadout:\n\n", 1, 1);
+         "Select Form:\n\n", 1, 1);
 
 		%slot = 2;
-		%prefix = "<bitmap:share/hud/rotc/icon.";
-		%suffix = ".50x15> ";
-		for(%i = 1; %i <= 3; %i++)
-		{
-		   for(%j = 1; %j <= %numItems; %j++)
-		   {
-				if(%this.loadout[%i] == %item[%j])
-				{
-					%icon = %iconname[%item[%j]];
-					%this.setHudMenuL(%slot, %prefix @ %icon @ %suffix, 1, 1);
-					%slot++;
-		 	   }
-		   }
-		}
-		%this.setHudMenuL(%slot, "<sbreak><font:NovaSquare:14>" @
-         "<bitmap:share/hud/rotc/icon.quickswitch.50x15>" @
-         "Press @bind51 to exchange\n\nLoad:\n", 1, 1);
-      %slot++;
+//		%prefix = "<bitmap:share/hud/rotc/icon.";
+//		%suffix = ".50x15> ";
+//		for(%i = 1; %i <= 3; %i++)
+//		{
+//		   for(%j = 1; %j <= %numItems; %j++)
+//		   {
+//				if(%this.loadout[%i] == %item[%j])
+//				{
+//					%icon = %iconname[%item[%j]];
+//					%this.setHudMenuL(%slot, %prefix @ %icon @ %suffix, 1, 1);
+//					%slot++;
+//		 	   }
+//		   }
+//		}
+//		%this.setHudMenuL(%slot, "<sbreak><font:NovaSquare:14>" @
+//         "<bitmap:share/hud/rotc/icon.quickswitch.50x15>" @
+//         "Press @bind51 to exchange\n\nLoad:\n", 1, 1);
+//      %slot++;
 
       %tmp = "";
 		for(%i = 1; %i <= 10; %i++)
