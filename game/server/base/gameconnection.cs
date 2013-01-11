@@ -295,13 +295,13 @@ function GameConnection::updateHudColors(%this)
 		}
 		else if(%teamId == 1)
 		{
-   		%c1 = "170 0 170";
-   		%c2 = "255 80 255";
+   		%c1 = "255 80 255";
+   		%c2 = "200 200 200";
 		}
 		else if(%teamId == 2)
 		{
-			%c1 = "0 170 170";
-			%c2 = "85 255 255";
+			%c1 = "85 255 255";
+   		%c2 = "200 200 200";
 		}
 	}
 	commandToClient(%this,'SetHudColor', %c1, %c2);	
