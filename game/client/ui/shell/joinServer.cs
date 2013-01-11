@@ -36,7 +36,7 @@ function JoinServerWindow::queryLan(%this)
 	JS_JoinServer.setActive(false);
 
 	queryLANServers(
-		28000,		// lanPort for local queries
+		29000,		// lanPort for local queries
 		0,			 // Query flags
 		$Client::GameTypeQuery,		 // gameTypes
 		$Client::MissionTypeQuery,	 // missionType
