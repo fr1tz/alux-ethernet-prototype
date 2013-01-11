@@ -191,6 +191,8 @@ function FrmLight_updateProxyThread(%this, %obj)
    if(!isObject(%client) || !isObject(%client.proxy))
       return;
 
+   %prevSpawnError = %client.spawnError;
+
    %eyeVec = %obj.getEyeVector();
    %start = %obj.getWorldBoxCenter();
    %end = VectorAdd(%start, VectorScale(%eyeVec, 9999));
@@ -211,13 +213,16 @@ function FrmLight_updateProxyThread(%this, %obj)
       %client.proxy.shapeFxSetColor(0, 2);
       %client.proxy.shapeFxSetColor(1, 2);
    }
+   else
+      %client.spawnError = "";
 
    %x = getWord(%c,1); %x = mFloor(%x); //%x -= (%x % 2);
    %y = getWord(%c,2); %y = mFloor(%y); //%y -= (%y % 2);
    %z = getWord(%c,3);
    %pos = %x SPC %y SPC %z;
    %normal = getWord(%c,4) SPC getWord(%c,5) SPC getWord(%c,6);
-   if(%pos $= %client.proxy.getPosition())
+   if(%pos $= %client.proxy.getPosition()
+   && (%client.spawnError $= %prevSpawnError))
       return;
 
    %transform = %pos SPC %normal SPC "0";
