@@ -46,7 +46,7 @@ new GuiControlProfile(GuiDefaultProfile)
 	fontSize = 14;
 
 	fontColor = "200 200 200";
-	fontColorHL = "0 100 255";
+	fontColorHL = "255 255 255";
 	fontColorNA = "100 100 100";
 	fontColorSEL= "200 200 200";
 	fontColors[4] = "255 96 96"; // aka fontColorLink
@@ -57,7 +57,7 @@ new GuiControlProfile(GuiDefaultProfile)
 	fontColors[9] = "0 200 255 255";
 
 	// bitmap information
-	bitmap = "./pixmaps/mg_window6";
+	bitmap = "./pixmaps/simpleWindow";
 	bitmapBase = "";
 	textOffset = "0 0";
 
@@ -99,17 +99,19 @@ new GuiControlProfile(GuiButtonProfile : GuiDefaultProfile)
 	fixedExtent = true;
 	justify = "center";
 	canKeyFocus = false;
-	bitmap = "./pixmaps/mg_button6";
+	//bitmap = "./pixmaps//mg_button6";
 };
 
 new GuiControlProfile(GuiHilightButtonProfile : GuiButtonProfile)
 {
-	bitmap = "./pixmaps/mg_button6hilight";
+	//bitmap = "./pixmaps/mg_button6hilight";
+   dummy = false;
 };
 
 new GuiControlProfile(GuiTitleButtonProfile : GuiButtonProfile)
 {
-	bitmap = "./pixmaps/mg_button6title";
+	//bitmap = "./pixmaps/mg_button6title";
+   dummy = false;
 };
 
 new GuiControlProfile(GuiRootMenuButtonProfile : GuiDefaultProfile)
@@ -294,7 +296,7 @@ new GuiControlProfile(GuiWindowProfile : GuiDefaultProfile)
 	fontColor = "255 255 255";
 	fontColorHL = "100 255 100";
 	text = "GuiWindowCtrl test";
-	bitmap = "./pixmaps/mg_window6";
+	bitmap = "./pixmaps/simpleWindow";
 	textOffset = "12 6";
 	hasBitmapArray = true;
 	justify = "left";
@@ -311,7 +313,7 @@ new GuiControlProfile(GuiInactiveWindowProfile : GuiDefaultProfile)
 	fontColor = "170 170 170";
 	fontColorHL = "170 170 170";
 	text = "GuiWindowCtrl test";
-	bitmap = "./pixmaps/mg_window6inactive";
+	bitmap = "./pixmaps/simpleWindow";
 	textOffset = "12 6";
 	hasBitmapArray = true;
 	justify = "left";
@@ -327,7 +329,7 @@ new GuiControlProfile(GuiTransparentWindowProfile : GuiDefaultProfile)
 	fontColor = "255 255 255";
 	fontColorHL = "255 255 255";
 	text = "GuiWindowCtrl test";
-	bitmap = "./pixmaps/mg_window4";
+	bitmap = "./pixmaps/simpleWindow";
 	textOffset = "6 6";
 	hasBitmapArray = true;
 	justify = "center";

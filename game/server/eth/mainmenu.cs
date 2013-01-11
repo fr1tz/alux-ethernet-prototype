@@ -7,7 +7,7 @@ function showMainMenu(%client)
 {
 	%newtxt = om_init();
 
-	%bg = %newtext @ "\n\n\n<bitmap:share/ui/rotc/logo>";
+	%bg = %newtext @ ""; //\n\n\n<bitmap:share/ui/rotc/logo>
 
 	%mutators = "";
 	for(%i = 0; %i < getRecordCount($MissionInfo::MutatorDesc); %i++)

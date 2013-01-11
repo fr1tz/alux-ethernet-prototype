@@ -158,31 +158,7 @@ function Hud::animThread(%this)
 
 function Hud::matchControlObject(%this, %obj)
 {
-	%data = %obj.getDataBlock().getName();
-
-	Scanlines.setVisible(false);
-     
-    Heat.setVisible(false);
-
-	if(%obj.getType() & $TypeMasks::CameraObjectType)
-	{
-		PrimaryWeaponIcon.setVisible(false);
-
-		HealthIcon.setVisible(false);
-		HealthMeter.setVisible(false);
-		EnergyIcon.setVisible(false);
-		EnergyMeter.setVisible(false);
-	}
-	else
-	{
-		HealthIcon.setVisible(true);
-		HealthMeter.setVisible(true);
-		EnergyIcon.setVisible(true);
-		EnergyMeter.setVisible(true);
-	}
-
-	if(%data $= "PlayerThirdEye")
-		Scanlines.setVisible(true);
+   // nothing here anymore
 }
 
 function Hud::updateGrenadeAmmo(%this)

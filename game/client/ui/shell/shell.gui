@@ -156,7 +156,7 @@ new GuiBitmapCtrl(Shell) {
          Extent = "110 23";
          MinExtent = "8 8";
          canSave = "1";
-         Visible = "1";
+         Visible = "0";
          Command = "addWindow(MissileCommandWindow);";
          hovertime = "1000";
          text = "Ms. Isle Command";

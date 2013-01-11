@@ -17,9 +17,9 @@ datablock ShotgunProjectileData(WpnStyckProjectile)
 	splashDamageRadius = 0;
 	splashImpulse      = 0;
 
-	energyDrain = 3; // how much energy does firing this projectile drain?
+	energyDrain = 20; // how much energy does firing this projectile drain?
 
-	numBullets = 6; // number of shotgun bullets
+	numBullets = 5; // number of shotgun bullets
 
 	range = 500; // shotgun range
 	muzzleSpreadRadius = 0.1;

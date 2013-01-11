@@ -15,17 +15,17 @@ $Pref::Master[1] = "2:spica.dyndns.info:28002";
 
 // Default server prefs when starting a server via the GUI
 $Pref::Server::RegionMask = 2;
-$Pref::Server::Name = "Lazy Hoster's Funhouse";
+$Pref::Server::Name = "Default Server";
 $Pref::Server::Info =
 	"<just:center>" @
-	"\n[ Default Arena description ]\n" @
+	"\n[ Default description ]\n" @
 	"<spush><font:NovaSquare:16><color:AA0000>" @
-	"Daily meetup time: 8pm CET<spop>\n" @
+	"Daily meetup time: None<spop>\n" @
 	"Scheduled matches: None";
 $Pref::Server::ConnectionError =
-	"You do not have the correct version of Revenge Of The Cats or "@
+	"You do not have the correct version of Alux or "@
 	"the related art needed to connect to this server.";
-$Pref::Server::Port = 28000;
+$Pref::Server::Port = 29000;
 $Pref::Server::Password = "";
 $Pref::Server::AdminPassword = "";
 $Pref::Server::MaxPlayers = 64;
@@ -45,7 +45,7 @@ $pref::ChatHudLength = 1;
 
 $Pref::IRC::Name = "newbie";
 $Pref::IRC::Server = "irc.freenode.net";
-$Pref::IRC::Channel = "#rotc";
+$Pref::IRC::Channel = "#alux";
 $Pref::IRC::ToChat::Status = true;
 $Pref::IRC::ToChat::Talk = true;
 $Pref::IRC::ToChat::Topic = true;
@@ -60,11 +60,11 @@ $Pref::Recording::SpeedPreset6 = 10;
 $Pref::Recording::FreelookMoveSpeed = 40;
 
 if($platform $= "windows")
-	$pref::Player::Name = "progman.exe";
+	$pref::Player::Name = "aluX";
 else if($platform $= "macos")
-	$pref::Player::Name = "player.app";
+	$pref::Player::Name = "Alux";
 else
-	$pref::Player::Name = "/bin/cat";
+	$pref::Player::Name = "aLux";
 $pref::Player::DefaultFov = 110;
 $pref::Player::ZoomSpeed = 200;
 $pref::Player::MouseZoomSteps = 3;

@@ -162,12 +162,12 @@ datablock PlayerData(FrmSoldier)
 
 	maxDamage = 100;
 	damageBuffer = 0;
-	maxEnergy = 100;
+	maxEnergy = 800;
 
 	repairRate = 0.8;
 	damageBufferRechargeRate = 0.0;
 	damageBufferDischargeRate = 0.0;
-	energyRechargeRate = 0.4;
+	energyRechargeRate = 0.0;
 
 	skidSpeed = 20;
 	skidFactor = 0.4;
@@ -348,6 +348,12 @@ function FrmSoldier::onAdd(%this, %obj)
 {
    Parent::onAdd(%this, %obj);
    %obj.setEnergyLevel(%this.maxEnergy);
+
+   if(isObject(%obj.client))
+   {
+      %c = %obj.client;
+      commandToClient(%c, 'Hud', "health", true);
+   }
 }
 
 function FrmSoldier::canMaterialize(%this, %client, %pos, %normal, %transform)

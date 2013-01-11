@@ -18,7 +18,7 @@ datablock ShotgunProjectileData(WpnLaserhawkProjectile)
 	splashImpulse      = 0;
 	bypassDamageBuffer = alsef;
 
-	energyDrain = 30; // how much energy does firing this projectile drain?
+	energyDrain = 200; // how much energy does firing this projectile drain?
 
 	numBullets = 1; // number of shotgun bullets
 	range = 2000; // shotgun range

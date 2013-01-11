@@ -20,7 +20,7 @@ datablock ShotgunProjectileData(WpnMinihawkProjectile)
 	splashDamageRadius = 0;
 	splashImpulse      = 0;
 
-	energyDrain = 20; // how much energy does firing this projectile drain?
+	energyDrain = 100; // how much energy does firing this projectile drain?
 
 	numBullets = 1; // number of shotgun bullets
 

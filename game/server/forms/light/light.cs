@@ -18,7 +18,7 @@ function EtherformData::damage(%this, %obj, %sourceObject, %pos, %damage, %damag
 function EtherformData::onAdd(%this, %obj)
 {
 	Parent::onAdd(%this, %obj);
-	
+
 	// start singing...
 	%obj.playAudio(1, FrmLightSingSound);
 
@@ -88,9 +88,9 @@ datablock EtherformData(FrmLight)
 	drag = 0.99;
 	density = 10;
 
-	maxDamage = 75;
-	damageBuffer = 25;
-	maxEnergy = 100;
+	maxDamage = 0;
+	damageBuffer = 0;
+	maxEnergy = 0;
 
 	damageBufferRechargeRate = 0.15;
 	damageBufferDischargeRate = 0.05;
@@ -107,8 +107,8 @@ datablock EtherformData(FrmLight)
 	speedDamageScale = 0.0;	// Dynamic field: impact damage multiplier
 
 	// damage info eyecandy...
-	damageBufferParticleEmitter = FrmLightDamageBufferEmitter;
-	repairParticleEmitter = FrmLightRepairEmitter;
+//	damageBufferParticleEmitter = FrmLightDamageBufferEmitter;
+//	repairParticleEmitter = FrmLightRepairEmitter;
 //	bufferRepairParticleEmitter = FrmLightBufferRepairEmitter;
 
 	// laser trail...
@@ -136,6 +136,12 @@ function FrmLight::onAdd(%this,%obj)
 {
 	Parent::onAdd(%this,%obj);
    FrmLight_updateProxyThread(%this, %obj);
+   if(isObject(%obj.client))
+   {
+      %c = %obj.client;
+      commandToClient(%c, 'Hud', "health", false);
+      commandToClient(%c, 'Hud', "energy", false);
+   }
 }
 
 // *** Callback function: called by engine
@@ -166,6 +172,9 @@ function FrmLight::onTrigger(%this, %obj, %triggerNum, %val)
 
       %obj.schedule(0, "delete");
 	}
+
+	if(%triggerNum == 1 && %val)
+      %obj.setVelocity("0 0 0");
 }
 
 function FrmLight_updateProxyThread(%this, %obj)

@@ -214,6 +214,9 @@ function GameConnection::onClientLeaveGame(%this)
 		
 	if(isObject(%this.player))
 		%this.player.delete();
+
+	if(isObject(%this.proxy))
+		%this.proxy.delete();
 		
 	%count = ClientGroup.getCount();
 	for(%cl= 0; %cl < %count; %cl++)
@@ -447,10 +450,7 @@ function GameConnection::leaveForm(%this, %dematerialize)
 		return;
 
    if(%this.player.getClassName() $= "Etherform")
-   {
-      %this.player.setVelocity("0 0 0");
       return;
-   }
 
 	//%tagged = %this.player.isTagged();
 	%pos = %this.player.getWorldBoxCenter();
@@ -1047,7 +1047,7 @@ function GameConnection::setHudMenuC(%this, %slot, %text, %repetitions, %visible
 
 function GameConnection::updateQuickbar(%this)
 {
-   %head = "<just:center><font:NovaSquare:16><linkcolor:0044FF>";
+   %head = "<just:center><font:NovaSquare:16><linkcolor:FFFFFF><linkcolorhl:FF0000>";
 
    %B1 = true;
    %B2 = true;

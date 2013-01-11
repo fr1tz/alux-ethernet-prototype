@@ -10,7 +10,7 @@
 
 function om_init()
 {
-	return "<font:NovaSquare:16><linkcolor:0044FF>";
+	return "<font:NovaSquare:16><linkcolor:FFFFFF><linkcolorhl:FF0000>";
 }
 
 function om_head(%client, %title, %prev, %refresh)

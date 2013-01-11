@@ -112,7 +112,7 @@ datablock ShapeBaseImageData(WpnMinihawkImage)
 	correctMuzzleVector = true;
 
 	usesEnergy = true;
-	minEnergy = 20;
+	minEnergy = WpnMinihawkProjectile.energyDrain-1;
 
 	projectile = WpnMinihawkProjectile;
 
@@ -206,16 +206,6 @@ function WpnMinihawkImage::onMount(%this, %obj, %slot)
 {
    Parent::onMount(%this, %obj, %slot);
 
-   // Set up crosshair
-   %client = %obj.client;
-   if(!isObject(%client)) return;
-   commandToClient(%client, 'Crosshair', 0);
-   commandToClient(%client, 'Crosshair', 7, 2);
-   commandToClient(%client, 'Crosshair', 2, 1, 64);
-   commandToClient(%client, 'Crosshair', 3, 1, 20);
-   commandToClient(%client, 'Crosshair', 5, "./rotc/ch1");
-   commandToClient(%client, 'Crosshair', 1);
-
    // Set up inaccuracy
    %obj.setImageInaccuracy(%slot, "radiusmin", 0.25);
    %obj.setImageInaccuracy(%slot, "radiusmax", 20.0);
@@ -235,6 +225,21 @@ function WpnMinihawkImage::onMount(%this, %obj, %slot)
    %obj.setImageMaxRecoil(%slot, 50);
    %obj.setImageRecoilAdd(%slot, 0);
    %obj.setImageRecoilDelta(%slot, -0);
+
+   %client = %obj.client;
+   if(!isObject(%client)) return;
+
+   // Set up HUD
+   commandToClient(%client, 'Hud', "energy", true, "share/hud/alux/ammobar.universal.8.png");
+
+   // Set up crosshair
+   commandToClient(%client, 'Crosshair', 0);
+   commandToClient(%client, 'Crosshair', 7, 2);
+   commandToClient(%client, 'Crosshair', 2, 1, 64);
+   commandToClient(%client, 'Crosshair', 3, 1, 20);
+   commandToClient(%client, 'Crosshair', 5, "./rotc/ch1");
+   commandToClient(%client, 'Crosshair', 1);
+
 }
 
 

@@ -13,12 +13,12 @@ $Server::MissionFile = "game/arenas/alux-ethernet/staub.mis";
 
 // Information about the server
 $Pref::Server::RegionMask = 2;
-$Pref::Server::Name = "Lazy Hoster's Funhouse";
+$Pref::Server::Name = "Default Server";
 $Pref::Server::Info = "" 
 	@	"<just:center>" 
-	@	"\n[ Default Arena description ]\n" 
+	@	"\n[ Default description ]\n" 
 	@	"<spush><font:NovaSquare:16><color:AA0000>" 
-	@	"Daily meetup time: 8pm CET<spop>\n" 
+	@	"Daily meetup time: None<spop>\n" 
 	@	"Scheduled matches: None" 
 	@ "";
 
@@ -40,7 +40,7 @@ $Pref::Server::ConnectionError =
 
 // The network port is also defined by the client, this value 
 // overrides pref::net::port for dedicated servers
-$Pref::Server::Port = 28000;
+$Pref::Server::Port = 29000;
 
 // If the password is set, clients must provide it in order
 // to connect to the server

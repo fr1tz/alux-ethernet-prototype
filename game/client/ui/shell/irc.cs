@@ -44,7 +44,7 @@ function irc_shorten_name(%name, %nocolor)
 			%c += %i * %value;
 	}
 
-	%name = strreplace(%name, "_rotc_", " [rotc]");
+	%name = strreplace(%name, "_alux_", " [alux]");
 
 	if(%nocolor)
 		return %name;
@@ -64,7 +64,7 @@ function irc_after_colon(%string)
 function irc_connect(%this)
 {
 	$IRC::Offline = false;
-	$IRC::Nick = $Pref::IRC::Name @ "_rotc_";
+	$IRC::Nick = $Pref::IRC::Name @ "_alux_";
 	$IRC::Server = $Pref::IRC::Server;
 	$IRC::Channel = $Pref::IRC::Channel;
 
@@ -234,7 +234,7 @@ function irc_send(%line)
 
 function irc_talk(%usr, %msg)
 {
-	%msg = strreplace(%msg, "_rotc_", " [rotc]");
+	%msg = strreplace(%msg, "_alux_", " [alux]");
 
 	%mltext = "<" @ irc_shorten_name(%usr) @ ">" SPC %msg;
 	if(strpos(%msg, $Pref::Irc::Name, 0) != -1)
@@ -319,7 +319,7 @@ function IRCconn::onDisconnect(%this)
 
 function IrcSend::onReturn(%this)
 {
-	%text = strreplace(IrcSend.getText(), " [rotc]", "_rotc_");
+	%text = strreplace(IrcSend.getText(), " [alux]", "_alux_");
 	irc_send("PRIVMSG" SPC $IRC::Channel SPC ":" @ %text);
 	irc_talk($IRC::Nick, %text);
 	IrcSend.setText("");

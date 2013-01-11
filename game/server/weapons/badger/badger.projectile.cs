@@ -17,7 +17,7 @@ datablock ShotgunProjectileData(WpnBadgerProjectile)
 	splashDamageRadius = 0;
 	splashImpulse      = 0;
 
-	energyDrain = 10; // how much energy does firing this projectile drain?
+	energyDrain = 50; // how much energy does firing this projectile drain?
 
 	numBullets = 1; // number of shotgun bullets
 

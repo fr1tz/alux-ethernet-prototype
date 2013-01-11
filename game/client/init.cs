@@ -109,7 +109,8 @@ function initClient()
     else
     {
         // Otherwise go to the splash screen.
-        showTorqueSplashScreen(Shell);
+        //showTorqueSplashScreen(Shell);
+        Canvas.setContent(Shell);
     }
 }
 
