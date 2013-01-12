@@ -500,13 +500,19 @@ function GameConnection::leaveForm(%this, %dematerialize)
       return;
    }
 
-   %maxdmg = %this.player.getDataBlock().maxDamage;
+	%obj.setTransform(%this.player.getTransform());
+	%obj.setTransform(%this.player.getWorldBoxCenter());
 
-	%mat = %this.player.getTransform();
-	%dmg = %this.player.getDamageLevel();
 	%nrg = %this.player.getEnergyLevel();
-	%buf = %this.player.getDamageBufferLevel();
-	%vel = %this.player.getVelocity();
+   %maxdmg = %this.player.getDataBlock().maxDamage;
+   %prevhealth = (%maxdmg - %dmg)/%maxdmg;
+   %newenergy = (%data.maxEnergy*%prevhealth)/2;
+   %obj.setEnergyLevel(%newenergy);
+	%obj.applyImpulse(%pos, VectorScale(%this.player.getVelocity(),100));
+	%obj.playAudio(0, EtherformSpawnSound);
+	
+//	if(%tagged)
+//		%obj.setTagged();
 
    if(%dematerialize)
    {
@@ -518,21 +524,6 @@ function GameConnection::leaveForm(%this, %dematerialize)
 		%this.player.setShapeName("");
 		//%this.player.getHudInfo().markAsControlled(0, 0);
    }
-
-	%obj.setTransform(%mat);
-	%obj.setTransform(%pos);
-	%obj.setDamageLevel(%dmg);
-	%obj.setShieldLevel(%buf);
-
-   %prevhealth = (%maxdmg - %dmg)/%maxdmg;
-   %newenergy = (%data.maxEnergy*%prevhealth)/2;
-
-   %obj.setEnergyLevel(%newenergy);
-	%obj.applyImpulse(%pos, VectorScale(%vel,100));
-	%obj.playAudio(0, EtherformSpawnSound);
-	
-//	if(%tagged)
-//		%obj.setTagged();
 
 	%this.control(%obj);
 	%this.player = %obj;
