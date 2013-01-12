@@ -290,6 +290,9 @@ function ShapeBaseData::onRemove(%this, %obj)
 		
 	if(isObject(%obj.ssc))
 		%obj.ssc.delete();
+
+	if(%obj.client && %obj.client == %obj.getControllingClient())
+      %obj.client.leaveForm();
 }
 
 // callback function: called by engine
