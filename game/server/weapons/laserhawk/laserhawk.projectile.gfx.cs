@@ -98,7 +98,7 @@ datablock LaserBeamData(WpnLaserhawkProjectileLaserTail)
 //-----------------------------------------------------------------------------
 // laser trail
 
-datablock MultiNodeLaserBeamData(WpnLaserhawkProjectileLaserTrail)
+datablock MultiNodeLaserBeamData(WpnLaserhawkProjectileLaserTrailOne)
 {
 	hasLine   = false;
 	lineColor = "1.00 0.50 0.50 0.5";
@@ -112,7 +112,7 @@ datablock MultiNodeLaserBeamData(WpnLaserhawkProjectileLaserTrail)
 	outerColor = "1.00 0.00 0.00 0.75";
 	outerWidth = "0.20";
 
-	bitmap = "share/shapes/rotc/weapons/sniperrifle/lasertrail3.orange";
+	bitmap = "share/textures/rotc/sniper_trail";
 	bitmapWidth = 0.15;
 
 	blendMode = 1;
@@ -137,7 +137,7 @@ datablock MultiNodeLaserBeamData(WpnLaserhawkProjectileLaserTrail)
     nodeDistance = 4;
 };
 
-datablock MultiNodeLaserBeamData(WpnLaserhawkProjectileLaserTrailHit)
+datablock MultiNodeLaserBeamData(WpnLaserhawkProjectileLaserTrailTwo)
 {
 	hasLine   = true;
 	lineColor = "1.00 0.50 0.00 1.0";
@@ -151,8 +151,8 @@ datablock MultiNodeLaserBeamData(WpnLaserhawkProjectileLaserTrailHit)
 	outerColor = "1.00 0.00 0.00 0.75";
 	outerWidth = "0.20";
 
-	bitmap = "share/shapes/rotc/weapons/sniperrifle/lasertrail2.orange";
-	bitmapWidth = 0.15;
+	bitmap = "share/textures/rotc/rainbow1";
+	bitmapWidth = 0.1;
 
 	blendMode = 1;
 	renderMode = $MultiNodeLaserBeamRenderMode::FaceViewer;
@@ -323,8 +323,8 @@ datablock ParticleData(WpnLaserhawkProjectileExplosion_Cloud)
 	textureName = "share/textures/rotc/corona.png";
 
 	colors[0]	  = "1.0 1.0 1.0 1.0";
-	colors[1]	  = "1.0 0.0 0.0 1.0";
-	colors[2]	  = "1.0 0.0 0.0 0.0";
+	colors[1]	  = "1.0 0.5 0.0 1.0";
+	colors[2]	  = "1.0 0.5 0.0 0.0";
 	sizes[0]		= 3.0;
 	sizes[1]		= 3.0;
 	sizes[2]		= 0.0;
@@ -407,7 +407,7 @@ datablock ParticleData(WpnLaserhawkProjectileExplosion_Smoke)
 
 	textureName = "share/textures/rotc/smoke_particle.png";
 
-	colors[0]	  = "0.9 0.0 0.0 1.0";
+	colors[0]	  = "1.0 0.5 0.0 1.0";
 	colors[1]	  = "0.9 0.9 0.9 0.5";
 	colors[2]	  = "0.9 0.9 0.9 0.0";
 	sizes[0]		= 0.5;
@@ -445,9 +445,9 @@ datablock ParticleData(WpnLaserhawkProjectileExplosion_Sparks)
 	lifetimeMS			  = 500;
 	lifetimeVarianceMS	= 350;
 	textureName			 = "share/textures/rotc/corona.png";
-	colors[0]	  = "1.0 1.0 1.0 1.0";
-	colors[1]	  = "1.0 1.0 1.0 1.0";
-	colors[2]	  = "1.0 1.0 1.0 0.0";
+	colors[0]	  = "1.0 0.5 0.0 1.0";
+	colors[1]	  = "1.0 0.5 0.0 1.0";
+	colors[2]	  = "1.0 0.5 0.0 0.0";
 	sizes[0]		= 0.5;
 	sizes[1]		= 0.5;
 	sizes[2]		= 0.75;
@@ -673,13 +673,13 @@ datablock ExplosionData(WpnLaserhawkProjectileHit)
 datablock ExplosionData(WpnLaserhawkProjectileExplosion : WpnLaserhawkProjectileHit)
 {
  	// shape...
-	explosionShape = "share/shapes/rotc/weapons/blaster/projectile.impact.red.dts";
-	faceViewer = false;
-	playSpeed = 0.4;
-	sizes[0] = "1 1 1";
-	sizes[1] = "1 1 1";
-	times[0] = 0.0;
-	times[1] = 1.0;
+	//explosionShape = "share/shapes/rotc/weapons/blaster/projectile.impact.red.dts";
+	//faceViewer = false;
+	//playSpeed = 0.4;
+	//sizes[0] = "1 1 1";
+	//sizes[1] = "1 1 1";
+	//times[0] = 0.0;
+	//times[1] = 1.0;
 
 	lifetimeMS = 2000;
 

@@ -34,9 +34,9 @@ datablock ShotgunProjectileData(WpnLaserhawkProjectile)
 
     //projectileShapeName = "share/shapes/rotc/weapons/blaster/projectile.red.dts";
 
-	explosion               = WpnLaserhawkProjectileExplosion;
-	hitEnemyExplosion       = WpnLaserhawkProjectileHit;
-    hitTeammateExplosion    = WpnLaserhawkProjectileHit;
+   explosion               = WpnLaserhawkProjectileExplosion;
+   hitEnemyExplosion       = WpnLaserhawkProjectileHit;
+   hitTeammateExplosion    = WpnLaserhawkProjectileHit;
     //nearEnemyExplosion	= DefaultProjectileNearEnemyExplosion;
     //hitDeflectorExplosion = SeekerDiscBounceEffect;
 
@@ -49,9 +49,9 @@ datablock ShotgunProjectileData(WpnLaserhawkProjectile)
     //laserTail	 = WpnLaserhawkProjectileLaserTail;
     //laserTailLen = 10.0;
 
-	laserTrail[0] = WpnLaserhawkProjectileLaserTrailHit;
-	laserTrail[1] = WpnLaserhawkProjectileLaserTrailHit;
-	laserTrail[2] = WpnLaserhawkProjectileLaserTrailMissed;
+	laserTrail[0] = WpnLaserhawkProjectileLaserTrailOne;
+	laserTrail[1] = WpnLaserhawkProjectileLaserTrailOne;
+	laserTrail[2] = WpnLaserhawkProjectileLaserTrailTwo;
 
 	//particleEmitter = WpnLaserhawkProjectileEmitter;
 
