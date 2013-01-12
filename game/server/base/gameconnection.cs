@@ -509,8 +509,15 @@ function GameConnection::leaveForm(%this, %dematerialize)
 	%vel = %this.player.getVelocity();
 
    if(%dematerialize)
+   {
       if(%this.player.getDataBlock().isMethod("dematerialize"))
          %this.player.getDataBlock().dematerialize(%this.player);
+   }
+   else
+   {
+		%this.player.setShapeName("");
+		//%this.player.getHudInfo().markAsControlled(0, 0);
+   }
 
 	%obj.setTransform(%mat);
 	%obj.setTransform(%pos);
