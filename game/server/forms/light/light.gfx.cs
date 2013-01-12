@@ -18,9 +18,9 @@ datablock ShapeBaseImageData(FrmLightLightImage)
 	
 	// light properties...
 	lightType = "ConstantLight";
-	lightColor = "0.8 8.0 0.8";
+	lightColor = "0.8 0.8 0.8";
 	lightTime = 1000;
-	lightRadius = 6;
+	lightRadius = 2;
 	lightCastsShadows = true;
 	lightAffectsShapes = true;
 
