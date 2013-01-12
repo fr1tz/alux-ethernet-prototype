@@ -135,13 +135,15 @@ datablock EtherformData(FrmLight)
 function FrmLight::onAdd(%this,%obj)
 {
 	Parent::onAdd(%this,%obj);
-   FrmLight_updateProxyThread(%this, %obj);
    if(isObject(%obj.client))
    {
       %c = %obj.client;
       commandToClient(%c, 'Hud', "health", false);
       commandToClient(%c, 'Hud', "energy", true, "game/client/ui/hud/pixmaps/energy_meter.png");
    }
+
+   %obj.client.spawnError = "Please wait...";
+   schedule(1000, %obj, "FrmLight_updateProxyThread", %this, %obj);
 }
 
 // *** Callback function: called by engine
