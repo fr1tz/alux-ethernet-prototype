@@ -396,8 +396,8 @@ function GameConnection::joinTeam(%this, %teamId)
 
 function GameConnection::spawnPlayer(%this)
 {
-	// remove existing player...
-	if(%this.player > 0)
+	// Remove existing etherform
+	if(%this.player > 0 && %this.player.getClassName() $= "Etherform")
 		%this.player.delete();
 
 	// observers have no players...
