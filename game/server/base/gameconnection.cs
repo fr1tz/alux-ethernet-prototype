@@ -447,23 +447,24 @@ function GameConnection::beepMsg(%this, %reason)
 
 function GameConnection::leaveForm(%this, %dematerialize, %choice)
 {
-	if(!isObject(%this.player))
+   if(%this.player.getClassName() $= "Etherform")
+      return;
+
+   %form = %this.player;
+	if(!isObject(%form))
 		return;
 
    if(%choice && !%dematerialize)
    {
-      if(%this.player.getDataBlock() != FrmCrate.getId())
+      if(%form.getDataBlock() != FrmCrate.getId())
       {
          %this.beepMsg("Currently players are only allowed to leave behind crates.");
          return;
       }
    }
 
-   if(%this.player.getClassName() $= "Etherform")
-      return;
-
-	//%tagged = %this.player.isTagged();
-	%pos = %this.player.getWorldBoxCenter();
+	//%tagged = %form.isTagged();
+	%pos = %form.getWorldBoxCenter();
 
 	if($Server::NewbieHelp)
 	{
@@ -509,33 +510,33 @@ function GameConnection::leaveForm(%this, %dematerialize, %choice)
       return;
    }
 
-	%obj.setTransform(%this.player.getTransform());
-	%obj.setTransform(%this.player.getWorldBoxCenter());
+	%obj.setTransform(%form.getTransform());
+	%obj.setTransform(%form.getWorldBoxCenter());
 
-	%nrg = %this.player.getEnergyLevel();
-   %maxdmg = %this.player.getDataBlock().maxDamage;
+	%nrg = %form.getEnergyLevel();
+   %maxdmg = %form.getDataBlock().maxDamage;
    %prevhealth = (%maxdmg - %dmg)/%maxdmg;
    %newenergy = (%data.maxEnergy*%prevhealth)/2;
    %obj.setEnergyLevel(%newenergy);
-	%obj.applyImpulse(%pos, VectorScale(%this.player.getVelocity(),100));
+	%obj.applyImpulse(%pos, VectorScale(%form.getVelocity(),100));
 	%obj.playAudio(0, EtherformSpawnSound);
+
+	%this.control(%obj);
+	%this.player = %obj;
 	
 //	if(%tagged)
 //		%obj.setTagged();
 
    if(%dematerialize)
    {
-      if(%this.player.getDataBlock().isMethod("dematerialize"))
-         %this.player.getDataBlock().dematerialize(%this.player);
+      if(%form.getDataBlock().isMethod("dematerialize"))
+         %form.getDataBlock().dematerialize(%form);
    }
    else
    {
-		%this.player.setShapeName("");
+		%form.setShapeName("");
 		//%this.player.getHudInfo().markAsControlled(0, 0);
    }
-
-	%this.control(%obj);
-	%this.player = %obj;
 }
 
 //-----------------------------------------------------------------------------
