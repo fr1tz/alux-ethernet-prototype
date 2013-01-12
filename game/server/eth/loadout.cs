@@ -41,6 +41,8 @@ function GameConnection::loadDefaultLoadout(%this, %no)
 
 function GameConnection::defaultLoadout(%this)
 {
+   %this.activeLoadout = %this.loadoutCode[1];
+
 	for(%i = 1; %i <= 9; %i++)
 		this.loadout[%i] = "";
 
