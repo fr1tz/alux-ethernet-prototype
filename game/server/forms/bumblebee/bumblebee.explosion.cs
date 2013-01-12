@@ -175,7 +175,6 @@ datablock ExplosionData(FrmBumblebeeExplosion)
 	soundProfile = FrmBumblebeeExplosionSound;
 
 	// shape...
-	explosionShape = "share/shapes/alux/nothing.dts";
 	faceViewer	  = true;
 	explosionScale = "0.8 0.8 0.8";
 

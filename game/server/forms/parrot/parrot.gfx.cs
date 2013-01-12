@@ -36,18 +36,6 @@ datablock DebrisData(FrmParrotDebris)
 };
 
 //-----------------------------------------------------------------------------
-// explosion...
-
-datablock ExplosionData(FrmParrotExplosion)
-{
-   soundProfile = FrmParrotExplosionSound;
-   
-   explosionShape = "share/shapes/rotc/effects/explosion_white.dts";
-   faceViewer     = true;
-   explosionScale = "1.0 1.0 1.0";
-};
-
-//-----------------------------------------------------------------------------
 // defunct effect...
 
 datablock ParticleData(FrmParrotDefunctEffect_Dust)

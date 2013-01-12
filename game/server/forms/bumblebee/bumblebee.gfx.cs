@@ -36,18 +36,6 @@ datablock DebrisData(FrmBumblebeeDebris)
 };
 
 //-----------------------------------------------------------------------------
-// explosion...
-
-datablock ExplosionData(FrmBumblebeeExplosion)
-{
-   soundProfile = FrmBumblebeeExplosionSound;
-   
-   explosionShape = "share/shapes/rotc/effects/explosion_white.dts";
-   faceViewer     = true;
-   explosionScale = "1.0 1.0 1.0";
-};
-
-//-----------------------------------------------------------------------------
 // defunct effect...
 
 datablock ParticleData(FrmBumblebeeDefunctEffect_Dust)

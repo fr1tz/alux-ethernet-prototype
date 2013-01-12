@@ -341,8 +341,6 @@ datablock ExplosionData(FrmParrotExplosion)
 {
 	soundProfile = FrmParrotExplosionSound;
 
-	// shape...
-	explosionShape = "share/shapes/alux/nothing.dts";
 	faceViewer	  = true;
 	explosionScale = "0.8 0.8 0.8";
 
