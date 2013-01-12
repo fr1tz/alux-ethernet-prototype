@@ -54,7 +54,7 @@ function GameConnection::onCookiesReceived(%this, %cookies)
 	%this.hudColor = arrayGetValue(%cookies, "Alux_HudColor");
 	%this.initialTopHudMenu = arrayGetValue(%cookies, "Alux_HudMenuTMode");
 	if(%this.initialTopHudMenu $= "")
-		%this.initialTopHudMenu = "newbiehelp";
+		%this.initialTopHudMenu = "invisible";
 	%this.damageScreenMode = arrayGetValue(%cookies, "Alux_DamageScreenMode");
 	if(%this.damageScreenMode $= "")
 		%this.damageScreenMode = 1;
@@ -774,7 +774,7 @@ function GameConnection::switchTopHudMenuMode(%this)
 	}
 	else if(%this.topHudMenu $= "healthbalance")
 	{
-		%this.topHudMenu = "nothing";
+		%this.topHudMenu = "invisible";
 	}
 	else 
 	{
