@@ -11,6 +11,7 @@ datablock StaticShapeData(FrmSoldierProxy : FrmCrateProxy)
 
 function FrmSoldierProxy::adjustTransform(%this, %pos, %normal, %eyeVec)
 {
+   %pos = VectorAdd(%pos, VectorScale(%normal, 0.25));
    %vec = getWord(%eyeVec,0) SPC getWord(%eyeVec,1) SPC 0;
    %transform = createOrientFromDir(%vec);
    %transform = setWord(%transform, 0, getWord(%pos, 0));
