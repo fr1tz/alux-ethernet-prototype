@@ -35,7 +35,7 @@ function createTeams()
 		$Team1 = new ScriptObject()
 		{
 			teamId = 1;
-			name = "Reds";
+			name = "Team1";
 			score = 0;
 			numPlayers = 0;
 			numTerritorySurfaces = 0;
@@ -53,7 +53,7 @@ function createTeams()
 		$Team2 = new ScriptObject()
 		{
 			teamId = 2;
-			name = "Blues";
+			name = "Team2";
 			score = 0;
 			numPlayers = 0;
 			numTerritorySurfaces = 0;
