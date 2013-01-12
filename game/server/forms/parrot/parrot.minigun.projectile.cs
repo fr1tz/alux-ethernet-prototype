@@ -27,9 +27,9 @@ datablock ProjectileData(WpnParrotMinigunProjectile)
 
 	//projectileShapeName = "share/shapes/rotc/weapons/blaster/projectile.red.dts";
 
-	explosion               = WpnRaptorProjectileImpact;
-	hitEnemyExplosion       = WpnRaptorProjectileImpact;
-	hitTeammateExplosion    = WpnRaptorProjectileImpact;
+	explosion               = WpnBadgerProjectileImpact;
+	hitEnemyExplosion       = WpnBadgerProjectileImpact;
+	hitTeammateExplosion    = WpnBadgerProjectileImpact;
 	//nearEnemyExplosion	= DefaultProjectileNearEnemyExplosion;
 	//hitDeflectorExplosion = SeekerDiscBounceEffect;
 
@@ -37,7 +37,7 @@ datablock ProjectileData(WpnParrotMinigunProjectile)
 
 	missEnemyEffect = WpnParrotMinigunProjectileMissedEnemyEffect;
 
-	laserTail    = WpnParrotMinigunProjectileLaserTail;
+	laserTail    = WpnBadgerProjectileLaserTail;
 	laserTailLen = 8.0;
 
 	laserTrail[0] = WpnParrotMinigunProjectileLaserTrail;
