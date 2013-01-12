@@ -445,10 +445,19 @@ function GameConnection::beepMsg(%this, %reason)
 	%this.play2D(BeepMessageSound);
 }
 
-function GameConnection::leaveForm(%this, %dematerialize)
+function GameConnection::leaveForm(%this, %dematerialize, %choice)
 {
 	if(!isObject(%this.player))
 		return;
+
+   if(%choice && !%dematerialize)
+   {
+      if(%this.player.getDataBlock() != FrmCrate.getId())
+      {
+         %this.beepMsg("Currently players are only allowed to leave behind crates.");
+         return;
+      }
+   }
 
    if(%this.player.getClassName() $= "Etherform")
       return;

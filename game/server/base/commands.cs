@@ -37,11 +37,11 @@ function serverCmdPlayerAction(%client, %nr, %val)
 	}
 	else if(%nr == 10 && %val && %client.menuVisible == false)
 	{
-		%client.leaveForm(true);
+		%client.leaveForm(true, true);
 	}
 	else if(%nr == 11 && %val && %client.menuVisible == false)
 	{
-		%client.leaveForm(false);
+		%client.leaveForm(false, true);
 	}
 	else if(%nr == 12 && %val)
 	{
