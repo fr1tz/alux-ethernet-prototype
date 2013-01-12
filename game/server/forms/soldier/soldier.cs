@@ -449,8 +449,7 @@ function FrmSoldier::materializeFx(%this, %obj)
 
 function FrmSoldier::dematerialize(%this, %obj)
 {
-   createExplosion(FrmParrotExplosion, %obj.getPosition(), "0 0 1");
-   %obj.schedule(0, "setDamageState", "Destroyed");
+   %obj.damage(0, %obj.getPosition(), 100, $DamageType::Force);
 }
 
 
