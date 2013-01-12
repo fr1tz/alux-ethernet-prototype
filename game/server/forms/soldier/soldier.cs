@@ -402,19 +402,19 @@ function FrmSoldier::canMaterialize(%this, %client, %pos, %normal, %transform)
    %spawn = true;
 	if(%inEnemyZone)
 	{
-		return "You can not manifest in an enemy zone!";
+		return "You cannot materialize on an enemy's surface!";
 	}
 	else if(%inOwnZone && !%inOwnTerritory)
 	{
-		return "This is not a territory zone!";
+		return "This surface can't be used to materialize!";
 	}
 	else if(!%inOwnZone)
 	{
-		return "You can only manifest in your team's territory zones!";
+		return "You can only materialize on your team's surfaces!";
 	}
 	else if(%zoneBlocked)
 	{
-		return "This zone is currently blocked!";
+		return "This surface is currently blocked!";
 	}
 
    return "";

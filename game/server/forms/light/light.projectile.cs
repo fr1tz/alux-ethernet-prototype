@@ -109,22 +109,22 @@ function FrmLightProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dis
    %spawn = true;
 	if(%inEnemyZone)
 	{
-		%client.beepMsg("You can not manifest in an enemy zone!");
+		%client.beepMsg("You cannot materialize on an enemy's surface!");
 		%spawn = false;
 	}
 	else if(%inOwnZone && !%inOwnTerritory)
 	{
-		%client.beepMsg("This is not a territory zone!");
+		%client.beepMsg("This surface can't be used to materialize!");
 		%spawn = false;
 	}
 	else if(!%inOwnZone)
 	{
-		%client.beepMsg("You can only manifest in your team's territory zones!");
+		%client.beepMsg("You can only materialize on your team's surfaces!");
 		%spawn = false;
 	}
 	else if(%zoneBlocked)
 	{
-		%client.beepMsg("This zone is currently blocked!");
+		%client.beepMsg("This surface is currently blocked!");
 		%spawn = false;
 	}
 
