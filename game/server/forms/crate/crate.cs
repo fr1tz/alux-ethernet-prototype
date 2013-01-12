@@ -227,5 +227,6 @@ function FrmCrate::materializeFx(%this, %obj)
 
 function FrmCrate::dematerialize(%this, %obj)
 {
+   createExplosion(FrmCrateExplosion, %obj.getPosition(), "0 0 1");
    %obj.schedule(0, "delete");
 }

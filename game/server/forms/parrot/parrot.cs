@@ -295,6 +295,7 @@ function FrmParrot::materializeFx(%this, %obj)
 // Script function
 function FrmParrot::dematerialize(%this, %obj)
 {
+   createExplosion(FrmParrotExplosion, %obj.getPosition(), "0 0 1");
    %obj.schedule(0, "delete");
 }
 

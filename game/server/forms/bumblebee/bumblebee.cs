@@ -367,6 +367,7 @@ function FrmBumblebee::materializeFx(%this, %obj)
 // Called from script
 function FrmBumblebee::dematerialize(%this, %obj)
 {
+   createExplosion(FrmParrotExplosion, %obj.getPosition(), "0 0 1");
    %obj.schedule(0, "delete");
 }
 
