@@ -403,6 +403,7 @@ function GameConnection::spawnPlayer(%this)
 	// observers have no players...
 	if( %this.team == $Team0 )
 	{
+		%this.camera.setFlyMode();
 		%this.setControlObject(%this.camera);
 		return;
 	}
