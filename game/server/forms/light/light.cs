@@ -185,6 +185,12 @@ function FrmLight::onTrigger(%this, %obj, %triggerNum, %val)
       %obj.setVelocity("0 0 0");
 }
 
+// called by ShapeBase::impulse() script function
+function FrmLight::impulse(%this, %obj, %position, %impulseVec, %src)
+{
+   return; // ignore impulses
+}
+
 function FrmLight_updateProxyThread(%this, %obj)
 {
    schedule(32, %obj, "FrmLight_updateProxyThread", %this, %obj);
