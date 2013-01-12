@@ -146,7 +146,7 @@ function sceneLightingComplete()
 function connect(%server)
 {
    disconnect();
-	%conn = new GameConnection();
+	%conn = new GameConnection(ServerConnection);
 	%conn.setConnectArgs($GameNameString, $GameVersionString, $Pref::Player::Name);
 	%conn.setJoinPassword($Client::Password);
 	%conn.connect(%server);
