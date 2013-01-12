@@ -5,7 +5,7 @@
 
 datablock AudioProfile(FrmParrotEngineSound)
 {
-   filename = "share/sound/rotc/slide2";
+   filename = "share/sounds/rotc/slide3.wav";
    description = AudioDefaultLooping3D;
 	preload = true;
 };
