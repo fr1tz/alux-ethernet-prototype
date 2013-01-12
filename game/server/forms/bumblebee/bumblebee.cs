@@ -193,7 +193,6 @@ function FrmBumblebee::onDamage(%this, %obj, %delta)
 	%totalDamage = %obj.getDamageLevel();
 	if(%totalDamage >= %this.maxDamage)
 	{
-      createExplosion(FrmLightProjectileExplosion, %obj.getPosition(), "0 0 1");
       %this.explode(%obj);
 	}
 }
@@ -267,6 +266,9 @@ function FrmBumblebee::damage(%this, %obj, %sourceObject, %position, %damage, %d
 function FrmBumblebee::explode(%this, %obj)
 {
    %pos = %obj.getPosition();
+
+   createExplosion(FrmBumblebeeExplosion, %pos, "0 0 1");
+
 	%radius = 10;
 	%damage = 1000;
 	%damageType = $DamageType::Splash;
