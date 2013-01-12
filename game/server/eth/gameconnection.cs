@@ -32,6 +32,8 @@ function srdi_h3(%t)
 
 function GameConnection::showReceivedDamageInfo(%this, %died)
 {
+   return;
+
 	%t = "";
 	%a = %this.stats.lastReceivedDamage;
 
