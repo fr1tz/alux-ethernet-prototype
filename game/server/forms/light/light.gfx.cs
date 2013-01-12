@@ -644,8 +644,8 @@ datablock ExplosionData(FrmLightProjectileExplosion)
 //	particleRadius = 4;
 
 	emitter[0] = FrmLightProjectileExplosion_DustEmitter;
-	emitter[1] = FrmLightProjectileExplosion_SmokeEmitter;
-	emitter[2] = FrmLightProjectileExplosion_SparksEmitter;
+//	emitter[1] = FrmLightProjectileExplosion_SmokeEmitter;
+//	emitter[2] = FrmLightProjectileExplosion_SparksEmitter;
 
 	// Camera shake
 	shakeCamera = true;
