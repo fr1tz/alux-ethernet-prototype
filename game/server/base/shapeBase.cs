@@ -265,6 +265,9 @@ function ShapeBaseData::onAdd(%this,%obj)
 	// Barrier...
 	%obj.barrier = 0;
 
+	%obj.client.inventoryMode = "";
+	%obj.client.displayInventory(%obj);
+
 	// Start threads...
 	%obj.checkTaggedThread();
 }
