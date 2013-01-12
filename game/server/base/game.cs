@@ -212,6 +212,8 @@ function serverAdvanceTeamJoust()
 // this function starts a new round...
 function startNewRound()
 {
+	$Game::RoundRestarting = true;
+
 	// cleanup...
 	for( %idx = MissionCleanup.getCount()-1; %idx >= 0; %idx-- )
 	{
