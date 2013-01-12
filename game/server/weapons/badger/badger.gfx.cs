@@ -9,15 +9,15 @@
 datablock LaserBeamData(WpnBadgerProjectileLaserTail)
 {
 	hasLine = true;
-	lineStartColor	= "1.00 1.00 1.00 0.0";
-	lineBetweenColor = "1.00 1.00 1.00 1.0";
-	lineEndColor	  = "1.00 1.00 1.00 1.0";
+	lineStartColor	= "0.00 0.50 1.00 0.0";
+	lineBetweenColor = "0.00 0.50 1.00 1.0";
+	lineEndColor	  = "0.00 0.50 1.00 1.0";
 	lineWidth		  = 2.0;
 
 	hasInner = true;
-	innerStartColor = "1.00 1.00 1.00 0.0";
-	innerBetweenColor = "1.00 1.00 1.00 1.0";
-	innerEndColor = "1.00 1.00 1.00 1.0";
+	innerStartColor = "0.00 0.50 1.00 0.0";
+	innerBetweenColor = "0.00 0.50 1.00 1.0";
+	innerEndColor = "0.00 0.50 1.00 1.0";
 	innerStartWidth = "0.05";
 	innerBetweenWidth = "0.25";
 	innerEndWidth = "0.05";
@@ -138,8 +138,8 @@ datablock ParticleData(WpnBadgerProjectileHit_Particle)
 	textureName	= "share/textures/alux/circle1";
 
 	colors[0]	  = "1.0 1.0 1.0 1.0";
-	colors[1]	  = "1.0 0.0 1.0 0.5";
-	colors[2]	  = "1.0 0.0 1.0 0.0";
+	colors[1]	  = "0.0 0.5 1.0 0.5";
+	colors[2]	  = "0.0 0.5 1.0 0.0";
 	sizes[0]		= 0.5;
 	sizes[1]		= 1.0;
 	sizes[2]		= 1.5;
