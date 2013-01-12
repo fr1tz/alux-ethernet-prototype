@@ -12,8 +12,8 @@ datablock AudioProfile(FrmParrotEngineSound)
 
 datablock AudioProfile(FrmParrotExplosionSound)
 {
-   filename = "~/data/vehicles/FrmParrot/sound_explode.wav";
-   description = AudioDefault3D;
+	filename = "share/sounds/rotc/explosion10.wav";
+	description = AudioFar3D;
 	preload = true;
 };
 

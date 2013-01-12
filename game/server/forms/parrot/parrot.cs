@@ -204,7 +204,7 @@ function FrmParrot::onDamage(%this, %obj, %delta)
 	%totalDamage = %obj.getDamageLevel();
 	if(%totalDamage >= %this.maxDamage)
 	{
-      createExplosion(FrmLightProjectileExplosion, %obj.getPosition(), "0 0 1");
+      createExplosion(FrmParrotExplosion, %obj.getPosition(), "0 0 1");
       %obj.schedule(0, "delete");
 	}
 }
