@@ -9,15 +9,15 @@
 datablock LaserBeamData(WpnMinihawkProjectileLaserTail)
 {
 	hasLine = true;
-	lineStartColor	= "1.00 1.00 1.00 0.0";
-	lineBetweenColor = "1.00 1.00 1.00 1.0";
-	lineEndColor	  = "1.00 1.00 1.00 1.0";
+	lineStartColor	= "0.00 1.00 0.00 0.0";
+	lineBetweenColor = "0.00 1.00 0.00 1.0";
+	lineEndColor	  = "0.00 1.00 0.00 1.0";
 	lineWidth		  = 2.0;
 
 	hasInner = true;
-	innerStartColor = "1.00 1.00 1.00 0.0";
-	innerBetweenColor = "1.00 1.00 1.00 1.0";
-	innerEndColor = "1.00 1.00 1.00 1.0";
+	innerStartColor = "0.00 1.00 0.00 0.0";
+	innerBetweenColor = "0.00 1.00 0.00 1.0";
+	innerEndColor = "0.00 1.00 0.00 1.0";
 	innerStartWidth = "0.3";
 	innerBetweenWidth = "0.3";
 	innerEndWidth = "0.05";
@@ -42,84 +42,43 @@ datablock LaserBeamData(WpnMinihawkProjectileLaserTail)
 //-----------------------------------------------------------------------------
 // laser trail
 
-datablock MultiNodeLaserBeamData(WpnMinihawkProjectileLaserTrail2)
+datablock MultiNodeLaserBeamData(WpnMinihawkProjectileLaserTrail)
 {
-	hasLine   = false;
-	lineColor = "1.00 0.50 0.50 0.5";
-	lineWidth = 2.0;
+	hasLine = false;
+	lineColor	= "0.00 1.00 0.00 0.80";
 
 	hasInner = false;
-	innerColor = "1.00 0.50 0.50 0.5";
-	innerWidth = "0.08";
+	innerColor = "0.00 1.00 0.00 0.20";
+	innerWidth = "0.05";
 
 	hasOuter = false;
-	outerColor = "1.00 0.00 0.00 0.75";
-	outerWidth = "0.20";
+	outerColor = "1.00 1.00 1.00 0.02";
+	outerWidth = "0.05";
 
-	bitmap = "share/textures/alux/trail1.magenta";
-	bitmapWidth = 0.15;
+	bitmap = "share/textures/rotc/sniper_trail";
+	bitmapWidth = 0.2;
 
 	blendMode = 1;
-	renderMode = $MultiNodeLaserBeamRenderMode::FaceViewer;
-	fadeTime = 500;
 
     windCoefficient = 0.0;
 
     // node x movement...
     nodeMoveMode[0]     = $NodeMoveMode::ConstantSpeed;
-    nodeMoveSpeed[0]    = -0.5;
-    nodeMoveSpeedAdd[0] =  1.0;
-    // node y movement...
-    nodeMoveMode[1]     = $NodeMoveMode::ConstantSpeed;
-    nodeMoveSpeed[1]    = -0.5;
-    nodeMoveSpeedAdd[1] =  1.0;
-    // node z movement...
-    nodeMoveMode[2]     = $NodeMoveMode::ConstantSpeed;
-    nodeMoveSpeed[2]    = -0.5;
-    nodeMoveSpeedAdd[2] =  1.0;
-
-    nodeDistance = 4;
-};
-
-datablock MultiNodeLaserBeamData(WpnMinihawkProjectileLaserTrail)
-{
-	hasLine   = false;
-	lineColor = "1.00 0.50 0.50 0.5";
-	lineWidth = 2.0;
-
-	hasInner = false;
-	innerColor = "1.00 0.50 0.50 0.5";
-	innerWidth = "0.08";
-
-	hasOuter = false;
-	outerColor = "1.00 0.00 0.00 0.75";
-	outerWidth = "0.20";
-
-	bitmap = "share/shapes/rotc/weapons/sniperrifle/lasertrail.red";
-	bitmapWidth = 0.15;
-
-	blendMode = 1;
-	renderMode = $MultiNodeLaserBeamRenderMode::FaceViewer;
-	fadeTime = 250;
-
-    windCoefficient = 0.0;
-
-    // node x movement...
-    nodeMoveMode[0]     = $NodeMoveMode::None;
     nodeMoveSpeed[0]    = -0.25;
     nodeMoveSpeedAdd[0] =  0.5;
     // node y movement...
-    nodeMoveMode[1]     = $NodeMoveMode::None;
+    nodeMoveMode[1]     = $NodeMoveMode::ConstantSpeed;
     nodeMoveSpeed[1]    = -0.25;
     nodeMoveSpeedAdd[1] =  0.5;
     // node z movement...
-    nodeMoveMode[2]     = $NodeMoveMode::None;
+    nodeMoveMode[2]     = $NodeMoveMode::ConstantSpeed;
     nodeMoveSpeed[2]    = -0.25;
     nodeMoveSpeedAdd[2] =  0.5;
 
-    nodeDistance = 4;
-};
+	nodeDistance = 3;
 
+	fadeTime = 500;
+};
 //-----------------------------------------------------------------------------
 // hit enemy...
 
@@ -130,19 +89,19 @@ datablock ParticleData(WpnMinihawkProjectileHit_Particle)
 	gravityCoefficient	= 0.0;
 	inheritedVelFactor	= 0.0;
 
-	lifetimeMS			  = 1000;
+	lifetimeMS			  = 250;
 	lifetimeVarianceMS	= 0;
 
 	useInvAlpha =  false;
 
 	textureName	= "share/textures/alux/circle1";
 
-	colors[0]	  = "1.0 0.0 1.0 1.0";
-	colors[1]	  = "1.0 0.0 1.0 1.0";
-	colors[2]	  = "1.0 0.0 1.0 0.0";
+	colors[0]	  = "0.0 1.0 0.0 1.0";
+	colors[1]	  = "0.0 1.0 0.0 1.0";
+	colors[2]	  = "0.0 1.0 0.0 0.0";
 	sizes[0]		= 0.5;
-	sizes[1]		= 0.5;
-	sizes[2]		= 0.5;
+	sizes[1]		= 1.0;
+	sizes[2]		= 1.5;
 	times[0]		= 0.0;
 	times[1]		= 0.5;
 	times[2]		= 1.0;
@@ -231,34 +190,11 @@ datablock ParticleEmitterData(WpnMinihawkProjectileImpact_SmokeEmitter)
 	particles = "WpnMinihawkProjectileImpact_Smoke";
 };
 
-datablock DebrisData(WpnMinihawkProjectileImpact_Debris)
-{
-	// shape...
-	shapeFile = "share/shapes/rotc/misc/debris1.white.dts";
-
-	// bounce...
-	staticOnMaxBounce = true;
-	numBounces = 5;
-
-	// physics...
-	gravModifier = 2.0;
-	elasticity = 0.6;
-	friction = 0.1;
-
-	// spin...
-	minSpinSpeed = 60;
-	maxSpinSpeed = 600;
-
-	// lifetime...
-	lifetime = 4.0;
-	lifetimeVariance = 1.0;
-};
-
 datablock ExplosionData(WpnMinihawkProjectileImpact)
 {
 	soundProfile = WpnMinihawkProjectileImpactSound;
 
-	lifetimeMS = 3000;
+	lifetimeMS = 150;
 
  	// shape...
 	//explosionShape = "share/shapes/rotc/weapons/blaster/projectile.impact.red.dts";
@@ -285,11 +221,11 @@ datablock ExplosionData(WpnMinihawkProjectileImpact)
 	//debrisVelocityVariance = 5.0;
 
 	// Dynamic light
-	lightStartRadius = 0;
+	lightStartRadius = 2;
 	lightEndRadius = 0;
-	lightStartColor = "1.0 0.0 0.0";
-	lightEndColor = "0.0 0.0 0.0";
-    lightCastShadows = false;
+	lightStartColor = "1.0 1.0 1.0";
+	lightEndColor = "1.0 1.0 1.0";
+   lightCastShadows = false;
 
 	shakeCamera = false;
 };
