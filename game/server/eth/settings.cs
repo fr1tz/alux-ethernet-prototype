@@ -5,6 +5,14 @@
 
 function showSettings(%client, %section)
 {
+	%client.beginMenuText(%this.menu $= "admin");
+   %client.addMenuText("Nothing here yet", 1);
+	%client.endMenuText();
+   return;
+
+
+
+
 	%newtxt = om_init();
 	%client.beginMenuText();
 	

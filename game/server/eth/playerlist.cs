@@ -33,6 +33,8 @@ function showPlayerList(%client, %arg)
 	if(%show $= "")
 		%show = "dmgrating";
 
+   %show = "time";
+
 	%client.playerListShow = %show;
 
 	%array = new Array();
@@ -152,21 +154,21 @@ function showPlayerList(%client, %arg)
 	%newtxt = %newtxt @
 		"Show:\n" @
 		"<lmargin:10>" @
-		"<a:cmd ShowPlayerList dmgrating>Damage rating</a> |" SPC
-		"<a:cmd ShowPlayerList dmgratio>Damage ratio</a> |" SPC
-		"<a:cmd ShowPlayerList healthlost>Effective health loss</a> |" SPC
-		"<a:cmd ShowPlayerList PvE>PvE</a> |" SPC
-		"<a:cmd ShowPlayerList chuck>Invincibility</a> |" SPC
-		"\nWeapon effectiveness:\n   " SPC
-		"<a:cmd ShowPlayerList totalF>Total</a>," SPC
-		"<a:cmd ShowPlayerList discF>Disc</a>," SPC
-		"<a:cmd ShowPlayerList grenadeF>Grenade</a>," SPC
-		"<a:cmd ShowPlayerList blasterF>Blaster</a>," SPC
-		"<a:cmd ShowPlayerList brF>BR</a>," SPC
-		"<a:cmd ShowPlayerList sniperF>Sniper</a>," SPC		
-		"<a:cmd ShowPlayerList minigunF>Minigun</a>," SPC
-		"<a:cmd ShowPlayerList glF>GL</a>\n" SPC
-		"<a:cmd ShowPlayerList time>Time played</a>\n" @
+//		"<a:cmd ShowPlayerList dmgrating>Damage rating</a> |" SPC
+//		"<a:cmd ShowPlayerList dmgratio>Damage ratio</a> |" SPC
+//		"<a:cmd ShowPlayerList healthlost>Effective health loss</a> |" SPC
+//		"<a:cmd ShowPlayerList PvE>PvE</a> |" SPC
+//		"<a:cmd ShowPlayerList chuck>Invincibility</a> |" SPC
+//		"\nWeapon effectiveness:\n   " SPC
+//		"<a:cmd ShowPlayerList totalF>Total</a>," SPC
+//		"<a:cmd ShowPlayerList discF>Disc</a>," SPC
+//		"<a:cmd ShowPlayerList grenadeF>Grenade</a>," SPC
+//		"<a:cmd ShowPlayerList blasterF>Blaster</a>," SPC
+//		"<a:cmd ShowPlayerList brF>BR</a>," SPC
+//		"<a:cmd ShowPlayerList sniperF>Sniper</a>," SPC
+//		"<a:cmd ShowPlayerList minigunF>Minigun</a>," SPC
+//		"<a:cmd ShowPlayerList glF>GL</a>\n" SPC
+//		"<a:cmd ShowPlayerList time>Time played</a>\n" @
 		"\n" @ %groupingLinks @
 		"<lmargin:0>\n\n" @
 		"<tab:10, 150, 200, 250, 350>" @
@@ -210,7 +212,8 @@ function showPlayerList(%client, %arg)
 			%line = %line @ "<spush><shadowcolor:00FF00><shadow:1:1>";
 
 		%line = %line @ 
-			"\>\t<a:cmd ShowPlayerInfo" SPC %k @ ">" @ %name @ "</a>" @ "-" @ %handicap TAB %team TAB %k.getPing() TAB %v @ "\n";
+         "\>\t" @ %name @ "-" @ %handicap TAB %team TAB %k.getPing() TAB %v @ "\n";
+			//"\>\t<a:cmd ShowPlayerInfo" SPC %k @ ">" @ %name @ "</a>" @ "-" @ %handicap TAB %team TAB %k.getPing() TAB %v @ "\n";
 
 		if(%k == %client)
 			%line = %line @ "<spop>";

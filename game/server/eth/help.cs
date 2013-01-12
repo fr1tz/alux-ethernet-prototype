@@ -5,6 +5,12 @@
 
 function GameConnection::showHelpMenu(%this)
 {
+	%this.beginMenuText(%this.menu $= "admin");
+   %this.addMenuText("Nothing here yet", 1);
+	%this.endMenuText();
+   return;
+
+
 	%L3 = om_init();
 	%L3 = %L3 @ om_head(%this, "Help");
 	%L3 = %L3 @ "<lmargin:24><font:NovaSquare:36>";

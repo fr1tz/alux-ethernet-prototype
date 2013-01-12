@@ -1091,6 +1091,75 @@ function GameConnection::updateQuickbar(%this)
       (%B7?"<B:7:cmd Help 0>":"") @ %msk @ (%B7?"</b>":"") @
       "\n";
 
+   %B1Link1 = (%B1?"<B:1:cmd MainMenu>":"") @ "Server Info" @ (%B1?"</b>":"");
+   %B2Link1 = (%B2?"<B:2:cmd ShowPlayerList>":"") @ "Player List" @ (%B2?"</b>":"");
+   %B3Link1 = (%B4?"<B:4:cmd Teams>":"") @ "Switch Team" @ (%B4?"</b>":"");
+   %B4Link1 = (%B7?"<B:7:cmd Help>":"") @ "Help" @ (%B7?"</b>":"");
+
+   %text = "\n"
+      @ %B1Link1 SPC "|" SPC %B2Link1 SPC "|"
+      SPC %B3Link1 SPC "|" SPC %B4Link1 @ "\n";
+
+	%this.beginQuickbarText();
+	%this.addQuickbarText(%head, 1);
+	%this.addQuickbarText(%text, 1);
+	%this.endQuickbarText();
+
+   return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   %head = "<just:center><font:NovaSquare:16><linkcolor:FFFFFF><linkcolorhl:FF0000>";
+
+   %B1 = true;
+   %B2 = true;
+   %B3 = true;
+   %B4 = true;
+   %B5 = true;
+   %B6 = true;
+   %B7 = true;
+
+   if(%this.loadingMission)
+      %B4 = false;
+
+   if(!%this.cookiesDone)
+   {
+      %B3 = false;
+      %B5 = false;
+   }
+
+   %msk = "             ";
+   %spc = "  ";
+   %tmp = "" @
+      (%B1?"<B:1:cmd MainMenu>":"") @ %msk @ (%B1?"</b>":"") @ %spc @
+      (%B2?"<B:2:cmd ShowPlayerList>":"") @ %msk @ (%B2?"</b>":"") @ %spc @
+      (%B3?"<B:3:cmd Loadout>":"") @ %msk @ (%B3?"</b>":"") @ %spc @
+      (%B4?"<B:4:cmd Teams>":"") @ %msk @ (%B4?"</b>":"") @ %spc @
+      (%B5?"<B:5:cmd ShowSettings>":"") @ %msk @ (%B5?"</b>":"") @ %spc @
+      (%B6?"<B:6:cmd Admin>":"") @ %msk @ (%B6?"</b>":"") @ %spc @
+      %msk @ %spc @
+      (%B7?"<B:7:cmd Help 0>":"") @ %msk @ (%B7?"</b>":"") @
+      "\n";
+
    %B1Link1 = (%B1?"<B:1:cmd MainMenu>":"") @ "Arena" @ (%B1?"</b>":"");
    %B1Link2 = (%B1?"<B:1:cmd MainMenu>":"") @ "Info" @ (%B1?"</b>":"");
    %B2Link1 = (%B2?"<B:2:cmd ShowPlayerList>":"") @ "Player" @ (%B2?"</b>":"");

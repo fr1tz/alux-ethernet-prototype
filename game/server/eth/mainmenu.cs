@@ -34,7 +34,7 @@ function showMainMenu(%client)
 			@ "<spop>" @ %mutators;
 
 	%fg = %newtxt @
-		om_head(%client, "Arena Info") @
+		om_head(%client, "Server Info") @
 		"<spush><font:NovaSquare:20>" @
 		"Welcome to" SPC $Pref::Server::Name @
 		"<spop>\n\n" @
@@ -45,7 +45,8 @@ function showMainMenu(%client)
 		"<spush>" @ $Pref::Server::Info @ "<spop>\n\n" @
 		"";
 
-	if(%client.loadingMission || %client.menu $= "mainmenu")
+//	if(%client.loadingMission || %client.menu $= "mainmenu")
+   if(false)
 	{
 		%fg = %fg @
 			"If you're playing this arena for the first time, loading" SPC

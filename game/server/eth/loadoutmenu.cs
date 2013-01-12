@@ -73,6 +73,14 @@ function LoadoutMenu_WeaponInfoLink(%loadout, %L3, %nr)
 
 function GameConnection::showLoadout(%this, %no, %expandslot, %showInfo, %infoPos)
 {
+	%this.beginMenuText(%this.menu $= "admin");
+   %this.addMenuText("Nothing here yet", 1);
+	%this.endMenuText();
+   return;
+
+
+
+
 	%L3 = om_init();
 	%L3 = %L3 @ om_head(%this, "Edit Loadouts");
 
