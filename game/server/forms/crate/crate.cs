@@ -106,7 +106,7 @@ function FrmCrate::onDamage(%this, %obj, %delta)
 	%totalDamage = %obj.getDamageLevel();
 	if(%totalDamage >= %this.maxDamage)
 	{
-      createExplosion(FrmLightProjectileExplosion, %obj.getPosition(), "0 0 1");
+      createExplosion(FrmCrateExplosion, %obj.getPosition(), "0 0 1");
       %obj.delete();
 	}
 }
