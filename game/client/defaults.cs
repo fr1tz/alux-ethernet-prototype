@@ -111,7 +111,7 @@ $pref::Interior::TexturedFog = 0;
 
 $pref::Video::displayDevice = "OpenGL";
 $pref::Video::allowOpenGL = 1;
-$pref::Video::allowD3D = 1;
+$pref::Video::allowD3D = 0;
 $pref::Video::preferOpenGL = 1;
 $pref::Video::appliedPref = 0;
 $pref::Video::disableVerticalSync = 1;
