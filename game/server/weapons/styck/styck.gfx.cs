@@ -45,10 +45,10 @@ datablock LaserBeamData(WpnStyckProjectileLaserTail)
 datablock MultiNodeLaserBeamData(WpnStyckProjectileLaserTrail)
 {
 	hasLine = true;
-	lineColor	= "1.00 0.00 0.00 0.3";
+	lineColor	= "1.00 0.50 0.50 1.0";
 
 	hasInner = true;
-	innerColor = "1.00 0.00 0.00 0.8";
+	innerColor = "1.00 0.00 0.00 0.5";
 	innerWidth = "0.10";
 
 	hasOuter = false;
@@ -78,6 +78,73 @@ datablock MultiNodeLaserBeamData(WpnStyckProjectileLaserTrail)
 	nodeMoveSpeedAdd[2] = -12.0;
     
     nodeDistance = 5;
+};
+
+//-----------------------------------------------------------------------------
+// hit enemy...
+
+datablock ParticleData(WpnStyckProjectileHit_Particle)
+{
+	dragCoefficient    = 0.0;
+	windCoefficient    = 0.0;
+	gravityCoefficient	= 0.0;
+	inheritedVelFactor	= 0.0;
+
+	lifetimeMS			  = 250;
+	lifetimeVarianceMS	= 0;
+
+	useInvAlpha =  false;
+
+	textureName	= "share/textures/alux/circle1";
+
+	colors[0]	  = "1.0 1.0 1.0 1.0";
+	colors[1]	  = "1.0 0.0 0.0 0.5";
+	colors[2]	  = "1.0 0.0 0.0 0.0";
+	sizes[0]		= 0.5;
+	sizes[1]		= 1.0;
+	sizes[2]		= 1.5;
+	times[0]		= 0.0;
+	times[1]		= 0.5;
+	times[2]		= 1.0;
+
+	allowLighting = false;
+	renderDot = true;
+};
+
+datablock ParticleEmitterData(WpnStyckProjectileHit_Emitter)
+{
+	ejectionOffset	= 0;
+
+	ejectionPeriodMS = 40;
+	periodVarianceMS = 0;
+
+	ejectionVelocity = 0.0;
+	velocityVariance = 0.0;
+
+	thetaMin			= 0.0;
+	thetaMax			= 60.0;
+
+	lifetimeMS		 = 100;
+
+	particles = "WpnStyckProjectileHit_Particle";
+};
+
+datablock ExplosionData(WpnStyckProjectileHit)
+{
+	soundProfile = WpnTridentProjectileImpactSound;
+
+	lifetimeMS = 450;
+
+	particleEmitter = WpnStyckProjectileHit_Emitter;
+	particleDensity = 1;
+	particleRadius = 0;
+
+	// Dynamic light
+	lightStartRadius = 2;
+	lightEndRadius = 0;
+	lightStartColor = "1.0 1.0 1.0";
+	lightEndColor = "1.0 1.0 1.0";
+   lightCastShadows = false;
 };
 
 //-----------------------------------------------------------------------------
@@ -124,35 +191,12 @@ datablock ParticleEmitterData(WpnStyckProjectileImpact_SmokeEmitter)
 	particles = "WpnStyckProjectileImpact_Smoke";
 };
 
-datablock DebrisData(WpnStyckProjectileImpact_Debris)
-{
-	// shape...
-	shapeFile = "share/shapes/rotc/misc/debris1.white.dts";
-
-	// bounce...
-	staticOnMaxBounce = true;
-	numBounces = 5;
-
-	// physics...
-	gravModifier = 2.0;
-	elasticity = 0.6;
-	friction = 0.1;
-
-	// spin...
-	minSpinSpeed = 60;
-	maxSpinSpeed = 600;
-
-	// lifetime...
-	lifetime = 4.0;
-	lifetimeVariance = 1.0;
-};
-
-datablock ExplosionData(WpnStyckProjectileImpact)
+datablock ExplosionData(WpnStyckProjectileImpact : WpnStyckProjectileHit)
 {
 	soundProfile = WpnTridentProjectileImpactSound;
 
 	lifetimeMS = 3000;
- 
+
  	// shape...
 	//explosionShape = "share/shapes/rotc/weapons/blaster/projectile.impact.red.dts";
 	faceViewer = false;
@@ -181,73 +225,6 @@ datablock ExplosionData(WpnStyckProjectileImpact)
     lightCastShadows = false;
 
 	shakeCamera = false;
-};
-
-//-----------------------------------------------------------------------------
-// hit enemy...
-
-datablock ParticleData(WpnStyckProjectileHit_Particle)
-{
-	dragCoefficient    = 0.0;
-	windCoefficient    = 0.0;
-	gravityCoefficient	= 0.0;
-	inheritedVelFactor	= 0.0;
-
-	lifetimeMS			  = 500;
-	lifetimeVarianceMS	= 0;
-
-	useInvAlpha =  false;
-
-	textureName	= "share/textures/rotc/star1";
-
-	colors[0]	  = "1.0 1.0 1.0 1.0";
-	colors[1]	  = "1.0 0.0 0.0 1.0";
-	colors[2]	  = "1.0 0.0 0.0 0.0";
-	sizes[0]		= 0.5;
-	sizes[1]		= 0.5;
-	sizes[2]		= 0.5;
-	times[0]		= 0.0;
-	times[1]		= 0.5;
-	times[2]		= 1.0;
-
-	allowLighting = false;
-	renderDot = true;
-};
-
-datablock ParticleEmitterData(WpnStyckProjectileHit_Emitter)
-{
-	ejectionOffset	= 0;
-
-	ejectionPeriodMS = 40;
-	periodVarianceMS = 0;
-
-	ejectionVelocity = 0.0;
-	velocityVariance = 0.0;
-
-	thetaMin			= 0.0;
-	thetaMax			= 60.0;
-
-	lifetimeMS		 = 100;
-
-	particles = "WpnStyckProjectileHit_Particle";
-};
-
-datablock ExplosionData(WpnStyckProjectileHit)
-{
-	soundProfile = WpnTridentProjectileImpactSound;
-
-	lifetimeMS = 450;
-
-	particleEmitter = WpnStyckProjectileHit_Emitter;
-	particleDensity = 1;
-	particleRadius = 0;
-
-	// Dynamic light
-	lightStartRadius = 2;
-	lightEndRadius = 0;
-	lightStartColor = "1.0 0.0 0.0";
-	lightEndColor = "0.0 0.0 0.0";
-    lightCastShadows = false;
 };
 
 //-----------------------------------------------------------------------------
