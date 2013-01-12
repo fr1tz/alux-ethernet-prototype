@@ -184,9 +184,10 @@ function PlayerData::onRemove(%this, %obj)
 	Parent::onRemove(%this,%obj);
 
 	if(%obj.isCAT)
+	{
 		%obj.getTeamObject().numCATs--;
-
-	checkRoundEnd();
+		checkRoundEnd();
+	}
 }
 
 // callback function: called by engine
