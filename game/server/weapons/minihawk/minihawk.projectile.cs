@@ -14,7 +14,7 @@ datablock ShotgunProjectileData(WpnMinihawkProjectile)
 	stat = "minihawk";
 
 	// script damage properties...
-	impactDamage       = 40;
+	impactDamage       = 50;
 	impactImpulse      = 400;
 	splashDamage       = 0;
 	splashDamageRadius = 0;
