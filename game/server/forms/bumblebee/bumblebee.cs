@@ -126,7 +126,7 @@ datablock FlyingVehicleData(FrmBumblebee)
 
    //
 //   jetSound = Team1ScoutScoutDroneThrustSound;
-//   engineSound = ScoutDroneEngineSound;
+   engineSound = FrmBumblebeeEngineSound;
 //   softImpactSound = SoftImpactSound;
 //   hardImpactSound = HardImpactSound;
    //wheelImpactSound = WheelImpactSound;

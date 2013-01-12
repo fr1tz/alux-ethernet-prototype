@@ -5,7 +5,7 @@
 
 datablock AudioProfile(FrmBumblebeeEngineSound)
 {
-   filename = "share/sound/rotc/slide2";
+   filename = "share/sounds/rotc/slide2.wav";
    description = AudioDefaultLooping3D;
 	preload = true;
 };
