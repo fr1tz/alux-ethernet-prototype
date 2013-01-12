@@ -212,7 +212,7 @@ function GameConnection::onClientLeaveGame(%this)
 	if(isObject(%this.camera))
 		%this.camera.delete();
 		
-	if(isObject(%this.player))
+	if(isObject(%this.player) && %this.player.getClassName() $= "Etherform")
 		%this.player.delete();
 
 	if(isObject(%this.proxy))
