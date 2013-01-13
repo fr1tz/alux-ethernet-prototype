@@ -54,7 +54,7 @@ function GameConnection::onCookiesReceived(%this, %cookies)
 	%this.hudColor = arrayGetValue(%cookies, "Alux_HudColor");
 	%this.initialTopHudMenu = arrayGetValue(%cookies, "Alux_HudMenuTMode");
 	if(%this.initialTopHudMenu $= "")
-		%this.initialTopHudMenu = "invisible";
+		%this.initialTopHudMenu = "newbiehelp";
 	%this.damageScreenMode = arrayGetValue(%cookies, "Alux_DamageScreenMode");
 	if(%this.damageScreenMode $= "")
 		%this.damageScreenMode = 1;
@@ -345,7 +345,8 @@ function GameConnection::joinTeam(%this, %teamId)
 		%this.setNewbieHelp("You are in observer mode. Click on 'Switch Team' at the top" SPC
 			"of the arena window to join a team. Press @bind01 if the arena window is not visible.");		
    
-      %this.setLoadingBarText("Use the 'Switch Team' menu to join red or blue!");
+      %this.setLoadingBarText("Use the 'Switch Team' menu to join" SPC
+         $Team1.name SPC "or" SPC $Team2.name @ "!");
 	}
 	else
    {
@@ -786,7 +787,7 @@ function GameConnection::switchTopHudMenuMode(%this)
 	}
 	else if(%this.topHudMenu $= "healthbalance")
 	{
-		%this.topHudMenu = "invisible";
+		%this.topHudMenu = "nothing";
 	}
 	else 
 	{
@@ -832,24 +833,26 @@ function GameConnection::updateTopHudMenuThread(%this)
 	
 	if(%this.topHudMenu $= "invisible")
 		return;
-	
-	%this.setHudMenuT(0, "\n<just:center><color:888888>Showing: ", 1, 1);			
-	%this.setHudMenuT(2, "(@bind66 to change)\n<just:left>", 1, 1);			
+
+	%this.setHudMenuT(0, "\n<just:center>", 1, 1);
+	//%this.setHudMenuT(0, "\n<just:center><color:888888>Showing: ", 1, 1);
+	//%this.setHudMenuT(2, "(@bind66 to change)\n<just:left>", 1, 1);
 	%i = 2;
 	
 	if(%this.topHudMenu $= "newbiehelp")
 	{
-		if(%this.newbieHelpAge == 0)
-			%this.play2D(NewbieHelperSound);
+		//if(%this.newbieHelpAge == 0)
+		//	%this.play2D(NewbieHelperSound);
 	
 		%this.newbieHelpAge++;	
-		%this.setHudMenuT(1, "Newbie Helper", 1, 1);
+		//%this.setHudMenuT(1, "Tip", 1, 1);
 
 		%color = "FFFFFF";
 		%alpha = 255;		
 		
 		%text = %this.newbieHelpText;
-		if(%this.newbieHelpAge < 6)
+		//if(%this.newbieHelpAge < 6)
+      if(false)
 		{
 			%text = "[ Downloading... ]";
 			if(%this.newbieHelpAge % 2 == 0)
@@ -864,14 +867,23 @@ function GameConnection::updateTopHudMenuThread(%this)
 			%alpha = 0;
 			%this.setHudMenuT(5, "", 1, 0);
 			%this.setHudMenuT(8, "", 1, 0);		
+         %this.setHudMenuT(%i++, "", 1, false);
+         %this.setHudMenuT(%i++, "", 1, false);
+         %this.setHudMenuT(%i++, "", 1, false);
+         %this.setHudMenuT(%i++, "", 1, false);
+         %this.setHudMenuT(%i++, "", 1, false);
+         %this.setHudMenuT(%i++, "", 1, false);
 		}
-
-		%this.setHudMenuT(%i++, "<just:center>(Press @bind65 for a random hint)\n<font:NovaSquare:18><color:FFFFFF", 1, 1);
-		%this.setHudMenuT(%i++, byteToHex(%alpha), 1, 1);				
-		%this.setHudMenuT(%i++, ">Hint:\n<color:", 1, 1);		
-		%this.setHudMenuT(%i++, %color, 1, 1);					
-		%this.setHudMenuT(%i++, byteToHex(%alpha), 1, 1);				
-		%this.setHudMenuT(%i++, ">" @ %text, 1, 1);
+      else
+      {
+   		%this.setHudMenuT(%i++, "<spush><just:center><font:NovaSquare:18><color:FFFFFF", 1, 1);
+         %this.setHudMenuT(%i++, byteToHex(%alpha), 1, 1);
+         %this.setHudMenuT(%i++, ">Tip:\n<color:", 1, 1);
+         %this.setHudMenuT(%i++, %color, 1, 1);
+         %this.setHudMenuT(%i++, byteToHex(%alpha), 1, 1);
+         %this.setHudMenuT(%i++, ">" @ %text @ "\n<spop>", 1, 1);
+      }
+		%this.setHudMenuT(%i++, "(Press @bind65 for a random hint)", 1, 1);
 	}	
 	else if(%this.topHudMenu $= "healthbalance")
 	{	

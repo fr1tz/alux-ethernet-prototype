@@ -163,8 +163,9 @@ function PlayerData::onAdd(%this,%obj)
 
 		if(!%client.newbieHelpData_HasManifested)
 		{
-			%client.setNewbieHelp("You are now in CAT form. You can switch back to" SPC
-				"etherform at any time by pressing @bind34 again.", 40);
+			%client.setNewbieHelp("You are now materialized. You can press" SPC
+            "@bind44 to de-materialize or press @bind45 to exit your form at" SPC
+            "any time", 40);
 		}		
 		else
 		{

@@ -23,7 +23,7 @@ function serverCmdPlayerAction(%client, %nr, %val)
 	}
 	else if(%nr == 32 && %val)
 	{		
-		%client.switchTopHudMenuMode();
+//		%client.switchTopHudMenuMode();
 		return;
 	}	
 
