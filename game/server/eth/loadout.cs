@@ -214,7 +214,7 @@ function GameConnection::updateLoadout(%this)
 
 function GameConnection::displayInventory(%this, %obj)
 {
-   if(%this.team == $Team0)
+   if(%this.team == $Team0 || %this.inventoryMode $= "")
    {
       %this.setHudMenuL("*", " ", 1, 0);
       %this.setHudMenuR("*", " ", 1, 0);
