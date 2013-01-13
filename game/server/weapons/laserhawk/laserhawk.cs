@@ -51,6 +51,7 @@ datablock ShapeBaseImageData(WpnLaserhawkImage)
 	specialWeapon = true;
 	armThread = "holdrifle";  // armThread to use when holding this weapon
 	crosshair = "sniperrifle"; // crosshair to display when holding this weapon
+   reloadTime = 6000;
  
 	//-------------------------------------------------
 	// image states...

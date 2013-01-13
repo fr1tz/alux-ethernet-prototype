@@ -47,6 +47,17 @@ function serverCmdPlayerAction(%client, %nr, %val)
 	{
       %client.getControlObject().useWeapon(0);
 	}
+	else if(%nr == 13 && %val)
+	{
+      %form = %client.player;
+      if(!isObject(%form))
+         return;
+      if(%form.isReloading)
+         return;
+      if(!%form.getDataBlock().isMethod("reload"))
+         continue;
+      %form.getDataBlock().reload(%form);
+	}
 	else if(%nr == 17 && %val)
 	{		
 		%client.getControlObject().useWeapon(-17);

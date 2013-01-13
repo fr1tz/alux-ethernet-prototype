@@ -120,6 +120,8 @@ datablock ShapeBaseImageData(WpnStyckImage)
 	iconId = 5;
 	armThread = "holdblaster";  // armThread to use when holding this weapon
 	crosshair = "blaster"; // crosshair to display when holding this weapon
+   reloadTime = 800;
+   reloadAmount = 100;
 	
 	//-------------------------------------------------
 	// image states...

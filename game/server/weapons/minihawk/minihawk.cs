@@ -123,6 +123,7 @@ datablock ShapeBaseImageData(WpnMinihawkImage)
 	iconId = 5;
 	armThread = "holdblaster";  // armThread to use when holding this weapon
 	crosshair = "blaster"; // crosshair to display when holding this weapon
+   reloadTime = 2500;
 	
 	//-------------------------------------------------
 	// image states...

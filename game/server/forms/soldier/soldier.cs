@@ -452,6 +452,24 @@ function FrmSoldier::dematerialize(%this, %obj)
    %obj.damage(0, %obj.getPosition(), 100, $DamageType::Force);
 }
 
+function FrmSoldier::reload(%this, %obj)
+{
+   if(%obj.getEnergyLevel() == %this.maxEnergy)
+      return;
+   %state = %obj.getImageState(0);
+   if(!(%state $= "Ready" || %state $= "NoAmmo" || %state $= "KeepAiming"))
+      return;
+   %reloadTime = %obj.getMountedImage(0).reloadTime;
+   %reloadAmount = %obj.getMountedImage(0).reloadAmount;
+   if(%reloadAmount $= "")
+      %reloadAmount = %this.maxEnergy;
+   %newEnergyLevel = %obj.getEnergyLevel() + %reloadAmount;
+   %obj.unmountImage(0);
+   %obj.setArmThread("look");
+   %obj.setEnergyLevel(0);
+   %obj.schedule(%reloadTime, "setEnergyLevel", %newEnergyLevel);
+   %obj.schedule(%reloadTime, "useWeapon", 1);
+}
 
 
 

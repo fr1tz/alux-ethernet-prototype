@@ -84,6 +84,10 @@ function StandardCat::useWeapon(%this, %obj, %nr)
 	if(%nr > %client.numWeapons)
 		return;
 
+   if(%obj.isReloading)
+      return;
+   %obj.isReloading = false;
+
 	if(%nr == 0)
 		%obj.currWeapon++;
 	else

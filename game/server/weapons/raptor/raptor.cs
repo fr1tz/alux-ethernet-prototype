@@ -125,6 +125,7 @@ datablock ShapeBaseImageData(WpnRaptorImage)
 	iconId = 5;
 	armThread = "holdblaster";  // armThread to use when holding this weapon
 	crosshair = "blaster"; // crosshair to display when holding this weapon
+   reloadTime = 4000;
 	
 	//-------------------------------------------------
 	// image states...
