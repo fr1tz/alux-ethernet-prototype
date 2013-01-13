@@ -456,18 +456,35 @@ function FrmSoldier::reload(%this, %obj)
 {
    if(%obj.getEnergyLevel() == %this.maxEnergy)
       return;
+
    %state = %obj.getImageState(0);
    if(!(%state $= "Ready" || %state $= "NoAmmo" || %state $= "KeepAiming"))
       return;
+
+   %obj.isReloading = true;
+
    %reloadTime = %obj.getMountedImage(0).reloadTime;
    %reloadAmount = %obj.getMountedImage(0).reloadAmount;
    if(%reloadAmount $= "")
       %reloadAmount = %this.maxEnergy;
    %newEnergyLevel = %obj.getEnergyLevel() + %reloadAmount;
+
+	%obj.playAudio(0, WeaponSwitchSound);
    %obj.unmountImage(0);
    %obj.setArmThread("look");
    %obj.setEnergyLevel(0);
+	%obj.setEnergyRechargeRate(%this.maxEnergy/(%reloadTime/32));
+
+   commandToClient(%obj.client, 'Hud', "energy", true,
+      "game/client/ui/hud/pixmaps/energy_meter.png");
+
+   commandToClient(%obj.client, 'Crosshair', 0);
+   //commandToClient(%obj.client, 'Crosshair', 3, 1, 10);
+   //commandToClient(%obj.client, 'Crosshair', 1);
+
+   %obj.schedule(%reloadTime, "setFieldValue", "isReloading", false);
    %obj.schedule(%reloadTime, "setEnergyLevel", %newEnergyLevel);
+   %obj.schedule(%reloadTime, "setEnergyRechargeRate", %this.energyRechargeRate);
    %obj.schedule(%reloadTime, "useWeapon", 1);
 }
 

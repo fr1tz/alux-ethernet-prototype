@@ -768,7 +768,9 @@ function GameConnection::updateHudWarningsThread(%this)
 //   else
 //	  %this.setHudWarning(3, "[ENERGY]", %player.getEnergyPercent() < 0.5);
 
-   if(%this.spawnError $= "")
+   if(%this.player.isReloading)
+      %this.setHudWarning(5, "Reloading...", true);
+   else if(%this.spawnError $= "")
       %this.setHudWarning(5, "Click left mouse button to materialize.", false);
    else
       %this.setHudWarning(5, %this.spawnError, true);
