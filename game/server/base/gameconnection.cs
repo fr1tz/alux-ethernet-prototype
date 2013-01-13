@@ -769,12 +769,21 @@ function GameConnection::updateHudWarningsThread(%this)
 //   else
 //	  %this.setHudWarning(3, "[ENERGY]", %player.getEnergyPercent() < 0.5);
 
-   if(%this.player.isReloading)
-      %this.setHudWarning(5, "Reloading...", true);
-   else if(%this.spawnError $= "")
-      %this.setHudWarning(5, "Click left mouse button to materialize.", false);
+   if(%player.getClassName() $= "Etherform")
+   {
+      if(%this.spawnError $= "")
+         %this.setHudWarning(5, "Click left mouse button to materialize.", false);
+      else
+         %this.setHudWarning(5, %this.spawnError, true);
+   }
    else
-      %this.setHudWarning(5, %this.spawnError, true);
+   {
+      %form = %this.player;
+      if(%form.isReloading)
+         %this.setHudWarning(5, "Reloading...", true);
+      else
+         %this.setHudWarning(5, "Press 'r' to reload!", %form.getEnergyLevel() == 0);
+   }
 }
 
 //-----------------------------------------------------------------------------
