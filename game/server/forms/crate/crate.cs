@@ -85,7 +85,7 @@ datablock StaticShapeData(FrmCrate)
 	//damageBufferParticleEmitter = RedCatDamageBufferEmitter;
 	//repairParticleEmitter = RedCatRepairEmitter;
 	//bufferRepairParticleEmitter = RedCatBufferRepairEmitter;
-	damageParticleEmitter = FrmCrate_DamageEmitter;
+	//damageParticleEmitter = FrmCrate_DamageEmitter;
 };
 
 function FrmCrate::onAdd(%this, %obj)
