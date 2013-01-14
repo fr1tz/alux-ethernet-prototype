@@ -75,3 +75,5 @@ RecordingActionMap.bindCmd("keyboard", "3", "demoChangePlaySpeed(3);", "demoRese
 RecordingActionMap.bindCmd("keyboard", "4", "demoChangePlaySpeed(4);", "demoResetPlaySpeed();");
 RecordingActionMap.bindCmd("keyboard", "5", "demoChangePlaySpeed(5);", "demoResetPlaySpeed();");
 RecordingActionMap.bindCmd("keyboard", "6", "demoChangePlaySpeed(6);", "demoResetPlaySpeed();");
+
+RecordingActionMap.bind(keyboard, "alt p", takeScreenshot);
