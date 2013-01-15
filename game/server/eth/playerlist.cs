@@ -193,13 +193,13 @@ function showPlayerList(%client, %arg)
 			%team = "Obs.";
 		else if(%k.team == $Team1)
 		{
-			%team = "Red";
-			%line = %line @ "<color:AA0000>";
+			%team = %k.team.name;
+			%line = %line @ "<color:FF00FF>";
 		}
 		else if(%k.team == $Team2)
 		{
-			%team = "Blue";
-			%line = %line @ "<color:0000AA>";
+			%team = %k.team.name;
+			%line = %line @ "<color:00FFFF>";
 		}
 		else
 			%team = "-";
