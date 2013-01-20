@@ -417,6 +417,7 @@ function GameConnection::spawnPlayer(%this)
 		client = %this;
 		teamId = %this.team.teamId;
 	};
+   MissionCleanup.add(%obj);
 
 	// player setup...
 	%obj.setTransform(%spawnSphere.getTransform());
@@ -481,6 +482,7 @@ function GameConnection::leaveForm(%this, %dematerialize, %choice)
 		client = %this;
 		teamId = %this.team.teamId;
 	};
+   MissionCleanup.add(%obj);
 	
    if(false)
    {
