@@ -8,8 +8,8 @@
 // Copyright (C) GarageGames.com, Inc.
 //-----------------------------------------------------------------------------
 
-$GameNameString = "alux";
-$GameVersionString = "p.2+dev";
+$GameNameString = "alux-prototype";
+$GameVersionString = "ver1-dev";
 
 //------------------------------------------------------------------------------
 

@@ -61,7 +61,7 @@ function initClient()
 	// The canvas needs to be constructed before the gui scripts are
 	// run because many of the controls assume the canvas exists at
 	// load time.
-	initCanvas("Alux (" @ $GameVersionString @ ")");
+	initCanvas("Alux Prototype (" @ $GameVersionString @ ")");
 
 	// execute the UI scripts
 	exec("./ui/init.cs");
@@ -109,8 +109,7 @@ function initClient()
     else
     {
         // Otherwise go to the splash screen.
-        //showTorqueSplashScreen(Shell);
-        Canvas.setContent(Shell);
+        showTorqueSplashScreen(Shell);
     }
 }
 
