@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
-// Alux
-// Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
+// Alux Prototype
+// Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
 // to get the Lighting Editor to work, common/server/lightingSystem.cs

@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
-// Alux
-// Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
+// Alux Prototype
+// Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
 function AdminMenu_Link(%text, %client, %arg1, %arg2, %arg3, %arg4)

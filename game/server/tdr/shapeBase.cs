@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
-// Alux
-// Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
+// Alux Prototype
+// Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
 // script function called by team drag race zone code

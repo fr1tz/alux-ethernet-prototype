@@ -1,20 +1,12 @@
 **********************************************************************
 
-Alux
+Alux Prototype
 
 Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 
-Alux is licensed under the pretty restrictive
-Creative Commons Attribution-Noncommercial-No Derivative Works 3.0 
+Alux Prototype is licensed under the Creative Commons 
+Attribution-Noncommercial-No Derivative Works 3.0 
 License (http://creativecommons.org/licenses/by-nc-nd/3.0/).
-
-However, all game content is made available under the permissive 
-Creative Commons Attribution 3.0 License
-(http://creativecommons.org/licenses/by/3.0/).
-Game content refers to all files except the engine binaries (alux.exe,
-alux.bin and aluxd.bin) and the third-party library binaries (the .dll
-files and everything in the lib/ directory).
-
 
 **********************************************************************
 

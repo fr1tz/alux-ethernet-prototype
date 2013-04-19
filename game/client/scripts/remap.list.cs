@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
-// Alux
-// Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
+// Alux Prototype
+// Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
 // These link a description to a function in remap.functions.cs.
