@@ -191,7 +191,7 @@ new GuiBitmapCtrl(Shell) {
          Visible = "1";
          Command = "quit();";
          hovertime = "1000";
-         text = "Quit Alux";
+         text = "Quit";
          groupNum = "-1";
          buttonType = "PushButton";
       };
