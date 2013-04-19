@@ -55,6 +55,12 @@ new GuiControlProfile(HudDefaultProfile)
 	soundButtonOver = "";
 };
 
+new GuiControlProfile(HudWindowProfile : HudDefaultProfile)
+{
+	opaque = true;
+	fillColor = "0 0 0 255";
+};
+
 new GuiControlProfile(HudBackgroundProfile1 : HudDefaultProfile)
 {
 	fillColor = "255 255 255 255";
