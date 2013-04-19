@@ -45,6 +45,10 @@ function sLoadoutcode2Pieces(%code)
    {
       %pieces = "1 1";
    }
+   else if(%arg1 == 5)
+   {
+      %pieces = "3 2";
+   }
    return %pieces;
 }
 
@@ -92,6 +96,9 @@ function GameConnection::loadDefaultLoadout(%this, %no)
       case 8:
          %this.loadoutName[%no] = "Crate";
          %this.loadoutCode[%no] = "3";
+      case 9:
+         %this.loadoutName[%no] = "Pillar";
+         %this.loadoutCode[%no] = "5";
       default:
          %this.loadoutName[%no] = "";
          %this.loadoutCode[%no] = "1";
