@@ -59,8 +59,10 @@ function EtherformData::onDamage(%this, %obj, %delta)
 
 datablock EtherformData(FrmLight)
 {
-	hudImageNameFriendly = "~/client/ui/hud/pixmaps/teammate.etherform.png";
-	hudImageNameEnemy = "~/client/ui/hud/pixmaps/enemy.etherform.png";
+   allowColorization = true;
+
+	hudImageNameFriendly = "~/client/ui/hud/pixmaps/black.png";
+	hudImageNameEnemy = "~/client/ui/hud/pixmaps/black.png";
 	
 	thirdPersonOnly = true;
 
@@ -128,18 +130,36 @@ datablock EtherformData(FrmLight)
 };
 
 // callback function: called by engine
-function FrmLight::onAdd(%this,%obj)
+function FrmLight::onAdd(%this, %obj)
 {
 	Parent::onAdd(%this,%obj);
+
+   %obj.spores = new SimSet();
+
    if(isObject(%obj.client))
    {
       %c = %obj.client;
+      %c.spawnError = "Please wait...";
       commandToClient(%c, 'Hud', "health", false);
       commandToClient(%c, 'Hud', "energy", true, "game/client/ui/hud/pixmaps/energy_meter.png");
    }
 
-   %obj.client.spawnError = "Please wait...";
-   schedule(1000, %obj, "FrmLight_updateProxyThread", %this, %obj);
+   //schedule(1000, %obj, "FrmLight_updateProxyThread", %this, %obj);
+   //schedule(0, %obj, "FrmLight_createSpores", %this, %obj);
+}
+
+// callback function: called by engine
+function FrmLight::onRemove(%this, %obj)
+{
+   if(isObject(%obj.spores))
+   {
+   	for(%idx = %obj.spores.getCount()-1; %idx >= 0; %idx-- )
+      {
+         %spore = %obj.spores.getObject(%idx);
+         %spore.delete();
+      }
+      %obj.spores.delete();
+   }
 }
 
 // *** Callback function: called by engine
@@ -153,6 +173,10 @@ function FrmLight::onTrigger(%this, %obj, %triggerNum, %val)
          return;
       }
 
+      %obj.client.spawnForm();
+
+      return;
+
       %pos = %obj.getWorldBoxCenter();
       %vec = %obj.getEyeVector();
  		%vel = VectorScale(%vec, FrmLightProjectile.muzzleVelocity);
@@ -164,12 +188,12 @@ function FrmLight::onTrigger(%this, %obj, %triggerNum, %val)
 			initialVelocity = %vel;
 			initialPosition = %pos;
 			sourceObject    = %obj;
-			//sourceSlot      = %slot;
-			client	        = %obj.client;
+			sourceSlot      =  0;
+			client	       = %obj.client;
 		};
 		MissionCleanup.add(%p);
 
-      %obj.client.camera.setOrbitMode(%p, 0, 0, 10, 10, true);
+      %obj.client.camera.setOrbitMode(%p, %obj.getTransform(), 0, 10, 10, true);
       %obj.client.camera.setTransform(%obj.getTransform());
       %obj.client.control(%obj.client.camera);
       %obj.client.player = %p;
@@ -187,75 +211,36 @@ function FrmLight::impulse(%this, %obj, %position, %impulseVec, %src)
    return; // ignore impulses
 }
 
-function FrmLight_updateProxyThread(%this, %obj)
+// called by script code
+function FrmLight::spawnSpore(%this, %obj, %data)
 {
-   schedule(32, %obj, "FrmLight_updateProxyThread", %this, %obj);
+   return;
 
-   %client = %obj.client;
-   if(!isObject(%client) || !isObject(%client.proxy))
-      return;
+   %vel = getRandom() SPC getRandom() SPC getRandom();
+   %vel = VectorScale(%vel, 10);
+	%p = new OrbitProjectile() {
+		dataBlock       = %data;
+		teamId          = %obj.teamId;
+		initialVelocity = %vel;
+		initialPosition = %obj.getPosition();
+		sourceObject    = %obj;
+		sourceSlot      = 0;
+		client	        = %obj.client;
+	};
+	MissionCleanup.add(%p);
+   %p.setTarget(%obj);
+   //%p.setTrackingAbility(%data.maxTrackingAbility);
+   %obj.spores.add(%p);
+}
 
-   %prevSpawnError = %client.spawnError;
 
-   %eyeVec = %obj.getEyeVector();
-   %start = %obj.getWorldBoxCenter();
-   %end = VectorAdd(%start, VectorScale(%eyeVec, 9999));
-
-   %c = containerRayCast(%start, %end, $TypeMasks::TerrainObjectType |
-      $TypeMasks::InteriorObjectType | $TypeMasks::ShapeBaseObjectType , %obj);
-
-   if(!%c)
+// called by script code
+function FrmLight_createSpores(%this, %obj)
+{
+   for(%form = 1; %form <= $Server::Game.formCount; %form++)
    {
-      %client.proxy.removeClientFromGhostingList(%client);
-      %client.proxy.setTransform("0 0 0");
-      return;
-   }
-
-   if(%obj.getEnergyLevel() < %this.maxEnergy)
-   {
-      %client.spawnError = "Not enough energy to materialize.";
-      %client.proxy.shapeFxSetColor(0, 2);
-      %client.proxy.shapeFxSetColor(1, 2);
-   }
-   else
-      %client.spawnError = "";
-
-   %x = getWord(%c,1); %x = mFloor(%x); //%x -= (%x % 2);
-   %y = getWord(%c,2); %y = mFloor(%y); //%y -= (%y % 2);
-   %z = getWord(%c,3);
-   %pos = %x SPC %y SPC %z;
-   %normal = getWord(%c,4) SPC getWord(%c,5) SPC getWord(%c,6);
-   if(%pos $= %client.proxy.getPosition()
-   && (%client.spawnError $= %prevSpawnError))
-      return;
-
-   %transform = %pos SPC %normal SPC "0";
-   if(%client.proxy.getDataBlock().isMethod("adjustTransform"))
-   {
-      %transform = %client.proxy.getDataBlock().adjustTransform(
-         %pos, %normal, %eyeVec);
-   }
-   %client.proxy.addClientToGhostingList(%client);
-   %client.proxy.setTransform(%transform);
-
-   if(%obj.getEnergyLevel() < %this.maxEnergy)
-      return;
-
-   %client.spawnError = "The selected form can't materialize";
-   if(%client.proxy.getDataBlock().form.isMethod("canMaterialize"))
-   {
-      %client.spawnError = %client.proxy.getDataBlock().form.canMaterialize(
-         %client, %pos, %normal, %transform);
-   }
-
-   if(%client.spawnError $= "")
-   {
-      %client.proxy.shapeFxSetColor(0, 3);
-      %client.proxy.shapeFxSetColor(1, 3);
-   }
-   else
-   {
-      %client.proxy.shapeFxSetColor(0, 1);
-      %client.proxy.shapeFxSetColor(1, 1);
+      %spore = $Server::Game.form[%form].spore;
+      for(%i = 0; %i < %obj.client.inventory.form[%form]; %i++)
+         %obj.getDataBlock().spawnSpore(%obj, %spore);
    }
 }

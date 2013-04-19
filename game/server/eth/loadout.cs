@@ -3,6 +3,67 @@
 // Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 //------------------------------------------------------------------------------
 
+// Pieces:
+// 0 Infantry
+// 1 Air
+// 2 Missile
+// 3 Box
+// 4 Pistol
+// 5 Shotgun
+// 6 Sniper
+// 7 Magnum
+// 8 SMG
+
+function sLoadoutcode2Pieces(%code)
+{
+   %pieces = "";
+   %arg1 = getWord(%code, 0);
+   if(%arg1 == 4)
+   {
+      %pieces = "0 1";
+      %arg2 = getWord(%code, 4);
+      if(%arg2 == 1)
+         %pieces = %pieces TAB "4 1";
+      else if(%arg2 == 2)
+         %pieces = %pieces TAB "5 1";
+      else if(%arg2 == 3)
+         %pieces = %pieces TAB "6 1";
+      else if(%arg2 == 4)
+         %pieces = %pieces TAB "7 1";
+      else if(%arg2 == 5)
+         %pieces = %pieces TAB "8 1";
+   }
+   else if(%arg1 == 3)
+   {
+      %pieces = "3 1";
+   }
+   else if(%arg1 == 2)
+   {
+      %pieces = "2 1";
+   }
+   else if(%arg1 == 1)
+   {
+      %pieces = "1 1";
+   }
+   return %pieces;
+}
+
+function sPiece2String(%piece)
+{
+   switch(%piece)
+   {
+      case 0: %icon = "Infantry";
+      case 1: %icon = "Air";
+      case 2: %icon = "Missile";
+      case 3: %icon = "Box";
+      case 4: %icon = "Pistol";
+      case 5: %icon = "Shotgun";
+      case 6: %icon = "Sniper";
+      case 7: %icon = "Magnum";
+      case 8: %icon = "SMG";
+   }
+}
+
 function GameConnection::loadDefaultLoadout(%this, %no)
 {
    switch(%no)
@@ -306,15 +367,43 @@ function GameConnection::displayInventory(%this, %obj)
 		for(%i = 1; %i <= 10; %i++)
 		{
          if(%this.loadoutName[%i] !$= "")
+         {
             %tmp = %tmp @ "@bind" @ 34+%i @ ":" TAB %this.loadoutName[%i];
-         %tmp = %tmp @ "\n";
+            %pieces = sLoadoutCode2Pieces(%this.loadoutCode[%i]);
+            for(%f = 0; %f < getFieldCount(%pieces); %f++)
+            {
+               %field = getField(%pieces, %f);
+               %piece = getWord(%field, 0);
+               %count = getWord(%field, 1);
+               switch(%piece)
+               {
+                  case 0: %icon = "infantry";
+                  case 1: %icon = "air";
+                  case 2: %icon = "missile";
+                  case 3: %icon = "box";
+                  case 4: %icon = "pistol";
+                  case 5: %icon = "shotgun";
+                  case 6: %icon = "sniper";
+                  case 7: %icon = "magnum";
+                  case 8: %icon = "smg";
+               }
+               %icons = "";
+               while(%count > 0)
+               {
+                  %icons = %icons @ "<bitmap:share/hud/alux/piece." @ %icon @ ".16x16.png>";
+                  %count--;
+               }
+               %tmp = %tmp @ %icons;
+            }
+            %tmp = %tmp @ "\n";
+         }
 		}
       %tmp = %tmp @ "\n";
       %l = strlen(%tmp); %n = 0;
    	while(%n < %l)
 	   {
 		   %chunk = getSubStr(%tmp, %n, 255);
-   		%this.setHudMenuL(%slot, %tmp, 1, 1);
+   		%this.setHudMenuL(%slot, %chunk, 1, 1);
 		   %n += 255;
          %slot++;
 	   }

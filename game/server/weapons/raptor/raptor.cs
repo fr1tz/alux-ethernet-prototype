@@ -7,6 +7,7 @@ exec("./raptor.sfx.cs");
 exec("./raptor.projectile.sfx.cs");
 exec("./raptor.projectile.gfx.cs");
 exec("./raptor.projectile.cs");
+exec("./raptor.spore.cs");
 
 //-----------------------------------------------------------------------------
 // fire particle emitter

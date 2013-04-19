@@ -251,13 +251,13 @@ datablock ExplosionData(WpnLaserhawkProjectileImpact)
 	lifetimeMS = 3000;
  
  	// shape...
-	explosionShape = "share/shapes/rotc/weapons/blaster/projectile.impact.red.dts";
-	faceViewer = false;
-	playSpeed = 0.4;
-	sizes[0] = "1 1 1";
-	sizes[1] = "1 1 1";
-	times[0] = 0.0;
-	times[1] = 1.0;
+	//explosionShape = "share/shapes/rotc/weapons/blaster/projectile.impact.red.dts";
+	//faceViewer = false;
+	//playSpeed = 0.4;
+	//sizes[0] = "1 1 1";
+	//sizes[1] = "1 1 1";
+	//times[0] = 0.0;
+	//times[1] = 1.0;
 
 	emitter[0] = DefaultSmallWhiteDebrisEmitter;
 	emitter[1] = WpnLaserhawkProjectileImpact_SmokeEmitter;

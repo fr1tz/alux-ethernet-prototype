@@ -4,7 +4,7 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// Placement proxy for actual form
+// Placement proxy for controllable form
 
 datablock StaticShapeData(FrmCrateProxy)
 {
@@ -46,10 +46,14 @@ function FrmCrateProxy::adjustTransform(%this, %pos, %normal, %eyeVec)
 }
 
 //------------------------------------------------------------------------------
+// Controllable form
 
 datablock StaticShapeData(FrmCrate)
 {
    proxy = FrmCrateProxy; // script field
+   spore = FrmCrateSpore; // script field
+
+   allowColorization = true;
 
 	//category = "Blueprints"; // for the mission editor
 	//className = Blueprint;
@@ -114,10 +118,7 @@ function FrmCrate::onDamage(%this, %obj, %delta)
 // *** Callback function: called by engine
 function FrmCrate::onTrigger(%this, %obj, %triggerNum, %val)
 {
-	if(%triggerNum == 1 && %val)
-	{
-      %obj.client.leaveForm();
-   }
+   //
 }
 
 function FrmCrate::canMaterialize(%this, %client, %pos, %normal, %transform)

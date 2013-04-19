@@ -265,11 +265,13 @@ function ShapeBaseData::onAdd(%this,%obj)
 	// Barrier...
 	%obj.barrier = 0;
 
-	%obj.client.inventoryMode = "";
-	%obj.client.displayInventory(%obj);
-
 	// Start threads...
 	%obj.checkTaggedThread();
+
+   return;
+
+	%obj.client.inventoryMode = "";
+	%obj.client.displayInventory(%obj);
 }
 
 // *** callback function: called by engine
@@ -279,6 +281,10 @@ function ShapeBaseData::onRemove(%this, %obj)
 
 	if(%obj.damageSchedule !$= "")
 		cancel(%obj.damageSchedule);
+
+   // Just in case the object is still being controlled
+   if(%obj.client)
+      %obj.client.leaveForm(%obj);
 	
 	// relieve obj from simple control if needed...
 	if(%obj.isUnderSimpleControl())
@@ -291,8 +297,18 @@ function ShapeBaseData::onRemove(%this, %obj)
 	if(isObject(%obj.ssc))
 		%obj.ssc.delete();
 
-	if(%obj.client && %obj.client == %obj.getControllingClient())
-      %obj.client.leaveForm();
+   if(%obj.loadoutcode && %obj.client)
+   {
+      %pieces = sLoadoutcode2Pieces(%obj.loadoutcode);
+      for(%f = 0; %f < getFieldCount(%pieces); %f++)
+      {
+         %field = getField(%pieces, %f);
+         %piece = getWord(%field, 0);
+         %count = getWord(%field, 1);
+         %obj.client.inventory.pieceCount[%piece] -= %count;
+         %obj.client.inventory.pieceUsed[%piece] -= %count;
+      }
+   }
 }
 
 // callback function: called by engine
@@ -699,7 +715,7 @@ function ShapeBaseData::updateShapeName(%this, %obj)
 		%handicap = %client.handicap;
 		if(%handicap == 1)
 			%handicap = "1.0";
-		%name = getTaggedString(%client.name) @ "-" @ %handicap;
+		%name = getTaggedString(%client.name); // @ "-" @ %handicap;
 		%obj.setShapeName(%name);
 		%obj.getHudInfo().markAsControlled(%obj.client, 0);
 	}

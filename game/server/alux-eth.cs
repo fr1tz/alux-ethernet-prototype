@@ -42,14 +42,16 @@ function executeGameScripts()
 	exec("game/server/forms/soldier/exec.cs");
    $Server::Game.form[0] = FrmLight;
    $Server::Game.form[1] = FrmParrot;
-   $Server::Game.form[2] = FrmBumblebee;
+   $Server::Game.form[2] = FrmBumblebeeStatic;
    $Server::Game.form[3] = FrmCrate;
    $Server::Game.form[4] = FrmSoldier;
+   $Server::Game.formCount = 4;
    $Server::Game.weapon[1] = WpnBadgerImage;
    $Server::Game.weapon[2] = WpnStyckImage;
    $Server::Game.weapon[3] = WpnLaserhawkImage;
    $Server::Game.weapon[4] = WpnMinihawkImage;
    $Server::Game.weapon[5] = WpnRaptorImage;
+   $Server::Game.weaponCount = 5;
 }
 
 function loadManual()

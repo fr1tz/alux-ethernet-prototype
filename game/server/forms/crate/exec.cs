@@ -6,5 +6,6 @@
 exec("./crate.sfx.cs");
 exec("./crate.gfx.cs");
 exec("./crate.explosion.cs");
+exec("./crate.spore.cs");
 exec("./crate.cs");
 

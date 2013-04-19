@@ -8,6 +8,8 @@
 
 datablock ShapeBaseImageData(FrmLightLightImage)
 {
+   allowColorization = true;
+
 	// basic item properties
 	shapeFile = "share/shapes/alux/nothing.dts";
 	emap = true;
@@ -161,6 +163,8 @@ datablock ParticleEmitterData(FrmLightBufferRepairEmitter)
 
 datablock MultiNodeLaserBeamData(FrmLight_LaserTrailOne)
 {
+   allowColorization = true;
+
 	hasLine = false;
 	lineColor	= "1.00 1.00 1.00 0.7";
 
@@ -181,8 +185,10 @@ datablock MultiNodeLaserBeamData(FrmLight_LaserTrailOne)
 
 datablock MultiNodeLaserBeamData(FrmLight_LaserTrailTwo)
 {
+   allowColorization = true;
+
 	hasLine = true;
-	lineColor	= "1.00 0.00 1.00 0.5";
+	lineColor	= "1.00 1.00 1.00 0.5";
 
 	hasInner = false;
 	innerColor = "1.0 0.0 1.0 0.5";

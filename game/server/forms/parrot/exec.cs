@@ -12,4 +12,5 @@ exec("./parrot.minigun.cs");
 exec("./parrot.sfx.cs");
 exec("./parrot.gfx.cs");
 exec("./parrot.explosion.cs");
+//exec("./parrot.spore.cs");
 exec("./parrot.cs");

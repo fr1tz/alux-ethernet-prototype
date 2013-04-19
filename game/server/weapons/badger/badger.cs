@@ -6,6 +6,7 @@
 exec("./badger.sfx.cs");
 exec("./badger.gfx.cs");
 exec("./badger.projectile.cs");
+exec("./badger.spore.cs");
 
 //-----------------------------------------------------------------------------
 // fire particle emitter

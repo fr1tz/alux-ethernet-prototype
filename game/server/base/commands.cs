@@ -37,11 +37,14 @@ function serverCmdPlayerAction(%client, %nr, %val)
 	}
 	else if(%nr == 10 && %val && %client.menuVisible == false)
 	{
-		%client.leaveForm(true, true);
+      %client.leaveForm(%player, true);
 	}
 	else if(%nr == 11 && %val && %client.menuVisible == false)
 	{
-		%client.leaveForm(false, true);
+      if(%client.player.getClassName() $= "Etherform")
+         %client.enterForm();
+      else
+         %client.leaveForm(%player, false);
 	}
 	else if(%nr == 12 && %val)
 	{
@@ -60,7 +63,8 @@ function serverCmdPlayerAction(%client, %nr, %val)
 	}
 	else if(%nr == 17 && %val)
 	{		
-		%client.getControlObject().useWeapon(-17);
+      //%client.spawnForm();
+		//%client.getControlObject().useWeapon(-17);
 	}
 	else if(%nr >= 21 && %nr <= 30 && %val)
 	{

@@ -6,4 +6,5 @@
 exec("./bumblebee.sfx.cs");
 exec("./bumblebee.gfx.cs");
 exec("./bumblebee.explosion.cs");
+//exec("./bumblebee.spore.cs");
 exec("./bumblebee.cs");

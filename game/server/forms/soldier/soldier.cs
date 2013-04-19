@@ -105,6 +105,9 @@ datablock TSShapeConstructor(FrmSoldierDts)
 datablock PlayerData(FrmSoldier)
 {
    proxy = FrmSoldierProxy; // script field
+   spore = FrmSoldierSpore; // script field
+
+   allowColorization = true;
 
 	className = StandardCat;
 	
@@ -112,8 +115,8 @@ datablock PlayerData(FrmSoldier)
 	
 	targetLockTimeMS = 200;
 	
-	hudImageNameFriendly = "~/client/ui/hud/pixmaps/teammate.cat.png";
-	hudImageNameEnemy = "~/client/ui/hud/pixmaps/enemy.cat.png";
+	hudImageNameFriendly = "~/client/ui/hud/pixmaps/black.png";
+	hudImageNameEnemy = "~/client/ui/hud/pixmaps/black.png";
 
 	useEyePoint = true;
 	renderFirstPerson = true;
@@ -349,6 +352,8 @@ function FrmSoldier::onAdd(%this, %obj)
 {
    Parent::onAdd(%this, %obj);
    %obj.setEnergyLevel(%this.maxEnergy);
+
+   return;
 
    if(isObject(%obj.client))
    {

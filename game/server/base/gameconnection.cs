@@ -4,11 +4,6 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// Revenge Of The Cats - gameconnection.cs
-// Sstuff for the objects that represent client connections
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
 
 function GameConnection::control(%this, %shapebase)
 {
@@ -54,7 +49,7 @@ function GameConnection::onCookiesReceived(%this, %cookies)
 	%this.hudColor = arrayGetValue(%cookies, "Alux_HudColor");
 	%this.initialTopHudMenu = arrayGetValue(%cookies, "Alux_HudMenuTMode");
 	if(%this.initialTopHudMenu $= "")
-		%this.initialTopHudMenu = "newbiehelp";
+		%this.initialTopHudMenu = "pieces";
 	%this.damageScreenMode = arrayGetValue(%cookies, "Alux_DamageScreenMode");
 	if(%this.damageScreenMode $= "")
 		%this.damageScreenMode = 1;
@@ -154,12 +149,14 @@ function GameConnection::onClientEnterGame(%this)
 	%this.camera.setTransform(pickObserverPoint(%this));
 	%this.camera.setVelocity("0 0 0");
 
-	//
-	// inventory...
-	//
+   // Loadout
 	%this.defaultLoadout();
 	%this.updateLoadout();
-	
+
+   // Inventory
+   %this.inventory = new ScriptObject();
+   %this.updateInventoryThread();
+
 	//
 	// join team with less players...
 	//
@@ -177,6 +174,8 @@ function GameConnection::onClientEnterGame(%this)
 
 	// Start thread to process player stats...
 	%this.processPlayerStats();	
+
+   %this.updateProxyThread();
 }
 
 // *** callback function: called by script code in "common"
@@ -211,8 +210,11 @@ function GameConnection::onClientLeaveGame(%this)
 
 	if(isObject(%this.camera))
 		%this.camera.delete();
+
+	if(isObject(%this.inventory))
+		%this.inventory.delete();
 		
-	if(isObject(%this.player) && %this.player.getClassName() $= "Etherform")
+	if(%this.player > 0) // && %this.player.getClassName() $= "Etherform")
 		%this.player.delete();
 
 	if(isObject(%this.proxy))
@@ -274,20 +276,9 @@ function GameConnection::updateHudColors(%this)
 		%c1 = "255 80 255";
 		%c2 = "85 255 255";
 	}	
-	else if(%this.hudColor $= "based_on_condition")
+	else if(%this.hudColor $= "based_on_team")
 	{
-		%player = %this.player;
-		%data = %player.getDataBlock();
-		%v = %player.getDamagePercent();
-		%c1 = mFloatLength(255*%v, 0) SPC
-			mFloatLength(255*(1-%v), 0) SPC
-			0;
-		%v = mFloatLength(125*(1-%v)+125, 0);
-		%c2 =  %v SPC %v SPC %v;
-	}
-	else
-	{
-		%teamId = %this.team.teamId;
+	   %teamId = %this.team.teamId;
 		if(%teamId == 0)
 		{
 			%c1 = "150 150 150";
@@ -303,6 +294,17 @@ function GameConnection::updateHudColors(%this)
 			%c1 = "85 255 255";
    		%c2 = "200 200 200";
 		}
+	}
+	else
+	{
+		%player = %this.player;
+		%data = %player.getDataBlock();
+		%v = %player.getDamagePercent();
+		%c1 = mFloatLength(255*%v, 0) SPC
+			mFloatLength(255*(1-%v), 0) SPC
+			0;
+		%v = mFloatLength(125*(1-%v)+125, 0);
+		%c2 =  %v SPC %v SPC %v;
 	}
 	commandToClient(%this,'SetHudColor', %c1, %c2);	
 }
@@ -392,11 +394,37 @@ function GameConnection::joinTeam(%this, %teamId)
          %client.showTeamsMenu();
    }
 
+   //---------------------------------------------------------------------------
+	// HACK HACK HACK: find way to update object colorizations
+   // only for the client that switched teams.
+	for( %idx = MissionCleanup.getCount()-1; %idx >= 0; %idx-- )
+	{
+		%obj = MissionCleanup.getObject(%idx);
+      %obj.setTeamId(%obj.getTeamId());
+	}
+	%group = nameToID("TerritorySurfaces");
+	if(%group != -1)
+	{
+		%count = %group.getCount();
+		if (%count != 0)
+		{
+				for (%i = 0; %i < %count; %i++)
+				{
+					%zone = %group.getObject(%i);
+					%zone.setTeamId(%zone.getTeamId());
+				}
+		}
+	}
+   //---------------------------------------------------------------------------
+
+
 	return true;
 }
 
 function GameConnection::spawnPlayer(%this)
 {
+   %this.resetInventory();
+
 	// Remove existing etherform
 	if(%this.player > 0 && %this.player.getClassName() $= "Etherform")
 		%this.player.delete();
@@ -447,45 +475,51 @@ function GameConnection::beepMsg(%this, %reason)
 	%this.play2D(BeepMessageSound);
 }
 
-function GameConnection::leaveForm(%this, %dematerialize, %choice)
+function GameConnection::enterForm(%this)
 {
-   if(%this.player.getClassName() $= "Etherform")
-      return;
-
-   %form = %this.player;
-	if(!isObject(%form))
-		return;
-
-   if(%choice && !%dematerialize)
-   {
-      if(%form.getDataBlock() != FrmCrate.getId())
+   %etherform = %this.player;
+   %pos = %etherform.getWorldBoxCenter();
+   %closest = 0;
+   %distmin = 4.0;
+   InitContainerRadiusSearch(%pos, %distmin, $TypeMasks::ShapeBaseObjectType);
+	while((%srchObj = containerSearchNext()) != 0)
+	{
+      if(%srchObj == %this.player)
+         continue;
+      if(%srchObj.getTeamId() != %this.player.getTeamId())
+         continue;
+      if(isObject(%srchObj.getControllingClient()))
+         continue;
+      if(!isObject(%srchObj.getDataBlock()))
+         continue;
+      if(!%srchObj.getDataBlock().isMethod("dematerialize"))
+         continue;
+      %dist = VectorLen(VectorSub(%srchObj.getWorldBoxCenter(), %pos));
+      if(%dist < %distmin)
       {
-         %this.beepMsg("Currently players are only allowed to leave behind crates.");
-         return;
+         %closest = %srchObj;
+         %distmin = %dist;
       }
    }
-
-	//%tagged = %form.isTagged();
-	%pos = %form.getWorldBoxCenter();
-
-	if($Server::NewbieHelp)
-	{
-		%this.newbieHelpData_NeedsRepair =
-			(%this.player.getDamageLevel() > %this.player.getDataBlock().maxDamage*0.75);
-		%this.newbieHelpData_LowEnergy =
-			(%this.player.getEnergyLevel() < 50);
-	}
-	
-	%data = %this.getEtherformDataBlock();
-	%obj = new Etherform() {
-		dataBlock = %data;
-		client = %this;
-		teamId = %this.team.teamId;
-	};
-   MissionCleanup.add(%obj);
-	
-   if(false)
+   if(isObject(%closest))
    {
+      if(isObject(%this.proxy))
+      {
+		   //%this.proxy.delete();
+         %this.proxy.removeClientFromGhostingList(%client);
+         %this.proxy.setTransform("0 0 0");
+      }
+      %this.player = %closest;
+      %this.control(%closest);
+      %etherform.delete();
+   }
+}
+
+function GameConnection::leaveForm(%this, %obj, %dematerialize)
+{
+   if(%obj.getClassName() $= "Etherform" && %dematerialize)
+   {
+   	%pos = %this.player.getWorldBoxCenter();
       %closest = 0;
       %distmin = 5.0;
 		InitContainerRadiusSearch(%pos, %distmin, $TypeMasks::ShapeBaseObjectType);
@@ -513,6 +547,30 @@ function GameConnection::leaveForm(%this, %dematerialize, %choice)
       return;
    }
 
+   // Can't leave a form we're not actually controlling
+   %form = %this.player;
+	if(!isObject(%form) || %obj != %form)
+		return;
+
+	//%tagged = %form.isTagged();
+	%pos = %form.getWorldBoxCenter();
+
+	if($Server::NewbieHelp)
+	{
+		%this.newbieHelpData_NeedsRepair =
+			(%this.player.getDamageLevel() > %this.player.getDataBlock().maxDamage*0.75);
+		%this.newbieHelpData_LowEnergy =
+			(%this.player.getEnergyLevel() < 50);
+	}
+	
+	%data = %this.getEtherformDataBlock();
+	%obj = new Etherform() {
+		dataBlock = %data;
+		client = %this;
+		teamId = %this.team.teamId;
+	};
+   MissionCleanup.add(%obj);
+	
 	%obj.setTransform(%form.getTransform());
 	%obj.setTransform(%form.getWorldBoxCenter());
 
@@ -541,6 +599,145 @@ function GameConnection::leaveForm(%this, %dematerialize, %choice)
 		//%this.player.getHudInfo().markAsControlled(0, 0);
    }
 }
+
+// called by script code
+function GameConnection::spawnForm(%this)
+{
+   %client = %this;
+   %obj = %this.player;
+
+   if(%this.spawnError !$= "")
+   {
+
+      return;
+   }
+
+   %form = $Server::Game.form[getWord(%this.activeLoadout, 0)];
+   if(!isObject(%form))
+      return;
+
+   %player = %form.materialize(%client, %pos, %normal, %this.camera.getTransform());
+   %player.setTransform(%this.proxy.getTransform());
+   //%client.proxy.removeClientFromGhostingList(%client);
+   //%client.proxy.setTransform("0 0 0");
+   $aiTarget = %player;
+
+   %player.loadoutcode = %this.activeLoadout;
+   %player.inv[1] = getWord(%this.activeLoadout, 4);
+
+   %pieces = sLoadoutcode2Pieces(%player.loadoutcode);
+   for(%f = 0; %f < getFieldCount(%pieces); %f++)
+   {
+      %field = getField(%pieces, %f);
+      %piece = getWord(%field, 0);
+      %count = getWord(%field, 1);
+      %this.inventory.pieceUsed[%piece] += %count;
+   }
+}
+
+// called by script code
+function GameConnection::updateProxyThread(%this)
+{
+   %this.schedule(32, "updateProxyThread");
+
+   %client = %this;
+   %obj = %this.player;
+   if(!isObject(%client) || !isObject(%client.proxy) || !isObject(%obj))
+      return;
+
+   %prevSpawnError = %client.spawnError;
+
+   %eyeVec = %obj.getEyeVector();
+   %start = %obj.getWorldBoxCenter();
+   %end = VectorAdd(%start, VectorScale(%eyeVec, 9999));
+
+   %c = "";
+   if(%this.player.getClassName() $= "Etherform")
+      %c = containerRayCast(%start, %end, $TypeMasks::TerrainObjectType |
+         $TypeMasks::InteriorObjectType, %obj);
+
+   if(!%c)
+   {
+      %client.proxy.removeClientFromGhostingList(%client);
+      %client.proxy.setTransform("0 0 0");
+      return;
+   }
+
+   if(%obj.getEnergyLevel() < 0) // %this.maxEnergy)
+   {
+      %client.spawnError = "Not enough energy to materialize.";
+      %client.proxy.shapeFxSetColor(0, 2);
+      %client.proxy.shapeFxSetColor(1, 2);
+   }
+   else
+      %client.spawnError = "";
+
+   %x = getWord(%c,1); %x = mFloor(%x); //%x -= (%x % 2);
+   %y = getWord(%c,2); %y = mFloor(%y); //%y -= (%y % 2);
+   %z = getWord(%c,3);
+   %pos = %x SPC %y SPC %z;
+   %normal = getWord(%c,4) SPC getWord(%c,5) SPC getWord(%c,6);
+   if(%pos $= %client.proxy.getPosition()
+   && (%client.spawnError $= %prevSpawnError))
+      return;
+
+   %transform = %pos SPC %normal SPC "0";
+   if(%client.proxy.getDataBlock().isMethod("adjustTransform"))
+   {
+      %transform = %client.proxy.getDataBlock().adjustTransform(
+         %pos, %normal, %eyeVec);
+   }
+   %client.proxy.addClientToGhostingList(%client);
+   %client.proxy.setTransform(%transform);
+
+   if(%obj.getEnergyLevel() < %this.maxEnergy)
+      return;
+
+   %pieces = sLoadoutcode2Pieces(%client.activeLoadout);
+   %missing = "";
+   for(%f = 0; %f < getFieldCount(%pieces); %f++)
+   {
+      %field = getField(%pieces, %f);
+      %piece = getWord(%field, 0);
+      %count = getWord(%field, 1);
+
+      %used = %client.inventory.pieceUsed[%piece];
+      %free = %client.inventory.pieceCount[%piece] - %used;
+
+      %piecestring = sPiece2String(%piece);
+
+      if(%free < %count)
+      {
+         if(%missing !$= "")
+            %missing = %missing @ " and ";
+         %missing = %missing @ %piecestring;
+      }
+   }
+   if(%missing !$= "")
+      %client.spawnError = "Bank is missing" SPC %missing SPC "piece";
+
+
+   if(%client.spawnError $= "")
+   {
+      if(%client.proxy.getDataBlock().form.isMethod("canMaterialize"))
+      {
+         %client.spawnError = %client.proxy.getDataBlock().form.canMaterialize(
+            %client, %pos, %normal, %transform);
+      }
+   }
+
+   if(%client.spawnError $= "")
+   {
+      %client.proxy.shapeFxSetColor(0, 3);
+      %client.proxy.shapeFxSetColor(1, 3);
+   }
+   else
+   {
+      %client.proxy.shapeFxSetColor(0, 1);
+      %client.proxy.shapeFxSetColor(1, 1);
+   }
+}
+
 
 //-----------------------------------------------------------------------------
 
@@ -781,10 +978,64 @@ function GameConnection::updateHudWarningsThread(%this)
    else
    {
       %form = %this.player;
-      if(%form.isReloading)
-         %this.setHudWarning(5, "Reloading...", true);
-      else
-         %this.setHudWarning(5, "Press 'r' to reload!", %form.getEnergyLevel() == 0);
+      %this.setHudWarning(5, "", false);
+      //if(%form.isReloading)
+      //   %this.setHudWarning(5, "Reloading...", true);
+      //else
+      //   %this.setHudWarning(5, "Press 'r' to reload!", %form.getEnergyLevel() == 0);
+   }
+}
+
+//-----------------------------------------------------------------------------
+
+function GameConnection::resetInventory1(%this, %piece, %current, %max, %cost)
+{
+   %this.inventory.pieceExists[%piece] = true;
+   %this.inventory.pieceUsed[%piece]   = 0;
+   %this.inventory.pieceCount[%piece]  = %current;
+   %this.inventory.pieceMax[%piece]    = %max;
+   %this.inventory.pieceCost[%piece]   = %cost;
+}
+
+function GameConnection::resetInventory(%this)
+{
+   %this.resetInventory1(0, 1, 2, 60); // Infantry
+   %this.resetInventory1(1, 0, 1, 30); // Air
+   %this.resetInventory1(2, 0, 1, 30); // Missile
+   %this.resetInventory1(3, 0, 10, 15); // Box
+   %this.resetInventory1(4, 1, 1, 15); // Pistol
+   %this.resetInventory1(5, 0, 1, 30); // Shotgun
+   %this.resetInventory1(6, 0, 1, 60); // Sniper
+   %this.resetInventory1(7, 0, 1, 30); // Magnum
+   %this.resetInventory1(8, 0, 1, 30); // SMG
+}
+
+function GameConnection::updateInventoryThread(%this)
+{
+   //error("GameConnection::updateInventoryThread()");
+
+	cancel(%this.updateInventoryThread);
+	%this.updateInventoryThread = %this.schedule(1000,"updateInventoryThread");
+
+   if(!isObject(%this.inventory))
+      return;
+
+   %piece = 0;
+   while(%this.inventory.pieceExists[%piece])
+   {
+      %oldCount = %this.inventory.pieceCount[%piece];
+      %newCount = %oldCount + 1 / %this.inventory.pieceCost[%piece];
+      if(%newCount > %this.inventory.pieceMax[%piece])
+         %newCount = %this.inventory.pieceMax[%piece];
+
+      if(mFloor(%newCount) > mFloor(%oldCount))
+      {
+
+      }
+
+      %this.inventory.pieceCount[%piece] = %newCount;
+
+      %piece++;
    }
 }
 
@@ -845,10 +1096,62 @@ function GameConnection::updateTopHudMenuThread(%this)
 	if(%this.topHudMenu $= "invisible")
 		return;
 
-	%this.setHudMenuT(0, "\n<just:center>", 1, 1);
+   %text = "<color:00FF00><tab:240,260,280,300,340,360,380,400,420,440>";
+	%this.setHudMenuT(0, %text, 1, 1);
 	//%this.setHudMenuT(0, "\n<just:center><color:888888>Showing: ", 1, 1);
 	//%this.setHudMenuT(2, "(@bind66 to change)\n<just:left>", 1, 1);
 	%i = 2;
+
+   %line1 = "";
+   %line3 = "";
+   %piece = 0;
+   while(%this.inventory.pieceExists[%piece])
+   {
+      %used = %this.inventory.pieceUsed[%piece];
+      %free = %this.inventory.pieceCount[%piece] - %used;
+
+      %used = mFloor(%used);
+      switch(strlen(%used))
+      {
+         case 1: %used = "  " @ %used;
+         case 2: %used = " " @ %used;
+      }
+      %line2 = %line2 TAB %used;
+
+      %free = mFloor(%free);
+      switch(strlen(%free))
+      {
+         case 1: %free = "  " @ %free;
+         case 2: %free = " " @ %free;
+      }
+      %line1 = %line1 TAB %free;
+
+      %piece++;
+   }
+
+   %text = "<spush><font:arial:8>\n<spop>" @ %line1;
+	%this.setHudMenuT(1, %text, 1, 1);
+
+   %icons1 = "\n" TAB
+      "<bitmap:share/hud/alux/piece.infantry.16x16.png>" TAB
+      "<bitmap:share/hud/alux/piece.air.16x16.png>" TAB
+      "<bitmap:share/hud/alux/piece.missile.16x16.png>" TAB
+      "<bitmap:share/hud/alux/piece.box.16x16.png>";
+
+   %icons2 = "" TAB
+      "<bitmap:share/hud/alux/piece.pistol.16x16.png>" TAB
+      "<bitmap:share/hud/alux/piece.shotgun.16x16.png>" TAB
+      "<bitmap:share/hud/alux/piece.sniper.16x16.png>" TAB
+      "<bitmap:share/hud/alux/piece.magnum.16x16.png>" TAB
+      "<bitmap:share/hud/alux/piece.smg.16x16.png>";
+
+	%this.setHudMenuT(2, %icons1, 1, 1);
+	%this.setHudMenuT(3, %icons2, 1, 1);
+
+   %text = "<spush><font:arial:16>\n<spop>" @ %line2;
+	%this.setHudMenuT(4, %text, 1, 1);
+
+   return;
 	
 	if(%this.topHudMenu $= "newbiehelp")
 	{

@@ -3,185 +3,38 @@
 // Copyright (C) 2013 Michael Goldener <mg@wasted.ch>
 //------------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------
+// Placement proxy for controllable form
+
 datablock StaticShapeData(FrmBumblebeeProxy : FrmCrateProxy)
 {
-   form = FrmBumblebee; // script field
+   form = FrmBumblebeeStatic; // script field
 	shapeFile = "share/shapes/alux/bumblebee.dts";
 };
 
 function FrmBumblebeeProxy::adjustTransform(%this, %pos, %normal, %eyeVec)
 {
    %transform = createOrientFromDir(%normal);
+   %pos = VectorAdd(%pos, VectorScale(%normal, 0.75));
    %transform = setWord(%transform, 0, getWord(%pos, 0));
    %transform = setWord(%transform, 1, getWord(%pos, 1));
-   %transform = setWord(%transform, 2, getWord(%pos, 2)+1);
+   %transform = setWord(%transform, 2, getWord(%pos, 2));
    return %transform;
 }
 
-//-----------------------------------------------------------------------------
-// FlyingVehicleData
-
-datablock FlyingVehicleData(FrmBumblebee)
-{
-   proxy = FrmBumblebeeProxy; // script field
-
-   // @name dynamic fields, needed for certain in-script checks -mag
-   // @{
-   isAircraft = true;
-   class = "Bumblebee";
-   // @}
-
-//   category = "Vehicles"; don't appear in mission editor
-   shapeFile = "share/shapes/alux/bumblebee.dts";
-   emap = true;
-
-	hudImageNameFriendly = "~/client/ui/hud/pixmaps/teammate.cat.png";
-	hudImageNameEnemy = "~/client/ui/hud/pixmaps/enemy.cat.png";
-   
-   renderWhenDestroyed = false;
-   //explosion = ScoutDroneExplosion;
-   //defunctEffect = ScoutDroneDefunctEffect;
-   //debris = BomberDebris;
-   //debrisShapeName = "~/data/vehicles/bomber/vehicle.dts";
-
-	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
-	shapeFxTexture[0] = "share/textures/alux/shiny.png";
-	shapeFxTexture[1] = "share/textures/alux/grid1.png";
-	shapeFxTexture[2] = "share/textures/alux/grid2.png";
-	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
-
-   drag    = 0.15;
-   density = 1.0;
-
-   // 3rd person camera settings...
-   cameraRoll = true;         // Roll the camera with the vehicle
-   cameraMaxDist = 5;         // Far distance from vehicle
-   cameraOffset = 0.0;        // Vertical offset from camera mount point
-   cameraLag = 0.05;           // Velocity lag of camera
-   cameraDecay = 0.75;        // Decay per sec. rate of velocity lag
-   
-	maxDamage = 50;
-	damageBuffer = 0;
-	maxEnergy = 100; // Afterburner and any energy weapon pool
-
-   energyRechargeRate = 0.4;
-
-   // drag...
-   minDrag = 120;           // Linear Drag (eventually slows you down when not thrusting...constant drag)
-   rotationalDrag = 10;         // Angular Drag (dampens the drift after you stop moving the mouse...also tumble drag)
-
-   // autostabilizer...
-   maxAutoSpeed = 0;            // Autostabilizer kicks in when less than this speed. (meters/second)
-   autoAngularForce = 200;  // Angular stabilizer force (this force levels you out when autostabilizer kicks in)
-   autoLinearForce = 500;   // Linear stabilzer force (this slows you down when autostabilizer kicks in)
-   autoInputDamping = 1.00; // Dampen control input so you don't` whack out at very slow speeds
-
-   // maneuvering...
-   maxSteeringAngle = 3;          // Max radiens you can rotate the wheel. Smaller number is more maneuverable.
-   horizontalSurfaceForce = 16;   // Horizontal center "wing" (provides "bite" into the wind for climbing/diving and turning)
-   verticalSurfaceForce = 2;      // Vertical center "wing" (controls side slip. lower numbers make MORE slide.)
-   maneuveringForce = 8000;  // Horizontal jets (W,S,D,A key thrust)
-   steeringForce = 500;      // Steering jets (force applied when you move the mouse)
-   steeringRollForce = 750; // Steering jets (how much you heel over when you turn)
-   rollForce = 0;                 // Auto-roll (self-correction to right you after you roll/invert)
-   hoverHeight = 3;               // Height off the ground at rest
-   createHoverHeight = 3;         // Height off the ground when created
-
-   // turbo jet...
-   jetForce = 0;              // Afterburner thrust (this is in addition to normal thrust)
-   minJetEnergy = 0;             // Afterburner can't be used if below this threshhold.
-   jetEnergyDrain = 0.0;         // Energy use of the afterburners (low number is less drain...can be fractional)                                                                                                                                                                                                                                                                                          // Auto stabilize speed
-   vertThrustMultiple = 2.0;
-
-   // Rigid body
-   mass = 90;
-   massCenter = "0 0 0";   // Center of mass for rigid body
-   massBox = "0 0 0";      // Size of box used for moment of inertia, \
-                           // if zero it defaults to object bounding box
-   bodyFriction = 0.0;     // Don't mess with this.
-   bodyRestitution = 0.1;  // When you hit the ground, how much you rebound. (between 0 and 1)
-   minRollSpeed = 0;       // Don't mess with this.
-   softImpactSpeed = 14;   // Sound hooks. This is the soft hit.
-   hardImpactSpeed = 25;   // Sound hooks. This is the hard hit.
-   
-   // physics system...
-   integration = 4;           // # of physics steps per tick
-   collisionTol = 0.1;        // Collision distance tolerance
-   contactTol = 0.1;          // Contact velocity tolerance
-
-   // impact damage...
-   minImpactSpeed = 1;      // If hit ground at speed above this then it's an impact. Meters/second
-   speedDamageScale = 100.0;   // Dynamic field: impact damage multiplier
-
-   // contrail...
-   minTrailSpeed = 0;      // The speed your contrail shows up at
-   trailEmitter = FrmBumblebee_ContrailEmitter;
-   
-   // laser trail...
-   laserTrail = FrmBumblebee_LaserTrail;
-   
-   // various emitters...
-   //forwardJetEmitter = ScoutDroneJetEmitter;
-   //downJetEmitter = ScoutDroneJetEmitter;
-
-   //
-//   jetSound = Team1ScoutScoutDroneThrustSound;
-   engineSound = FrmBumblebeeEngineSound;
-//   softImpactSound = SoftImpactSound;
-//   hardImpactSound = HardImpactSound;
-   //wheelImpactSound = WheelImpactSound;
-
-   //
-   softSplashSoundVelocity = 10.0;
-   mediumSplashSoundVelocity = 15.0;
-   hardSplashSoundVelocity = 20.0;
-   exitSplashSoundVelocity = 10.0;
-
-//   exitingWater      = VehicleExitWaterMediumSound;
-//   impactWaterEasy   = VehicleImpactWaterSoftSound;
-//   impactWaterMedium = VehicleImpactWaterMediumSound;
-//   impactWaterHard   = VehicleImpactWaterMediumSound;
-//   waterWakeSound    = VehicleWakeMediumSplashSound;
-
-//   dustEmitter = VehicleLiftoffDustEmitter;
-   triggerDustHeight = 4.0;
-   dustHeight = 1.0;
-
-//   damageEmitter[0] = LightDamageSmoke;
-//   damageEmitter[1] = HeavyDamageSmoke;
-//   damageEmitter[2] = DamageBubbles;
-   damageEmitterOffset[0] = "0.0 -3.0 0.0 ";
-   damageLevelTolerance[0] = 0.3;
-   damageLevelTolerance[1] = 0.7;
-   numDmgEmitterAreas = 1;
-
-//   splashEmitter[0] = VehicleFoamDropletsEmitter;
-//   splashEmitter[1] = VehicleFoamEmitter;
-
-	// damage info eyecandy...
-	//damageBufferParticleEmitter = RedCatDamageBufferEmitter;
-	//repairParticleEmitter = RedCatRepairEmitter;
-	//bufferRepairParticleEmitter = RedCatBufferRepairEmitter;
-	damageParticleEmitter = FrmCrate_DamageEmitter;
-
-   //
-   // dynamic fields for in-script vehicle-implementation...
-   //
-
-   mountable = false;
-   mountPose[0] = "ScoutDrone";
-};
+//------------------------------------------------------------------------------
+// Code share between static & flying form
 
 function FrmBumblebee::onAdd(%this, %obj)
 {
    Parent::onAdd(%this, %obj);
-   %obj.setFlyMode();
+   //%obj.setFlyMode();
 }
 
 function FrmBumblebee::onRemove(%this, %obj)
 {
    Parent::onRemove(%this, %obj);
-   
+
    // delete engine light...
 //   %obj.light.delete();
 }
@@ -204,15 +57,6 @@ function FrmBumblebee::onDestroyed(%this, %obj, %prevState)
    // nothing here right now
 }
 
-// *** Callback function: called by engine
-function FrmBumblebee::onTrigger(%this, %obj, %triggerNum, %val)
-{
-	if(%triggerNum == 0 && !%val)
-	{
-      %this.explode(%obj);
-   }
-}
-
 // Called from script
 function FrmBumblebee::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
 {
@@ -220,7 +64,7 @@ function FrmBumblebee::damage(%this, %obj, %sourceObject, %position, %damage, %d
       return;
 
    Parent::damage(%this, %obj, %sourceObject, %position, %damage, %damageType);
-   
+
    return;
 
    // ScoutDrone died?
@@ -238,7 +82,7 @@ function FrmBumblebee::damage(%this, %obj, %sourceObject, %position, %damage, %d
       %impulseVec = VectorNormalize(%position);
       %impulseVec = VectorScale(%impulseVec, 4000);
       %wreck.applyImpulse(%obj.getPosition(), %impulseVec);
-         
+
       %wreck.schedule(60*1000, "startFade", 3*1000, 0, true);
       %wreck.schedule(60*1000+3*1000, "delete");
 
@@ -255,7 +99,7 @@ function FrmBumblebee::damage(%this, %obj, %sourceObject, %position, %damage, %d
 
       // delete the (invisible) player mounted on the ScoutDrone...
       %obj.getMountedObject(0).delete();
-      
+
       // put ScoutDrone away and schedule its removal...
       %obj.schedule(500,"setTransform","0 0 -10000");
       %obj.schedule(2000,"delete");
@@ -265,6 +109,8 @@ function FrmBumblebee::damage(%this, %obj, %sourceObject, %position, %damage, %d
 // Called from script
 function FrmBumblebee::explode(%this, %obj)
 {
+   %obj.client.leaveForm(%obj);
+
    %pos = %obj.getPosition();
 
    createExplosion(FrmBumblebeeExplosion, %pos, "0 0 1");
@@ -335,45 +181,290 @@ function FrmBumblebee::explode(%this, %obj)
    %obj.schedule(0, "delete");
 }
 
+// called by ShapeBase script code...
+function FrmBumblebee::getBleed(%this, %obj, %dmg, %src)
+{
+   return Player::getBleed(%this, %obj, %dmg, %src);
+}
+
+
+//------------------------------------------------------------------------------
+// Static form
+
+datablock StaticShapeData(FrmBumblebeeStatic)
+{
+   proxy = FrmBumblebeeProxy; // script field
+   spore = FrmBumblebeeSpore; // script field
+
+   allowColorization = true;
+
+	className = FrmBumblebee;
+
+	//category = "Blueprints"; // for the mission editor
+
+   dynamicType = $TypeMasks::DamagableItemObjectType;
+
+	fistPersonOnly = true;
+
+	cameraDefaultFov = 110.0;
+	cameraMinFov     = 110.0;
+	cameraMaxFov     = 130.0;
+	cameraMinDist    = 2;
+	cameraMaxDist    = 3;
+
+	shadowEnable = true;
+
+	shapeFile = "share/shapes/alux/bumblebee.dts";
+   emap = true;
+
+   hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
+
+	maxDamage = 50;
+	damageBuffer = 0;
+	maxEnergy = 100;
+
+	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
+	shapeFxTexture[0] = "share/textures/alux/shiny.png";
+	shapeFxTexture[1] = "share/textures/alux/grid1.png";
+	shapeFxTexture[2] = "share/textures/alux/grid2.png";
+	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
+
+	// damage info eyecandy...
+	//damageBufferParticleEmitter = RedCatDamageBufferEmitter;
+	//repairParticleEmitter = RedCatRepairEmitter;
+	//bufferRepairParticleEmitter = RedCatBufferRepairEmitter;
+	//damageParticleEmitter = FrmCrate_DamageEmitter;
+};
+
+// Called by engine
+function FrmBumblebeeStatic::onTrigger(%this, %obj, %triggerNum, %val)
+{
+   %client = %obj.client;
+
+	%player = new FlyingVehicle() {
+		dataBlock = FrmBumblebeeFlyer;
+		client = %client;
+		teamId = %client.team.teamId;
+	};
+   MissionCleanup.add(%player);
+   %player.loadoutcode = %obj.loadoutcode;
+   %player.setTransform(%obj.getTransform());
+   %player.setDamageLevel(%obj.getDamageLevel());
+   %player.setFlyMode();
+
+   %pieces = sLoadoutcode2Pieces(%player.loadoutcode);
+   for(%f = 0; %f < getFieldCount(%pieces); %f++)
+   {
+      %field = getField(%pieces, %f);
+      %piece = getWord(%field, 0);
+      %count = getWord(%field, 1);
+      %client.inventory.pieceUsed[%piece] += %count;
+   }
+
+   //%this.materializeFx(%player);
+	//%player.playAudio(0, CatSpawnSound);
+
+   %static = %client.player;
+   %client.control(%player);
+   %client.player = %player;
+   %static.delete();
+}
+
 // Called from script
-function FrmBumblebee::canMaterialize(%this, %client, %pos, %normal, %transform)
+function FrmBumblebeeStatic::canMaterialize(%this, %client, %pos, %normal, %transform)
 {
    return FrmSoldier::canMaterialize(%this, %client, %pos, %normal, %transform);
 }
 
 // Called from script
-function FrmBumblebee::materialize(%this, %client, %pos, %normal, %transform)
+function FrmBumblebeeStatic::materialize(%this, %client, %pos, %normal, %transform)
 {
-	%player = new FlyingVehicle() {
-		dataBlock = %this;
-		client = %client;
-		teamId = %client.team.teamId;
-	};
+	%player = new StaticShape() {
+	  dataBlock = %this;
+	  client = %client;
+     teamId = %client.team.teamId;
+   };
    MissionCleanup.add(%player);
-
    %this.materializeFx(%player);
-
 	%player.playAudio(0, CatSpawnSound);
-
    return %player;
 }
 
 // Called from script
-function FrmBumblebee::materializeFx(%this, %obj)
+function FrmBumblebeeStatic::materializeFx(%this, %obj)
 {
    FrmCrate::materializeFx(%this, %obj);
 }
 
 // Called from script
-function FrmBumblebee::dematerialize(%this, %obj)
+function FrmBumblebeeStatic::dematerialize(%this, %obj)
 {
    createExplosion(FrmParrotExplosion, %obj.getPosition(), "0 0 1");
    %obj.schedule(0, "delete");
 }
 
-// called by ShapeBase script code...
-function FrmBumblebee::getBleed(%this, %obj, %dmg, %src)
+//------------------------------------------------------------------------------
+// Flying form
+
+datablock FlyingVehicleData(FrmBumblebeeFlyer)
 {
-   return Player::getBleed(%this, %obj, %dmg, %src);
+   allowColorization = true;
+
+   className = FrmBumblebee;
+
+   // @name dynamic fields, needed for certain in-script checks -mag
+   // @{
+   isAircraft = true;
+   class = "Bumblebee";
+   // @}
+
+//   category = "Vehicles"; don't appear in mission editor
+   shapeFile = "share/shapes/alux/bumblebee.dts";
+   emap = true;
+
+	hudImageNameFriendly = "~/client/ui/hud/pixmaps/black.png";
+	hudImageNameEnemy = "~/client/ui/hud/pixmaps/black.png";
+
+   renderWhenDestroyed = false;
+   //explosion = ScoutDroneExplosion;
+   //defunctEffect = ScoutDroneDefunctEffect;
+   //debris = BomberDebris;
+   //debrisShapeName = "~/data/vehicles/bomber/vehicle.dts";
+
+	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
+	shapeFxTexture[0] = "share/textures/alux/shiny.png";
+	shapeFxTexture[1] = "share/textures/alux/grid1.png";
+	shapeFxTexture[2] = "share/textures/alux/grid2.png";
+	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
+
+   drag    = 0.15;
+   density = 1.0;
+
+   // 3rd person camera settings...
+   cameraRoll = true;         // Roll the camera with the vehicle
+   cameraMaxDist = 5;         // Far distance from vehicle
+   cameraOffset = 0.0;        // Vertical offset from camera mount point
+   cameraLag = 0.05;           // Velocity lag of camera
+   cameraDecay = 0.75;        // Decay per sec. rate of velocity lag
+
+	maxDamage = 50;
+	damageBuffer = 0;
+	maxEnergy = 100; // Afterburner and any energy weapon pool
+
+   energyRechargeRate = 0.4;
+
+   // drag...
+   minDrag = 120;           // Linear Drag (eventually slows you down when not thrusting...constant drag)
+   rotationalDrag = 10;         // Angular Drag (dampens the drift after you stop moving the mouse...also tumble drag)
+
+   // autostabilizer...
+   maxAutoSpeed = 0;            // Autostabilizer kicks in when less than this speed. (meters/second)
+   autoAngularForce = 200;  // Angular stabilizer force (this force levels you out when autostabilizer kicks in)
+   autoLinearForce = 500;   // Linear stabilzer force (this slows you down when autostabilizer kicks in)
+   autoInputDamping = 1.00; // Dampen control input so you don't` whack out at very slow speeds
+
+   // maneuvering...
+   maxSteeringAngle = 3;          // Max radiens you can rotate the wheel. Smaller number is more maneuverable.
+   horizontalSurfaceForce = 16;   // Horizontal center "wing" (provides "bite" into the wind for climbing/diving and turning)
+   verticalSurfaceForce = 2;      // Vertical center "wing" (controls side slip. lower numbers make MORE slide.)
+   maneuveringForce = 8000;  // Horizontal jets (W,S,D,A key thrust)
+   steeringForce = 500;      // Steering jets (force applied when you move the mouse)
+   steeringRollForce = 750; // Steering jets (how much you heel over when you turn)
+   rollForce = 0;                 // Auto-roll (self-correction to right you after you roll/invert)
+   hoverHeight = 3;               // Height off the ground at rest
+   createHoverHeight = 3;         // Height off the ground when created
+
+   // turbo jet...
+   jetForce = 0;              // Afterburner thrust (this is in addition to normal thrust)
+   minJetEnergy = 0;             // Afterburner can't be used if below this threshhold.
+   jetEnergyDrain = 0.0;         // Energy use of the afterburners (low number is less drain...can be fractional)                                                                                                                                                                                                                                                                                          // Auto stabilize speed
+   vertThrustMultiple = 2.0;
+
+   // Rigid body
+   mass = 90;
+   massCenter = "0 0 0";   // Center of mass for rigid body
+   massBox = "0 0 0";      // Size of box used for moment of inertia, \
+                           // if zero it defaults to object bounding box
+   bodyFriction = 0.0;     // Don't mess with this.
+   bodyRestitution = 0.1;  // When you hit the ground, how much you rebound. (between 0 and 1)
+   minRollSpeed = 0;       // Don't mess with this.
+   softImpactSpeed = 14;   // Sound hooks. This is the soft hit.
+   hardImpactSpeed = 25;   // Sound hooks. This is the hard hit.
+
+   // physics system...
+   integration = 4;           // # of physics steps per tick
+   collisionTol = 0.1;        // Collision distance tolerance
+   contactTol = 0.1;          // Contact velocity tolerance
+
+   // impact damage...
+   minImpactSpeed = 1;      // If hit ground at speed above this then it's an impact. Meters/second
+   speedDamageScale = 100.0;   // Dynamic field: impact damage multiplier
+
+   // contrail...
+   minTrailSpeed = 0;      // The speed your contrail shows up at
+   trailEmitter = FrmBumblebeeFlyer_ContrailEmitter;
+
+   // laser trail...
+   laserTrail = FrmBumblebeeFlyer_LaserTrail;
+
+   // various emitters...
+   //forwardJetEmitter = ScoutDroneJetEmitter;
+   //downJetEmitter = ScoutDroneJetEmitter;
+
+   //
+//   jetSound = Team1ScoutScoutDroneThrustSound;
+   engineSound = FrmBumblebeeFlyerEngineSound;
+//   softImpactSound = SoftImpactSound;
+//   hardImpactSound = HardImpactSound;
+   //wheelImpactSound = WheelImpactSound;
+
+   //
+   softSplashSoundVelocity = 10.0;
+   mediumSplashSoundVelocity = 15.0;
+   hardSplashSoundVelocity = 20.0;
+   exitSplashSoundVelocity = 10.0;
+
+//   exitingWater      = VehicleExitWaterMediumSound;
+//   impactWaterEasy   = VehicleImpactWaterSoftSound;
+//   impactWaterMedium = VehicleImpactWaterMediumSound;
+//   impactWaterHard   = VehicleImpactWaterMediumSound;
+//   waterWakeSound    = VehicleWakeMediumSplashSound;
+
+//   dustEmitter = VehicleLiftoffDustEmitter;
+   triggerDustHeight = 4.0;
+   dustHeight = 1.0;
+
+//   damageEmitter[0] = LightDamageSmoke;
+//   damageEmitter[1] = HeavyDamageSmoke;
+//   damageEmitter[2] = DamageBubbles;
+   damageEmitterOffset[0] = "0.0 -3.0 0.0 ";
+   damageLevelTolerance[0] = 0.3;
+   damageLevelTolerance[1] = 0.7;
+   numDmgEmitterAreas = 1;
+
+//   splashEmitter[0] = VehicleFoamDropletsEmitter;
+//   splashEmitter[1] = VehicleFoamEmitter;
+
+	// damage info eyecandy...
+	//damageBufferParticleEmitter = RedCatDamageBufferEmitter;
+	//repairParticleEmitter = RedCatRepairEmitter;
+	//bufferRepairParticleEmitter = RedCatBufferRepairEmitter;
+	damageParticleEmitter = FrmCrate_DamageEmitter;
+
+   //
+   // dynamic fields for in-script vehicle-implementation...
+   //
+
+   mountable = false;
+   mountPose[0] = "ScoutDrone";
+};
+
+// *** Callback function: called by engine
+function FrmBumblebeeFlyer::onTrigger(%this, %obj, %triggerNum, %val)
+{
+	if(%triggerNum == 0 && !%val)
+	{
+      %this.explode(%obj);
+   }
 }
 

@@ -98,11 +98,6 @@ function PlayerData::onAdd(%this,%obj)
 	if(!isObject(%client))
 		return;
 
-	// Clear right HUD menu
-	%obj.client.setHudMenuR("*", " ", 1, 0);
-
-	%client.inventoryMode = "showicon";
-	
 	%obj.isCAT = true;
 	%obj.getTeamObject().numCATs++;
 
@@ -156,6 +151,13 @@ function PlayerData::onAdd(%this,%obj)
    // No more limited sliding for now.
    // %obj.sliding = 0.5;
    // %obj.updateSliding();
+
+   return;
+
+	// Clear right HUD menu
+	%obj.client.setHudMenuR("*", " ", 1, 0);
+
+	%client.inventoryMode = "showicon";
 
 	if($Server::NewbieHelp && isObject(%obj.client))
 	{
@@ -375,7 +377,7 @@ function PlayerData::damage(%this, %obj, %sourceObject, %pos, %damage, %damageTy
 		{
 			//%client.onDeath(%sourceObject, %sourceClient, %damageType, %location);
 			%client.showReceivedDamageInfo(true);
-			%client.leaveForm();
+			%client.leaveForm(%obj);
 		}
 		else if(%obj.getControllingClient())
 		{
@@ -433,6 +435,8 @@ function PlayerData::onDamage(%this, %obj, %delta)
 
 function PlayerData::updateShieldFx(%this, %obj)
 {
+   return;
+
 	%shieldVal = %obj.getDamageBufferLevel() / %this.damageBuffer;
 
 	if(%shieldVal > 1)

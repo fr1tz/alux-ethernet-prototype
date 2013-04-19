@@ -5,6 +5,7 @@
 
 exec("./minihawk.projectile.cs");
 exec("./minihawk.sfx.cs");
+exec("./minihawk.spore.cs");
 
 //-----------------------------------------------------------------------------
 // fire particle emitter
