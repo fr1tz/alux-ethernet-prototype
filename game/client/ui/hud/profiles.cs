@@ -28,7 +28,7 @@ new GuiControlProfile(HudDefaultProfile)
 	borderColorNA = "255 255 255 200";
 
 	// font
-	fontType = "NovaSquare";
+	fontType = "Arial";
 	fontSize = 14;
 
 	fontColor	= "255 255 255 200";

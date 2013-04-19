@@ -13,9 +13,9 @@ function GameConnection::showHelpMenu(%this)
 
 	%L3 = om_init();
 	%L3 = %L3 @ om_head(%this, "Help");
-	%L3 = %L3 @ "<lmargin:24><font:NovaSquare:36>";
+	%L3 = %L3 @ "<lmargin:24><font:Arial:36>";
 
-	%spc = " <spush><font:NovaSquare:12>\n\n<spop>";
+	%spc = " <spush><font:Arial:12>\n\n<spop>";
 
 	%L4 = %L3;
 

@@ -1190,7 +1190,7 @@ function GameConnection::updateTopHudMenuThread(%this)
 		}
       else
       {
-   		%this.setHudMenuT(%i++, "<spush><just:center><font:NovaSquare:18><color:FFFFFF", 1, 1);
+   		%this.setHudMenuT(%i++, "<spush><just:center><font:Arial:18><color:FFFFFF", 1, 1);
          %this.setHudMenuT(%i++, byteToHex(%alpha), 1, 1);
          %this.setHudMenuT(%i++, ">Tip:\n<color:", 1, 1);
          %this.setHudMenuT(%i++, %color, 1, 1);
@@ -1387,7 +1387,7 @@ function GameConnection::setHudMenuC(%this, %slot, %text, %repetitions, %visible
 
 function GameConnection::updateQuickbar(%this)
 {
-   %head = "<just:center><font:NovaSquare:16><linkcolor:FFFFFF><linkcolorhl:FF0000>";
+   %head = "<just:center><font:Arial:16><linkcolor:FFFFFF><linkcolorhl:FF0000>";
 
    %B1 = true;
    %B2 = true;
@@ -1456,7 +1456,7 @@ function GameConnection::updateQuickbar(%this)
 
 
 
-   %head = "<just:center><font:NovaSquare:16><linkcolor:FFFFFF><linkcolorhl:FF0000>";
+   %head = "<just:center><font:Arial:16><linkcolor:FFFFFF><linkcolorhl:FF0000>";
 
    %B1 = true;
    %B2 = true;

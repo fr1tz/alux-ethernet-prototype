@@ -35,7 +35,7 @@ function showMainMenu(%client)
 
 	%fg = %newtxt @
 		om_head(%client, "Server Info") @
-		"<spush><font:NovaSquare:20>" @
+		"<spush><font:Arial:20>" @
 		"Welcome to" SPC $Pref::Server::Name @
 		"<spop>\n\n" @
 		"<tab:15,30,130>Game:\n" @

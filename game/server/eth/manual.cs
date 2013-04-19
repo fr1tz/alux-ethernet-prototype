@@ -124,7 +124,7 @@ function showManualPage(%client, %page)
 	else
 		%next = "";
 
-	%nav = "<spush><font:NovaSquare:13>";
+	%nav = "<spush><font:Arial:13>";
 	if(%prev !$= "")
 		%nav = %nav @ "Prev:" SPC %prev SPC "|";
 	%nav = %nav SPC "<a:cmd Manual 0>Index</a>";
@@ -135,7 +135,7 @@ function showManualPage(%client, %page)
    %p = getManualPageByIndex(%idx);
 
 	%newtxt = %newtxt @ %nav @ "\n\n" @
-		"<spush><font:NovaSquare:24>" @ %page @ "." SPC %p.name @
+		"<spush><font:Arial:24>" @ %page @ "." SPC %p.name @
       "<spop><just:left><lmargin:5><rmargin:480>\n\n";
 
    if(%idx == 0)

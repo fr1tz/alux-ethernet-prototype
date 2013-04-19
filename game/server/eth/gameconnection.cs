@@ -17,17 +17,17 @@ function srdi_pad(%t, %num)
 
 function srdi_h1(%t)
 {
-	return "<font:NovaSquare:12>" @ srdi_pad(%t, 20) @ "\n";
+	return "<font:Arial:12>" @ srdi_pad(%t, 20) @ "\n";
 }
 
 function srdi_h2(%t)
 {
-	return "<font:NovaSquare:20>" @ srdi_pad(%t, 10) @ "\n";
+	return "<font:Arial:20>" @ srdi_pad(%t, 10) @ "\n";
 }
 
 function srdi_h3(%t)
 {
-	return "<font:NovaSquare:20>" @ srdi_pad(%t, 20) @ "\n";
+	return "<font:Arial:20>" @ srdi_pad(%t, 20) @ "\n";
 }
 
 function GameConnection::showReceivedDamageInfo(%this, %died)

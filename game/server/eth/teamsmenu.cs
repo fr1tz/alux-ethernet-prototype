@@ -18,7 +18,7 @@ function GameConnection::showTeamsMenu(%this)
 	%L3 = om_init();
 	%L3 = %L3 @ om_head(%this, "Switch Team");
 
-	%joinText = "<just:center>Join Team:\n<spush><font:NovaSquare:24>";
+	%joinText = "<just:center>Join Team:\n<spush><font:Arial:24>";
 	if(%this.team != $Team1)
 		%joinText = %joinText @ "<a:cmd JoinTeam 1>";
 	%joinText = %joinText @ $Team1.name @  " (" @ $Team1.numPlayers @ ")";

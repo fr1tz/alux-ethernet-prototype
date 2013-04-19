@@ -1,4 +1,4 @@
-<spush><font:NovaSquare:20>The Disc<spop>
+<spush><font:Arial:20>The Disc<spop>
 
 Every CAT carries a head-mounted disc launcher and two discs. 
 
@@ -14,7 +14,7 @@ To throw a slasher disc, you first need to get a disc-lock on an enemy CAT. Afte
 <lmargin:0>A disc-lock only lasts for two seconds.
 
 
-<spush><font:NovaSquare:18>Slasher Disc<spop>
+<spush><font:Arial:18>Slasher Disc<spop>
 
 A slasher disc will track its target until it has hit it, missed it, was deflected by another disc, has bounced a few times or has expired. 
 
@@ -31,7 +31,7 @@ In addition to dealing some damage, a slasher disc will give 20 points of armor 
 <sbreak>
 
 
-<spush><font:NovaSquare:18>Deflecting Discs<spop>
+<spush><font:Arial:18>Deflecting Discs<spop>
 
 To deflect an incoming disc, keep the crosshair over it until it's locked, then press @bind17. 
 

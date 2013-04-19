@@ -340,7 +340,7 @@ function GameConnection::displayInventory(%this, %obj)
 	else if(%this.inventoryMode $= "show")
 	{
 		%this.setHudMenuL(0, "\n", 8, 1);
-		%this.setHudMenuL(1, "<lmargin:100><font:NovaSquare:18><tab:120,175,200>" @
+		%this.setHudMenuL(1, "<lmargin:100><font:Arial:18><tab:120,175,200>" @
          "Select Form:\n\n", 1, 1);
 
 		%slot = 2;
@@ -358,7 +358,7 @@ function GameConnection::displayInventory(%this, %obj)
 //		 	   }
 //		   }
 //		}
-//		%this.setHudMenuL(%slot, "<sbreak><font:NovaSquare:14>" @
+//		%this.setHudMenuL(%slot, "<sbreak><font:Arial:14>" @
 //         "<bitmap:share/hud/rotc/icon.quickswitch.50x15>" @
 //         "Press @bind51 to exchange\n\nLoad:\n", 1, 1);
 //      %slot++;
@@ -422,7 +422,7 @@ function GameConnection::displayInventory(%this, %obj)
 		for(%i = 1; %i <= 3; %i++)
 			%icon[%i] = %iconname[%this.loadout[%i]];
 
-		%this.setHudMenuL(0, "<font:NovaSquare:12>" @ %margin, 1, 1);
+		%this.setHudMenuL(0, "<font:Arial:12>" @ %margin, 1, 1);
 
 		%this.setHudMenuL(1, "Slot #1:\n", 1, 1);
 		%this.setHudMenuL(2, "<bitmap:share/hud/rotc/icon." @ %icon[1] @ ".50x15>", 1, 1);
@@ -452,7 +452,7 @@ function GameConnection::displayInventory(%this, %obj)
 		else
 			%margin = "\n\n\n\n\n\n\n\n\n\n\n\n";
 
-		%this.setHudMenuL(0, "<font:NovaSquare:12>" @ %margin, 1, 1);
+		%this.setHudMenuL(0, "<font:Arial:12>" @ %margin, 1, 1);
 		%slot = 1;
 		for(%i = 1; %i <= %numItems; %i++)
 		{
@@ -505,7 +505,7 @@ function GameConnection::displayInventory(%this, %obj)
 		%numItems = $Game::GameType == $Game::Ethernet ? 7 : 5;
 
 		%this.setHudMenuL(0, "\n", 8, 1);
-		%this.setHudMenuL(1, "<lmargin:100><font:NovaSquare:12>Select slot #" @ %this.inventoryMode[1] @ ":\n\n", 1, 1);
+		%this.setHudMenuL(1, "<lmargin:100><font:Arial:12>Select slot #" @ %this.inventoryMode[1] @ ":\n\n", 1, 1);
 		for(%i = 1; %i <= %numItems; %i++)
 			%this.setHudMenuL(%i+1, "@bind" @ (%i < 6 ? 34 : 41) + %i @ ": " @ %itemname[%i]  @  "\n" @
 				"   <bitmap:share/hud/rotc/icon." @ %iconname[%item[%i]] @ ".50x15>" @ "<sbreak>", 1, 1);

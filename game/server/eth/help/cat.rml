@@ -1,23 +1,23 @@
 <lmargin:10><bitmap:share/manual/rotc/cats><lmargin:5><sbreak>
 CATs are the physical manifestations of the Reds and Blues that can capture zones, tag enemies, shoot and be destroyed.
 
-<spush><font:NovaSquare:24>Health <bitmap:game/client/ui/hud/pixmaps/health_icon><spop>
+<spush><font:Arial:24>Health <bitmap:game/client/ui/hud/pixmaps/health_icon><spop>
 
 CATs have a maximum of 75 health points. Health is lost if a CAT takes more damage than its <a:cmd Manual 4.2>shield</a> can absorb or the CAT is hit by a weapon that bypasses the shield.
 
-<spush><font:NovaSquare:24>Energy <bitmap:game/client/ui/hud/pixmaps/energy_icon><spop>
+<spush><font:Arial:24>Energy <bitmap:game/client/ui/hud/pixmaps/energy_icon><spop>
 
 CATs have a maximum of 100 recharging energy points. Energy is used for a number of things. An important example is that energy is both used to fire weapons and to provide protection via the <a:cmd Manual 4.1>Damper module</a>.
 
-<spush><font:NovaSquare:24>Tagging<spop>
+<spush><font:Arial:24>Tagging<spop>
 
 CATs are tagged when they take damage from an enemy. Tagged enemies appear on the HUD.
 
-<spush><font:NovaSquare:24>Returning to Etherform<spop>
+<spush><font:Arial:24>Returning to Etherform<spop>
 
 By pressing @bind34, players manifested as CAT can dissolve their physical bodies at any time.
 
-<spush><font:NovaSquare:24>Passive CAT Modules<spop>
+<spush><font:Arial:24>Passive CAT Modules<spop>
 
 A fixed set of passive modules give additional protection or unusual abilities to CATs:
 

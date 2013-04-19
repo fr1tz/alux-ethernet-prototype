@@ -32,7 +32,7 @@ function GameConnection::showAdminMenu(%this)
 
    if(!%this.isAdmin)
    {
-   	%L3 = %L3 @ "<just:center><spush><font:NovaSquare:24><color:AA0000>";
+   	%L3 = %L3 @ "<just:center><spush><font:Arial:24><color:AA0000>";
    	%L3 = %L3 @ "You are not an admin!";
    	%L3 = %L3 @ "<spop><just:left>\n\n";
    }

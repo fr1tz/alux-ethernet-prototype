@@ -50,7 +50,7 @@ new GameTSCtrl(HUD) {
       zMenuLVisible6 = "0";
       zMenuRVisible1 = "0";
       zMenuRText8 = " ";
-      zMenuTText3 = "<spush><just:center><font:NovaSquare:18><color:FFFFFF";
+      zMenuTText3 = "<spush><just:center><font:Arial:18><color:FFFFFF";
       zMenuTRepetitions8 = "1";
       zMenuCRepetitions3 = "1";
       zMenuLVisible5 = "0";

@@ -42,7 +42,7 @@ new GuiControlProfile(GuiDefaultProfile)
 	borderColorNA = "100 100 100 220";
 
 	// font
-	fontType = "NovaSquare";
+	fontType = "Arial";
 	fontSize = 14;
 
 	fontColor = "200 200 200";

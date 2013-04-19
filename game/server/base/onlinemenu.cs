@@ -10,7 +10,7 @@
 
 function om_init()
 {
-	return "<font:NovaSquare:16><linkcolor:FFFFFF><linkcolorhl:FF0000>";
+	return "<font:Arial:16><linkcolor:FFFFFF><linkcolorhl:FF0000>";
 }
 
 function om_head(%client, %title, %prev, %refresh)
@@ -25,7 +25,7 @@ function om_head(%client, %title, %prev, %refresh)
 	if(%title !$= "")
 	{
 		%r = %r @
-			"<spush><font:NovaSquare:24>" @ %title;
+			"<spush><font:Arial:24>" @ %title;
 
 		if(%refresh !$= "")
 		{

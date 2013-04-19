@@ -171,7 +171,7 @@ function GameConnection::showLoadout(%this, %no, %expandslot, %showInfo, %infoPo
          %L1 = %L1 @ "<bitmap:share/ui/rotc/bg1spc>\n";
       %L1 = %L1 @ om_init();
       %L1 = %L1 @ "<just:center>";
-      %L1 = %L1 @ "<spush><font:NovaSquare:24>" @ %page.name @ "<spop>\n\n";
+      %L1 = %L1 @ "<spush><font:Arial:24>" @ %page.name @ "<spop>\n\n";
       %L1 = %L1 @ LoadoutMenu_Link("Done", %no);
       %L1 = %L1 @ "\n\n<just:left><lmargin:5><rmargin:480>";
       %L1 = %L1 @ %page.text;

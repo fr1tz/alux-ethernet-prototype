@@ -17,7 +17,7 @@ $Pref::Server::Name = "Default Server";
 $Pref::Server::Info = "" 
 	@	"<just:center>" 
 	@	"\n[ Default description ]\n" 
-	@	"<spush><font:NovaSquare:16><color:AA0000>" 
+	@	"<spush><font:Arial:16><color:AA0000>" 
 	@	"Daily meetup time: None<spop>\n" 
 	@	"Scheduled matches: None" 
 	@ "";
