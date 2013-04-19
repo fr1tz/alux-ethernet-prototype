@@ -1,15 +1,10 @@
-Legions Of Light Pre-Alpha 1 (non-public)
-=========================================
+Alux Prototype
+==============
 
-Legions Of Light is an independent experimental multiplayer FPS game.
-
-This is a non-public pre-alpha version of the game intended for
-testing the basic game concept. Pretty much all the art is borrowed
-from Alux.
+This is a prototype for "Alux", a tactical multiplayer FPS game.
 
 Known Issues
 ------------
 
-- The game is still not very optimized in terms of speed, but the Linux version
-  seems to run incredibly slow on systems with ATI graphics drivers (to the
-  point where it's unplayable).
+- The game seems to run incredibly slow on some systems with ATI
+  graphics drivers (to the point where it's unplayable).
