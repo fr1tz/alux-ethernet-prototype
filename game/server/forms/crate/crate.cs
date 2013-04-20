@@ -121,6 +121,16 @@ function FrmCrate::onTrigger(%this, %obj, %triggerNum, %val)
    //
 }
 
+// Called from script
+function FrmCrate::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
+{
+   if(%damageType != $DamageType::Splash)
+      return;
+
+   return Parent::damage(%this, %obj, %sourceObject, %position, %damage, %damageType);
+}
+
+// Called from script
 function FrmCrate::canMaterialize(%this, %client, %pos, %normal, %transform)
 {
 	%ownTeamId = %client.player.getTeamId();
@@ -184,6 +194,7 @@ function FrmCrate::canMaterialize(%this, %client, %pos, %normal, %transform)
    return "";
 }
 
+// Called from script
 function FrmCrate::materialize(%this, %client, %pos, %normal, %transform)
 {
 	%player = new StaticShape() {
@@ -197,6 +208,7 @@ function FrmCrate::materialize(%this, %client, %pos, %normal, %transform)
    return %player;
 }
 
+// Called from script
 function FrmCrate::materializeFx(%this, %obj)
 {
    //%obj.startFade(1000, 0, false);
@@ -226,6 +238,7 @@ function FrmCrate::materializeFx(%this, %obj)
 	//%obj.shapeFxSetActive(3, true, false);
 }
 
+// Called from script
 function FrmCrate::dematerialize(%this, %obj)
 {
    createExplosion(FrmCrateExplosion, %obj.getPosition(), "0 0 1");
