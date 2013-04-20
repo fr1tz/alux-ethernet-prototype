@@ -94,7 +94,7 @@ datablock StaticShapeData(FrmPillar)
 
 function FrmPillar::onAdd(%this, %obj)
 {
-	//error("FrmCrate::onAdd()");
+	//error("FrmPillar::onAdd()");
 
 	Parent::onAdd(%this, %obj);
 	
@@ -107,18 +107,19 @@ function FrmPillar::onAdd(%this, %obj)
 // Invoked by ShapeBase code whenever the object's damage level changes
 function FrmPillar::onDamage(%this, %obj, %delta)
 {
-	%totalDamage = %obj.getDamageLevel();
-	if(%totalDamage >= %this.maxDamage)
-	{
-      createExplosion(FrmCrateExplosion, %obj.getPosition(), "0 0 1");
-      %obj.delete();
-	}
+   return FrmCrate::onDamage(%this, %obj, %delta);
 }
 
 // *** Callback function: called by engine
 function FrmPillar::onTrigger(%this, %obj, %triggerNum, %val)
 {
-   //
+   return FrmCrate::onTrigger(%this, %obj, %triggerNum, %val);
+}
+
+// Called from script
+function FrmPillar::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
+{
+   return FrmCrate::damage(%this, %obj, %sourceObject, %position, %damage, %damageType);
 }
 
 function FrmPillar::canMaterialize(%this, %client, %pos, %normal, %transform)
