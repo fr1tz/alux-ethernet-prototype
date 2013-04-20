@@ -680,7 +680,7 @@ function ShapeBaseData::onHitEnemy(%this, %obj, %enemy, %healthDmg, %bufDmg)
 	}
 
     // health takeback...
-	if(%client.numVAMPs > 0)
+	if(false && %client.numVAMPs > 0)
 	{
 		%healthTakeback = %healthDmg * 0.5 * %client.numVAMPs;
 		%newSrcDamage = %obj.getDamageLevel() - %healthTakeback;
