@@ -512,6 +512,9 @@ function GameConnection::enterForm(%this)
       %this.player = %closest;
       %this.control(%closest);
       %etherform.delete();
+
+      %this.inventoryMode = "";
+      %this.displayInventory();
    }
 }
 
