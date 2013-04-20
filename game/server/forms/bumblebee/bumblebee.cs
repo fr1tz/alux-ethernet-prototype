@@ -23,25 +23,126 @@ function FrmBumblebeeProxy::adjustTransform(%this, %pos, %normal, %eyeVec)
 }
 
 //------------------------------------------------------------------------------
-// Code share between static & flying form
+// Static form
 
-function FrmBumblebee::onAdd(%this, %obj)
+datablock StaticShapeData(FrmBumblebeeStatic)
 {
-   Parent::onAdd(%this, %obj);
-   //%obj.setFlyMode();
+   proxy = FrmBumblebeeProxy; // script field
+   spore = FrmBumblebeeSpore; // script field
+
+   allowColorization = true;
+
+	//className = FrmBumblebee;
+
+	//category = "Blueprints"; // for the mission editor
+
+   dynamicType = $TypeMasks::DamagableItemObjectType;
+
+	fistPersonOnly = true;
+
+	cameraDefaultFov = 110.0;
+	cameraMinFov     = 110.0;
+	cameraMaxFov     = 130.0;
+	cameraMinDist    = 2;
+	cameraMaxDist    = 3;
+
+	shadowEnable = true;
+
+	shapeFile = "share/shapes/alux/bumblebee.dts";
+   emap = true;
+
+   hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
+
+	maxDamage = 50;
+	damageBuffer = 0;
+	maxEnergy = 100;
+
+	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
+	shapeFxTexture[0] = "share/textures/alux/shiny.png";
+	shapeFxTexture[1] = "share/textures/alux/grid1.png";
+	shapeFxTexture[2] = "share/textures/alux/grid2.png";
+	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
+
+	// damage info eyecandy...
+	//damageBufferParticleEmitter = RedCatDamageBufferEmitter;
+	//repairParticleEmitter = RedCatRepairEmitter;
+	//bufferRepairParticleEmitter = RedCatBufferRepairEmitter;
+	//damageParticleEmitter = FrmCrate_DamageEmitter;
+};
+
+// Called by engine
+function FrmBumblebeeStatic::onTrigger(%this, %obj, %triggerNum, %val)
+{
+   if(%val)
+      return;
+
+   %client = %obj.client;
+
+	%player = new FlyingVehicle() {
+		dataBlock = FrmBumblebeeFlyer;
+		client = %client;
+		teamId = %client.team.teamId;
+	};
+   MissionCleanup.add(%player);
+   %player.loadoutcode = %obj.loadoutcode;
+   %player.setTransform(%obj.getTransform());
+   %player.setDamageLevel(%obj.getDamageLevel());
+   %player.setFlyMode();
+
+   %pieces = sLoadoutcode2Pieces(%player.loadoutcode);
+   for(%f = 0; %f < getFieldCount(%pieces); %f++)
+   {
+      %field = getField(%pieces, %f);
+      %piece = getWord(%field, 0);
+      %count = getWord(%field, 1);
+      %client.inventory.pieceUsed[%piece] += %count;
+   }
+
+   //%this.materializeFx(%player);
+	//%player.playAudio(0, CatSpawnSound);
+
+   %static = %client.player;
+   %client.control(%player);
+   %client.player = %player;
+   %static.delete();
 }
 
-function FrmBumblebee::onRemove(%this, %obj)
+// Called from script
+function FrmBumblebeeStatic::canMaterialize(%this, %client, %pos, %normal, %transform)
 {
-   Parent::onRemove(%this, %obj);
+   return FrmSoldier::canMaterialize(%this, %client, %pos, %normal, %transform);
+}
 
-   // delete engine light...
-//   %obj.light.delete();
+// Called from script
+function FrmBumblebeeStatic::materialize(%this, %client, %pos, %normal, %transform)
+{
+	%player = new StaticShape() {
+	  dataBlock = %this;
+	  client = %client;
+     teamId = %client.team.teamId;
+   };
+   MissionCleanup.add(%player);
+   %this.materializeFx(%player);
+	%player.playAudio(0, CatSpawnSound);
+   return %player;
+}
+
+// Called from script
+function FrmBumblebeeStatic::materializeFx(%this, %obj)
+{
+   FrmCrate::materializeFx(%this, %obj);
+}
+
+// Called from script
+function FrmBumblebeeStatic::dematerialize(%this, %obj)
+{
+   createExplosion(FrmParrotExplosion, %obj.getPosition(), "0 0 1");
+   %obj.schedule(0, "delete");
 }
 
 // *** Callback function:
 // Invoked by ShapeBase code whenever the object's damage level changes
-function FrmBumblebee::onDamage(%this, %obj, %delta)
+function FrmBumblebeeStatic::onDamage(%this, %obj, %delta)
 {
 	%totalDamage = %obj.getDamageLevel();
 	if(%totalDamage >= %this.maxDamage)
@@ -52,13 +153,13 @@ function FrmBumblebee::onDamage(%this, %obj, %delta)
 
 // *** Callback function:
 // Invoked by ShapeBase code when object's damageState was set to 'Destroyed'
-function FrmBumblebee::onDestroyed(%this, %obj, %prevState)
+function FrmBumblebeeStatic::onDestroyed(%this, %obj, %prevState)
 {
    // nothing here right now
 }
 
 // Called from script
-function FrmBumblebee::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
+function FrmBumblebeeStatic::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
 {
    if(%obj.getDamageState() $= "Destroyed")
       return;
@@ -107,7 +208,7 @@ function FrmBumblebee::damage(%this, %obj, %sourceObject, %position, %damage, %d
 }
 
 // Called from script
-function FrmBumblebee::explode(%this, %obj)
+function FrmBumblebeeStatic::explode(%this, %obj)
 {
    %obj.client.leaveForm(%obj);
 
@@ -182,126 +283,11 @@ function FrmBumblebee::explode(%this, %obj)
 }
 
 // called by ShapeBase script code...
-function FrmBumblebee::getBleed(%this, %obj, %dmg, %src)
+function FrmBumblebeeStatic::getBleed(%this, %obj, %dmg, %src)
 {
    return Player::getBleed(%this, %obj, %dmg, %src);
 }
 
-
-//------------------------------------------------------------------------------
-// Static form
-
-datablock StaticShapeData(FrmBumblebeeStatic)
-{
-   proxy = FrmBumblebeeProxy; // script field
-   spore = FrmBumblebeeSpore; // script field
-
-   allowColorization = true;
-
-	className = FrmBumblebee;
-
-	//category = "Blueprints"; // for the mission editor
-
-   dynamicType = $TypeMasks::DamagableItemObjectType;
-
-	fistPersonOnly = true;
-
-	cameraDefaultFov = 110.0;
-	cameraMinFov     = 110.0;
-	cameraMaxFov     = 130.0;
-	cameraMinDist    = 2;
-	cameraMaxDist    = 3;
-
-	shadowEnable = true;
-
-	shapeFile = "share/shapes/alux/bumblebee.dts";
-   emap = true;
-
-   hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
-
-	maxDamage = 50;
-	damageBuffer = 0;
-	maxEnergy = 100;
-
-	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
-	shapeFxTexture[0] = "share/textures/alux/shiny.png";
-	shapeFxTexture[1] = "share/textures/alux/grid1.png";
-	shapeFxTexture[2] = "share/textures/alux/grid2.png";
-	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
-
-	// damage info eyecandy...
-	//damageBufferParticleEmitter = RedCatDamageBufferEmitter;
-	//repairParticleEmitter = RedCatRepairEmitter;
-	//bufferRepairParticleEmitter = RedCatBufferRepairEmitter;
-	//damageParticleEmitter = FrmCrate_DamageEmitter;
-};
-
-// Called by engine
-function FrmBumblebeeStatic::onTrigger(%this, %obj, %triggerNum, %val)
-{
-   %client = %obj.client;
-
-	%player = new FlyingVehicle() {
-		dataBlock = FrmBumblebeeFlyer;
-		client = %client;
-		teamId = %client.team.teamId;
-	};
-   MissionCleanup.add(%player);
-   %player.loadoutcode = %obj.loadoutcode;
-   %player.setTransform(%obj.getTransform());
-   %player.setDamageLevel(%obj.getDamageLevel());
-   %player.setFlyMode();
-
-   %pieces = sLoadoutcode2Pieces(%player.loadoutcode);
-   for(%f = 0; %f < getFieldCount(%pieces); %f++)
-   {
-      %field = getField(%pieces, %f);
-      %piece = getWord(%field, 0);
-      %count = getWord(%field, 1);
-      %client.inventory.pieceUsed[%piece] += %count;
-   }
-
-   //%this.materializeFx(%player);
-	//%player.playAudio(0, CatSpawnSound);
-
-   %static = %client.player;
-   %client.control(%player);
-   %client.player = %player;
-   %static.delete();
-}
-
-// Called from script
-function FrmBumblebeeStatic::canMaterialize(%this, %client, %pos, %normal, %transform)
-{
-   return FrmSoldier::canMaterialize(%this, %client, %pos, %normal, %transform);
-}
-
-// Called from script
-function FrmBumblebeeStatic::materialize(%this, %client, %pos, %normal, %transform)
-{
-	%player = new StaticShape() {
-	  dataBlock = %this;
-	  client = %client;
-     teamId = %client.team.teamId;
-   };
-   MissionCleanup.add(%player);
-   %this.materializeFx(%player);
-	%player.playAudio(0, CatSpawnSound);
-   return %player;
-}
-
-// Called from script
-function FrmBumblebeeStatic::materializeFx(%this, %obj)
-{
-   FrmCrate::materializeFx(%this, %obj);
-}
-
-// Called from script
-function FrmBumblebeeStatic::dematerialize(%this, %obj)
-{
-   createExplosion(FrmParrotExplosion, %obj.getPosition(), "0 0 1");
-   %obj.schedule(0, "delete");
-}
 
 //------------------------------------------------------------------------------
 // Flying form
@@ -310,7 +296,7 @@ datablock FlyingVehicleData(FrmBumblebeeFlyer)
 {
    allowColorization = true;
 
-   className = FrmBumblebee;
+   //className = FrmBumblebee;
 
    // @name dynamic fields, needed for certain in-script checks -mag
    // @{
@@ -402,10 +388,10 @@ datablock FlyingVehicleData(FrmBumblebeeFlyer)
 
    // contrail...
    minTrailSpeed = 0;      // The speed your contrail shows up at
-   trailEmitter = FrmBumblebeeFlyer_ContrailEmitter;
+   trailEmitter = FrmBumblebee_ContrailEmitter;
 
    // laser trail...
-   laserTrail = FrmBumblebeeFlyer_LaserTrail;
+   laserTrail = FrmBumblebee_LaserTrail;
 
    // various emitters...
    //forwardJetEmitter = ScoutDroneJetEmitter;
@@ -413,7 +399,7 @@ datablock FlyingVehicleData(FrmBumblebeeFlyer)
 
    //
 //   jetSound = Team1ScoutScoutDroneThrustSound;
-   engineSound = FrmBumblebeeFlyerEngineSound;
+   engineSound = FrmBumblebeeEngineSound;
 //   softImpactSound = SoftImpactSound;
 //   hardImpactSound = HardImpactSound;
    //wheelImpactSound = WheelImpactSound;
@@ -462,9 +448,42 @@ datablock FlyingVehicleData(FrmBumblebeeFlyer)
 // *** Callback function: called by engine
 function FrmBumblebeeFlyer::onTrigger(%this, %obj, %triggerNum, %val)
 {
-	if(%triggerNum == 0 && !%val)
+	if(%triggerNum == 0 && %val)
 	{
       %this.explode(%obj);
    }
 }
+
+// *** Callback function:
+// Invoked by ShapeBase code whenever the object's damage level changes
+function FrmBumblebeeFlyer::onDamage(%this, %obj, %delta)
+{
+   return FrmBumblebeeStatic::onDamage(%this, %obj, %delta);
+}
+
+// *** Callback function:
+// Invoked by ShapeBase code when object's damageState was set to 'Destroyed'
+function FrmBumblebeeFlyer::onDestroyed(%this, %obj, %prevState)
+{
+   return FrmBumblebeeStatic::onDestroyed(%this, %obj, %prevState);
+}
+
+// Called from script
+function FrmBumblebeeFlyer::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
+{
+   return FrmBumblebeeStatic::damage(%this, %obj, %sourceObject, %position, %damage, %damageType);
+}
+
+// Called from script
+function FrmBumblebeeFlyer::explode(%this, %obj)
+{
+   return FrmBumblebeeStatic::explode(%this, %obj);
+}
+
+// called by ShapeBase script code...
+function FrmBumblebeeFlyer::getBleed(%this, %obj, %dmg, %src)
+{
+   return FrmBumblebeeStatic::getBleed(%this, %obj, %dmg, %src);
+}
+
 
