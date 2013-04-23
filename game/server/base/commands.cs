@@ -15,18 +15,6 @@
 
 function serverCmdPlayerAction(%client, %nr, %val)
 {	
-	if(%nr == 31 && %val)
-	{	
-		%client.topHudMenu = "newbiehelp";
-		%client.setNewbieHelp("random", true);
-		return;	
-	}
-	else if(%nr == 32 && %val)
-	{		
-//		%client.switchTopHudMenuMode();
-		return;
-	}	
-
 	%player = %client.player;
 	if(%player == 0)
 		return false;
@@ -69,6 +57,10 @@ function serverCmdPlayerAction(%client, %nr, %val)
 	else if(%nr >= 21 && %nr <= 30 && %val)
 	{
 		%client.getControlObject().useWeapon(%nr-20);
+	}
+	else if(%nr >= 31 && %nr <= 35 && %val)
+	{
+		%client.getControlObject().special(%nr-30);
 	}
 	else if(%nr == 39 && %val)
 	{		

@@ -84,19 +84,10 @@ function FrmBumblebeeStatic::onTrigger(%this, %obj, %triggerNum, %val)
 		teamId = %client.team.teamId;
 	};
    MissionCleanup.add(%player);
-   %player.loadoutcode = %obj.loadoutcode;
+   %player.setLoadoutCode(%obj.loadoutcode);
    %player.setTransform(%obj.getTransform());
    %player.setDamageLevel(%obj.getDamageLevel());
    %player.setFlyMode();
-
-   %pieces = sLoadoutcode2Pieces(%player.loadoutcode);
-   for(%f = 0; %f < getFieldCount(%pieces); %f++)
-   {
-      %field = getField(%pieces, %f);
-      %piece = getWord(%field, 0);
-      %count = getWord(%field, 1);
-      %client.inventory.pieceUsed[%piece] += %count;
-   }
 
    //%this.materializeFx(%player);
 	//%player.playAudio(0, CatSpawnSound);

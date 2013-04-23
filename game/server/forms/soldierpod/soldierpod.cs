@@ -4,31 +4,10 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// Placement proxy for controllable form
-
-datablock StaticShapeData(FrmBumblebeeProxy : FrmCrateProxy)
-{
-   form = FrmBumblebee; // script field
-	shapeFile = "share/shapes/alux/bumblebee.dts";
-};
-
-function FrmBumblebeeProxy::adjustTransform(%this, %pos, %normal, %eyeVec)
-{
-   %transform = createOrientFromDir(%normal);
-   %transform = setWord(%transform, 0, getWord(%pos, 0));
-   %transform = setWord(%transform, 1, getWord(%pos, 1));
-   %transform = setWord(%transform, 2, getWord(%pos, 2)+5);
-   return %transform;
-}
-
-//------------------------------------------------------------------------------
 // Controllable form
 
-datablock FlyingVehicleData(FrmBumblebee)
+datablock FlyingVehicleData(FrmSoldierpod)
 {
-   proxy = FrmBumblebeeProxy; // script field
-   spore = FrmBumblebeeSpore; // script field
-
    allowColorization = true;
 
    // @name dynamic fields, needed for certain in-script checks -mag
@@ -121,10 +100,10 @@ datablock FlyingVehicleData(FrmBumblebee)
 
    // contrail...
    minTrailSpeed = 0;      // The speed your contrail shows up at
-   //trailEmitter = FrmBumblebee_ContrailEmitter;
+   //trailEmitter = FrmSoldierpod_ContrailEmitter;
    
    // laser trail...
-   laserTrail = FrmBumblebee_LaserTrail;
+   laserTrail = FrmSoldierpod_LaserTrail;
    
    // various emitters...
    //forwardJetEmitter = ScoutDroneJetEmitter;
@@ -132,7 +111,7 @@ datablock FlyingVehicleData(FrmBumblebee)
 
    //
 //   jetSound = Team1ScoutScoutDroneThrustSound;
-   engineSound = FrmBumblebeeEngineSound;
+   engineSound = FrmSoldierpodEngineSound;
 //   softImpactSound = SoftImpactSound;
 //   hardImpactSound = HardImpactSound;
    //wheelImpactSound = WheelImpactSound;
@@ -178,14 +157,14 @@ datablock FlyingVehicleData(FrmBumblebee)
    mountPose[0] = "ScoutDrone";
 };
 
-function FrmBumblebee::onAdd(%this, %obj)
+function FrmSoldierpod::onAdd(%this, %obj)
 {
    Parent::onAdd(%this, %obj);
    %obj.setFlyMode();
    %obj.playThread(0, "ambient");
 }
 
-function FrmBumblebee::onRemove(%this, %obj)
+function FrmSoldierpod::onRemove(%this, %obj)
 {
    Parent::onRemove(%this, %obj);
    
@@ -193,9 +172,50 @@ function FrmBumblebee::onRemove(%this, %obj)
 //   %obj.light.delete();
 }
 
+// *** Callback function: called by engine
+function FrmSoldierpod::onImpact(%this, %obj, %col, %vec, %vecLen)
+{
+   %client = %obj.client;
+   %pos = %obj.getPosition();
+   %normal = "0 0 1";
+   %transform = %obj.getTransform();
+
+   %start = %pos;
+   %end = VectorAdd(%pos, "0 0 -10");
+
+   %c = containerRayCast(%start, %end, $TypeMasks::TerrainObjectType |
+         $TypeMasks::InteriorObjectType, %obj);
+
+   %x = getWord(%c,1); 
+   %y = getWord(%c,2);
+   %z = getWord(%c,3);
+
+   %pos = %x SPC %y SPC %z;
+
+   %error = FrmSoldier.canMaterialize(%client, %pos, %normal, %transform);
+   error(%error);
+   if(%error !$= "")
+   {
+      %this.explode(%obj);
+      return;
+   }
+
+   %player = FrmSoldier.materialize(%client, %pos, %normal, %transform);
+   %player.setTransform(%transform);
+   //%client.proxy.removeClientFromGhostingList(%client);
+   //%client.proxy.setTransform("0 0 0");
+   %player.setLoadoutCode(%obj.loadoutCode);
+   %player.inv[1] = getWord(%obj.loadoutCode, 4);
+
+   %client.control(%player);
+   %client.player = %player;
+
+   %obj.schedule(0, "delete");
+}
+
 // *** Callback function:
 // Invoked by ShapeBase code whenever the object's damage level changes
-function FrmBumblebee::onDamage(%this, %obj, %delta)
+function FrmSoldierpod::onDamage(%this, %obj, %delta)
 {
 	%totalDamage = %obj.getDamageLevel();
 	if(%totalDamage >= %this.maxDamage)
@@ -206,22 +226,13 @@ function FrmBumblebee::onDamage(%this, %obj, %delta)
 
 // *** Callback function:
 // Invoked by ShapeBase code when object's damageState was set to 'Destroyed'
-function FrmBumblebee::onDestroyed(%this, %obj, %prevState)
+function FrmSoldierpod::onDestroyed(%this, %obj, %prevState)
 {
    // nothing here right now
 }
 
-// *** Callback function: called by engine
-function FrmBumblebee::onTrigger(%this, %obj, %triggerNum, %val)
-{
-	if(%triggerNum == 0 && !%val)
-	{
-      %this.explode(%obj);
-   }
-}
-
 // Called from script
-function FrmBumblebee::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
+function FrmSoldierpod::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
 {
    if(%obj.getDamageState() $= "Destroyed")
       return;
@@ -270,86 +281,21 @@ function FrmBumblebee::damage(%this, %obj, %sourceObject, %position, %damage, %d
 }
 
 // Called from script
-function FrmBumblebee::explode(%this, %obj)
+function FrmSoldierpod::explode(%this, %obj)
 {
    %pos = %obj.getPosition();
-
-   createExplosion(FrmBumblebeeExplosion, %pos, "0 0 1");
-
-	%radius = 10;
-	%damage = 1000;
-	%damageType = $DamageType::Splash;
-   %splashImpulse = 2000;
-   %splashDamageFalloff = $SplashDamageFalloff::Linear;
-
-	%targets = new SimSet();
-
-	InitContainerRadiusSearch(%pos, %radius, $TypeMasks::ShapeBaseObjectType);
-	while( (%targetObject = containerSearchNext()) != 0 )
-		%targets.add(%targetObject);
-
-	for(%idx = %targets.getCount()-1; %idx >= 0; %idx-- )
-	{
-		%targetObject = %targets.getObject(%idx);
-
-      if(%targetObject == %obj)
-         continue;
-
-        // the observer cameras are ShapeBases; ignore them...
-      if(%targetObject.getType() & $TypeMasks::CameraObjectType)
-         continue;
-
-		%coverage = calcExplosionCoverage(%pos, %targetObject,
-			$TypeMasks::InteriorObjectType |  $TypeMasks::TerrainObjectType |
-			$TypeMasks::ForceFieldObjectType | $TypeMasks::VehicleObjectType |
-			$TypeMasks::TurretObjectType);
-
-		if (%coverage == 0)
-			continue;
-
-		%dist1 = containerSearchCurrRadiusDist();
-         // FIXME: can't call containerSearchCurrRadiusDist(); from here
-
-      %center = %targetObject.getWorldBoxCenter();
-		%col = containerRayCast(%pos, %center, $TypeMasks::ShapeBaseObjectType, %obj);
-		%col = getWord(%col, 1) SPC getWord(%col, 2) SPC getWord(%col, 3);
-		%dist2 = VectorLen(VectorSub(%col, %pos));
-
-		%dist = %dist2;
-		%prox = %radius - %dist;
-		if(%splashDamageFalloff == $SplashDamageFalloff::Exponential)
-			%distScale = (%prox*%prox) / (%radius*%radius);
-		else if(%splashDamageFalloff == $SplashDamageFalloff::None)
-			%distScale = 1;
-		else
-			%distScale = %prox / %radius;
-
-		// apply impulse...
-		if(%splashImpulse > 0)
-		{
-			%impulseVec = VectorNormalize(VectorSub(%center, %pos));
-			%impulseVec = VectorScale(%impulseVec, %splashImpulse);
-			%targetObject.impulse(%pos, %impulseVec);
-		}
-
-		// call damage func...
-		%targetObject.damage(%obj, %pos,
-			%damage * %coverage * %distScale, %damageType);
-	}
-
-	%targets.delete();
-
+   createExplosion(FrmSoldierpodExplosion, %pos, "0 0 1");
    %obj.schedule(0, "delete");
 }
 
 // Called from script
-function FrmBumblebee::canMaterialize(%this, %client, %pos, %normal, %transform)
+function FrmSoldierpod::canMaterialize(%this, %client, %pos, %normal, %transform)
 {
    return FrmSoldier::canMaterialize(%this, %client, %pos, %normal, %transform);
 }
 
 // Called from script
-function FrmBumblebee::materialize(%this, %client, %pos, %normal, %transform)
+function FrmSoldierpod::materialize(%this, %client)
 {
 	%player = new FlyingVehicle() {
 		dataBlock = %this;
@@ -366,20 +312,20 @@ function FrmBumblebee::materialize(%this, %client, %pos, %normal, %transform)
 }
 
 // Called from script
-function FrmBumblebee::materializeFx(%this, %obj)
+function FrmSoldierpod::materializeFx(%this, %obj)
 {
    FrmCrate::materializeFx(%this, %obj);
 }
 
 // Called from script
-function FrmBumblebee::dematerialize(%this, %obj)
+function FrmSoldierpod::dematerialize(%this, %obj)
 {
    createExplosion(FrmParrotExplosion, %obj.getPosition(), "0 0 1");
    %obj.schedule(0, "delete");
 }
 
 // called by ShapeBase script code...
-function FrmBumblebee::getBleed(%this, %obj, %dmg, %src)
+function FrmSoldierpod::getBleed(%this, %obj, %dmg, %src)
 {
    return Player::getBleed(%this, %obj, %dmg, %src);
 }

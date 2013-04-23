@@ -516,6 +516,10 @@ function GameConnection::enterForm(%this)
       %this.inventoryMode = "";
       %this.displayInventory();
    }
+   else
+   {
+      %this.play2D(BeepMessageSound);
+   }
 }
 
 function GameConnection::leaveForm(%this, %obj, %dematerialize)
@@ -611,7 +615,7 @@ function GameConnection::spawnForm(%this)
 
    if(%this.spawnError !$= "")
    {
-
+      %this.play2D(BeepMessageSound);
       return;
    }
 
@@ -625,17 +629,10 @@ function GameConnection::spawnForm(%this)
    //%client.proxy.setTransform("0 0 0");
    $aiTarget = %player;
 
-   %player.loadoutcode = %this.activeLoadout;
+   %player.setLoadoutCode(%this.activeLoadout);
    %player.inv[1] = getWord(%this.activeLoadout, 4);
 
-   %pieces = sLoadoutcode2Pieces(%player.loadoutcode);
-   for(%f = 0; %f < getFieldCount(%pieces); %f++)
-   {
-      %field = getField(%pieces, %f);
-      %piece = getWord(%field, 0);
-      %count = getWord(%field, 1);
-      %this.inventory.pieceUsed[%piece] += %count;
-   }
+   %player.getDataBlock().onMaterialized(%player, %client);
 }
 
 // called by script code

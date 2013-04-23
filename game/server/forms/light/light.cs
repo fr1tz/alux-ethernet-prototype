@@ -10,6 +10,39 @@ function EtherformData::useWeapon(%this, %obj, %nr)
 	%client = %obj.client.changeInventory(%nr);
 }
 
+function EtherformData::special(%this, %obj, %nr)
+{
+   if(%nr < 1 || %nr > 5)
+      return;
+
+   %client = %obj.client;
+
+   %pieces = sLoadoutcode2Pieces(%client.loadoutCode[%nr]);
+   for(%f = 0; %f < getFieldCount(%pieces); %f++)
+   {
+      %field = getField(%pieces, %f);
+      %piece = getWord(%field, 0);
+      %count = getWord(%field, 1);
+
+      %used = %client.inventory.pieceUsed[%piece];
+      %free = %client.inventory.pieceCount[%piece] - %used;
+
+      if(%free < %count)
+      {
+         %client.play2D(BeepMessageSound);
+         return;
+      }
+   }
+
+	%player = FrmSoldierpod.materialize(%client);
+   %player.setLoadoutCode(%client.loadoutCode[%nr]);
+   %player.setTransform(%obj.getTransform());
+
+   %client.control(%player);
+   %client.player = %player;
+   %obj.delete();
+}
+
 function EtherformData::damage(%this, %obj, %sourceObject, %pos, %damage, %damageType)
 {
 	// ignore damage

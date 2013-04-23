@@ -3,7 +3,7 @@
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
-datablock ParticleData(FrmBumblebeeExplosion_Cloud)
+datablock ParticleData(FrmSoldierpodExplosion_Cloud)
 {
 	dragCoeffiecient	  = 0.4;
 	gravityCoefficient	= 0;
@@ -31,7 +31,7 @@ datablock ParticleData(FrmBumblebeeExplosion_Cloud)
 	allowLighting = false;
 };
 
-datablock ParticleEmitterData(FrmBumblebeeExplosion_CloudEmitter)
+datablock ParticleEmitterData(FrmSoldierpodExplosion_CloudEmitter)
 {
 	ejectionPeriodMS = 5;
 	periodVarianceMS = 0;
@@ -44,10 +44,10 @@ datablock ParticleEmitterData(FrmBumblebeeExplosion_CloudEmitter)
 
 	lifetimeMS		 = 100;
 
-	particles = "FrmBumblebeeExplosion_Cloud";
+	particles = "FrmSoldierpodExplosion_Cloud";
 };
 
-datablock ParticleData(FrmBumblebeeExplosion_Dust)
+datablock ParticleData(FrmSoldierpodExplosion_Dust)
 {
 	dragCoefficient		= 1.0;
 	gravityCoefficient	= -0.01;
@@ -71,7 +71,7 @@ datablock ParticleData(FrmBumblebeeExplosion_Dust)
 	allowLighting = true;
 };
 
-datablock ParticleEmitterData(FrmBumblebeeExplosion_DustEmitter)
+datablock ParticleEmitterData(FrmSoldierpodExplosion_DustEmitter)
 {
 	ejectionPeriodMS = 5;
 	periodVarianceMS = 0;
@@ -84,11 +84,11 @@ datablock ParticleEmitterData(FrmBumblebeeExplosion_DustEmitter)
 	phiVariance		= 360;
 	overrideAdvances = false;
 	lifetimeMS		 = 250;
-	particles = "FrmBumblebeeExplosion_Dust";
+	particles = "FrmSoldierpodExplosion_Dust";
 };
 
 
-datablock ParticleData(FrmBumblebeeExplosion_Smoke)
+datablock ParticleData(FrmSoldierpodExplosion_Smoke)
 {
 	dragCoeffiecient	  = 0.4;
 	gravityCoefficient	= -0.5;	// rises slowly
@@ -116,7 +116,7 @@ datablock ParticleData(FrmBumblebeeExplosion_Smoke)
 	allowLighting = true;
 };
 
-datablock ParticleEmitterData(FrmBumblebeeExplosion_SmokeEmitter)
+datablock ParticleEmitterData(FrmSoldierpodExplosion_SmokeEmitter)
 {
 	ejectionPeriodMS = 5;
 	periodVarianceMS = 0;
@@ -129,10 +129,10 @@ datablock ParticleEmitterData(FrmBumblebeeExplosion_SmokeEmitter)
 
 	lifetimeMS		 = 250;
 
-	particles = "FrmBumblebeeExplosion_Smoke";
+	particles = "FrmSoldierpodExplosion_Smoke";
 };
 
-datablock ParticleData(FrmBumblebeeExplosion_Sparks)
+datablock ParticleData(FrmSoldierpodExplosion_Sparks)
 {
 	dragCoefficient		= 1;
 	gravityCoefficient	= 0.0;
@@ -153,7 +153,7 @@ datablock ParticleData(FrmBumblebeeExplosion_Sparks)
 	allowLighting = false;
 };
 
-datablock ParticleEmitterData(FrmBumblebeeExplosion_SparksEmitter)
+datablock ParticleEmitterData(FrmSoldierpodExplosion_SparksEmitter)
 {
 	ejectionPeriodMS = 2;
 	periodVarianceMS = 0;
@@ -167,12 +167,12 @@ datablock ParticleEmitterData(FrmBumblebeeExplosion_SparksEmitter)
 	overrideAdvances = false;
 	orientParticles  = true;
 	lifetimeMS		 = 100;
-	particles = "FrmBumblebeeExplosion_Sparks";
+	particles = "FrmSoldierpodExplosion_Sparks";
 };
 
-datablock ExplosionData(FrmBumblebeeExplosion)
+datablock ExplosionData(FrmSoldierpodExplosion)
 {
-	soundProfile = FrmBumblebeeExplosionSound;
+	soundProfile = FrmSoldierpodExplosionSound;
 
 	// shape...
 	faceViewer	  = true;
@@ -180,13 +180,13 @@ datablock ExplosionData(FrmBumblebeeExplosion)
 
 	lifetimeMS = 200;
 
-	particleEmitter = FrmBumblebeeExplosion_CloudEmitter;
+	particleEmitter = FrmSoldierpodExplosion_CloudEmitter;
 	particleDensity = 300;
 	particleRadius = 10;
 
-	//emitter[0] = FrmBumblebeeExplosion_DustEmitter;
-	//emitter[1] = FrmBumblebeeExplosion_SmokeEmitter;
-	//emitter[2] = FrmBumblebeeExplosion_SparksEmitter;
+	//emitter[0] = FrmSoldierpodExplosion_DustEmitter;
+	//emitter[1] = FrmSoldierpodExplosion_SmokeEmitter;
+	//emitter[2] = FrmSoldierpodExplosion_SparksEmitter;
 
 	// Camera shake
 	shakeCamera = false;

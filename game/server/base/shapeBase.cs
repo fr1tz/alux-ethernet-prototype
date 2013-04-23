@@ -105,6 +105,11 @@ function ShapeBase::useWeapon(%this, %nr)
 	%this.getDataBlock().useWeapon(%this, %nr);
 }
 
+function ShapeBase::special(%this, %nr)
+{
+	%this.getDataBlock().special(%this, %nr);
+}
+
 //-----------------------------------------------------------------------------
 
 function ShapeBase::checkTaggedThread(%this)
@@ -248,6 +253,23 @@ function ShapeBase::hasBarrier(%this)
 }
 
 //-----------------------------------------------------------------------------
+
+// Called by script code
+function ShapeBase::setLoadoutCode(%this, %loadoutcode)
+{
+   %client = %this.client;
+   %this.loadoutcode = %loadoutcode;
+   %pieces = sLoadoutcode2Pieces(%this.loadoutcode);
+   for(%f = 0; %f < getFieldCount(%pieces); %f++)
+   {
+      %field = getField(%pieces, %f);
+      %piece = getWord(%field, 0);
+      %count = getWord(%field, 1);
+      %client.inventory.pieceUsed[%piece] += %count;
+   }
+}
+
+//-----------------------------------------------------------------------------
 // ShapeBase datablock
 //-----------------------------------------------------------------------------
 
@@ -305,7 +327,7 @@ function ShapeBaseData::onRemove(%this, %obj)
          %field = getField(%pieces, %f);
          %piece = getWord(%field, 0);
          %count = getWord(%field, 1);
-         %obj.client.inventory.pieceCount[%piece] -= %count;
+         //%obj.client.inventory.pieceCount[%piece] -= %count;
          %obj.client.inventory.pieceUsed[%piece] -= %count;
       }
    }
@@ -720,3 +742,4 @@ function ShapeBaseData::updateShapeName(%this, %obj)
 		%obj.getHudInfo().markAsControlled(%obj.client, 0);
 	}
 }
+

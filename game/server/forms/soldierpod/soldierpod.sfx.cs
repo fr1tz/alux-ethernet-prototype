@@ -3,28 +3,28 @@
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
-datablock AudioProfile(FrmBumblebeeEngineSound)
+datablock AudioProfile(FrmSoldierpodEngineSound)
 {
    filename = "share/sounds/rotc/slide2.wav";
    description = AudioDefaultLooping3D;
 	preload = true;
 };
 
-datablock AudioProfile(FrmBumblebeeExplosionSound)
+datablock AudioProfile(FrmSoldierpodExplosionSound)
 {
 	filename = "share/sounds/rotc/explosion7.wav";
 	description = AudioFar3D;
 	preload = true;
 };
 
-datablock AudioProfile(FrmBumblebeeSoftImpactSound)
+datablock AudioProfile(FrmSoldierpodSoftImpactSound)
 {
    filename = "~/data/vehicles/tank/sound_softimpact.wav";
    description = AudioDefault3D;
 	preload = true;
 };
 
-datablock AudioProfile(FrmBumblebeeHardImpactSound)
+datablock AudioProfile(FrmSoldierpodHardImpactSound)
 {
    filename = "~/data/vehicles/tank/sound_hardimpact.wav";
    description = AudioDefault3D;
