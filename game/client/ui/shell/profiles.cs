@@ -3,11 +3,6 @@
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// Revenge Of The Cats - profiles.cs
-// GuiControlProfiles for Revenge Of The Cats' shell
-//------------------------------------------------------------------------------
-
 new AudioProfile(GuiSoundButtonDown)
 {
 	filename = "share/sounds/rotc/damage1.wav";
@@ -71,8 +66,8 @@ new GuiControlProfile(GuiDefaultProfile)
 	cursorColor = "200 200 200";
 
 	// sounds
-	soundButtonDown = GuiSoundButtonDown;
-	soundButtonOver = GuiSoundButtonOver;
+	//soundButtonDown = GuiSoundButtonDown;
+	//soundButtonOver = GuiSoundButtonOver;
 };
 
 //--------------------------------------------------------------------------
