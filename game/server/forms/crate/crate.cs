@@ -110,6 +110,7 @@ function FrmCrate::onDamage(%this, %obj, %delta)
 	%totalDamage = %obj.getDamageLevel();
 	if(%totalDamage >= %this.maxDamage)
 	{
+      %obj.client.onFormDestroyed(%obj);
       createExplosion(FrmCrateExplosion, %obj.getPosition(), "0 0 1");
       %obj.delete();
 	}

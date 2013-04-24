@@ -327,8 +327,9 @@ function ShapeBaseData::onRemove(%this, %obj)
          %field = getField(%pieces, %f);
          %piece = getWord(%field, 0);
          %count = getWord(%field, 1);
-         //%obj.client.inventory.pieceCount[%piece] -= %count;
          %obj.client.inventory.pieceUsed[%piece] -= %count;
+         if(%obj.zFormDestroyed)
+            %obj.client.inventory.pieceCount[%piece] -= %count;
       }
    }
 }

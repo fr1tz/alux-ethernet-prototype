@@ -208,6 +208,7 @@ function FrmParrot::onDamage(%this, %obj, %delta)
 	if(%totalDamage >= %this.maxDamage)
 	{
       %obj.client.leaveForm(%obj);
+      %obj.client.onFormDestroyed(%obj);
       createExplosion(FrmParrotExplosion, %obj.getPosition(), "0 0 1");
       %obj.schedule(0, "delete");
 	}

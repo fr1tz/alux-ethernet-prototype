@@ -475,6 +475,11 @@ function GameConnection::beepMsg(%this, %reason)
 	%this.play2D(BeepMessageSound);
 }
 
+function GameConnection::onFormDestroyed(%this, %obj)
+{
+   %obj.zFormDestroyed = true;
+}
+
 function GameConnection::enterForm(%this)
 {
    %etherform = %this.player;

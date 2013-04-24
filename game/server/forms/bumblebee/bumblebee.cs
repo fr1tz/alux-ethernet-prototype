@@ -202,6 +202,7 @@ function FrmBumblebeeStatic::damage(%this, %obj, %sourceObject, %position, %dama
 function FrmBumblebeeStatic::explode(%this, %obj)
 {
    %obj.client.leaveForm(%obj);
+   %obj.client.onFormDestroyed(%obj);
 
    %pos = %obj.getPosition();
 

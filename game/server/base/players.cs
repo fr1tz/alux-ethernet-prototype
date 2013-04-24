@@ -373,11 +373,15 @@ function PlayerData::damage(%this, %obj, %sourceObject, %pos, %damage, %damageTy
 		%damageLoc = %obj.getDamageLocation(%pos);
 		%obj.playDeathAnimation(%damageLoc, %damageType);
 	
-		if(%client && %client == %obj.getControllingClient())
+		if(%client) 
 		{
-			//%client.onDeath(%sourceObject, %sourceClient, %damageType, %location);
-			%client.showReceivedDamageInfo(true);
-			%client.leaveForm(%obj);
+   	   %client.onFormDestroyed(%obj);
+         if(%client == %obj.getControllingClient())
+         {
+			   //%client.onDeath(%sourceObject, %sourceClient, %damageType, %location);
+			   %client.showReceivedDamageInfo(true);
+			   %client.leaveForm(%obj);
+         }
 		}
 		else if(%obj.getControllingClient())
 		{
