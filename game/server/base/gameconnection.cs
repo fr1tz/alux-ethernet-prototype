@@ -503,6 +503,12 @@ function GameConnection::enterForm(%this)
    }
    if(isObject(%closest))
    {
+      if(%closest.zIncomplete)
+      {
+         %this.play2D(BeepMessageSound);
+         return;
+      }
+
       if(isObject(%this.proxy))
       {
 		   //%this.proxy.delete();
@@ -629,6 +635,9 @@ function GameConnection::spawnForm(%this)
    //%client.proxy.setTransform("0 0 0");
    %player.setLoadoutCode(%this.activeLoadout);
    %player.inv[1] = getWord(%this.activeLoadout, 4);
+
+   %player.zIncomplete = true;
+   %player.schedule(2000, "setFieldValue", "zIncomplete", false);
 
    $aiTarget = %player;
 }
