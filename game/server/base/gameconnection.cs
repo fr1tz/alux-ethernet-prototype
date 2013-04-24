@@ -670,7 +670,7 @@ function GameConnection::updateProxyThread(%this)
 
    if(!%c)
    {
-      %client.spawnError = "No surface found";
+      %client.spawnError = "No surface in range";
       %client.proxy.removeClientFromGhostingList(%client);
       %client.proxy.setTransform("0 0 0");
       return;
