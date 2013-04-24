@@ -627,12 +627,10 @@ function GameConnection::spawnForm(%this)
    %player.setTransform(%this.proxy.getTransform());
    //%client.proxy.removeClientFromGhostingList(%client);
    //%client.proxy.setTransform("0 0 0");
-   $aiTarget = %player;
-
    %player.setLoadoutCode(%this.activeLoadout);
    %player.inv[1] = getWord(%this.activeLoadout, 4);
 
-   %player.getDataBlock().onMaterialized(%player, %client);
+   $aiTarget = %player;
 }
 
 // called by script code
@@ -649,7 +647,7 @@ function GameConnection::updateProxyThread(%this)
 
    %eyeVec = %obj.getEyeVector();
    %start = %obj.getWorldBoxCenter();
-   %end = VectorAdd(%start, VectorScale(%eyeVec, 9999));
+   %end = VectorAdd(%start, VectorScale(%eyeVec, 15));
 
    %c = "";
    if(%this.player.getClassName() $= "Etherform")
@@ -658,6 +656,7 @@ function GameConnection::updateProxyThread(%this)
 
    if(!%c)
    {
+      %client.spawnError = "No surface found";
       %client.proxy.removeClientFromGhostingList(%client);
       %client.proxy.setTransform("0 0 0");
       return;

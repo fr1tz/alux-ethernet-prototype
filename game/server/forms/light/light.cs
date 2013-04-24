@@ -172,7 +172,7 @@ function FrmLight::onAdd(%this, %obj)
    if(isObject(%obj.client))
    {
       %c = %obj.client;
-      %c.spawnError = "Please wait...";
+      //%c.spawnError = "Please wait...";
       commandToClient(%c, 'Hud', "health", false);
       commandToClient(%c, 'Hud', "energy", true, "game/client/ui/hud/pixmaps/energy_meter.png");
    }
