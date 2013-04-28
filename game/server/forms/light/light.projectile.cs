@@ -3,11 +3,35 @@
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
+datablock MultiNodeLaserBeamData(FrmLightProjectile_LaserTrailOne)
+{
+   allowColorization = true;
+
+	hasLine = false;
+	lineColor	= "1.00 1.00 1.00 0.7";
+
+	hasInner = true;
+	innerColor = "1.0 1.0 1.0 0.5";
+	innerWidth = "0.20";
+
+	hasOuter = false;
+	outerColor = "1.00 0.00 1.00 0.1";
+	outerWidth = "0.10";
+
+	//bitmap = "share/shapes/rotc/vehicles/team1scoutflyer/lasertrail";
+	//bitmapWidth = 1;
+
+	blendMode = 1;
+	fadeTime = 500;
+};
+
 //-----------------------------------------------------------------------------
 // projectile datablock...
 
 datablock ProjectileData(FrmLightProjectile)
 {
+   allowColorization = true;
+
 	stat = "lightform";
 
 	// script damage properties...
@@ -18,7 +42,8 @@ datablock ProjectileData(FrmLightProjectile)
 	splashImpulse      = 0;
 	bypassDamageBuffer = false;
 	
-	trackingAgility = 0;
+	maxTrackingAbility = 10;
+	trackingAgility = 2;
 	
 	explodesNearEnemies			= false;
 	explodesNearEnemiesRadius	= 2;
@@ -26,7 +51,7 @@ datablock ProjectileData(FrmLightProjectile)
 
 	sound = FrmLightProjectileSound;
  
-   projectileShapeName = "share/shapes/alux/light.dts";
+   projectileShapeName = "share/shapes/alux/light2.dts";
 
 	explosion             = FrmLightProjectileExplosion;
 //	bounceExplosion       = RedAssaultRifleProjectileBounceExplosion;
@@ -38,14 +63,14 @@ datablock ProjectileData(FrmLightProjectile)
 //	missEnemyEffectRadius = 10;
 //	missEnemyEffect = AssaultRifleProjectileMissedEnemyEffect;
 
-	particleEmitter = FrmLightProjectileEmitter;
-	laserTrail[0]   = FrmLight_LaserTrailOne;
-	laserTrail[1]   = FrmLight_LaserTrailTwo;
+//	particleEmitter = NULL; // FrmLightProjectileEmitter;
+	laserTrail[0]   = FrmLightProjectile_LaserTrailOne;
+//	laserTrail[1]   = FrmLight_LaserTrailTwo;
 //	laserTail	    = RedAssaultRifleProjectileLaserTail;
 //	laserTailLen    = 2;
 
 	energyDrain = 0;
-	muzzleVelocity	= 100 * $Server::Game.slowpokemod;
+	muzzleVelocity	= 25 * $Server::Game.slowpokemod;
 	velInheritFactor = 0.0 * $Server::Game.slowpokemod;
 	
 	isBallistic			= false;
@@ -55,16 +80,56 @@ datablock ProjectileData(FrmLightProjectile)
 	lifetime				= 1000*10;
 	fadeDelay			= 1000*10;
 	
+   unlimitedBounces = true;
 //	numBounces = 2;
 	
 	hasLight	 = true;
-	lightRadius = 4.0;
+	lightRadius = 2.0;
 	lightColor  = "1.0 1.0 1.0";
 };
 
+function FrmLightProjectile::onRemove(%this, %obj)
+{
+   if(isObject(%obj.proxy)) %obj.proxy.delete();
+   Parent::onRemove(%this, %obj);
+}
+
+function FrmLightProjectile::onBounce(%this,%obj,%col,%fade,%pos,%normal,%dist)
+{
+   %dist = VectorLen(VectorSub(%pos, %obj.zTargetPosition));
+   if(%dist < 2)
+      %obj.explode();
+}
+
+function FrmLightProjectile::onExplode(%this,%obj,%pos,%normal,%fade,%dist,%expType)
+{
+   %client = %obj.client;
+
+   %transform = %obj.proxy.getTransform();
+   %form = %obj.proxy.getDataBlock().form;
+
+   %obj.proxy.delete();
+   %obj.proxy = "";
+
+   %error = %form.canMaterialize(%client, %pos, %normal, %transform);
+   if(%error !$= "")
+      return;
+
+   %player = %form.materialize(%client, %pos, %normal, %this.camera.getTransform());
+   %player.setTransform(%transform);
+   %player.setLoadoutCode(%obj.loadoutCode);
+   %player.inv[1] = getWord(%obj.loadoutCode, 4);
+
+   %player.zIncomplete = true;
+   %player.schedule(2000, "setFieldValue", "zIncomplete", false);
+}
 
 function FrmLightProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist)
 {
+
+
+   return;
+
    %client = %obj.client;
 	%ownTeamId = %client.player.getTeamId();
 

@@ -206,6 +206,55 @@ function FrmLight::onTrigger(%this, %obj, %triggerNum, %val)
          return;
       }
 
+      %pos = %obj.getWorldBoxCenter();
+      %vec = %obj.getEyeVector();
+      %vec = "0 0 1";
+ 		%vel = VectorScale(%vec, FrmLightProjectile.muzzleVelocity);
+
+		// create the projectile object...
+		%p = new Projectile() {
+			dataBlock       = FrmLightProjectile;
+			teamId          = %obj.teamId;
+			initialVelocity = %vel;
+			initialPosition = %pos;
+			sourceObject    = %obj;
+			sourceSlot      =  0;
+			client	       = %obj.client;
+		};
+		MissionCleanup.add(%p);
+
+      %p.setLoadoutCode(%obj.client.activeLoadout);
+      %p.setTargetPosition(%obj.client.proxy.getPosition());
+      %p.zTargetPosition = %obj.client.proxy.getPosition();
+
+      %proxy = new StaticShape() {
+	      dataBlock = $Server::Game.form[getWord(%p.loadoutCode, 0)].proxy;
+	      client = %obj.client;
+         teamId = %obj.client.team.teamId;
+      };
+      MissionCleanup.add(%proxy);
+
+      %proxy.setTransform(%obj.client.proxy.getTransform());
+
+      %proxy.setGhostingListMode("GhostOnly");
+      %proxy.addClientToGhostingList(%obj.client);
+      %proxy.getHudInfo().setActive(false);
+      %proxy.setCollisionsDisabled(true);
+
+      %proxy.startFade(0, 0, true);
+
+      %proxy.shapeFxSetTexture(0, 0);
+      %proxy.shapeFxSetColor(0, 3);
+      %proxy.shapeFxSetBalloon(0, 1.0, 0.0);
+      %proxy.shapeFxSetFade(0, 0.5, 0.0);
+      %proxy.shapeFxSetActive(0, true, true);
+
+      %p.proxy = %proxy;
+
+      return;
+
+
+
       %obj.client.spawnForm();
 
       return;

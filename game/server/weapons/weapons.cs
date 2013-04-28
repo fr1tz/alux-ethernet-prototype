@@ -87,7 +87,7 @@ function ProjectileData::onAdd(%this, %obj)
 
 function ProjectileData::onRemove(%this, %obj)
 {
-    // avoid console spam
+   Parent::onRemove(%this, %obj);
 }
 
 function ProjectileData::onBounce(%this,%obj,%col,%fade,%pos,%normal,%dist)

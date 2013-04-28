@@ -253,23 +253,6 @@ function ShapeBase::hasBarrier(%this)
 }
 
 //-----------------------------------------------------------------------------
-
-// Called by script code
-function ShapeBase::setLoadoutCode(%this, %loadoutcode)
-{
-   %client = %this.client;
-   %this.loadoutcode = %loadoutcode;
-   %pieces = sLoadoutcode2Pieces(%this.loadoutcode);
-   for(%f = 0; %f < getFieldCount(%pieces); %f++)
-   {
-      %field = getField(%pieces, %f);
-      %piece = getWord(%field, 0);
-      %count = getWord(%field, 1);
-      %client.inventory.pieceUsed[%piece] += %count;
-   }
-}
-
-//-----------------------------------------------------------------------------
 // ShapeBase datablock
 //-----------------------------------------------------------------------------
 
@@ -299,6 +282,8 @@ function ShapeBaseData::onAdd(%this,%obj)
 // *** callback function: called by engine
 function ShapeBaseData::onRemove(%this, %obj)
 {
+   Parent::onRemove(%this, %obj);
+
 	%obj.beingRemoved = true;
 
 	if(%obj.damageSchedule !$= "")
@@ -318,20 +303,6 @@ function ShapeBaseData::onRemove(%this, %obj)
 		
 	if(isObject(%obj.ssc))
 		%obj.ssc.delete();
-
-   if(%obj.loadoutcode && %obj.client)
-   {
-      %pieces = sLoadoutcode2Pieces(%obj.loadoutcode);
-      for(%f = 0; %f < getFieldCount(%pieces); %f++)
-      {
-         %field = getField(%pieces, %f);
-         %piece = getWord(%field, 0);
-         %count = getWord(%field, 1);
-         %obj.client.inventory.pieceUsed[%piece] -= %count;
-         if(%obj.zFormDestroyed)
-            %obj.client.inventory.pieceCount[%piece] -= %count;
-      }
-   }
 }
 
 // callback function: called by engine

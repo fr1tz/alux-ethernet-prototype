@@ -23,6 +23,7 @@ exec("./party.cs");
 exec("./booze.cs");
 exec("./cats.cs");
 exec("./fullcontrol.cs");
+exec("./gamebase.cs");
 exec("./waypointdata.cs");
 exec("./misc.cs");
 exec("./camera.cs");

@@ -661,7 +661,7 @@ function GameConnection::updateProxyThread(%this)
 
    %eyeVec = %obj.getEyeVector();
    %start = %obj.getWorldBoxCenter();
-   %end = VectorAdd(%start, VectorScale(%eyeVec, 15));
+   %end = VectorAdd(%start, VectorScale(%eyeVec, 1000));
 
    %c = "";
    if(%this.player.getClassName() $= "Etherform")
@@ -685,8 +685,33 @@ function GameConnection::updateProxyThread(%this)
    else
       %client.spawnError = "";
 
-   %x = getWord(%c,1); %x = mFloor(%x); //%x -= (%x % 2);
-   %y = getWord(%c,2); %y = mFloor(%y); //%y -= (%y % 2);
+   %x = getWord(%c,1);
+   if(true)
+   {
+      %r = %x - mFloor(%x);
+      if(%r > 0.5)
+         %x = mCeil(%x);
+      else
+         %x = mFloor(%x);
+   }
+   //   %x = mFloor(%x);
+   //else
+   //   %x = mCeil(%x);
+   //%x -= (%x % 2);
+   %y = getWord(%c,2);
+   if(true)
+   {
+      %r = %y - mFloor(%y);
+      if(%r > 0.5)
+         %y = mCeil(%y);
+      else
+         %y = mFloor(%y);
+   }
+   //if(%y > 0)
+   //   %y = mFloor(%y);
+   //else
+   //   %y = mCeil(%y);
+   //%y -= (%y % 2);
    %z = getWord(%c,3);
    %pos = %x SPC %y SPC %z;
    %normal = getWord(%c,4) SPC getWord(%c,5) SPC getWord(%c,6);
@@ -1435,7 +1460,7 @@ function GameConnection::updateQuickbar(%this)
    %B1Link1 = (%B1?"<B:1:cmd MainMenu>":"") @ "Server Info" @ (%B1?"</b>":"");
    %B2Link1 = (%B2?"<B:2:cmd ShowPlayerList>":"") @ "Player List" @ (%B2?"</b>":"");
    %B3Link1 = (%B4?"<B:4:cmd Teams>":"") @ "Switch Team" @ (%B4?"</b>":"");
-   %B4Link1 = (%B7?"<B:7:cmd Help>":"") @ "Help" @ (%B7?"</b>":"");
+   %B4Link1 = (%B7?"<B:7:cmd Manual 0>":"") @ "Manual" @ (%B7?"</b>":"");
 
    %text = "\n"
       @ %B1Link1 SPC "|" SPC %B2Link1 SPC "|"

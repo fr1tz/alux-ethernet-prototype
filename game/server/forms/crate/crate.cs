@@ -18,6 +18,7 @@ datablock StaticShapeData(FrmCrateProxy)
 
 	shapeFxTexture[0] = "share/textures/alux/grid1.png";
 	shapeFxTexture[1] = "share/textures/alux/circuit1.png";
+	shapeFxTexture[2] = "share/textures/alux/shiny.png";
 
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
 	shapeFxColor[1] = "1.0 0.0 0.0 1.0";
