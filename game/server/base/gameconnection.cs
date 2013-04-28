@@ -1149,18 +1149,32 @@ function GameConnection::updateTopHudMenuThread(%this)
       %free = %this.inventory.pieceCount[%piece] - %used;
 
       %used = mFloor(%used);
-      switch(strlen(%used))
+      if(%used == 0)
       {
-         case 1: %used = "  " @ %used;
-         case 2: %used = " " @ %used;
+         %used = "   ";
+      }
+      else
+      {
+         switch(strlen(%used))
+         {
+            case 1: %used = "  " @ %used;
+            case 2: %used = " " @ %used;
+         }
       }
       %line2 = %line2 TAB %used;
 
       %free = mFloor(%free);
-      switch(strlen(%free))
+      if(%free == 0)
       {
-         case 1: %free = "  " @ %free;
-         case 2: %free = " " @ %free;
+         %free = "   ";
+      }
+      else
+      {
+         switch(strlen(%free))
+         {
+            case 1: %free = "  " @ %free;
+            case 2: %free = " " @ %free;
+         }
       }
       %line1 = %line1 TAB %free;
 
