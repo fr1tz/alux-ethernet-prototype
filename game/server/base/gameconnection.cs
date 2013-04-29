@@ -508,7 +508,7 @@ function GameConnection::enterForm(%this)
    }
    if(isObject(%closest))
    {
-      if(%closest.zIncomplete)
+      if(%closest.zBlocked)
       {
          %this.play2D(BeepMessageSound);
          return;
@@ -641,8 +641,8 @@ function GameConnection::spawnForm(%this)
    %player.setLoadoutCode(%this.activeLoadout);
    %player.inv[1] = getWord(%this.activeLoadout, 4);
 
-   %player.zIncomplete = true;
-   %player.schedule(2000, "setFieldValue", "zIncomplete", false);
+   %player.zBlocked = true;
+   %player.schedule(2000, "setFieldValue", "zBlocked", false);
 
    $aiTarget = %player;
 }
@@ -660,7 +660,7 @@ function GameConnection::updateProxyThread(%this)
    %prevSpawnError = %client.spawnError;
 
    %eyeVec = %obj.getEyeVector();
-   %start = %obj.getWorldBoxCenter();
+   %start = %obj.getEyePoint();
    %end = VectorAdd(%start, VectorScale(%eyeVec, 1000));
 
    %c = "";
