@@ -53,6 +53,7 @@ datablock StaticShapeData(FrmCrate)
 {
    proxy = FrmCrateProxy; // script field
    spore = FrmCrateSpore; // script field
+   dtime = 5000; // script field: de-materialization time
 
    allowColorization = true;
 
@@ -81,7 +82,7 @@ datablock StaticShapeData(FrmCrate)
 	maxEnergy = 100;
 
 	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
-	shapeFxTexture[0] = "share/textures/alux/shiny.png";
+	shapeFxTexture[0] = "share/textures/alux/light.png";
 	shapeFxTexture[1] = "share/textures/alux/grid1.png";
 	shapeFxTexture[2] = "share/textures/alux/grid2.png";
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
@@ -243,6 +244,34 @@ function FrmCrate::materializeFx(%this, %obj)
 // Called from script
 function FrmCrate::dematerialize(%this, %obj)
 {
-   createExplosion(FrmCrateExplosion, %obj.getPosition(), "0 0 1");
-   %obj.schedule(0, "delete");
+   %obj.playAudio(0, FrmCrateDematerializingSound);
+
+	%obj.shapeFxSetTexture(0, 0);
+	%obj.shapeFxSetColor(0, 0);
+	%obj.shapeFxSetBalloon(0, 0.0, 0.0);
+	%obj.shapeFxSetFade(0, 0.0, 1/(%this.dtime/1000));
+	%obj.shapeFxSetActive(0, true, true);
+
+   %obj.zIncomplete = true;
+   %this.dematerializeFx(%obj);
+   %obj.schedule(%this.dtime, "dematerializeFinish");
 }
+
+// Called from script
+function FrmCrate::dematerializeFinish(%this, %obj)
+{
+   createExplosion(FrmCrateDematerializeExplosion, %obj.getPosition(), "0 0 1");
+   %obj.schedule(0, "delete");
+   return;
+
+   %obj.setCollisionsDisabled(true);
+   %obj.startFade(0, 0, true);
+
+	%obj.shapeFxSetTexture(0, 0);
+	%obj.shapeFxSetColor(0, 0);
+	%obj.shapeFxSetBalloon(0, 1, 50);
+	%obj.shapeFxSetFade(0, 1, -1/0.25);
+	%obj.shapeFxSetActive(0, true, true);
+}
+
+

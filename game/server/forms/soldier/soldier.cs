@@ -106,6 +106,7 @@ datablock PlayerData(FrmSoldier)
 {
    proxy = FrmSoldierProxy; // script field
    spore = FrmSoldierSpore; // script field
+   dtime = 5000; // script field: de-materialization time
 
    allowColorization = true;
 
@@ -132,7 +133,7 @@ datablock PlayerData(FrmSoldier)
 	shapeFile = "share/shapes/alux/soldier.dts";
  
 	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
-	shapeFxTexture[0] = "share/textures/alux/shiny.png";
+	shapeFxTexture[0] = "share/textures/alux/light.png";
 	shapeFxTexture[1] = "share/textures/alux/grid1.png";
 	shapeFxTexture[2] = "share/textures/alux/grid2.png";
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";  
@@ -452,9 +453,16 @@ function FrmSoldier::materializeFx(%this, %obj)
    FrmCrate::materializeFx(%this, %obj);
 }
 
+// Called from script
 function FrmSoldier::dematerialize(%this, %obj)
 {
-   %obj.damage(0, %obj.getPosition(), 100, $DamageType::Force);
+   FrmCrate::dematerialize(%this, %obj);
+}
+
+// Called from script
+function FrmSoldier::dematerializeFinish(%this, %obj)
+{
+   FrmCrate::dematerializeFinish(%this, %obj);
 }
 
 function FrmSoldier::reload(%this, %obj)

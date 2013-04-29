@@ -20,6 +20,7 @@ function GameBaseData::onRemove(%this, %obj)
       }
    }
 }
+
 // Called by script code
 function GameBase::setLoadoutCode(%this, %loadoutcode)
 {
@@ -33,4 +34,10 @@ function GameBase::setLoadoutCode(%this, %loadoutcode)
       %count = getWord(%field, 1);
       %client.inventory.pieceUsed[%piece] += %count;
    }
+}
+
+// Called by script code
+function GameBase::dematerializeFinish(%this)
+{
+   %this.getDataBlock().dematerializeFinish(%this);
 }

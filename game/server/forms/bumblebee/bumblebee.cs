@@ -29,6 +29,7 @@ datablock StaticShapeData(FrmBumblebeeStatic)
 {
    proxy = FrmBumblebeeProxy; // script field
    spore = FrmBumblebeeSpore; // script field
+   dtime = 5000; // script field: de-materialization time
 
    allowColorization = true;
 
@@ -58,7 +59,7 @@ datablock StaticShapeData(FrmBumblebeeStatic)
 	maxEnergy = 100;
 
 	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
-	shapeFxTexture[0] = "share/textures/alux/shiny.png";
+	shapeFxTexture[0] = "share/textures/alux/light.png";
 	shapeFxTexture[1] = "share/textures/alux/grid1.png";
 	shapeFxTexture[2] = "share/textures/alux/grid2.png";
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
@@ -127,8 +128,13 @@ function FrmBumblebeeStatic::materializeFx(%this, %obj)
 // Called from script
 function FrmBumblebeeStatic::dematerialize(%this, %obj)
 {
-   createExplosion(FrmParrotExplosion, %obj.getPosition(), "0 0 1");
-   %obj.schedule(0, "delete");
+   FrmCrate::dematerialize(%this, %obj);
+}
+
+// Called from script
+function FrmBumblebeeStatic::dematerializeFinish(%this, %obj)
+{
+   FrmCrate::dematerializeFinish(%this, %obj);
 }
 
 // *** Callback function:
@@ -286,6 +292,8 @@ function FrmBumblebeeStatic::getBleed(%this, %obj, %dmg, %src)
 
 datablock FlyingVehicleData(FrmBumblebeeFlyer)
 {
+   dtime = 5000; // script field: de-materialization time
+
    allowColorization = true;
 
    //className = FrmBumblebee;
@@ -310,7 +318,7 @@ datablock FlyingVehicleData(FrmBumblebeeFlyer)
    //debrisShapeName = "~/data/vehicles/bomber/vehicle.dts";
 
 	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
-	shapeFxTexture[0] = "share/textures/alux/shiny.png";
+	shapeFxTexture[0] = "share/textures/alux/light.png";
 	shapeFxTexture[1] = "share/textures/alux/grid1.png";
 	shapeFxTexture[2] = "share/textures/alux/grid2.png";
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
@@ -476,6 +484,18 @@ function FrmBumblebeeFlyer::explode(%this, %obj)
 function FrmBumblebeeFlyer::getBleed(%this, %obj, %dmg, %src)
 {
    return FrmBumblebeeStatic::getBleed(%this, %obj, %dmg, %src);
+}
+
+// Called from script
+function FrmBumblebeeFlyer::dematerialize(%this, %obj)
+{
+   FrmCrate::dematerialize(%this, %obj);
+}
+
+// Called from script
+function FrmBumblebeeFlyer::dematerializeFinish(%this, %obj)
+{
+   FrmCrate::dematerializeFinish(%this, %obj);
 }
 
 

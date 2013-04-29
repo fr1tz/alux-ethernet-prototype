@@ -8,6 +8,8 @@
 
 datablock FlyingVehicleData(FrmSoldierpod)
 {
+   dtime = 5000; // script field: de-materialization time
+
    allowColorization = true;
 
    // @name dynamic fields, needed for certain in-script checks -mag
@@ -30,7 +32,7 @@ datablock FlyingVehicleData(FrmSoldierpod)
    //debrisShapeName = "~/data/vehicles/bomber/vehicle.dts";
 
 	//cloakTexture = "share/shapes/rotc/effects/explosion_white.png";
-	shapeFxTexture[0] = "share/textures/alux/shiny.png";
+	shapeFxTexture[0] = "share/textures/alux/light.png";
 	shapeFxTexture[1] = "share/textures/alux/grid1.png";
 	shapeFxTexture[2] = "share/textures/alux/grid2.png";
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
@@ -320,8 +322,13 @@ function FrmSoldierpod::materializeFx(%this, %obj)
 // Called from script
 function FrmSoldierpod::dematerialize(%this, %obj)
 {
-   createExplosion(FrmParrotExplosion, %obj.getPosition(), "0 0 1");
-   %obj.schedule(0, "delete");
+   FrmCrate::dematerialize(%this, %obj);
+}
+
+// Called from script
+function FrmSoldierpod::dematerializeFinish(%this, %obj)
+{
+   FrmCrate::dematerializeFinish(%this, %obj);
 }
 
 // called by ShapeBase script code...
