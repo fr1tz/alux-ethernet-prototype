@@ -53,7 +53,7 @@ datablock ProjectileData(FrmLightProjectile)
  
    projectileShapeName = "share/shapes/alux/light2.dts";
 
-	explosion             = FrmLightProjectileExplosion;
+//	explosion             = FrmLightProjectileExplosion;
 //	bounceExplosion       = RedAssaultRifleProjectileBounceExplosion;
 //	hitEnemyExplosion     = RedAssaultRifleProjectileExplosion;
 //	nearEnemyExplosion    = RedAssaultRifleProjectileExplosion;
@@ -120,8 +120,11 @@ function FrmLightProjectile::onExplode(%this,%obj,%pos,%normal,%fade,%dist,%expT
    %player.setLoadoutCode(%obj.loadoutCode);
    %player.inv[1] = getWord(%obj.loadoutCode, 4);
 
-   %player.zIncomplete = true;
-   %player.schedule(2000, "setFieldValue", "zIncomplete", false);
+   createExplosion(FrmCrateDematerializeExplosion, %player.getPosition(), "0 0 1");
+   %player.getDataBlock().materializeFx(%player);
+
+   %player.zBlocked = true;
+   %player.schedule(2000, "setFieldValue", "zBlocked", false);
 }
 
 function FrmLightProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist)

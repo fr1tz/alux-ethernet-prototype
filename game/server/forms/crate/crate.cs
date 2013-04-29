@@ -85,6 +85,7 @@ datablock StaticShapeData(FrmCrate)
 	shapeFxTexture[0] = "share/textures/alux/light.png";
 	shapeFxTexture[1] = "share/textures/alux/grid1.png";
 	shapeFxTexture[2] = "share/textures/alux/grid2.png";
+	shapeFxTexture[3] = "share/shapes/alux/light.png";
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
 
 	// damage info eyecandy...
@@ -206,8 +207,7 @@ function FrmCrate::materialize(%this, %client, %pos, %normal, %transform)
      teamId = %client.team.teamId;
    };
    MissionCleanup.add(%player);
-   %this.materializeFx(%player);
-	%player.playAudio(0, CatSpawnSound);
+	//%player.playAudio(0, CatSpawnSound);
    return %player;
 }
 
@@ -215,6 +215,13 @@ function FrmCrate::materialize(%this, %client, %pos, %normal, %transform)
 function FrmCrate::materializeFx(%this, %obj)
 {
    //%obj.startFade(1000, 0, false);
+	%obj.shapeFxSetTexture(1, 3);
+	%obj.shapeFxSetColor(1, 0);
+	%obj.shapeFxSetBalloon(1, 1.1, 0.0);
+	%obj.shapeFxSetFade(1, 1.0, -0.5);
+	%obj.shapeFxSetActive(1, true, true);
+
+   return;
 
 	%obj.shapeFxSetTexture(0, 1);
 	%obj.shapeFxSetColor(0, 0);
@@ -222,11 +229,7 @@ function FrmCrate::materializeFx(%this, %obj)
 	%obj.shapeFxSetFade(0, 1.0, -0.5);
 	%obj.shapeFxSetActive(0, true, true);
 
-	%obj.shapeFxSetTexture(1, 0);
-	%obj.shapeFxSetColor(1, 0);
-	%obj.shapeFxSetBalloon(1, 1.0, 0.0);
-	%obj.shapeFxSetFade(1, 1.0, -0.5);
-	%obj.shapeFxSetActive(1, true, true);
+
 
 	%obj.shapeFxSetTexture(2, 2);
 	%obj.shapeFxSetColor(2, 0);
@@ -244,6 +247,12 @@ function FrmCrate::materializeFx(%this, %obj)
 // Called from script
 function FrmCrate::dematerialize(%this, %obj)
 {
+   if(%obj.zDematerializing)
+      return;
+
+   %obj.zDematerializing = true;
+   %obj.zBlocked = true;
+
    %obj.playAudio(0, FrmCrateDematerializingSound);
 
 	%obj.shapeFxSetTexture(0, 0);
@@ -252,8 +261,7 @@ function FrmCrate::dematerialize(%this, %obj)
 	%obj.shapeFxSetFade(0, 0.0, 1/(%this.dtime/1000));
 	%obj.shapeFxSetActive(0, true, true);
 
-   %obj.zIncomplete = true;
-   %this.dematerializeFx(%obj);
+   //%this.dematerializeFx(%obj);
    %obj.schedule(%this.dtime, "dematerializeFinish");
 }
 

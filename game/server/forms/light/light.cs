@@ -38,6 +38,8 @@ function EtherformData::special(%this, %obj, %nr)
    %player.setLoadoutCode(%client.loadoutCode[%nr]);
    %player.setTransform(%obj.getTransform());
 
+   createExplosion(FrmCrateDematerializeExplosion, %player.getPosition(), "0 0 1");
+
    %client.control(%player);
    %client.player = %player;
    %obj.delete();

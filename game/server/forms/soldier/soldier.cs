@@ -136,6 +136,7 @@ datablock PlayerData(FrmSoldier)
 	shapeFxTexture[0] = "share/textures/alux/light.png";
 	shapeFxTexture[1] = "share/textures/alux/grid1.png";
 	shapeFxTexture[2] = "share/textures/alux/grid2.png";
+	shapeFxTexture[3] = "share/shapes/alux/light.png";
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";  
 
 	computeCRC = true;
@@ -440,8 +441,6 @@ function FrmSoldier::materialize(%this, %client, %pos, %normal, %transform)
    MissionCleanup.add(%player);
 
    %player.setTransform(%pos SPC getWords(%transform, 3));
-
-   %this.materializeFx(%player);
 
 	%player.playAudio(0, CatSpawnSound);
 

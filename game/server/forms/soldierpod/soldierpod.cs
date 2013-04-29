@@ -35,6 +35,7 @@ datablock FlyingVehicleData(FrmSoldierpod)
 	shapeFxTexture[0] = "share/textures/alux/light.png";
 	shapeFxTexture[1] = "share/textures/alux/grid1.png";
 	shapeFxTexture[2] = "share/textures/alux/grid2.png";
+	shapeFxTexture[3] = "share/shapes/alux/light.png";
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
 
    drag    = 0.15;
