@@ -210,8 +210,13 @@ function FrmSoldierpod::onImpact(%this, %obj, %col, %vec, %vecLen)
    %player.setLoadoutCode(%obj.loadoutCode);
    %player.inv[1] = getWord(%obj.loadoutCode, 4);
 
-   %client.control(%player);
-   %client.player = %player;
+   createExplosion(FrmCrateDematerializeExplosion, %player.getPosition(), "0 0 1");
+
+   if(%obj == %client.player)
+   {
+      %client.control(%player);
+      %client.player = %player;
+   }
 
    %obj.schedule(0, "delete");
 }
@@ -306,10 +311,7 @@ function FrmSoldierpod::materialize(%this, %client)
 		teamId = %client.team.teamId;
 	};
    MissionCleanup.add(%player);
-
-   %this.materializeFx(%player);
-
-	%player.playAudio(0, CatSpawnSound);
+	//%player.playAudio(0, CatSpawnSound);
 
    return %player;
 }
