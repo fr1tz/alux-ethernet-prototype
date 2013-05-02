@@ -75,7 +75,7 @@ datablock StaticShapeData(FrmCrate)
 	shapeFile = "share/shapes/alux/crate.dts";
    emap = true;
 
-   hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
+   //hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
 
 	maxDamage = 400;
 	damageBuffer = 0;

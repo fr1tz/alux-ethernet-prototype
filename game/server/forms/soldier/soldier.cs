@@ -116,8 +116,8 @@ datablock PlayerData(FrmSoldier)
 	
 	targetLockTimeMS = 200;
 	
-	hudImageNameFriendly = "~/client/ui/hud/pixmaps/black.png";
-	hudImageNameEnemy = "~/client/ui/hud/pixmaps/black.png";
+	//hudImageNameFriendly = "~/client/ui/hud/pixmaps/black.png";
+	//hudImageNameEnemy = "~/client/ui/hud/pixmaps/black.png";
 
 	useEyePoint = true;
 	renderFirstPerson = true;

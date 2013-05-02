@@ -52,7 +52,7 @@ datablock StaticShapeData(FrmBumblebeeStatic)
 	shapeFile = "share/shapes/alux/bumblebee.dts";
    emap = true;
 
-   hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
+   //hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
 
 	maxDamage = 50;
 	damageBuffer = 0;

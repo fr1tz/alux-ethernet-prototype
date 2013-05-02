@@ -82,7 +82,7 @@ function EtherformData::onAdd(%this, %obj)
 		{
 			%client.setNewbieHelp("random", false);
 		}
-	}			
+	}
 }
 
 function EtherformData::onDamage(%this, %obj, %delta)
@@ -96,8 +96,8 @@ datablock EtherformData(FrmLight)
 {
    allowColorization = true;
 
-	hudImageNameFriendly = "~/client/ui/hud/pixmaps/black.png";
-	hudImageNameEnemy = "~/client/ui/hud/pixmaps/black.png";
+	//hudImageNameFriendly = "~/client/ui/hud/pixmaps/black.png";
+	//hudImageNameEnemy = "~/client/ui/hud/pixmaps/black.png";
 	
 	thirdPersonOnly = true;
 

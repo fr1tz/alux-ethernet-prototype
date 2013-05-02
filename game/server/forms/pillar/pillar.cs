@@ -74,7 +74,7 @@ datablock StaticShapeData(FrmPillar)
 	shapeFile = "share/shapes/alux/pillar.dts";
    emap = true;
 
-   hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
+   //hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
 
 	maxDamage = 400;
 	damageBuffer = 0;

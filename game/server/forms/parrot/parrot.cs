@@ -40,8 +40,8 @@ datablock FlyingVehicleData(FrmParrot)
    shapeFile = "share/shapes/alux/parrot.dts";
    emap = true;
 
-	hudImageNameFriendly = "~/client/ui/hud/pixmaps/teammate.cat.png";
-	hudImageNameEnemy = "~/client/ui/hud/pixmaps/enemy.cat.png";
+	//hudImageNameFriendly = "~/client/ui/hud/pixmaps/teammate.cat.png";
+	//hudImageNameEnemy = "~/client/ui/hud/pixmaps/enemy.cat.png";
    
    renderWhenDestroyed = false;
    //explosion = ScoutDroneExplosion;
