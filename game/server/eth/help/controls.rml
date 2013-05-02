@@ -1,10 +1,38 @@
 <tab:15,215><spush><font:Arial:18>Basic Controls<spop>
+	Dematerialize form(s)	<spush><font:Arial Bold:16>@bind51<spop>
+
+<spush><font:Arial:18>Alux Controls<spop>
+	Fly forward	<spush><font:Arial Bold:16>@bind06<spop>
+	Fly backward	<spush><font:Arial Bold:16>@bind07<spop>
+	Fly left	<spush><font:Arial Bold:16>@bind04<spop>
+	Fly right	<spush><font:Arial Bold:16>@bind05<spop>
+	Fly up	<spush><font:Arial Bold:16>@bind18<spop>
+	Fly down	<spush><font:Arial Bold:16>@bind21<spop>
+	Enter closest form	<spush><font:Arial Bold:16>@bind45<spop>
+	Materialize form	<spush><font:Arial Bold:16>@bind16<spop>
+	Materialize and control FDV (Form Delivery Vehicle):
+	  Soldier /w Pistol	<spush><font:Arial Bold:16>@bind65<spop>
+	  Soldier /w Shotgun	<spush><font:Arial Bold:16>@bind66<spop>
+	  Soldier /w Sniper	<spush><font:Arial Bold:16>@bind67<spop>
+	  Soldier /w Handcannon	<spush><font:Arial Bold:16>@bind68<spop>
+	  Soldier /w SMG	<spush><font:Arial Bold:16>@bind69<spop>
+
+<spush><font:Arial:18>Form Controls<spop>
+	Leave form	<spush><font:Arial Bold:16>@bind45<spop>
+	Dematerialize form	<spush><font:Arial Bold:16>@bind44<spop>
+	Run forward	<spush><font:Arial Bold:16>@bind06<spop>
+	Run backward	<spush><font:Arial Bold:16>@bind07<spop>
+	Run left	<spush><font:Arial Bold:16>@bind04<spop>
+	Run right	<spush><font:Arial Bold:16>@bind05<spop>
+	Walk	<spush><font:Arial Bold:16>@bind20<spop>
+	Jump	<spush><font:Arial Bold:16>@bind18<spop>
+	Slide	<spush><font:Arial Bold:16>@bind21<spop>
+	Zoom	<spush><font:Arial Bold:16>Mouse wheel<spop>
+	Fire	<spush><font:Arial Bold:16>@bind16<spop>
+
+<tab:15,215><spush><font:Arial:18>Other<spop>
 	Toggle console	<spush><font:Arial Bold:16>F12<spop>
 	Toggle in-game shell	<spush><font:Arial Bold:16>@bind01<spop>
-	Move forward	<spush><font:Arial Bold:16>@bind06<spop>
-	Move backward	<spush><font:Arial Bold:16>@bind07<spop>
-	Move left	<spush><font:Arial Bold:16>@bind04<spop>
-	Move right	<spush><font:Arial Bold:16>@bind05<spop>
 	Arena chat	<spush><font:Arial Bold:16>@bind25<spop>
 	Team chat	<spush><font:Arial Bold:16>@bind26<spop>
 	Messages PageUp	<spush><font:Arial Bold:16>@bind27<spop>
@@ -15,29 +43,3 @@
 	Toggle recording (unstable)	<spush><font:Arial Bold:16>@bind32<spop>
 	Take screenshot	<spush><font:Arial Bold:16>@bind33<spop>
 
-<spush><font:Arial:18>Etherform Controls<spop>
-	Manifest as CAT	<spush><font:Arial Bold:16>@bind34<spop>
-	Fly forward	<spush><font:Arial Bold:16>@bind06<spop>
-	Fly backward	<spush><font:Arial Bold:16>@bind07<spop>
-	Fly left	<spush><font:Arial Bold:16>@bind04<spop>
-	Fly right	<spush><font:Arial Bold:16>@bind05<spop>
-	Fly up	<spush><font:Arial Bold:16>@bind18<spop>
-	Fly down	<spush><font:Arial Bold:16>@bind21<spop>
-
-<spush><font:Arial:18>CAT Controls<spop>
-	Return to Etherform	<spush><font:Arial Bold:16>@bind34<spop>
-	Run forward	<spush><font:Arial Bold:16>@bind06<spop>
-	Run backward	<spush><font:Arial Bold:16>@bind07<spop>
-	Run left	<spush><font:Arial Bold:16>@bind04<spop>
-	Run right	<spush><font:Arial Bold:16>@bind05<spop>
-	Walk	<spush><font:Arial Bold:16>@bind20<spop>
-	Jump	<spush><font:Arial Bold:16>@bind18<spop>
-	Slide	<spush><font:Arial Bold:16>@bind21<spop>
-	Zoom	<spush><font:Arial Bold:16>Mouse wheel<spop>
-	Fire	<spush><font:Arial Bold:16>@bind16<spop>
-	Repel	<spush><font:Arial Bold:16>@bind17<spop>
-	Grenade	<spush><font:Arial Bold:16>@bind19<spop>
-	Grenade (max. force)	<spush><font:Arial Bold:16>@bind46<spop> or chord <spush><font:Arial Bold:16>@bind19<spop>-<spush><font:Arial Bold:16>@bind16<spop>
-	Cycle weapons	<spush><font:Arial Bold:16>@bind45<spop>
-	Launch explosive disc	<spush><font:Arial Bold:16>@bind47<spop>
-	Fire B.O.U.N.C.E.	<spush><font:Arial Bold:16>@bind51<spop>
