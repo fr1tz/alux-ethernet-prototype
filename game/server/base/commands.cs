@@ -21,7 +21,10 @@ function serverCmdPlayerAction(%client, %nr, %val)
 
 	if(%nr <= 9 && %val)
 	{
-		%client.getControlObject().useWeapon(%nr);
+      if(%client.leftHudMenu $= "dmenu")
+         %client.dematerializeForm(%nr);
+      else
+		   %client.getControlObject().useWeapon(%nr);
 	}
 	else if(%nr == 10 && %val && %client.menuVisible == false)
 	{
@@ -51,12 +54,21 @@ function serverCmdPlayerAction(%client, %nr, %val)
 	}
 	else if(%nr == 17 && %val)
 	{		
+      if(%client.leftHudMenu $= "dmenu")
+      {
+         %client.dematerializeForm(0);
+      }
+      else
+      {
+         %client.leftHudMenu = "dmenu";
+         %client.updateLeftHudMenu();
+      }
       //%client.spawnForm();
 		//%client.getControlObject().useWeapon(-17);
 	}
 	else if(%nr >= 21 && %nr <= 30 && %val)
 	{
-		%client.getControlObject().useWeapon(%nr-20);
+  		%client.getControlObject().useWeapon(%nr-20);
 	}
 	else if(%nr >= 31 && %nr <= 35 && %val)
 	{

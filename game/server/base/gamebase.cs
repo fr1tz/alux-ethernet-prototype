@@ -37,6 +37,12 @@ function GameBase::setLoadoutCode(%this, %loadoutcode)
 }
 
 // Called by script code
+function GameBase::dematerialize(%this)
+{
+   %this.getDataBlock().dematerialize(%this);
+}
+
+// Called by script code
 function GameBase::dematerializeFinish(%this)
 {
    %this.getDataBlock().dematerializeFinish(%this);
