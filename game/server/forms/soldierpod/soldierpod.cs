@@ -22,8 +22,8 @@ datablock FlyingVehicleData(FrmSoldierpod)
    shapeFile = "share/shapes/alux/soldier-pod.dts";
    emap = true;
 
-	hudImageNameFriendly = "~/client/ui/hud/pixmaps/teammate.cat.png";
-	hudImageNameEnemy = "~/client/ui/hud/pixmaps/enemy.cat.png";
+	//hudImageNameFriendly = "~/client/ui/hud/pixmaps/teammate.cat.png";
+	//hudImageNameEnemy = "~/client/ui/hud/pixmaps/enemy.cat.png";
    
    renderWhenDestroyed = false;
    //explosion = ScoutDroneExplosion;
@@ -216,6 +216,8 @@ function FrmSoldierpod::onImpact(%this, %obj, %col, %vec, %vecLen)
    {
       %client.control(%player);
       %client.player = %player;
+      %client.inventoryMode = "";
+      %client.displayInventory();
    }
 
    %obj.schedule(0, "delete");
