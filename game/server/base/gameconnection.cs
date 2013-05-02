@@ -3,6 +3,15 @@
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
+datablock StaticShapeData(PointerShape)
+{
+   allowColorization = true;
+	shadowEnable = false;
+	shapeFile = "share/shapes/alux/pointer.dts";
+   emap = false;
+   hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
+};
+
 //------------------------------------------------------------------------------
 
 function GameConnection::control(%this, %shapebase)
@@ -175,7 +184,41 @@ function GameConnection::onClientEnterGame(%this)
 	// Start thread to process player stats...
 	%this.processPlayerStats();	
 
+   %this.createPointer();
+
    %this.updateProxyThread();
+}
+
+function GameConnection::createPointer(%this)
+{
+   if(isObject(%this.pointer))
+      return;
+
+   %this.pointer = new StaticShape() {
+	  dataBlock = PointerShape;
+	  client = %this;
+     teamId = %this.team.teamId;
+   };
+   MissionCleanup.add(%this.pointer);
+   %this.pointer.setGhostingListMode("GhostOnly");
+   %this.pointer.getHudInfo().setActive(false);
+   %this.pointer.setCollisionsDisabled(true);
+
+   return;
+
+   %this.pointer.startFade(0, 0, true);
+
+   %this.pointer.shapeFxSetTexture(0, 0);
+   %this.pointer.shapeFxSetColor(0, 0);
+   %this.pointer.shapeFxSetBalloon(0, 1.0, 0.0);
+   %this.pointer.shapeFxSetFade(0, 1.0, 0.0);
+   %this.pointer.shapeFxSetActive(0, true, true);
+
+   %this.pointer.shapeFxSetTexture(1, 1);
+   %this.pointer.shapeFxSetColor(1, 0);
+   %this.pointer.shapeFxSetBalloon(1, 1.0, 0.0);
+   %this.pointer.shapeFxSetFade(1, 1.0, 0.0);
+   %this.pointer.shapeFxSetActive(1, true, true);
 }
 
 // *** callback function: called by script code in "common"
@@ -219,6 +262,9 @@ function GameConnection::onClientLeaveGame(%this)
 
 	if(isObject(%this.proxy))
 		%this.proxy.delete();
+
+	if(isObject(%this.pointer))
+		%this.pointer.delete();
 		
 	%count = ClientGroup.getCount();
 	for(%cl= 0; %cl < %count; %cl++)
@@ -519,6 +565,8 @@ function GameConnection::enterForm(%this)
 		   //%this.proxy.delete();
          %this.proxy.removeClientFromGhostingList(%client);
          %this.proxy.setTransform("0 0 0");
+         %this.pointer.removeClientFromGhostingList(%client);
+         %this.pointer.setTransform("0 0 0");
       }
       %this.player = %closest;
       %this.control(%closest);
@@ -673,7 +721,24 @@ function GameConnection::updateProxyThread(%this)
       %client.spawnError = "No surface in range";
       %client.proxy.removeClientFromGhostingList(%client);
       %client.proxy.setTransform("0 0 0");
+      %client.pointer.removeClientFromGhostingList(%client);
+      %client.pointer.setTransform("0 0 0");
       return;
+   }
+
+   if(isObject(%client.pointer))
+   {
+      %pos = getWords(%c, 1, 3);
+      %normal = getWords(%c, 4, 6);
+
+      %transform = createOrientFromDir(%normal);
+      %pos = VectorAdd(%pos, VectorScale(%normal, 0.25));
+      %transform = setWord(%transform, 0, getWord(%pos, 0));
+      %transform = setWord(%transform, 1, getWord(%pos, 1));
+      %transform = setWord(%transform, 2, getWord(%pos, 2));
+
+      %client.pointer.addClientToGhostingList(%client);
+      %client.pointer.setTransform(%transform);
    }
 
    if(%obj.getEnergyLevel() < 0) // %this.maxEnergy)
@@ -688,8 +753,9 @@ function GameConnection::updateProxyThread(%this)
    %x = getWord(%c,1);
    if(true)
    {
-      %r = %x - mFloor(%x);
-      if(%r > 0.5)
+      //%r = %x - mFloor(%x);
+      %r = %x % 2;
+      if(%r > 1)
          %x = mCeil(%x);
       else
          %x = mFloor(%x);
@@ -701,8 +767,9 @@ function GameConnection::updateProxyThread(%this)
    %y = getWord(%c,2);
    if(true)
    {
-      %r = %y - mFloor(%y);
-      if(%r > 0.5)
+      //%r = %y - mFloor(%y);
+      %r = %y % 2;
+      if(%r > 1)
          %y = mCeil(%y);
       else
          %y = mFloor(%y);
@@ -714,7 +781,7 @@ function GameConnection::updateProxyThread(%this)
    //%y -= (%y % 2);
    %z = getWord(%c,3);
    %pos = %x SPC %y SPC %z;
-   %normal = getWord(%c,4) SPC getWord(%c,5) SPC getWord(%c,6);
+   %normal = getWords(%c, 4, 6);
    if(%pos $= %client.proxy.getPosition()
    && (%client.spawnError $= %prevSpawnError))
       return;
