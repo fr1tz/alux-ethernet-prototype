@@ -284,6 +284,24 @@ function GameConnection::onRecordingDemo(%this, %isRecording)
 
    //echo(%this.getId() SPC "started recording a demo");
 
+   //---------------------------------------------------------------------------
+	// HACK HACK HACK: find way to update object colorizations
+   // only for this client
+	%group = nameToID("TerritorySurfaces");
+	if(%group != -1)
+	{
+		%count = %group.getCount();
+		if (%count != 0)
+		{
+				for (%i = 0; %i < %count; %i++)
+				{
+					%zone = %group.getObject(%i);
+					%zone.setTeamId(%zone.getTeamId());
+				}
+		}
+	}
+   //---------------------------------------------------------------------------
+
    %this.updateHudColors();
    %this.setDefaultCrosshair();
 }
