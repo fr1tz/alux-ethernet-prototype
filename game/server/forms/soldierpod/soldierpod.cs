@@ -294,7 +294,7 @@ function FrmSoldierpod::damage(%this, %obj, %sourceObject, %position, %damage, %
 function FrmSoldierpod::explode(%this, %obj)
 {
    %pos = %obj.getPosition();
-   createExplosion(FrmSoldierpodExplosion, %pos, "0 0 1");
+   createExplosion(FrmCrateExplosion, %pos, "0 0 1");
    %obj.schedule(0, "delete");
 }
 
