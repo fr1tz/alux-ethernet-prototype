@@ -293,6 +293,7 @@ function FrmSoldierpod::damage(%this, %obj, %sourceObject, %position, %damage, %
 // Called from script
 function FrmSoldierpod::explode(%this, %obj)
 {
+   %obj.client.onFormDestroyed(%obj);
    %pos = %obj.getPosition();
    createExplosion(FrmCrateExplosion, %pos, "0 0 1");
    %obj.schedule(0, "delete");
