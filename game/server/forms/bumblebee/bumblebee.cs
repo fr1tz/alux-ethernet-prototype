@@ -379,8 +379,8 @@ datablock FlyingVehicleData(FrmBumblebeeFlyer)
 
    // physics system...
    integration = 4;           // # of physics steps per tick
-   collisionTol = 0.1;        // Collision distance tolerance
-   contactTol = 0.1;          // Contact velocity tolerance
+   collisionTol = 2.0;        // Collision distance tolerance
+   contactTol = 0.5;          // Contact velocity tolerance
 
    // impact damage...
    minImpactSpeed = 1;      // If hit ground at speed above this then it's an impact. Meters/second

@@ -112,7 +112,7 @@ datablock FlyingVehicleData(FrmParrot)
    
    // physics system...
    integration = 4;           // # of physics steps per tick
-   collisionTol = 0.1;        // Collision distance tolerance
+   collisionTol = 0.5;        // Collision distance tolerance
    contactTol = 0.1;          // Contact velocity tolerance
 
    // impact damage...
