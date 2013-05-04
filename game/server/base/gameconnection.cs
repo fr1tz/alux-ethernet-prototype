@@ -394,6 +394,21 @@ function GameConnection::joinTeam(%this, %teamId)
 	if( %this.team != 0 && %teamId == %this.team.teamId)
 		return false;
 
+   // Remove player's forms.
+	for( %idx = MissionCleanup.getCount()-1; %idx >= 0; %idx-- )
+	{
+		%obj = MissionCleanup.getObject(%idx);
+		if(%obj.getType() & $TypeMasks::ProjectileObjectType
+		|| %obj.getType() & $TypeMasks::PlayerObjectType
+		|| %obj.getType() & $TypeMasks::VehicleObjectType
+		|| %obj.getType() & $TypeMasks::DamagableItemObjectType
+		|| %obj.getType() & $TypeMasks::CorpseObjectType)
+      {
+         if(%obj.client == %this)
+			   %obj.delete();
+      }
+	}
+
 	// remove from old team...
 	if(%this.team == $Team0)
 		$Team0.numPlayers--;
