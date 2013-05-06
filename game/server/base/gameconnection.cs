@@ -1205,15 +1205,15 @@ function GameConnection::resetInventory1(%this, %piece, %current, %max, %cost)
 
 function GameConnection::resetInventory(%this)
 {
-   %this.resetInventory1(0, 1, 2, 60); // Infantry
-   %this.resetInventory1(1, 0, 1, 30); // Air
-   %this.resetInventory1(2, 0, 1, 30); // Missile
-   %this.resetInventory1(3, 0, 10, 15); // Box
+   %this.resetInventory1(0, 1, 2, 30); // Infantry
+   %this.resetInventory1(1, 0, 1, 150); // Air
+   %this.resetInventory1(2, 0, 1, 15); // Missile
+   %this.resetInventory1(3, 0, 15, 10); // Box
    %this.resetInventory1(4, 1, 1, 15); // Pistol
-   %this.resetInventory1(5, 0, 1, 30); // Shotgun
-   %this.resetInventory1(6, 0, 1, 60); // Sniper
-   %this.resetInventory1(7, 0, 1, 30); // Magnum
-   %this.resetInventory1(8, 0, 1, 30); // SMG
+   %this.resetInventory1(5, 0, 1, 15); // Shotgun
+   %this.resetInventory1(6, 0, 1, 30); // Sniper
+   %this.resetInventory1(7, 0, 1, 15); // Magnum
+   %this.resetInventory1(8, 0, 1, 15); // SMG
 }
 
 function GameConnection::updateInventoryThread(%this)
