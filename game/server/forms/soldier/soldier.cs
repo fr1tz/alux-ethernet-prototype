@@ -219,8 +219,8 @@ datablock PlayerData(FrmSoldier)
 	recoverDelay = 9;
 	recoverRunForceScale = 1.2;
 
-	minImpactSpeed = 30; //
-	speedDamageScale = 3.0; // dynamic field: impact damage multiplier
+	minImpactSpeed = 16; //
+	speedDamageScale = 10.0; // dynamic field: impact damage multiplier
 
 	boundingBox = "1.2 1.1 2.7";
 	pickupRadius = 0.75;
