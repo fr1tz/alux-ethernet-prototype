@@ -245,10 +245,10 @@ function TerritorySurface::onEnter(%this,%zone,%obj)
 			%obj.kill();
 		}
 	}
-	else
-		%this.onTick(%zone);
+//	else
+//		%this.onTick(%zone);
 	
-	%obj.getDataBlock().updateZone(%obj, %zone);
+//	%obj.getDataBlock().updateZone(%obj, %zone);
 }
 
 function TerritorySurface::onLeave(%this,%zone,%obj)
@@ -278,16 +278,26 @@ function TerritorySurface::onTick(%this, %zone)
 	for(%i = 0; %i < %zone.getNumObjects(); %i++)
 	{
 		%obj = %zone.getObject(%i);
-		if(%obj.getType() & $TypeMasks::PlayerObjectType
-		&& %obj.isCAT)
-		{
-            if(%zone.zProtected && %obj.getTeamId() != %zone.getTeamId())
-                %obj.kill();
-            else if(%obj.getTeamId() == $Team1.teamId)
-				%zone.zNumReds++;
-			else if(%obj.getTeamId() == $Team2.teamId)
-				%zone.zNumBlues++;
-		}
+		if(!%obj.isCAT)
+			continue;
+	
+		if(%obj.getDamageState() !$= "Enabled")
+			continue;
+
+		%start = %obj.getPosition();
+		%end = VectorAdd(%start, "0 0 -1");
+		%mask = $TypeMasks::TerrainObjectType | $TypeMasks::InteriorObjectType;
+		%c = containerRayCast(%start, %end, %mask, %obj);
+
+		if(!%c)
+			continue;
+	
+		if(%zone.zProtected && %obj.getTeamId() != %zone.getTeamId())
+			%obj.kill();
+		else if(%obj.getTeamId() == $Team1.teamId)
+			%zone.zNumReds++;
+		else if(%obj.getTeamId() == $Team2.teamId)
+			%zone.zNumBlues++;
 	}
 
 	%this.updateOwner(%zone);
