@@ -178,6 +178,9 @@ function FrmSoldierpod::onRemove(%this, %obj)
 // *** Callback function: called by engine
 function FrmSoldierpod::onImpact(%this, %obj, %col, %vec, %vecLen)
 {
+   if(%obj.hasMaterialized)
+      return;
+
    %client = %obj.client;
    %pos = %obj.getPosition();
    %normal = "0 0 1";
@@ -221,6 +224,8 @@ function FrmSoldierpod::onImpact(%this, %obj, %col, %vec, %vecLen)
    }
 
    %obj.schedule(0, "delete");
+
+   %obj.hasMaterialized = true;
 }
 
 // *** Callback function:
