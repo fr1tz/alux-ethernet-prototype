@@ -280,7 +280,7 @@ datablock MultiNodeLaserBeamData(FrmSoldierpod_LaserTrail)
    lineColor   = "1.00 1.00 0.00 0.7";
 
    hasInner = true;
-   innerColor = "1.0 0.5 0.0 0.5";
+   innerColor = "1.0 1.0 1.0 0.5";
    innerWidth = "0.35";
 
    hasOuter = false;
