@@ -4,6 +4,17 @@
 //------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Projectile impact decal
+
+datablock DecalData(WpnMinihawkBulletHoleDecal)
+{
+	sizeX = "0.15";
+	sizeY = "0.15";
+	textureName = "share/textures/alux/minihawkhole";
+	SelfIlluminated = false;
+};
+
+//-----------------------------------------------------------------------------
 // laser tail...
 
 datablock LaserBeamData(WpnMinihawkProjectileLaserTail)

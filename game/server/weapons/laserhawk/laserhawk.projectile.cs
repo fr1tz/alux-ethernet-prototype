@@ -65,7 +65,7 @@ datablock ShotgunProjectileData(WpnLaserhawkProjectile)
 	lifetime				= 5000;
 	fadeDelay			  = 5000;
 
-	decals[0] = BulletHoleDecalOne;
+	decals[0] = WpnLaserhawkBulletHoleDecal;
 
 	hasLight    = false;
 	lightRadius = 10.0;

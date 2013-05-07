@@ -4,6 +4,17 @@
 //------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Projectile impact decal
+
+datablock DecalData(WpnBadgerBulletHoleDecal)
+{
+	sizeX = "0.15";
+	sizeY = "0.15";
+	textureName = "share/textures/alux/badgerhole";
+	SelfIlluminated = false;
+};
+
+//-----------------------------------------------------------------------------
 // laser tail...
 
 datablock LaserBeamData(WpnBadgerProjectileLaserTail)

@@ -4,6 +4,17 @@
 //------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Projectile impact decal
+
+datablock DecalData(WpnStyckBulletHoleDecal)
+{
+	sizeX = "0.15";
+	sizeY = "0.15";
+	textureName = "share/textures/alux/styckhole";
+	SelfIlluminated = false;
+};
+
+//-----------------------------------------------------------------------------
 // laser tail...
 
 datablock LaserBeamData(WpnStyckProjectileLaserTail)

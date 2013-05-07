@@ -62,7 +62,7 @@ datablock ShotgunProjectileData(WpnBadgerProjectile)
 	lifetime				= 3000;
 	fadeDelay			  = 5000;
 
-	decals[0] = BulletHoleDecalOne;
+	decals[0] = WpnBadgerBulletHoleDecal;
 
 	hasLight    = false;
 	lightRadius = 10.0;

@@ -4,6 +4,18 @@
 //------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Projectile impact decal
+
+datablock DecalData(WpnLaserhawkBulletHoleDecal)
+{
+	sizeX = "0.15";
+	sizeY = "0.15";
+	textureName = "share/textures/alux/lazerhawkhole";
+	SelfIlluminated = false;
+};
+
+
+//-----------------------------------------------------------------------------
 // fire explosion
 
 datablock ParticleData(WpnLaserhawkProjectileFireExplosion_CloudParticles)

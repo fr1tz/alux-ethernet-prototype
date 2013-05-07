@@ -4,6 +4,17 @@
 //------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
+// Projectile impact decal
+
+datablock DecalData(WpnRaptorBulletHoleDecal)
+{
+	sizeX = "0.15";
+	sizeY = "0.15";
+	textureName = "share/textures/alux/raptorhole";
+	SelfIlluminated = false;
+};
+
+//-----------------------------------------------------------------------------
 // laser tail...
 
 datablock LaserBeamData(WpnRaptorProjectileLaserTail)
