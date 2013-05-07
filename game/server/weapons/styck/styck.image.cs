@@ -224,7 +224,7 @@ function WpnStyckImage::onMount(%this, %obj, %slot)
    %obj.setImageInaccuracy(%slot, "enabled", true);
 
    // Set up recoil
-   %obj.setImageRecoilEnabled(%slot, true);
+   %obj.setImageRecoilEnabled(%slot, false);
    %obj.setImageCurrentRecoil(%slot, 100);
    %obj.setImageMaxRecoil(%slot, 100);
    %obj.setImageRecoilAdd(%slot, 0);

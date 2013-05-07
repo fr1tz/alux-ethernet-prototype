@@ -235,7 +235,7 @@ datablock ExplosionData(WpnStyckProjectileMissedEnemyEffect)
 	soundProfile = WpnTridentProjectileMissedEnemySound;
 
 	// shape...
-	explosionShape = "share/shapes/rotc/effects/explosion2_white.dts";
+	//explosionShape = "share/shapes/rotc/effects/explosion2_white.dts";
 	faceViewer	  = true;
 	playSpeed = 8.0;
 	sizes[0] = "0.07 0.07 0.07";
@@ -246,7 +246,7 @@ datablock ExplosionData(WpnStyckProjectileMissedEnemyEffect)
 	// dynamic light...
 	lightStartRadius = 0;
 	lightEndRadius = 2;
-	lightStartColor = "0.5 0.5 0.5";
+	lightStartColor = "0.0 0.0 0.0";
 	lightEndColor = "0.0 0.0 0.0";
     lightCastShadows = false;
 };
