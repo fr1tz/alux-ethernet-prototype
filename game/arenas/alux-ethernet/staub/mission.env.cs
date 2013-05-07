@@ -22,3 +22,13 @@ sgLoadDataBlocks($sgLightEditor::filterDBPath);
 %mapping.sound = $MaterialMapping::Sound::Metal;
 %mapping.color = "0 1 0 1.0 0.0";
 //%mapping.envmap = "share/textures/malloc/dark_blue_grid 0.5";
+
+%mapping = createMaterialMapping("staub/floor1");
+%mapping.sound = $MaterialMapping::Sound::Metal;
+%mapping.color = "0 1 0 1.0 0.0";
+//%mapping.envmap = "share/textures/default 0.5";
+
+%mapping = createMaterialMapping("staub/wall1");
+%mapping.sound = $MaterialMapping::Sound::Metal;
+%mapping.color = "0 1 0 1.0 0.0";
+//%mapping.detail = "share/textures/staub/wall2";
