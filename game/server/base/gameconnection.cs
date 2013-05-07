@@ -310,6 +310,11 @@ function GameConnection::onRecordingDemo(%this, %isRecording)
 
 function GameConnection::updateHudColors(%this)
 {
+	%c1 = "255 255 0";
+	%c2 = "255 128 0";
+	commandToClient(%this,'SetHudColor', %c1, %c2);
+   return;
+
 	if(getFieldCount(%this.hudColor) == 2)
 	{
 		%c1 = getField(%this.hudColor,0);
