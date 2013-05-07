@@ -709,6 +709,8 @@ function GameConnection::dematerializeFormAllowed(%this, %obj)
       return false;
    if(isObject(%obj.getControllingClient()))
       return false;
+   if(%obj.client != %this)
+      return false;
    if(!isObject(%obj.getDataBlock()))
       return false;
    if(!%obj.getDataBlock().isMethod("dematerialize"))
