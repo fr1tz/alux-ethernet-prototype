@@ -210,14 +210,14 @@ function WpnBadgerImage::onMount(%this, %obj, %slot)
    Parent::onMount(%this, %obj, %slot);
 
    // Set up inaccuracy
-   %obj.setImageInaccuracy(%slot, "radiusmin", 0.75);
+   %obj.setImageInaccuracy(%slot, "radiusmin", 1.5);
    %obj.setImageInaccuracy(%slot, "radiusmax", 20.0);
    %obj.setImageInaccuracy(%slot, "a1", 1.0);
    %obj.setImageInaccuracy(%slot, "a2", 1.0);
    %obj.setImageInaccuracy(%slot, "b1", 0.92);
    %obj.setImageInaccuracy(%slot, "b2", 0.0);
    %obj.setImageInaccuracy(%slot, "c", 10.0);
-   %obj.setImageInaccuracy(%slot, "d", 0.15);
+   %obj.setImageInaccuracy(%slot, "d", 0.25);
    %obj.setImageInaccuracy(%slot, "f1", 1.00);
    %obj.setImageInaccuracy(%slot, "f2", 0.00);
    %obj.setImageInaccuracy(%slot, "enabled", true);
