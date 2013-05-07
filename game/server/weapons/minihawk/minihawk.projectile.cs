@@ -14,8 +14,8 @@ datablock ShotgunProjectileData(WpnMinihawkProjectile)
 	stat = "minihawk";
 
 	// script damage properties...
-	impactDamage       = 50;
-	impactImpulse      = 400;
+	impactDamage       = 45;
+	impactImpulse      = 1000;
 	splashDamage       = 0;
 	splashDamageRadius = 0;
 	splashImpulse      = 0;
@@ -48,10 +48,10 @@ datablock ShotgunProjectileData(WpnMinihawkProjectile)
 	missEnemyEffect		 = WpnMinihawkProjectileMissedEnemyEffect;
 
    laserTail				 = WpnMinihawkProjectileLaserTail;
-	laserTailLen			 = 40.0;
+	laserTailLen			 = 20.0;
 
-	laserTrail[0]        = WpnMinihawkProjectileLaserTrail;
-	laserTrail[1]        = WpnMinihawkProjectileLaserTrail;
+	//laserTrail[0]        = WpnMinihawkProjectileLaserTrail;
+	//laserTrail[1]        = WpnMinihawkProjectileLaserTrail;
 	smoothLaserTrail     = false;
 
 	//particleEmitter	  = WpnMinihawkProjectileParticleEmitter;

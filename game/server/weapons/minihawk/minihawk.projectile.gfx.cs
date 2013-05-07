@@ -8,13 +8,13 @@
 
 datablock LaserBeamData(WpnMinihawkProjectileLaserTail)
 {
-	hasLine = true;
+	hasLine = false;
 	lineStartColor	= "0.00 1.00 0.00 0.0";
 	lineBetweenColor = "0.00 1.00 0.00 1.0";
 	lineEndColor	  = "0.00 1.00 0.00 1.0";
 	lineWidth		  = 2.0;
 
-	hasInner = true;
+	hasInner = false;
 	innerStartColor = "0.00 1.00 0.00 0.0";
 	innerBetweenColor = "0.00 1.00 0.00 1.0";
 	innerEndColor = "0.00 1.00 0.00 1.0";
@@ -30,8 +30,8 @@ datablock LaserBeamData(WpnMinihawkProjectileLaserTail)
 	outerBetweenWidth = "0.25";
 	outerEndWidth = "0.1";
 	
-//	bitmap = "share/textures/rotc/violetspark";
-//	bitmapWidth = 0.10;
+	bitmap = "share/textures/alux/minihawktail";
+	bitmapWidth = 4.0;
 //	crossBitmap = "share/shapes/rotc/weapons/blaster/lasertail.red.cross";
 //	crossBitmapWidth = 0.10;
 
@@ -238,7 +238,7 @@ datablock ExplosionData(WpnMinihawkProjectileMissedEnemyEffect)
 	soundProfile = WpnMinihawkProjectileMissedEnemySound;
 
 	// shape...
-	explosionShape = "share/shapes/rotc/effects/explosion2_white.dts";
+	//explosionShape = "share/shapes/rotc/effects/explosion2_white.dts";
 	faceViewer	  = true;
 	playSpeed = 8.0;
 	sizes[0] = "0.07 0.07 0.07";
@@ -249,7 +249,7 @@ datablock ExplosionData(WpnMinihawkProjectileMissedEnemyEffect)
 	// dynamic light...
 	lightStartRadius = 0;
 	lightEndRadius = 2;
-	lightStartColor = "0.5 0.5 0.5";
+	lightStartColor = "0.0 0.0 0.0";
 	lightEndColor = "0.0 0.0 0.0";
     lightCastShadows = false;
 };
