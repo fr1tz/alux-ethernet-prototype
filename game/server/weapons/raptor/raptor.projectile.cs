@@ -8,11 +8,11 @@
 
 datablock ShotgunProjectileData(WpnRaptorProjectile)
 {
-	stat = "blaster";
+	stat = "raptor";
 
 	// script damage properties...
 	impactDamage       = 15;
-	impactImpulse      = 400;
+	impactImpulse      = 600;
 	splashDamage       = 0;
 	splashDamageRadius = 0;
 	splashImpulse      = 0;

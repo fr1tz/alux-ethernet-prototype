@@ -126,7 +126,7 @@ datablock ShapeBaseImageData(WpnRaptorImage)
 	iconId = 5;
 	armThread = "holdblaster";  // armThread to use when holding this weapon
 	crosshair = "blaster"; // crosshair to display when holding this weapon
-   reloadTime = 4000;
+   reloadTime = 2000;
 	
 	//-------------------------------------------------
 	// image states...
@@ -157,7 +157,7 @@ datablock ShapeBaseImageData(WpnRaptorImage)
 		stateTransitionOnTriggerUp[3]    = "KeepAiming";
 		stateTransitionOnNoAmmo[3]       = "NoAmmo";
 		stateTransitionOnTimeout[3]      = "Fire";
-		stateTimeoutValue[3]             = 0.06;
+		stateTimeoutValue[3]             = 0.08;
 		stateFire[3]                     = true;
 		stateFireProjectile[3]           = WpnRaptorProjectile;
 		stateRecoil[3]                   = MediumRecoil;
@@ -209,32 +209,27 @@ datablock ShapeBaseImageData(WpnRaptorImage)
 	//-------------------------------------------------
 };
 
-function WpnRaptorImage::getBulletSpread(%this, %obj)
-{
-   return 0.02;
-}
-
 function WpnRaptorImage::onMount(%this, %obj, %slot)
 {
    Parent::onMount(%this, %obj, %slot);
 
    // Set up inaccuracy
-   %obj.setImageInaccuracy(%slot, "radiusmin", 1.0);
+   %obj.setImageInaccuracy(%slot, "radiusmin", 2.0);
    %obj.setImageInaccuracy(%slot, "radiusmax", 20.0);
    %obj.setImageInaccuracy(%slot, "a1", 1.0);
    %obj.setImageInaccuracy(%slot, "a2", 1.0);
    %obj.setImageInaccuracy(%slot, "b1", 0.95);
    %obj.setImageInaccuracy(%slot, "b2", 0.0);
    %obj.setImageInaccuracy(%slot, "c", 10.0);
-   %obj.setImageInaccuracy(%slot, "d", 0.25);
+   %obj.setImageInaccuracy(%slot, "d", 0.3);
    %obj.setImageInaccuracy(%slot, "f1", 1.00);
    %obj.setImageInaccuracy(%slot, "f2", 0.40);
    %obj.setImageInaccuracy(%slot, "enabled", true);
 
    // Set up recoil
    %obj.setImageRecoilEnabled(%slot, true);
-   %obj.setImageCurrentRecoil(%slot, 5);
-   %obj.setImageMaxRecoil(%slot, 5);
+   %obj.setImageCurrentRecoil(%slot, 7);
+   %obj.setImageMaxRecoil(%slot, 7);
    %obj.setImageRecoilAdd(%slot, 0);
    %obj.setImageRecoilDelta(%slot, -0);
 
