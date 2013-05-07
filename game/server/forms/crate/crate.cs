@@ -53,6 +53,7 @@ datablock StaticShapeData(FrmCrate)
 {
    proxy = FrmCrateProxy; // script field
    spore = FrmCrateSpore; // script field
+   btime = 2000; // script field: how long form is blocked after materialization
    dtime = 5000; // script field: de-materialization time
 
    allowColorization = true;
@@ -214,11 +215,14 @@ function FrmCrate::materialize(%this, %client, %pos, %normal, %transform)
 // Called from script
 function FrmCrate::materializeFx(%this, %obj)
 {
+   if(%this.btime == 0)
+      return;
+
    //%obj.startFade(1000, 0, false);
 	%obj.shapeFxSetTexture(1, 3);
 	%obj.shapeFxSetColor(1, 0);
 	%obj.shapeFxSetBalloon(1, 1.1, 0.0);
-	%obj.shapeFxSetFade(1, 1.0, -0.5);
+	%obj.shapeFxSetFade(1, 1.0, -1/(%this.btime/1000));
 	%obj.shapeFxSetActive(1, true, true);
 
    return;

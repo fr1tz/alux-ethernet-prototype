@@ -26,6 +26,7 @@ datablock FlyingVehicleData(FrmParrot)
 {
    proxy = FrmParrotProxy; // script field
    spore = FrmParrotSpore; // script field
+   btime = 0; // script field: how long form is blocked after materialization
    dtime = 5000; // script field: de-materialization time
 
    allowColorization = true;

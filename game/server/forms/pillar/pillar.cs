@@ -52,6 +52,7 @@ datablock StaticShapeData(FrmPillar)
 {
    proxy = FrmPillarProxy; // script field
    spore = FrmPillarSpore; // script field
+   btime = 2000; // script field: how long form is blocked after materialization
    dtime = 5000; // script field: de-materialization time
 
    allowColorization = true;

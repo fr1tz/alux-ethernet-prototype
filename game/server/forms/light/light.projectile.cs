@@ -124,7 +124,7 @@ function FrmLightProjectile::onExplode(%this,%obj,%pos,%normal,%fade,%dist,%expT
    %player.getDataBlock().materializeFx(%player);
 
    %player.zBlocked = true;
-   %player.schedule(2000, "setFieldValue", "zBlocked", false);
+   %player.schedule(%form.btime, "setFieldValue", "zBlocked", false);
 }
 
 function FrmLightProjectile::onCollision(%this,%obj,%col,%fade,%pos,%normal,%dist)
