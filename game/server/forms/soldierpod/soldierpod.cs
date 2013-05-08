@@ -68,7 +68,7 @@ datablock FlyingVehicleData(FrmSoldierpod)
    maxSteeringAngle = 3;          // Max radiens you can rotate the wheel. Smaller number is more maneuverable.
    horizontalSurfaceForce = 16;   // Horizontal center "wing" (provides "bite" into the wind for climbing/diving and turning)
    verticalSurfaceForce = 2;      // Vertical center "wing" (controls side slip. lower numbers make MORE slide.)
-   maneuveringForce = 8000*2;  // Horizontal jets (W,S,D,A key thrust)
+   maneuveringForce = 6000;  // Horizontal jets (W,S,D,A key thrust)
    steeringForce = 500;      // Steering jets (force applied when you move the mouse)
    steeringRollForce = 750; // Steering jets (how much you heel over when you turn)
    rollForce = 0;                 // Auto-roll (self-correction to right you after you roll/invert)
@@ -82,7 +82,7 @@ datablock FlyingVehicleData(FrmSoldierpod)
    vertThrustMultiple = 2.0;
 
    // Rigid body
-   mass = 90;
+   mass = 20;
    massCenter = "0 0 0";   // Center of mass for rigid body
    massBox = "0 0 0";      // Size of box used for moment of inertia, \
                            // if zero it defaults to object bounding box
@@ -94,7 +94,7 @@ datablock FlyingVehicleData(FrmSoldierpod)
    
    // physics system...
    integration = 4;           // # of physics steps per tick
-   collisionTol = 2.0;        // Collision distance tolerance
+   collisionTol = 1.0;        // Collision distance tolerance
    contactTol = 0.5;          // Contact velocity tolerance
 
    // impact damage...
