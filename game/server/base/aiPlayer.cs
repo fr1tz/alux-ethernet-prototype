@@ -79,6 +79,7 @@ function aiAdd(%teamid, %weaponNum)
 		teamId = %teamid;
 	};
 	MissionCleanup.add(%player);
+   %player.inv[1] = %weaponNum;
 
 	%pos = getRandomHorizontalPos(%spawnSphere.position,%spawnSphere.radius);
 	%player.setShapeName("wayne" @ %nameadd);
