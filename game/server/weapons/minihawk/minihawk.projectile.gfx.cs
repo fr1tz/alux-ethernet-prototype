@@ -19,10 +19,10 @@ datablock DecalData(WpnMinihawkBulletHoleDecal)
 
 datablock LaserBeamData(WpnMinihawkProjectileLaserTail)
 {
-	hasLine = false;
+	hasLine = true;
 	lineStartColor	= "0.00 1.00 0.00 0.0";
 	lineBetweenColor = "0.00 1.00 0.00 1.0";
-	lineEndColor	  = "0.00 1.00 0.00 1.0";
+	lineEndColor	  = "0.00 1.00 0.00 0.0";
 	lineWidth		  = 2.0;
 
 	hasInner = false;

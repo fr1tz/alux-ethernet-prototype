@@ -21,10 +21,10 @@ datablock LaserBeamData(WpnRaptorProjectileLaserTail)
 {
    //allowColorization = true;
 
-	hasLine = false;
+	hasLine = true;
 	lineStartColor	= "1.00 1.00 0.00 0.0";
 	lineBetweenColor = "1.00 1.00 0.00 1.0";
-	lineEndColor	  = "1.00 1.00 0.00 1.0";
+	lineEndColor	  = "1.00 1.00 0.00 0.0";
 	lineWidth		  = 2.0;
 
 	hasInner = false;
