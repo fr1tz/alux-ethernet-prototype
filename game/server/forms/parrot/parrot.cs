@@ -224,6 +224,12 @@ function FrmParrot::onDestroyed(%this, %obj, %prevState)
    // nothing here right now
 }
 
+// called by ShapeBase::impulse() script function
+function FrmParrot::impulse(%this, %obj, %position, %impulseVec, %src)
+{
+   return; // ignore impulses
+}
+
 function FrmParrot::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
 {
    if(%obj.getDamageState() $= "Destroyed")
