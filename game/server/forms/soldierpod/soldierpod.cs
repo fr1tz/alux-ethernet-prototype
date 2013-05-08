@@ -246,11 +246,19 @@ function FrmSoldierpod::onDestroyed(%this, %obj, %prevState)
    // nothing here right now
 }
 
+// called by ShapeBase::impulse() script function
+function FrmSoldierpod::impulse(%this, %obj, %position, %impulseVec, %src)
+{
+   return; // ignore impulses
+}
+
 // Called from script
 function FrmSoldierpod::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
 {
    if(%obj.getDamageState() $= "Destroyed")
       return;
+
+   %damage *= 2;
 
    Parent::damage(%this, %obj, %sourceObject, %position, %damage, %damageType);
    
