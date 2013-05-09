@@ -1,0 +1,44 @@
+<spush><font:Arial:18>Pieces<spop>
+
+"Pieces" are the main resource in the game. Every player has a set of pieces and every unit is associated with at least one piece. A piece is either in the player's bank, in play, or missing (in case the unit associated with it has been destroyed). Missing pieces reappear in the player's bank after some time (how much time depends on the kind of piece).
+
+The graphic at the top of the screen provides an overview over the state of your pieces:
+
+<lmargin:40><bitmap:share/manual/alux/piecesinventoryhud><lmargin:5><sbreak>
+
+<spush><font:Arial:18>Materializing Units<spop>
+
+When free (ie not controlling a unit), an alux can materialize units. The left of the screen displays a list of units and the pieces associated with each unit:
+
+<lmargin:40><bitmap:share/manual/alux/materializesurface><lmargin:5><sbreak>
+
+Press the number keys to select a type of unit. If the pieces associated with the unit are in your bank, you can materialize the unit by aiming somewhere on one of your team's territory surfaces (green surfaces) and pressing @bind16. This will cause your alux to launch a projectile, which on touching the surface will create the unit causing the pieces associated with the unit to switch from being in your bank to being in play.
+
+
+<spush><font:Arial:18>Controlling Units<spop>
+
+Most newly created units will be "blocked" for a short time after they've been created. You can only take control
+of a unit once it isn't blocked anymore.
+
+<lmargin:40><bitmap:share/manual/alux/blocked><lmargin:5><sbreak>
+You can enter/control non-blocked units by flying close to them and pressing @bind45.
+
+Pressing @bind45 while controlling a unit relinquishes control and causes your alux to leave the unit.
+
+
+<spush><font:Arial:18>Form Delivery Vehicles (FDV)<spop>
+
+Some units can be brought into play by having your alux materialize into a Form Delivery Vehicle and then steering the vehicle into a surface controlled by your team.
+
+<lmargin:40><bitmap:share/manual/alux/fdvprocess><lmargin:5><sbreak>
+The advantage of using an FDV is that once the actual unit is created, you immediately take control of it.
+The risk of using an FDV is that the unit might be damaged or even destroyed while en-route to a surface.
+
+The following FDVs are currently available:
+<tab:15,215>
+	Soldier /w Pistol	Press @bind65
+	Soldier /w Shotgun	Press @bind66
+	Soldier /w Sniper	Press @bind67
+	Soldier /w Handcannon	Press @bind68
+	Soldier /w SMG	Press @bind69
+

@@ -1,0 +1,12 @@
+By dematerializing a unit, you can revert the pieces associated with it from being in play back to your bank.
+
+Press @bind44 to leave and de-materialize the unit you're currently controlling.
+
+Press @bind51 to show the "dematerialization menu". It allows the following actions:
+
+	Press @bind51 again to de-materialize the unit under your crosshair.
+	Press 1 to de-materialize your units close to the location you're aiming at.
+	Press 2 to de-materialize your units in a wider radius of the location you're aiming at.
+	Press 3 to de-materialize all your units.
+	
+Units take some time to de-materialize, during which they can still be destroyed.

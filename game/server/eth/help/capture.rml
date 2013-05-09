@@ -1,0 +1,2 @@
+Currently, the only units capable of capturing territory surfaces are the infantry units. Infantry can capture surfaces by touching them while no enemy infantry unit also touches the surface. A captured surface becomes green. If infantry units from both teams are touching the surface, it remains white.
+
