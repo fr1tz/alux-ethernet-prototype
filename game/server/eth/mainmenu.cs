@@ -35,14 +35,16 @@ function showMainMenu(%client)
 
 	%fg = %newtxt @
 		om_head(%client, "Server Info") @
-		"<spush><font:Arial:20>" @
-		"Welcome to" SPC $Pref::Server::Name @
-		"<spop>\n\n" @
-		"<tab:15,30,130>Game:\n" @
-		"\t" @ $Server::MissionType SPC "<a:cmd News>Show Changelog</a>\n" @
-		"\t" @ %mutators @ "\n" @
+		"\n\n<just:center>*** Essential reading: ***\n" @
+		"<a:cmd Manual C>Control reference</a>\n" @
+//		"<just:left>\n<spush><font:Arial:20>" @
+//		"Welcome to" SPC $Pref::Server::Name @
+//		"<spop>\n\n" @
+//		"<tab:15,30,130>Game:\n" @
+//		"\t" @ $Server::MissionType SPC "<a:cmd News>Show Changelog</a>\n" @
+//		"\t" @ %mutators @ "\n" @
 //		"Environment:" SPC $Server::MissionName @ "\n\n" @
-		"<spush>" @ $Pref::Server::Info @ "<spop>\n\n" @
+//		"<spush>" @ $Pref::Server::Info @ "<spop>\n\n" @
 		"";
 
 //	if(%client.loadingMission || %client.menu $= "mainmenu")
