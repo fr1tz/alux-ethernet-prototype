@@ -43,6 +43,9 @@ function EtherformData::special(%this, %obj, %nr)
    %client.control(%player);
    %client.player = %player;
    %obj.delete();
+
+   %client.inventoryMode = "";
+   %client.displayInventory();
 }
 
 function EtherformData::damage(%this, %obj, %sourceObject, %pos, %damage, %damageType)
