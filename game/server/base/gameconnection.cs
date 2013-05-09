@@ -9,7 +9,7 @@ datablock StaticShapeData(PointerShape)
 	shadowEnable = false;
 	shapeFile = "share/shapes/alux/pointer.dts";
    emap = false;
-   hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
+   hudImageNameFriendly = "~/client/ui/hud/pixmaps/pointer.png";
 };
 
 //------------------------------------------------------------------------------
@@ -201,7 +201,7 @@ function GameConnection::createPointer(%this)
    };
    MissionCleanup.add(%this.pointer);
    %this.pointer.setGhostingListMode("GhostOnly");
-   %this.pointer.getHudInfo().setActive(false);
+   %this.pointer.getHudInfo().setActive(true);
    %this.pointer.setCollisionsDisabled(true);
 
    return;
@@ -605,6 +605,7 @@ function GameConnection::enterForm(%this)
          %this.proxy.setTransform("0 0 0");
          %this.pointer.removeClientFromGhostingList(%client);
          %this.pointer.setTransform("0 0 0");
+         %this.pointer.getHudInfo().setActive(false);
       }
       %this.player = %closest;
       %this.control(%closest);
@@ -831,6 +832,7 @@ function GameConnection::updateProxyThread(%this)
       %client.proxy.setTransform("0 0 0");
       %client.pointer.removeClientFromGhostingList(%client);
       %client.pointer.setTransform("0 0 0");
+      %client.pointer.getHudInfo().setActive(false);
       return;
    }
 
@@ -847,6 +849,7 @@ function GameConnection::updateProxyThread(%this)
 
       %client.pointer.addClientToGhostingList(%client);
       %client.pointer.setTransform(%transform);
+      %this.pointer.getHudInfo().setActive(true);
    }
 
    if(%obj.getEnergyLevel() < 0) // %this.maxEnergy)
