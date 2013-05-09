@@ -38,8 +38,8 @@ function om_head(%client, %title, %prev, %refresh)
 			"<spop>\n";
 
       %r = %r @ "<just:center><spush><color:FFFF00>";
-      %r = %r @ "You are playing a very early, crude and incomplete";
-      %r = %r @ " version of Alux!\n";
+      %r = %r @ "Please remember: This is merely a prototype for a potential";
+      %r = %r @ " future game, as such it's crude and minimalist!\n<sbreak>";
 		%r = %r @ "<bitmap:share/ui/rotc/construction><sbreak>";
       %r = %r @ "<spop><just:left>";
 	}
