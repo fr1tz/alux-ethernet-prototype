@@ -45,7 +45,7 @@ datablock ShotgunProjectileData(WpnRaptorProjectile)
 	missEnemyEffect		 = WpnRaptorProjectileMissedEnemyEffect;
 
    laserTail				 = WpnRaptorProjectileLaserTail;
-	laserTailLen			 = 20.0;
+	laserTailLen			 = 15.0;
 
 	laserTrail[2] = NULL; // WpnRaptorProjectileLaserTrail2;
 	smoothLaserTrail     = false;
