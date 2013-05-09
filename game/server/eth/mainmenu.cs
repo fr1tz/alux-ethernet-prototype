@@ -35,8 +35,7 @@ function showMainMenu(%client)
 
 	%fg = %newtxt @
 		om_head(%client, "Server Info") @
-		"\n\n<just:center>*** Essential reading: ***\n" @
-		"<a:cmd Manual C>Control reference</a>\n" @
+		"\n\n<just:center><a:cmd Manual 1>Click here to read how to play</a>\n" @
 //		"<just:left>\n<spush><font:Arial:20>" @
 //		"Welcome to" SPC $Pref::Server::Name @
 //		"<spop>\n\n" @
