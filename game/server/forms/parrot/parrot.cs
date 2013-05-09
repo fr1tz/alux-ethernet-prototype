@@ -55,6 +55,7 @@ datablock FlyingVehicleData(FrmParrot)
 	shapeFxTexture[1] = "share/textures/alux/grid1.png";
 	shapeFxTexture[2] = "share/textures/alux/grid2.png";
 	shapeFxTexture[3] = "share/shapes/alux/light.png";
+	shapeFxTexture[4] = "share/textures/alux/blocked.png";
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
 
    drag    = 0.15;

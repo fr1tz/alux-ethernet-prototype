@@ -87,6 +87,7 @@ datablock StaticShapeData(FrmCrate)
 	shapeFxTexture[1] = "share/textures/alux/grid1.png";
 	shapeFxTexture[2] = "share/textures/alux/grid2.png";
 	shapeFxTexture[3] = "share/shapes/alux/light.png";
+	shapeFxTexture[4] = "share/textures/alux/blocked.png";
 	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
 
 	// damage info eyecandy...
@@ -219,7 +220,14 @@ function FrmCrate::materializeFx(%this, %obj)
       return;
 
    //%obj.startFade(1000, 0, false);
-	%obj.shapeFxSetTexture(1, 3);
+
+	%obj.shapeFxSetTexture(0, 4);
+	%obj.shapeFxSetColor(0, 0);
+	%obj.shapeFxSetBalloon(0, 1.1, 0.0);
+	%obj.shapeFxSetFade(0, 1.0, -1/(%this.btime/1000));
+	%obj.shapeFxSetActive(0, true, true);
+
+	%obj.shapeFxSetTexture(1, 4);
 	%obj.shapeFxSetColor(1, 0);
 	%obj.shapeFxSetBalloon(1, 1.1, 0.0);
 	%obj.shapeFxSetFade(1, 1.0, -1/(%this.btime/1000));
