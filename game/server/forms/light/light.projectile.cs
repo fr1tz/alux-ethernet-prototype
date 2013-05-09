@@ -63,8 +63,8 @@ datablock ProjectileData(FrmLightProjectile)
 //	missEnemyEffectRadius = 10;
 //	missEnemyEffect = AssaultRifleProjectileMissedEnemyEffect;
 
-//	particleEmitter = NULL; // FrmLightProjectileEmitter;
-	laserTrail[0]   = FrmLightProjectile_LaserTrailOne;
+//	particleEmitter = FrmLightProjectileEmitter;
+//	laserTrail[0]   = FrmLightProjectile_LaserTrailOne;
 //	laserTrail[1]   = FrmLight_LaserTrailTwo;
 //	laserTail	    = RedAssaultRifleProjectileLaserTail;
 //	laserTailLen    = 2;
