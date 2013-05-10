@@ -19,7 +19,7 @@ datablock FlyingVehicleData(FrmSoldierpod)
    // @}
 
 //   category = "Vehicles"; don't appear in mission editor
-   shapeFile = "share/shapes/alux/soldier-pod.dts";
+   shapeFile = "share/shapes/alux/soldier-fdv.dts";
    emap = true;
 
 	//hudImageNameFriendly = "~/client/ui/hud/pixmaps/teammate.cat.png";
@@ -70,8 +70,8 @@ datablock FlyingVehicleData(FrmSoldierpod)
    horizontalSurfaceForce = 16;   // Horizontal center "wing" (provides "bite" into the wind for climbing/diving and turning)
    verticalSurfaceForce = 2;      // Vertical center "wing" (controls side slip. lower numbers make MORE slide.)
    maneuveringForce = 6000;  // Horizontal jets (W,S,D,A key thrust)
-   steeringForce = 500;      // Steering jets (force applied when you move the mouse)
-   steeringRollForce = 750; // Steering jets (how much you heel over when you turn)
+   steeringForce = 500/4;      // Steering jets (force applied when you move the mouse)
+   steeringRollForce = 750/4; // Steering jets (how much you heel over when you turn)
    rollForce = 0;                 // Auto-roll (self-correction to right you after you roll/invert)
    hoverHeight = 3;               // Height off the ground at rest
    createHoverHeight = 3;         // Height off the ground when created
@@ -104,7 +104,7 @@ datablock FlyingVehicleData(FrmSoldierpod)
 
    // contrail...
    minTrailSpeed = 0;      // The speed your contrail shows up at
-   //trailEmitter = FrmSoldierpod_ContrailEmitter;
+   trailEmitter = FrmSoldierpod_ContrailEmitter;
    
    // laser trail...
    laserTrail = FrmSoldierpod_LaserTrail;
@@ -198,6 +198,10 @@ function FrmSoldierpod::onImpact(%this, %obj, %col, %vec, %vecLen)
    %z = getWord(%c,3);
 
    %pos = %x SPC %y SPC %z;
+
+   %transform = setWord(%transform, 0, getWord(%pos, 0));
+   %transform = setWord(%transform, 1, getWord(%pos, 1));
+   %transform = setWord(%transform, 2, getWord(%pos, 2));
 
    %error = FrmSoldier.canMaterialize(%client, %pos, %normal, %transform);
    error(%error);

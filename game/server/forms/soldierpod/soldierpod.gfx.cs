@@ -299,39 +299,41 @@ datablock MultiNodeLaserBeamData(FrmSoldierpod_LaserTrail)
 
 datablock ParticleData(FrmSoldierpod_ContrailParticle)
 {
-   dragCoefficient      = 1;
-   gravityCoefficient   = 0.2;
-   inheritedVelFactor   = 0.2;
-   constantAcceleration = 0.0;
-   lifetimeMS           = 200;
-   lifetimeVarianceMS   = 50;
-   textureName          = "share/textures/alux/circle1.png";
-   colors[0]     = "0.56 0.36 0.26 1.0";
-   colors[1]     = "0.56 0.36 0.26 1.0";
-   colors[2]     = "1.0 0.36 0.26 0.0";
-   sizes[0]      = 2.0;
-   sizes[1]      = 1.0;
-   sizes[2]      = 0.0;
-   times[0]      = 0.0;
-   times[1]      = 0.5;
-   times[2]      = 1.0;
-
+	dragCoefficient		= 1.0;
+	gravityCoefficient	= 0.0;
+	inheritedVelFactor	= 0.0;
+	constantAcceleration = 0.0;
+	lifetimeMS			  = 400;
+	lifetimeVarianceMS	= 0;
+	colors[0]	  = "1.0 1.0 1.0 1.0";
+	colors[1]	  = "1.0 1.0 1.0 0.2";
+	colors[2]	  = "1.0 1.0 1.0 0.0";
+	sizes[0]		= 2.0;
+	sizes[1]		= 1.0;
+	sizes[2]		= 0.0;
+	times[0]		= 0.0;
+	times[1]		= 0.5;
+	times[2]		= 1.0;
+	spinRandomMin = 0.0;
+	spinRandomMax = 0.0;
+	textureName	= "share/textures/rotc/corona";
+	allowLighting = false;
 };
 
 datablock ParticleEmitterData(FrmSoldierpod_ContrailEmitter)
 {
-   ejectionPeriodMS = 3;
-   periodVarianceMS = 0;
-   ejectionVelocity = 12;
-   velocityVariance = 6.75;
-   ejectionOffset   = 0;
-   thetaMin         = 0;
-   thetaMax         = 40;
-   phiReferenceVel  = 0;
-   phiVariance      = 360;
-   overrideAdvances = false;
-   orientParticles  = true;
-   lifetimeMS       = 0;
+	ejectionPeriodMS = 20;
+	periodVarianceMS = 0;
+	ejectionVelocity = 0;
+	velocityVariance = 0;
+	ejectionOffset	= 0.0;
+	thetaMin			= 0;
+	thetaMax			= 180;
+	phiReferenceVel  = 0;
+	phiVariance		= 360;
+	overrideAdvance  = false;
+	orientParticles  = false;
+	lifetimeMS		 = 0; // forever
    particles = "FrmSoldierpod_ContrailParticle";
 };
 
