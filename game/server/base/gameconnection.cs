@@ -184,15 +184,13 @@ function GameConnection::onClientEnterGame(%this)
 	// Start thread to process player stats...
 	%this.processPlayerStats();	
 
-   %this.createPointer();
-
    %this.updateProxyThread();
 }
 
 function GameConnection::createPointer(%this)
 {
    if(isObject(%this.pointer))
-      return;
+      %this.pointer.delete();
 
    %this.pointer = new StaticShape() {
 	  dataBlock = PointerShape;
@@ -466,6 +464,7 @@ function GameConnection::joinTeam(%this, %teamId)
 		%this.isAdmin,
 		%this.isSuperAdmin);
 
+   %this.createPointer();
 	%this.spawnPlayer();
 	%this.updateHudColors();
    %this.displayInventory();
