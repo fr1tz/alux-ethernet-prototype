@@ -26,6 +26,10 @@ $TargetingMask::Heat  = 2;
 $TargetingMask::Free1 = 4;
 $TargetingMask::Free2 = 8;
 
+$MissedEnemyMask = $TypeMasks::PlayerObjectType |
+                   $TypeMasks::VehicleObjectType |
+                   $TypeMasks::EtherformObjectType;
+
 //-----------------------------------------------------------------------------
 
 datablock AudioProfile(WeaponSwitchSound)
