@@ -28,7 +28,7 @@ datablock ShotgunProjectileData(WpnStyckProjectile)
 
 	explodesNearEnemies	      = false;
 	explodesNearEnemiesRadius = 4;
-	explodesNearEnemiesMask   = $TypeMasks::PlayerObjectType;
+	explodesNearEnemiesMask   = $MissedEnemyMask;
 
 	//sound = Blaster3ProjectileFlybySound;
 

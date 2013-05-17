@@ -28,7 +28,7 @@ datablock ShotgunProjectileData(WpnLaserhawkProjectile)
 
 	explodesNearEnemies	      = false;
 	explodesNearEnemiesRadius = 4;
-	explodesNearEnemiesMask   = $TypeMasks::PlayerObjectType;
+	explodesNearEnemiesMask   = $MissedEnemyMask;
 
     //sound = SniperProjectileFlybySound;
 
