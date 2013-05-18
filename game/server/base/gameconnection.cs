@@ -223,6 +223,8 @@ function GameConnection::createPointer(%this)
 function GameConnection::onClientLeaveGame(%this)
 {
 	%this.team.numPlayers--;
+ 
+   %this.removeForms();
 
 	%this.clearFullControl();
 	%this.clearSimpleControl();
@@ -254,10 +256,10 @@ function GameConnection::onClientLeaveGame(%this)
 
 	if(isObject(%this.inventory))
 		%this.inventory.delete();
-		
-	if(%this.player > 0) // && %this.player.getClassName() $= "Etherform")
+  
+  	if(isObject(%this.player) && %this.player.getClassName() $= "Etherform")
 		%this.player.delete();
-
+  
 	if(isObject(%this.proxy))
 		%this.proxy.delete();
 
@@ -389,15 +391,8 @@ function GameConnection::setDefaultCrosshair(%this)
 
 //------------------------------------------------------------------------------
 
-function GameConnection::joinTeam(%this, %teamId)
+function GameConnection::removeForms(%this)
 {
-	if (%teamid > 2 || %teamid < 0)
-		return false;
-
-	if( %this.team != 0 && %teamId == %this.team.teamId)
-		return false;
-
-   // Remove player's forms.
 	for( %idx = MissionCleanup.getCount()-1; %idx >= 0; %idx-- )
 	{
 		%obj = MissionCleanup.getObject(%idx);
@@ -411,6 +406,19 @@ function GameConnection::joinTeam(%this, %teamId)
 			   %obj.delete();
       }
 	}
+}
+
+//------------------------------------------------------------------------------
+
+function GameConnection::joinTeam(%this, %teamId)
+{
+	if (%teamid > 2 || %teamid < 0)
+		return false;
+
+	if( %this.team != 0 && %teamId == %this.team.teamId)
+		return false;
+
+   %this.removeForms();
 
 	// remove from old team...
 	if(%this.team == $Team0)
