@@ -23,7 +23,7 @@ function sLoadoutcode2Pieces(%code)
       %pieces = "0 1";
       %arg2 = getWord(%code, 4);
       if(%arg2 == 1)
-         %pieces = %pieces TAB "4 1";
+         %pieces = %pieces; // TAB "4 1";
       else if(%arg2 == 2)
          %pieces = %pieces TAB "5 1";
       else if(%arg2 == 3)
