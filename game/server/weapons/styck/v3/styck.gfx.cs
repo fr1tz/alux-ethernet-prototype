@@ -25,14 +25,14 @@ datablock MultiNodeLaserBeamData(WpnStyckProjectileLaserTrailOne)
 
 	hasInner = true;
 	innerColor = "1.00 0.00 0.00 1.0";
-	innerWidth = "0.2";
+	innerWidth = "0.38";
 
 	hasOuter = false;
 	outerColor = "1.00 0.00 0.00 1.0";
-	outerWidth = "0.25";
+	outerWidth = "0.35";
 
-	//bitmap = "share/textures/alux/laser3";
-	//bitmapWidth = 0.4;
+	bitmap = "share/textures/alux/laser4";
+	bitmapWidth = 1.7;
 
 	blendMode = 1;
 	renderMode = $MultiNodeLaserBeamRenderMode::FaceViewer;
@@ -64,14 +64,14 @@ datablock MultiNodeLaserBeamData(WpnStyckProjectileLaserTrailTwo)
 
 	hasInner = true;
 	innerColor = "1.00 1.00 1.00 1.0";
-	innerWidth = "0.2";
+	innerWidth = "0.38";
 
 	hasOuter = false;
 	outerColor = "1.00 0.00 0.00 1.0";
-	outerWidth = "0.25";
+	outerWidth = "0.35";
 
-	//bitmap = "share/textures/alux/laser3";
-	//bitmapWidth = 0.4;
+	bitmap = "share/textures/alux/laser0";
+	bitmapWidth = 1.7;
 
 	blendMode = 1;
 	renderMode = $MultiNodeLaserBeamRenderMode::FaceViewer;
