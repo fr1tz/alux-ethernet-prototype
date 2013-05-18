@@ -1214,7 +1214,7 @@ function GameConnection::resetInventory1(%this, %piece, %current, %max, %cost)
 
 function GameConnection::resetInventory(%this)
 {
-   %this.resetInventory1(0, 2, 2, 30); // Infantry
+   %this.resetInventory1(0, 1, 1, 10); // Infantry
    %this.resetInventory1(1, 1, 1, 15); // Air
    %this.resetInventory1(2, 1, 1, 15); // Missile
    %this.resetInventory1(3, 15, 15, 10); // Box
