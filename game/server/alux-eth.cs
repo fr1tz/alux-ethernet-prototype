@@ -30,7 +30,7 @@ function executeGameScripts()
 	exec("game/server/base/exec.cs");
 	exec("game/server/eth/exec.cs");
 	exec("game/server/weapons/weapons.cs");
-	exec("game/server/weapons/styck/v2/exec.cs");
+	exec("game/server/weapons/styck/v3/exec.cs");
 	exec("game/server/weapons/raptor/exec.cs");
 	exec("game/server/weapons/laserhawk/exec.cs");
 	exec("game/server/weapons/minihawk/v2/exec.cs");
