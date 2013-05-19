@@ -12,8 +12,8 @@ datablock AudioProfile(WpnScorpionProjectileImpactSound)
 
 datablock AudioProfile(WpnScorpionFireSound)
 {
-   filename = "share/sounds/rotc/fire6.wav";
-	description = AudioDefault3D;
+   filename = "share/sounds/rotc/fire5.wav";
+	description = AudioFar3D;
 	preload = true;
 };
 
