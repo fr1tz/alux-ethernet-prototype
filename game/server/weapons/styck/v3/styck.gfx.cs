@@ -19,26 +19,26 @@ datablock DecalData(WpnStyckBulletHoleDecal)
 
 datablock MultiNodeLaserBeamData(WpnStyckProjectileLaserTrailOne)
 {
-	hasLine   = true;
-	lineColor = "1.00 0.00 0.00 1.0";
-   lineWidth = 2.0;
+	hasLine   = false;
+	lineColor = "1.00 1.00 1.00 1.0";
+   lineWidth = 1.0;
 
 	hasInner = true;
-	innerColor = "1.00 0.00 0.00 1.0";
-	innerWidth = "0.38";
+	innerColor = "1.00 1.00 1.00 1.0";
+	innerWidth = "0.2";
 
-	hasOuter = false;
-	outerColor = "1.00 0.00 0.00 1.0";
-	outerWidth = "0.35";
+	hasOuter = true;
+	outerColor = "1.00 1.00 1.00 1.0";
+	outerWidth = "0.2";
 
-	bitmap = "share/textures/alux/laser4";
-	bitmapWidth = 1.7;
+	bitmap = "share/textures/alux/laser0";
+	bitmapWidth = 1.0;
 
 	blendMode = 1;
 	renderMode = $MultiNodeLaserBeamRenderMode::FaceViewer;
-	fadeTime = 50;
+	fadeTime = 100;
 
-    windCoefficient = 0.0;
+   windCoefficient = 0.0;
 
 	// node x movement...
 	nodeMoveMode[0]     = $NodeMoveMode::None;
@@ -58,24 +58,24 @@ datablock MultiNodeLaserBeamData(WpnStyckProjectileLaserTrailOne)
 
 datablock MultiNodeLaserBeamData(WpnStyckProjectileLaserTrailTwo)
 {
-	hasLine   = true;
-	lineColor = "1.00 1.00 1.00 1.0";
-   lineWidth = 2.0;
+	hasLine   = false;
+	lineColor = "1.00 0.00 0.00 1.0";
+   lineWidth = 1.0;
 
-	hasInner = true;
-	innerColor = "1.00 1.00 1.00 1.0";
+	hasInner = false;
+	innerColor = "1.00 0.00 0.00 1.0";
 	innerWidth = "0.38";
 
 	hasOuter = false;
 	outerColor = "1.00 0.00 0.00 1.0";
 	outerWidth = "0.35";
 
-	bitmap = "share/textures/alux/laser0";
+	bitmap = "share/textures/alux/laser4";
 	bitmapWidth = 1.7;
 
 	blendMode = 1;
 	renderMode = $MultiNodeLaserBeamRenderMode::FaceViewer;
-	fadeTime = 30;
+	fadeTime = 125;
 
     windCoefficient = 0.0;
 

@@ -47,11 +47,11 @@ datablock ShotgunProjectileData(WpnStyckProjectile)
 	//laserTail				 = WpnStyckProjectileLaserTail;
 	//laserTailLen			 = 10.0;
 
-	laserTrail[0]        = WpnStyckProjectileLaserTrailThree;
+	laserTrail[0]        = WpnStyckProjectileLaserTrailOne;
    laserTrailFlags[0]   = 4;
-	laserTrail[1]        = WpnStyckProjectileLaserTrailOne;
+   laserTrail[1]        = WpnStyckProjectileLaserTrailTwo;
    laserTrailFlags[1]   = 4;
-   laserTrail[2]        = WpnStyckProjectileLaserTrailTwo;
+	laserTrail[2]        = WpnStyckProjectileLaserTrailThree;
    laserTrailFlags[2]   = 4;
 
 	//particleEmitter	  = WpnStyckProjectileParticleEmitter;
