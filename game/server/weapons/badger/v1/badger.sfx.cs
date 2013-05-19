@@ -26,7 +26,7 @@ datablock AudioProfile(WpnBadgerProjectileMissedEnemySound)
 
 datablock AudioProfile(WpnBadgerFireSound)
 {
-	filename = "share/sounds/rotc/fire7.wav";
+	filename = "share/sounds/rotc/fire2.wav";
 	description = AudioDefault3D;
 	preload = true;
 };
