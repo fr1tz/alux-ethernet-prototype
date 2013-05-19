@@ -569,6 +569,7 @@ function GameConnection::beepMsg(%this, %reason)
 function GameConnection::onFormDestroyed(%this, %obj)
 {
    %obj.zFormDestroyed = true;
+   %obj.removePiecesFromPlay();
 }
 
 function GameConnection::enterForm(%this)
