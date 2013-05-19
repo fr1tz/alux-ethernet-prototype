@@ -50,12 +50,12 @@ datablock ShotgunProjectileData(WpnMinihawkProjectile)
     //laserTail				 = WpnMinihawkProjectileLaserTail;
 	//laserTailLen			 = 20.0;
 
-	laserTrail[0]        = WpnMinihawkProjectileLaserTrailThree;
-    laserTrailFlags[0]   = 4;
-	laserTrail[1]        = WpnMinihawkProjectileLaserTrailOne;
-    laserTrailFlags[1]   = 4;
-	//laserTrail[2]        = WpnMinihawkProjectileLaserTrailTwo;
-    //laserTrailFlags[2]   = 4;
+	laserTrail[0]        = WpnMinihawkProjectileLaserTrailOne;
+   laserTrailFlags[0]   = 4;
+	laserTrail[1]        = WpnMinihawkProjectileLaserTrailTwo;
+   laserTrailFlags[1]   = 4;
+	laserTrail[2]        = WpnMinihawkProjectileLaserTrailThree;
+   laserTrailFlags[2]   = 4;
 
 	//particleEmitter	  = WpnMinihawkProjectileParticleEmitter;
 

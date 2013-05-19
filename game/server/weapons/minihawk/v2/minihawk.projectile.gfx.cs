@@ -15,42 +15,6 @@ datablock DecalData(WpnMinihawkBulletHoleDecal)
 };
 
 //-----------------------------------------------------------------------------
-// laser tail...
-
-datablock LaserBeamData(WpnMinihawkProjectileLaserTail)
-{
-	hasLine = true;
-	lineStartColor	= "0.00 1.00 0.00 0.0";
-	lineBetweenColor = "0.00 1.00 0.00 1.0";
-	lineEndColor	  = "0.00 1.00 0.00 0.0";
-	lineWidth		  = 2.0;
-
-	hasInner = false;
-	innerStartColor = "0.00 1.00 0.00 0.0";
-	innerBetweenColor = "0.00 1.00 0.00 1.0";
-	innerEndColor = "0.00 1.00 0.00 1.0";
-	innerStartWidth = "0.3";
-	innerBetweenWidth = "0.3";
-	innerEndWidth = "0.05";
-
-	hasOuter = false;
-	outerStartColor = "0.00 0.00 0.90 0.0";
-	outerBetweenColor = "0.50 0.00 0.90 0.8";
-	outerEndColor = "1.00 1.00 1.00 0.8";
-	outerStartWidth = "0.3";
-	outerBetweenWidth = "0.25";
-	outerEndWidth = "0.1";
-	
-	bitmap = "share/textures/alux/minihawktail";
-	bitmapWidth = 4.0;
-//	crossBitmap = "share/shapes/rotc/weapons/blaster/lasertail.red.cross";
-//	crossBitmapWidth = 0.10;
-
-	betweenFactor = 0.8;
-	blendMode = 1;
-};
-
-//-----------------------------------------------------------------------------
 // laser trail
 
 datablock MultiNodeLaserBeamData(WpnMinihawkProjectileLaserTrailOne)
@@ -67,12 +31,12 @@ datablock MultiNodeLaserBeamData(WpnMinihawkProjectileLaserTrailOne)
 	outerColor = "1.00 1.00 1.00 1.0";
 	outerWidth = "0.2";
 
-	bitmap = "share/textures/alux/laser3";
-	bitmapWidth = 0.4;
+	bitmap = "share/textures/alux/laser0";
+	bitmapWidth = 1.0;
 
 	blendMode = 1;
 	renderMode = $MultiNodeLaserBeamRenderMode::FaceViewer;
-	fadeTime = 50;
+	fadeTime = 125;
 
     windCoefficient = 0.0;
 
@@ -98,20 +62,20 @@ datablock MultiNodeLaserBeamData(WpnMinihawkProjectileLaserTrailTwo)
 	lineColor = "1.00 1.00 1.00 1.0";
     lineWidth = 2.0;
 
-	hasInner = true;
+	hasInner = false;
 	innerColor = "0.00 1.00 0.00 1.0";
 	innerWidth = "0.4";
 
-	hasOuter = true;
+	hasOuter = false;
 	outerColor = "0.00 1.00 0.00 1.0";
 	outerWidth = "0.4";
 
-	bitmap = "share/textures/alux/laser3";
-	bitmapWidth = 0.4;
+	bitmap = "share/textures/alux/laser6";
+	bitmapWidth = 1.4;
 
 	blendMode = 1;
 	renderMode = $MultiNodeLaserBeamRenderMode::FaceViewer;
-	fadeTime = 75;
+	fadeTime = 150;
 
     windCoefficient = 0.0;
 
@@ -149,7 +113,7 @@ datablock MultiNodeLaserBeamData(WpnMinihawkProjectileLaserTrailThree)
 
 	blendMode = 1;
  	renderMode = $MultiNodeLaserBeamRenderMode::FaceViewer;
-	fadeTime = 200;
+	fadeTime = 800;
 
     windCoefficient = 0.0;
 
