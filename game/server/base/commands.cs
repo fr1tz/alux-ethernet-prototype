@@ -46,11 +46,7 @@ function serverCmdPlayerAction(%client, %nr, %val)
       %form = %client.player;
       if(!isObject(%form))
          return;
-      if(%form.isReloading)
-         return;
-      if(!%form.getDataBlock().isMethod("reload"))
-         continue;
-      %form.getDataBlock().reload(%form);
+      %form.reloadStart();
 	}
 	else if(%nr == 17 && %val)
 	{		
@@ -77,44 +73,6 @@ function serverCmdPlayerAction(%client, %nr, %val)
 	else if(%nr == 39 && %val)
 	{		
 		serverCmdToggleCamera(%client);
-	}
-}
-
-//-----------------------------------------------------------------------------
-// Inventory server commands
-//-----------------------------------------------------------------------------
-
-function serverCmdUseInv(%client, %data)
-{
-	if( %client.player == 0 ) return false;
-	%client.getControlObject().use(%data);
-}
-
-function serverCmdUseWeapon(%client, %nr)
-{
-	if( %client.player == 0 ) return false;
-	%client.getControlObject().useWeapon(%nr);
-}
-
-function serverCmdUseNextWeapon(%client)
-{
-	if( %client.player == 0 ) return false;
-	%image = %client.player.getDataBlock().weapon[%client.currWeapon+1];
-	if( isObject(%image) )
-	{
-		%client.player.mountWeaponImage(%image);
-		%client.currWeapon++;
-	}
-}
-
-function serverCmdUsePrevWeapon(%client)
-{
-	if( %client.player == 0 ) return false;
-	%image = %client.player.getDataBlock().weapon[%client.currWeapon-1];
-	if( isObject(%image) && %client.currWeapon-1 != 0 )
-	{
-		%client.player.mountWeaponImage(%image);
-		%client.currWeapon--;
 	}
 }
 

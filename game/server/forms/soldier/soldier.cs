@@ -445,7 +445,10 @@ function FrmSoldier::materialize(%this, %client, %pos, %normal, %transform)
    %player.setTransform(%pos SPC getWords(%transform, 3));
 
 	%player.playAudio(0, CatSpawnSound);
-
+ 
+   %player.ammo[0] = %this.maxEnergy;
+   %player.ammo[1] = %this.maxEnergy;
+ 
    return %player;
 }
 
@@ -466,22 +469,29 @@ function FrmSoldier::dematerializeFinish(%this, %obj)
    FrmCrate::dematerializeFinish(%this, %obj);
 }
 
-function FrmSoldier::reload(%this, %obj)
+function FrmSoldier::reloadStart(%this, %obj)
 {
    if(%obj.getEnergyLevel() == %this.maxEnergy)
       return;
 
+   if(%obj.reloadingThread !$= "")
+      return;
+      
    %state = %obj.getImageState(0);
    if(!(%state $= "Ready" || %state $= "NoAmmo" || %state $= "KeepAiming"))
       return;
 
-   %obj.isReloading = true;
-
-   %reloadTime = %obj.getMountedImage(0).reloadTime;
-   %reloadAmount = %obj.getMountedImage(0).reloadAmount;
+   %image = %obj.getMountedImage(0);
+   %reloadTime = %image.reloadTime;
+   %reloadAmount = %image.reloadAmount;
    if(%reloadAmount $= "")
       %reloadAmount = %this.maxEnergy;
    %newEnergyLevel = %obj.getEnergyLevel() + %reloadAmount;
+
+   %obj.isReloading = true;
+   %obj.reloadingImage = %image;
+   %obj.reloadingNewEnergyLevel = %newEnergyLevel;
+   %obj.reloadingThread = %obj.schedule(%reloadTime, "reloadFinish");
 
 	%obj.playAudio(0, WeaponSwitchSound);
    %obj.unmountImage(0);
@@ -495,12 +505,32 @@ function FrmSoldier::reload(%this, %obj)
    commandToClient(%obj.client, 'Crosshair', 0);
    //commandToClient(%obj.client, 'Crosshair', 3, 1, 10);
    //commandToClient(%obj.client, 'Crosshair', 1);
-
-   %obj.schedule(%reloadTime, "setFieldValue", "isReloading", false);
-   %obj.schedule(%reloadTime, "setEnergyLevel", %newEnergyLevel);
-   %obj.schedule(%reloadTime, "setEnergyRechargeRate", %this.energyRechargeRate);
-   %obj.schedule(%reloadTime, "useWeapon", 1);
 }
 
+function FrmSoldier::reloadFinish(%this, %obj)
+{
+   if(%obj.reloadingThread !$= "")
+      cancel(%obj.reloadingThread);
+      
+   %image = %obj.reloadingImage;
+   %ammoType = %image.ammoType;
+   if(%ammoType $= "")
+      %ammoType = 0;
+   
+   %obj.ammo[%ammoType] = %obj.reloadingNewEnergyLevel;
+   %obj.mountImage(%image, 0, -1, true);
 
+   %this.reloadStop(%obj);
+}
+
+function FrmSoldier::reloadStop(%this, %obj)
+{
+   if(%obj.reloadingThread !$= "")
+      cancel(%obj.reloadingThread);
+      
+   %obj.isReloading = false;
+   %obj.reloadingImage = "";
+   %obj.reloadingNewEnergyLevel = "";
+   %obj.reloadingThread = "";
+}
 

@@ -216,7 +216,6 @@ function FrmSoldierpod::onImpact(%this, %obj, %col, %vec, %vecLen)
    //%client.proxy.removeClientFromGhostingList(%client);
    //%client.proxy.setTransform("0 0 0");
    %player.setLoadoutCode(%obj.loadoutCode);
-   %player.inv[1] = getWord(%obj.loadoutCode, 4);
 
    createExplosion(FrmCrateDematerializeExplosion, %player.getPosition(), "0 0 1");
 

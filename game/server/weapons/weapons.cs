@@ -43,27 +43,22 @@ datablock AudioProfile(WeaponSwitchSound)
 
 function WeaponImage::onMount(%this, %obj, %slot)
 {
-//	// mount secondary...
-//	%obj.mountImage(%this.secondary,1);
-
-//	if(!%this.specialWeapon)
-//	{
-//		// holster special weapon...
-//		if(%obj.specialWeapon == $SpecialWeapon::AssaultRifle)
-//			%obj.mountImage(HolsteredAssaultRifleImage,2);
-//		if(%obj.specialWeapon == $SpecialWeapon::GrenadeLauncher)
-//			%obj.mountImage(HolsteredGrenadeLauncherImage,2);
-//		if(%obj.mainspecialWeaponWeapon == $SpecialWeapon::SniperRifle)
-//			%obj.mountImage(HolsteredSniperRifleImage,2);
-//	}
-	
+   %obj.reloadStop();
+   %ammoType = %this.ammoType;
+   if(%ammoType $= "")
+      %ammoType = 0;
+	%obj.setEnergyLevel(%obj.ammo[%ammoType]);
+   %obj.setEnergyRechargeRate(0);
 	%obj.setArmThread(%this.armThread);
 	%obj.playAudio(0,WeaponSwitchSound);
 }
 
 function WeaponImage::onUnmount(%this, %obj, %slot)
 {
-	%client = %obj.client;
+   %ammoType = %this.ammoType;
+   if(%ammoType $= "")
+      %ammoType = 0;
+   %obj.ammo[%ammoType] = %obj.getEnergyLevel();
 }
 
 function WeaponImage::onFire(%this, %obj, %slot)

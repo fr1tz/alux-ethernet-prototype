@@ -126,6 +126,7 @@ datablock ShapeBaseImageData(WpnBadgerImage)
 	armThread = "holdblaster";  // armThread to use when holding this weapon
 	crosshair = "blaster"; // crosshair to display when holding this weapon
    reloadTime = 2000;
+   ammoType = 1;
 	
 	//-------------------------------------------------
 	// image states...

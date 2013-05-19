@@ -54,50 +54,30 @@ executeCatScripts();
 function StandardCat::useWeapon(%this, %obj, %nr)
 {
 	%client = %obj.client;
-
-	if(%nr == 4)
-	{
-		dropGreen(%obj);
-		return;
-	}
-
-   if(%nr == -17)
-   {
-		if(%client.hasBounce)
-			deployRepel3(%obj);
-      return;
-   }
-
-	// discs...
-	if($Game::GameType == $Game::Ethernet)
-	{
-		if(%nr == 6)
-		{
-			launchExplosiveDisc(%obj);
-			return;
-		}
-	}
-	
+ 
 	if(%client.numWeapons == 0)
 		return;
 
 	if(%nr > %client.numWeapons)
 		return;
 
-   if(%obj.isReloading)
-      return;
-   %obj.isReloading = false;
-
 	if(%nr == 0)
-		%obj.currWeapon++;
-	else
-		%obj.currWeapon = %nr;
-	
-	if(%obj.currWeapon > %client.numWeapons)
-		%obj.currWeapon = 1;	
+   {
+      if(%obj.currWeaponSlot == 1)
+         %obj.currWeaponSlot = 2;
+      else
+         %obj.currWeaponSlot = 1;
+   }
+   else
+      %obj.currWeaponSlot = %nr;
 
-	%wpn = %obj.inv[1];
-
-   %obj.mountImage($Server::Game.weapon[%wpn], 0, -1, true);
+   %wpn = "";
+   if(%obj.currWeaponSlot == 1)
+   	%wpn = getWord(%obj.loadoutcode, 4);
+   if(%obj.currWeaponSlot == 2)
+   	%wpn = getWord(%obj.loadoutcode, 3);
+    
+   if(%wpn !$= "")
+      %obj.mountImage($Server::Game.weapon[%wpn], 0, -1, true);
 }
 

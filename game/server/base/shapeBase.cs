@@ -253,6 +253,26 @@ function ShapeBase::hasBarrier(%this)
 }
 
 //-----------------------------------------------------------------------------
+
+function ShapeBase::reloadStart(%this)
+{
+   if(%this.getDataBlock().isMethod("reloadStart"))
+      %this.getDataBlock().reloadStart(%this);
+}
+
+function ShapeBase::reloadFinish(%this)
+{
+   if(%this.getDataBlock().isMethod("reloadFinish"))
+      %this.getDataBlock().reloadFinish(%this);
+}
+
+function ShapeBase::reloadStop(%this)
+{
+   if(%this.getDataBlock().isMethod("reloadStop"))
+      %this.getDataBlock().reloadStop(%this);
+}
+
+//-----------------------------------------------------------------------------
 // ShapeBase datablock
 //-----------------------------------------------------------------------------
 
