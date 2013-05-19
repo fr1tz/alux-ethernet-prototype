@@ -35,6 +35,7 @@ function executeGameScripts()
 	exec("game/server/weapons/laserhawk/exec.cs");
 	exec("game/server/weapons/minihawk/v2/exec.cs");
 	exec("game/server/weapons/badger/v1/exec.cs");
+ 	exec("game/server/weapons/scorpion/v1/exec.cs");
 	exec("game/server/forms/light/exec.cs");
 	exec("game/server/forms/crate/exec.cs");
 	exec("game/server/forms/parrot/exec.cs");
@@ -54,7 +55,8 @@ function executeGameScripts()
    $Server::Game.weapon[3] = WpnLaserhawkImage;
    $Server::Game.weapon[4] = WpnMinihawkImage;
    $Server::Game.weapon[5] = WpnRaptorImage;
-   $Server::Game.weaponCount = 5;
+   $Server::Game.weapon[6] = WpnScorpionImage;
+   $Server::Game.weaponCount = 6;
 }
 
 function loadManual()

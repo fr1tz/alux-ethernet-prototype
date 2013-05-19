@@ -66,7 +66,7 @@ function serverCmdPlayerAction(%client, %nr, %val)
 	{
   		%client.getControlObject().useWeapon(%nr-20);
 	}
-	else if(%nr >= 31 && %nr <= 35 && %val)
+	else if(%nr >= 31 && %nr <= 40 && %val)
 	{
 		%client.getControlObject().special(%nr-30);
 	}

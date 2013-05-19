@@ -12,7 +12,7 @@ function EtherformData::useWeapon(%this, %obj, %nr)
 
 function EtherformData::special(%this, %obj, %nr)
 {
-   if(%nr < 1 || %nr > 5)
+   if(%nr < 1 || %nr > 6)
       return;
 
    %client = %obj.client;

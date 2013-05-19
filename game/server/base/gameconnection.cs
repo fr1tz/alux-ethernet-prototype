@@ -63,7 +63,7 @@ function GameConnection::onCookiesReceived(%this, %cookies)
 	if(%this.damageScreenMode $= "")
 		%this.damageScreenMode = 1;
    // Loadouts
-	for(%i = 1; %i <= 10; %i++)
+	for(%i = 0; %i <= 10; %i++)
    {
       %this.loadDefaultLoadout(%i);
       %name = arrayGetValue(%cookies, "ALUX_LNAME" @ %i);
@@ -1567,7 +1567,7 @@ function GameConnection::updateLeftHudMenu(%this)
 //      %slot++;
 
       %tmp = "";
-		for(%i = 1; %i <= 10; %i++)
+		for(%i = 0; %i <= 10; %i++)
 		{
          if(%this.loadoutName[%i] !$= "")
          {

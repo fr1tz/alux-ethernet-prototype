@@ -32,6 +32,8 @@ function sLoadoutcode2Pieces(%code)
          %pieces = %pieces TAB "7 1";
       else if(%arg2 == 5)
          %pieces = %pieces TAB "8 1";
+      else if(%arg2 == 6)
+         %pieces = %pieces TAB "6 1";
    }
    else if(%arg1 == 3)
    {
@@ -72,6 +74,9 @@ function GameConnection::loadDefaultLoadout(%this, %no)
 {
    switch(%no)
    {
+      case 0:
+         %this.loadoutName[%no] = "Missile";
+         %this.loadoutCode[%no] = "2";
       case 1:
          %this.loadoutName[%no] = "Soldier w/ Pistol";
          %this.loadoutCode[%no] = "4 0 0 0 1";
@@ -88,11 +93,11 @@ function GameConnection::loadDefaultLoadout(%this, %no)
          %this.loadoutName[%no] = "Soldier w/ Machine Pistol";
          %this.loadoutCode[%no] = "4 0 0 1 5";
       case 6:
+         %this.loadoutName[%no] = "Soldier w/ Sniper Rifle";
+         %this.loadoutCode[%no] = "4 0 0 1 6";
+      case 7:
          %this.loadoutName[%no] = "Drone";
          %this.loadoutCode[%no] = "1";
-      case 7:
-         %this.loadoutName[%no] = "Missile";
-         %this.loadoutCode[%no] = "2";
       case 8:
          %this.loadoutName[%no] = "Crate";
          %this.loadoutCode[%no] = "3";
