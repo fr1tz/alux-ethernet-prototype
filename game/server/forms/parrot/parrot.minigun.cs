@@ -53,7 +53,7 @@ datablock ParticleEmitterData(WpnParrotMinigunFireEmitter)
 datablock ShapeBaseImageData(WpnParrotMinigunImage)
 {
 	// add the WeaponImage namespace as a parent
-	className = WeaponImage;
+	//className = WeaponImage;
 
 	// basic item properties
 	shapeFile = "share/shapes/alux/nothing.dts";
