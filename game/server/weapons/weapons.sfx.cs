@@ -29,3 +29,10 @@ datablock AudioProfile(DefaultProjectileNearEnemyExplosionSound)
 	preload = true;
 };
 
+datablock AudioProfile(DefaultProjectileHitSound)
+{
+	filename = "share/sounds/cat5/impact1b.wav";
+	description = AudioDefault3D;
+	preload = true;
+};
+

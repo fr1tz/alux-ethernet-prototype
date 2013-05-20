@@ -35,8 +35,8 @@ datablock ShotgunProjectileData(WpnLaserhawkProjectile)
     //projectileShapeName = "share/shapes/rotc/weapons/blaster/projectile.red.dts";
 
    explosion               = WpnLaserhawkProjectileExplosion;
-   hitEnemyExplosion       = WpnLaserhawkProjectileHit;
-   hitTeammateExplosion    = WpnLaserhawkProjectileHit;
+   hitEnemyExplosion       = DefaultProjectileHit;
+   hitTeammateExplosion    = DefaultProjectileHit;
     //nearEnemyExplosion	= DefaultProjectileNearEnemyExplosion;
     //hitDeflectorExplosion = SeekerDiscBounceEffect;
 

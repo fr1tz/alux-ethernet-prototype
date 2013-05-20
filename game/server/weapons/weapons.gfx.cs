@@ -207,4 +207,12 @@ datablock ExplosionData(DefaultProjectileNearEnemyExplosion)
 	lightEndColor = "1.0 1.0 1.0 0.3";
 };
 
+//-----------------------------------------------------------------------------
+// hit enemy
+
+datablock ExplosionData(DefaultProjectileHit)
+{
+	soundProfile = DefaultProjectileHitSound;
+};
+
 

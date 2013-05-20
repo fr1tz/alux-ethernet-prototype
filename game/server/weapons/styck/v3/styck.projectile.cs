@@ -35,8 +35,8 @@ datablock ShotgunProjectileData(WpnStyckProjectile)
 	projectileShapeName = "share/shapes/alux/projectile1.dts";
 
 	explosion               = WpnStyckProjectileImpact;
-	hitEnemyExplosion       = WpnStyckProjectileImpact;
-	hitTeammateExplosion    = WpnStyckProjectileImpact;
+	hitEnemyExplosion       = DefaultProjectileHit;
+	hitTeammateExplosion    = DefaultProjectileHit;
 	//nearEnemyExplosion	= DefaultProjectileNearEnemyExplosion;
 	//hitDeflectorExplosion = SeekerDiscBounceEffect;
 

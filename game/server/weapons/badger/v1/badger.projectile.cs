@@ -35,8 +35,8 @@ datablock ShotgunProjectileData(WpnBadgerProjectile)
 	//projectileShapeName = "share/shapes/rotc/weapons/blaster/projectile.red.dts";
 
 	explosion               = WpnBadgerProjectileImpact;
-	hitEnemyExplosion       = WpnBadgerProjectileImpact;
-	hitTeammateExplosion    = WpnBadgerProjectileImpact;
+	hitEnemyExplosion       = DefaultProjectileHit;
+	hitTeammateExplosion    = DefaultProjectileHit;
 	//nearEnemyExplosion	= DefaultProjectileNearEnemyExplosion;
 	//hitDeflectorExplosion = SeekerDiscBounceEffect;
 
