@@ -176,6 +176,10 @@ function xxx_aiStartFire(%player)
 function xxx_aiFire(%player)
 {
 	%target = %player.getAimObject();
+ 
+   if(%player.getEnergyLevel() == 0)
+      %player.reloadStart();
+ 
 	if(isObject(%target))
 	{
 		%x = getRandom(3)+1;
