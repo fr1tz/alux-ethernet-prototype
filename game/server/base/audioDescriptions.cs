@@ -31,7 +31,7 @@ $MusicAudioType   = 4;
 
 datablock AudioDescription(AudioParty)
 {
-	volume	= 1.0;
+	volume	= 0.5;
 	isLooping= false;
 
 	is3D	  = true;
@@ -42,7 +42,7 @@ datablock AudioDescription(AudioParty)
 
 datablock AudioDescription(AudioDefault3D)
 {
-	volume	= 1.0;
+	volume	= 0.5;
 	isLooping= false;
 
 	is3D	  = true;
@@ -53,11 +53,11 @@ datablock AudioDescription(AudioDefault3D)
 
 datablock AudioDescription(AudioDefault3DLouder)
 {
-	volume	= 1.0;
+	volume	= 0.75;
 	isLooping= false;
 
 	is3D	  = true;
-	ReferenceDistance= 75.0;
+	ReferenceDistance= 20.0;
 	MaxDistance= 100.0;
 	type	  = $SimAudioType;
 };
@@ -65,7 +65,7 @@ datablock AudioDescription(AudioDefault3DLouder)
 
 datablock AudioDescription(AudioClose3D)
 {
-	volume	= 1.0;
+	volume	= 0.5;
 	isLooping= false;
 
 	is3D	  = true;
@@ -76,7 +76,7 @@ datablock AudioDescription(AudioClose3D)
 
 datablock AudioDescription(AudioClosest3D)
 {
-	volume	= 1.0;
+	volume	= 0.5;
 	isLooping= false;
 
 	is3D	  = true;
@@ -87,7 +87,7 @@ datablock AudioDescription(AudioClosest3D)
 
 datablock AudioDescription(AudioFar3D)
 {
-	volume				= 1.0;
+	volume				= 0.5;
 	isLooping			= false;
 	is3D				  = true;
 	ReferenceDistance = 100.0;
@@ -97,7 +97,7 @@ datablock AudioDescription(AudioFar3D)
 
 datablock AudioDescription(AudioVeryFar3D)
 {
-	volume				= 1.0;
+	volume				= 0.5;
 	isLooping			= false;
 	is3D				  = true;
 	ReferenceDistance = 200.0;
@@ -111,7 +111,7 @@ datablock AudioDescription(AudioVeryFar3D)
 
 datablock AudioDescription(AudioDefaultLooping3D)
 {
-	volume	= 1.0;
+	volume	= 0.5;
 	isLooping= true;
 
 	is3D	  = true;
@@ -122,7 +122,7 @@ datablock AudioDescription(AudioDefaultLooping3D)
 
 datablock AudioDescription(AudioCloseLooping3D)
 {
-	volume	= 1.0;
+	volume	= 0.5;
 	isLooping= true;
 
 	is3D	  = true;
@@ -133,7 +133,7 @@ datablock AudioDescription(AudioCloseLooping3D)
 
 datablock AudioDescription(AudioClosestLooping3D)
 {
-	volume	= 1.0;
+	volume	= 0.5;
 	isLooping= true;
 
 	is3D	  = true;
@@ -149,7 +149,7 @@ datablock AudioDescription(AudioClosestLooping3D)
 // Used for non-looping environmental sounds (like power on, power off)
 datablock AudioDescription(Audio2D)
 {
-	volume = 1.0;
+	volume = 0.5;
 	isLooping = false;
 	is3D = false;
 	type = $SimAudioType;
@@ -158,7 +158,7 @@ datablock AudioDescription(Audio2D)
 // Used for Looping Environmental Sounds
 datablock AudioDescription(AudioLooping2D)
 {
-	volume = 1.0;
+	volume = 0.5;
 	isLooping = true;
 	is3D = false;
 	type = $SimAudioType;
@@ -166,6 +166,15 @@ datablock AudioDescription(AudioLooping2D)
 
 // Critical game events use a the GUI audio channel
 datablock AudioDescription(AudioCritical2D)
+{
+	volume = 0.5;
+	isLooping = false;
+	is3D = false;
+	type = $GuiAudioType;
+};
+
+// Critical game events use a the GUI audio channel
+datablock AudioDescription(AudioCritical2DLoudest)
 {
 	volume = 1.0;
 	isLooping = false;
@@ -175,7 +184,7 @@ datablock AudioDescription(AudioCritical2D)
 
 datablock AudioDescription(AudioMusic)
 {
-	volume = 1.0;
+	volume = 0.5;
 	isLooping = true;
 	is3D = false;
 	type = $MusicAudioType;
