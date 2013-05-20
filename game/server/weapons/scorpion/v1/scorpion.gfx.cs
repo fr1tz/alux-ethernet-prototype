@@ -453,7 +453,7 @@ datablock ExplosionData(WpnScorpionProjectileExplosion)
 {
 	soundProfile = WpnScorpionProjectileImpactSound;
 
-	lifetimeMS = 500;
+	lifetimeMS = 200;
 
  	// shape...
 	//explosionShape = "share/shapes/rotc/effects/explosion2_white.dts";
@@ -487,7 +487,7 @@ datablock ExplosionData(WpnScorpionProjectileExplosion)
 	camShakeRadius = 20.0;
 
 	// Dynamic light
-	lightStartRadius = 15;
+	lightStartRadius = 6;
 	lightEndRadius = 0;
 	lightStartColor = "1.0 1.0 1.0";
 	lightEndColor = "0.0 0.0 0.0";
