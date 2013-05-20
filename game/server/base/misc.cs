@@ -78,8 +78,8 @@ datablock AudioProfile(BlueVictorySound)
 
 datablock AudioProfile(DamageSoundOne)
 {
-	filename = "share/sounds/rotc/damage1.wav";
-	description = AudioCritical2D;
+	filename = "share/sounds/cat5/impact1b.wav";
+	description = AudioCritical2DLoudest;
 	preload = true;
 };
 

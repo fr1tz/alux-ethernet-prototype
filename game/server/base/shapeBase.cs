@@ -220,11 +220,11 @@ function ShapeBase::playInflictedDamageSound(%this)
 		if(%this.inflictedDamageSoundDenied
 		&& %this.inflictedDamageSoundPitch == 0)
 		{
-	           %this.client.play2D(BeepMessageSound);
+	           //%this.client.play2D(BeepMessageSound);
 		}
 		else
 		{
-	        %pitch = 0.9 + %this.inflictedDamageSoundPitch / 2;
+	        %pitch = 1.0 + %this.inflictedDamageSoundPitch / 4;
 	        if(%this.inflictedDamageSoundLocked)
 	            %this.client.play2D(DamageSoundTwo, %pitch);
 	        else
