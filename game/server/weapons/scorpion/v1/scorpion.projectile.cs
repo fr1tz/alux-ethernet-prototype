@@ -87,8 +87,8 @@ datablock ProjectileData(WpnScorpionProjectile)
 	//projectileShapeName = "share/shapes/alux/projectile1.dts";
 
 	explosion               = WpnScorpionProjectileExplosion;
-	hitEnemyExplosion       = DefaultProjectileHit;
-	hitTeammateExplosion    = DefaultProjectileHit;
+	hitEnemyExplosion       = WpnScorpionProjectileHit;
+	hitTeammateExplosion    = WpnScorpionProjectileHit;
 	nearEnemyExplosion	   = WpnScorpionProjectileExplosion;
 	//hitDeflectorExplosion = SeekerDiscBounceEffect;
 

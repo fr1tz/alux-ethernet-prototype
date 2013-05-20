@@ -17,8 +17,8 @@ datablock ParticleData(WpnScorpionFireEmitter_Particles)
 	lifetimeVarianceMS    = 0;
 	textureName           = "share/textures/rotc/smoke_particle";
 	colors[0]             = "1.0 1.0 1.0 1.0";
-	colors[1]             = "1.0 0.0 0.0 1.0";
-	colors[2]             = "1.0 0.0 0.0 0.0";
+	colors[1]             = "0.0 1.0 0.0 1.0";
+	colors[2]             = "0.0 1.0 0.0 0.0";
 	sizes[0]              = 0.5;
 	sizes[1]              = 0.5;
 	sizes[2]              = 0.0;
@@ -159,7 +159,7 @@ datablock ShapeBaseImageData(WpnScorpionImage)
 		stateArmThread[3]                = "aimrifle";
 		stateSequence[3]                 = "fire";
 		stateSound[3]                    = WpnScorpionFireSound;
-		stateEmitter[3]                  = WpnScorpionFireEmitter;
+		//stateEmitter[3]                  = WpnScorpionFireEmitter;
 		stateEmitterNode[3]              = "fireparticles";
 		stateEmitterTime[3]              = 0.1;
 		stateSpinThread[3]               = "Stop";

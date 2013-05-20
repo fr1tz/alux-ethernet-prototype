@@ -10,7 +10,7 @@ datablock DecalData(WpnScorpionBulletHoleDecal)
 {
 	sizeX = "0.15";
 	sizeY = "0.15";
-	textureName = "share/textures/alux/styckhole";
+	textureName = "share/textures/alux/minihawkhole";
 	SelfIlluminated = false;
 };
 
@@ -19,7 +19,7 @@ datablock DecalData(WpnScorpionBulletHoleDecal)
 
 datablock LaserBeamData(WpnScorpionProjectileLaserTail)
 {
-	hasLine = true;
+	hasLine = false;
 	lineStartColor	= "1.00 0.00 0.00 0.0";
 	lineBetweenColor = "1.00 0.00 0.00 1.0";
 	lineEndColor	  = "1.00 0.00 0.00 1.0";
@@ -41,8 +41,8 @@ datablock LaserBeamData(WpnScorpionProjectileLaserTail)
 	outerBetweenWidth = "0.25";
 	outerEndWidth = "0.1";
 	
-	bitmap = "share/shapes/alux/projectile1side";
-	bitmapWidth = 0.3;
+	bitmap = "share/textures/alux/handcannontail";
+	bitmapWidth = 2.0;
 //	crossBitmap = "share/shapes/rotc/weapons/blaster/lasertail.red.cross";
 //	crossBitmapWidth = 0.10;
 
@@ -89,73 +89,6 @@ datablock MultiNodeLaserBeamData(WpnScorpionProjectileLaserTrail)
 	nodeDistance = 3;
 
 	fadeTime = 1000;
-};
-
-//-----------------------------------------------------------------------------
-// hit enemy...
-
-datablock ParticleData(WpnScorpionProjectileHit_Particle)
-{
-	dragCoefficient    = 0.0;
-	windCoefficient    = 0.0;
-	gravityCoefficient	= 0.0;
-	inheritedVelFactor	= 0.0;
-
-	lifetimeMS			  = 250;
-	lifetimeVarianceMS	= 0;
-
-	useInvAlpha =  false;
-
-	textureName	= "share/textures/alux/circle1";
-
-	colors[0]	  = "1.0 1.0 1.0 1.0";
-	colors[1]	  = "1.0 0.0 0.0 0.5";
-	colors[2]	  = "1.0 0.0 0.0 0.0";
-	sizes[0]		= 0.5;
-	sizes[1]		= 1.0;
-	sizes[2]		= 1.5;
-	times[0]		= 0.0;
-	times[1]		= 0.5;
-	times[2]		= 1.0;
-
-	allowLighting = false;
-	renderDot = true;
-};
-
-datablock ParticleEmitterData(WpnScorpionProjectileHit_Emitter)
-{
-	ejectionOffset	= 0;
-
-	ejectionPeriodMS = 40;
-	periodVarianceMS = 0;
-
-	ejectionVelocity = 0.0;
-	velocityVariance = 0.0;
-
-	thetaMin			= 0.0;
-	thetaMax			= 60.0;
-
-	lifetimeMS		 = 100;
-
-	particles = "WpnScorpionProjectileHit_Particle";
-};
-
-datablock ExplosionData(WpnScorpionProjectileHit)
-{
-	soundProfile = WpnScorpionProjectileImpactSound;
-
-	lifetimeMS = 450;
-
-	particleEmitter = WpnScorpionProjectileHit_Emitter;
-	particleDensity = 1;
-	particleRadius = 0;
-
-	// Dynamic light
-	lightStartRadius = 2;
-	lightEndRadius = 0;
-	lightStartColor = "1.0 1.0 1.0";
-	lightEndColor = "1.0 1.0 1.0";
-   lightCastShadows = false;
 };
 
 //-----------------------------------------------------------------------------
@@ -491,6 +424,14 @@ datablock ExplosionData(WpnScorpionProjectileExplosion)
 	lightEndRadius = 0;
 	lightStartColor = "1.0 1.0 1.0";
 	lightEndColor = "0.0 0.0 0.0";
+};
+
+//-----------------------------------------------------------------------------
+// hit enemy
+
+datablock ExplosionData(WpnScorpionProjectileHit : WpnScorpionProjectileExplosion)
+{
+	soundProfile = DefaultProjectileHitSound;
 };
 
 
