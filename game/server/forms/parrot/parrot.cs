@@ -68,7 +68,7 @@ datablock FlyingVehicleData(FrmParrot)
    cameraLag = 0.05;           // Velocity lag of camera
    cameraDecay = 0.75;        // Decay per sec. rate of velocity lag
    
-	maxDamage = 100;
+	maxDamage = 75;
 	damageBuffer = 0;
 	maxEnergy = 100; // Afterburner and any energy weapon pool
 
