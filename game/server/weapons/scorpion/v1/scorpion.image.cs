@@ -220,7 +220,7 @@ function WpnScorpionImage::onMount(%this, %obj, %slot)
    %obj.setImageInaccuracy(%slot, "c", 10.0);
    %obj.setImageInaccuracy(%slot, "d", 0.60);
    %obj.setImageInaccuracy(%slot, "f1", 1.00);
-   %obj.setImageInaccuracy(%slot, "f2", 1.00);
+   %obj.setImageInaccuracy(%slot, "f2", 3.00);
    %obj.setImageInaccuracy(%slot, "enabled", true);
 
    // Set up recoil
