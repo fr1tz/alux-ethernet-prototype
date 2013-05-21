@@ -24,6 +24,8 @@ function EtherformData::onAdd(%this, %obj)
 	
 	// start singing...
 	%obj.playAudio(1, EtherformSingSound);
+ 
+   %obj.updateVisuals();
 
 	// Make sure grenade ammo bar is not visible...
 	messageClient(%obj.client, 'MsgGrenadeAmmo', "", 1);
@@ -64,4 +66,15 @@ function EtherformData::onDamage(%this, %obj, %delta)
 
 //-----------------------------------------------------------------------------
 
+function Etherform::updateVisuals(%this)
+{
+   %client = %this.client;
+   if(!isObject(%client))
+      return;
+      
+   %used = %client.inventory.pieceUsed[0];
+   %free = %client.inventory.pieceCount[0] - %used;
+   
+   %this.setDamageBufferLevel(%free > 0 ? 200 : 0);
+}
 

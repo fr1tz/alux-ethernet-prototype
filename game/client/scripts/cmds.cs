@@ -58,4 +58,9 @@ function clientCmdHud(%option, %arg1, %arg2, %arg3, %arg4, %arg5)
          MiniMap.rotate = %arg3;
 
    }
+   else if(%option $= "dmgbuf")
+   {
+      if(%arg1 !$= "")
+         DamageBufferMeter.setVisible(%arg1);
+   }
 }

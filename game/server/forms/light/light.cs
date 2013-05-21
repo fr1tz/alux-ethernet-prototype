@@ -5,96 +5,6 @@
 
 //-----------------------------------------------------------------------------
 
-function EtherformData::useWeapon(%this, %obj, %nr)
-{
-	%client = %obj.client.changeInventory(%nr);
-}
-
-function EtherformData::special(%this, %obj, %nr)
-{
-   if(%nr < 1 || %nr > 6)
-      return;
-
-   %client = %obj.client;
-
-   %pieces = sLoadoutcode2Pieces(%client.loadoutCode[%nr]);
-   for(%f = 0; %f < getFieldCount(%pieces); %f++)
-   {
-      %field = getField(%pieces, %f);
-      %piece = getWord(%field, 0);
-      %count = getWord(%field, 1);
-
-      %used = %client.inventory.pieceUsed[%piece];
-      %free = %client.inventory.pieceCount[%piece] - %used;
-
-      if(%free < %count)
-      {
-         %client.play2D(BeepMessageSound);
-         return;
-      }
-   }
-
-	%player = FrmSoldierpod.materialize(%client);
-   %player.setLoadoutCode(%client.loadoutCode[%nr]);
-   %player.setTransform(%obj.getTransform());
-
-   createExplosion(FrmCrateDematerializeExplosion, %player.getPosition(), "0 0 1");
-
-   %client.control(%player);
-   %client.player = %player;
-   %obj.delete();
-
-   %client.inventoryMode = "";
-   %client.displayInventory();
-}
-
-function EtherformData::damage(%this, %obj, %sourceObject, %pos, %damage, %damageType)
-{
-	// ignore damage
-}
-
-function EtherformData::onAdd(%this, %obj)
-{
-	Parent::onAdd(%this, %obj);
-
-	// start singing...
-	%obj.playAudio(1, FrmLightSingSound);
-
-	// Make sure grenade ammo bar is not visible...
-	messageClient(%obj.client, 'MsgGrenadeAmmo', "", 1);
-
-	// lights...
-	if(%obj.getTeamId() == 1)
-		%obj.mountImage(FrmLightLightImage, 3);
-	else
-		%obj.mountImage(FrmLightLightImage, 3);
-
-	%obj.client.inventoryMode = "show";
-	%obj.client.displayInventory();
-	
-	if($Server::NewbieHelp && isObject(%obj.client))
-	{
-		%client = %obj.client;
-		if(!%client.newbieHelpData_HasManifested)
-		{
-			%client.setNewbieHelp("You are currently pure light! Aim at a" SPC
-				(%client.team == $Team1 ? "magenta" : "cyan") @
-            "-colored surface and press @bind16 to materialize.");
-		}
-		else
-		{
-			%client.setNewbieHelp("random", false);
-		}
-	}
-}
-
-function EtherformData::onDamage(%this, %obj, %delta)
-{
-	Parent::onDamage(%this, %obj, %delta);
-}
-
-//-----------------------------------------------------------------------------
-
 datablock EtherformData(FrmLight)
 {
    allowColorization = true;
@@ -125,11 +35,11 @@ datablock EtherformData(FrmLight)
 	density = 10;
 
 	maxDamage = 0;
-	damageBuffer = 0;
+	damageBuffer = 100;
 	maxEnergy = 100;
 
-	damageBufferRechargeRate = 0.15;
-	damageBufferDischargeRate = 0.05;
+	damageBufferRechargeRate = 0;
+	damageBufferDischargeRate = 0;
 	energyRechargeRate = 0.5;
  
     // collision box...
@@ -143,7 +53,7 @@ datablock EtherformData(FrmLight)
 	speedDamageScale = 0.0;	// Dynamic field: impact damage multiplier
 
 	// damage info eyecandy...
-//	damageBufferParticleEmitter = FrmLightDamageBufferEmitter;
+   damageBufferParticleEmitter = FrmLightDamageBufferEmitter;
 //	repairParticleEmitter = FrmLightRepairEmitter;
 //	bufferRepairParticleEmitter = FrmLightBufferRepairEmitter;
 
@@ -180,6 +90,7 @@ function FrmLight::onAdd(%this, %obj)
       //%c.spawnError = "Please wait...";
       commandToClient(%c, 'Hud', "health", false);
       commandToClient(%c, 'Hud', "energy", true, "game/client/ui/hud/pixmaps/energy_meter.png");
+      commandToClient(%c, 'Hud', "dmgbuf", false);
    }
 
    //schedule(1000, %obj, "FrmLight_updateProxyThread", %this, %obj);
@@ -320,6 +231,48 @@ function FrmLight::spawnSpore(%this, %obj, %data)
    %obj.spores.add(%p);
 }
 
+function FrmLight::useWeapon(%this, %obj, %nr)
+{
+	%client = %obj.client.changeInventory(%nr);
+}
+
+function FrmLight::special(%this, %obj, %nr)
+{
+   if(%nr < 1 || %nr > 6)
+      return;
+
+   %client = %obj.client;
+
+   %pieces = sLoadoutcode2Pieces(%client.loadoutCode[%nr]);
+   for(%f = 0; %f < getFieldCount(%pieces); %f++)
+   {
+      %field = getField(%pieces, %f);
+      %piece = getWord(%field, 0);
+      %count = getWord(%field, 1);
+
+      %used = %client.inventory.pieceUsed[%piece];
+      %free = %client.inventory.pieceCount[%piece] - %used;
+
+      if(%free < %count)
+      {
+         %client.play2D(BeepMessageSound);
+         return;
+      }
+   }
+
+	%player = FrmSoldierpod.materialize(%client);
+   %player.setLoadoutCode(%client.loadoutCode[%nr]);
+   %player.setTransform(%obj.getTransform());
+
+   createExplosion(FrmCrateDematerializeExplosion, %player.getPosition(), "0 0 1");
+
+   %client.control(%player);
+   %client.player = %player;
+   %obj.delete();
+
+   %client.inventoryMode = "";
+   %client.displayInventory();
+}
 
 // called by script code
 function FrmLight_createSpores(%this, %obj)

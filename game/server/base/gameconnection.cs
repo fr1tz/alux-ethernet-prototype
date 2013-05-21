@@ -1251,12 +1251,13 @@ function GameConnection::updateInventoryThread(%this)
       if(%newCount > %this.inventory.pieceMax[%piece])
          %newCount = %this.inventory.pieceMax[%piece];
 
-      if(mFloor(%newCount) > mFloor(%oldCount))
-      {
-
-      }
-
       %this.inventory.pieceCount[%piece] = %newCount;
+      
+      if(%piece == 0)
+      {
+         if(%this.player.getClassName() $= "Etherform")
+            %this.player.updateVisuals();
+      }
 
       %piece++;
    }
