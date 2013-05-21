@@ -30,7 +30,7 @@ datablock ShotgunProjectileData(WpnMinihawkProjectile)
 	referenceSpreadDistance = 50;
 
 	explodesNearEnemies	      = false;
-	explodesNearEnemiesRadius = 4;
+	explodesNearEnemiesRadius = 6;
 	explodesNearEnemiesMask   = $MissedEnemyMask;
 
 	//sound = WpnRaptorProjectileFlybySound;

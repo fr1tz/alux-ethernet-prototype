@@ -27,7 +27,7 @@ datablock ShotgunProjectileData(WpnLaserhawkProjectile)
 	referenceSpreadDistance = 50.0;
 
 	explodesNearEnemies	      = false;
-	explodesNearEnemiesRadius = 4;
+	explodesNearEnemiesRadius = 12;
 	explodesNearEnemiesMask   = $MissedEnemyMask;
 
     //sound = SniperProjectileFlybySound;
