@@ -87,22 +87,22 @@ function GameConnection::loadDefaultLoadout(%this, %no)
          %this.loadoutName[%no] = "Pillar";
          %this.loadoutCode[%no] = "5";
       case 51:
-         %this.loadoutName[%no] = "Soldier w/ Pistol";
+         %this.loadoutName[%no] = "Pistol Only";
          %this.loadoutCode[%no] = "4 0 0 0 1";
       case 52:
-         %this.loadoutName[%no] = "Soldier w/ Shotgun";
+         %this.loadoutName[%no] = "Shotgun";
          %this.loadoutCode[%no] = "4 0 0 1 2";
       case 53:
-         %this.loadoutName[%no] = "Soldier w/ Heavy Rifle";
+         %this.loadoutName[%no] = "Heavy Rifle";
          %this.loadoutCode[%no] = "4 0 0 1 3";
       case 54:
-         %this.loadoutName[%no] = "Soldier w/ Hand Cannon";
+         %this.loadoutName[%no] = "Hand Cannon";
          %this.loadoutCode[%no] = "4 0 0 1 4";
       case 55:
-         %this.loadoutName[%no] = "Soldier w/ Machine Pistol";
+         %this.loadoutName[%no] = "Machine Pistol";
          %this.loadoutCode[%no] = "4 0 0 1 5";
       case 56:
-         %this.loadoutName[%no] = "Soldier w/ Sniper Rifle";
+         %this.loadoutName[%no] = "Sniper Rifle";
          %this.loadoutCode[%no] = "4 0 0 1 6";
       default:
          %this.loadoutName[%no] = "";
