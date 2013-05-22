@@ -68,7 +68,7 @@ function serverCmdPlayerAction(%client, %nr, %val)
 	}
 	else if(%nr >= 31 && %nr <= 38 && %val)
 	{
-		%client.getControlObject().special(%nr-30);
+		%client.getControlObject().special(%nr-30+50);
 	}
 	else if(%nr == 39 && %val)
 	{		

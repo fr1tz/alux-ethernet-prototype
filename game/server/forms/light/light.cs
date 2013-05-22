@@ -238,7 +238,7 @@ function FrmLight::useWeapon(%this, %obj, %nr)
 
 function FrmLight::special(%this, %obj, %nr)
 {
-   if(%nr < 1 || %nr > 6)
+   if(%nr < 51 || %nr > 56)
       return;
 
    %client = %obj.client;

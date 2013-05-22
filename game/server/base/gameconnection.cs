@@ -63,7 +63,7 @@ function GameConnection::onCookiesReceived(%this, %cookies)
 	if(%this.damageScreenMode $= "")
 		%this.damageScreenMode = 1;
    // Loadouts
-	for(%i = 0; %i <= 10; %i++)
+	for(%i = 0; %i <= 100; %i++)
    {
       %this.loadDefaultLoadout(%i);
       %name = arrayGetValue(%cookies, "ALUX_LNAME" @ %i);
@@ -1457,6 +1457,42 @@ function GameConnection::updateTopHudMenuThread(%this)
 	}
 }
 
+function GameConnection::updateLeftHudMenu1(%this, %i)
+{
+   if(%i < 50)
+      %tmp = "@bind" @ 34+%i @ ":" TAB %this.loadoutName[%i];
+   else
+      %tmp = "@bind" @ 64+%i-50 @ ":" TAB %this.loadoutName[%i];
+   %pieces = sLoadoutCode2Pieces(%this.loadoutCode[%i]);
+   for(%f = 0; %f < getFieldCount(%pieces); %f++)
+   {
+      %field = getField(%pieces, %f);
+      %piece = getWord(%field, 0);
+      %count = getWord(%field, 1);
+      switch(%piece)
+      {
+         case 0: %icon = "infantry";
+         case 1: %icon = "air";
+         case 2: %icon = "missile";
+         case 3: %icon = "box";
+         case 4: %icon = "pistol";
+         case 5: %icon = "shotgun";
+         case 6: %icon = "sniper";
+         case 7: %icon = "magnum";
+         case 8: %icon = "smg";
+      }
+      %icons = "";
+      while(%count > 0)
+      {
+         %icons = %icons @ "<bitmap:share/hud/alux/piece." @ %icon @ ".16x16.png>";
+         %count--;
+      }
+      %tmp = %tmp @ %icons;
+   }
+   //%tmp = %tmp @ "\n";
+   return %tmp;
+}
+
 function GameConnection::updateLeftHudMenu(%this)
 {
    if(%this.leftHudMenu $= "dmenu")
@@ -1546,7 +1582,7 @@ function GameConnection::updateLeftHudMenu(%this)
 	else if(%this.inventoryMode $= "show")
 	{
 		%this.setHudMenuL(0, "\n", 8, 1);
-		%this.setHudMenuL(1, "<lmargin:100><font:Arial:18><tab:120,175,200>" @
+		%this.setHudMenuL(1, "<lmargin:25><font:Arial:18><tab:45,100,125>" @
          "Select Form:\n\n", 1, 1);
 
 		%slot = 2;
@@ -1570,41 +1606,19 @@ function GameConnection::updateLeftHudMenu(%this)
 //      %slot++;
 
       %tmp = "";
+      
 		for(%i = 0; %i <= 10; %i++)
-		{
          if(%this.loadoutName[%i] !$= "")
-         {
-            %tmp = %tmp @ "@bind" @ 34+%i @ ":" TAB %this.loadoutName[%i];
-            %pieces = sLoadoutCode2Pieces(%this.loadoutCode[%i]);
-            for(%f = 0; %f < getFieldCount(%pieces); %f++)
-            {
-               %field = getField(%pieces, %f);
-               %piece = getWord(%field, 0);
-               %count = getWord(%field, 1);
-               switch(%piece)
-               {
-                  case 0: %icon = "infantry";
-                  case 1: %icon = "air";
-                  case 2: %icon = "missile";
-                  case 3: %icon = "box";
-                  case 4: %icon = "pistol";
-                  case 5: %icon = "shotgun";
-                  case 6: %icon = "sniper";
-                  case 7: %icon = "magnum";
-                  case 8: %icon = "smg";
-               }
-               %icons = "";
-               while(%count > 0)
-               {
-                  %icons = %icons @ "<bitmap:share/hud/alux/piece." @ %icon @ ".16x16.png>";
-                  %count--;
-               }
-               %tmp = %tmp @ %icons;
-            }
-            %tmp = %tmp @ "\n";
-         }
-		}
+            %tmp = %tmp @ %this.updateLeftHudMenu1(%i) @ "\n";
+
+      %tmp = %tmp @ "\nMaterialize FDV:\n\n";
+                        
+		for(%i = 50; %i <= 60; %i++)
+         if(%this.loadoutName[%i] !$= "")
+            %tmp = %tmp @ %this.updateLeftHudMenu1(%i) @ "\n";
+            
       %tmp = %tmp @ "\n";
+      
       %l = strlen(%tmp); %n = 0;
    	while(%n < %l)
 	   {
