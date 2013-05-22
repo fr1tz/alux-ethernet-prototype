@@ -15,7 +15,7 @@ datablock FlyingVehicleData(FrmSoldierpod)
    // @name dynamic fields, needed for certain in-script checks -mag
    // @{
    isAircraft = true;
-   class = "Bumblebee";
+   class = "soldierpod";
    // @}
 
 //   category = "Vehicles"; don't appear in mission editor
@@ -95,8 +95,8 @@ datablock FlyingVehicleData(FrmSoldierpod)
    
    // physics system...
    integration = 4;           // # of physics steps per tick
-   collisionTol = 1.0;        // Collision distance tolerance
-   contactTol = 0.5;          // Contact velocity tolerance
+   collisionTol = 0.25;        // Collision distance tolerance
+   contactTol = 0.25;          // Contact velocity tolerance
 
    // impact damage...
    minImpactSpeed = 1;      // If hit ground at speed above this then it's an impact. Meters/second
