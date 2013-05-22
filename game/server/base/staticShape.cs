@@ -34,5 +34,5 @@ function StaticShapeData::create(%data)
 function StaticShapeData::onAdd(%this,%obj)
 {
 	//error("StaticShapeData::onAdd()");
-	%obj.playThread(0,"ambient");
+	//%obj.playThread(0,"ambient");
 }

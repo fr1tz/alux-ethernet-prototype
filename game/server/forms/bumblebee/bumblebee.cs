@@ -9,13 +9,13 @@
 datablock StaticShapeData(FrmBumblebeeProxy : FrmCrateProxy)
 {
    form = FrmBumblebeeStatic; // script field
-	shapeFile = "share/shapes/alux/bumblebee.dts";
+	shapeFile = "share/shapes/alux/missile1.dts";
 };
 
 function FrmBumblebeeProxy::adjustTransform(%this, %pos, %normal, %eyeVec)
 {
    %transform = createOrientFromDir(%normal);
-   %pos = VectorAdd(%pos, VectorScale(%normal, 0.75));
+   %pos = VectorAdd(%pos, VectorScale(%normal, 1.75));
    %transform = setWord(%transform, 0, getWord(%pos, 0));
    %transform = setWord(%transform, 1, getWord(%pos, 1));
    %transform = setWord(%transform, 2, getWord(%pos, 2));
@@ -50,7 +50,7 @@ datablock StaticShapeData(FrmBumblebeeStatic)
 
 	shadowEnable = true;
 
-	shapeFile = "share/shapes/alux/bumblebee.dts";
+	shapeFile = "share/shapes/alux/missile1.dts";
    emap = true;
 
    //hudImageNameFriendly = "~/client/ui/hud/pixmaps/hudfill.png";
@@ -91,6 +91,7 @@ function FrmBumblebeeStatic::onTrigger(%this, %obj, %triggerNum, %val)
    %player.setTransform(%obj.getTransform());
    %player.setDamageLevel(%obj.getDamageLevel());
    %player.setFlyMode();
+   %player.playThread(0, "ambient");
 
    //%this.materializeFx(%player);
 	//%player.playAudio(0, CatSpawnSound);
@@ -306,7 +307,7 @@ datablock FlyingVehicleData(FrmBumblebeeFlyer)
    // @}
 
 //   category = "Vehicles"; don't appear in mission editor
-   shapeFile = "share/shapes/alux/bumblebee.dts";
+   shapeFile = "share/shapes/alux/missile1.dts";
    emap = true;
 
 	hudImageNameFriendly = "~/client/ui/hud/pixmaps/black.png";
@@ -381,8 +382,8 @@ datablock FlyingVehicleData(FrmBumblebeeFlyer)
 
    // physics system...
    integration = 4;           // # of physics steps per tick
-   collisionTol = 2.0;        // Collision distance tolerance
-   contactTol = 0.5;          // Contact velocity tolerance
+   collisionTol = 0.25;        // Collision distance tolerance
+   contactTol = 0.25;          // Contact velocity tolerance
 
    // impact damage...
    minImpactSpeed = 1;      // If hit ground at speed above this then it's an impact. Meters/second
