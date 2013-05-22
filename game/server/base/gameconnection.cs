@@ -1459,16 +1459,27 @@ function GameConnection::updateTopHudMenuThread(%this)
 
 function GameConnection::updateLeftHudMenu1(%this, %i)
 {
+   %text = "";
+   %icons = "";
+   %avail = "";
+   
    if(%i < 50)
-      %tmp = "@bind" @ 34+%i @ ":" TAB %this.loadoutName[%i];
+      %text = "@bind" @ 34+%i @ ":" TAB %this.loadoutName[%i];
    else
-      %tmp = "@bind" @ 64+%i-50 @ ":" TAB %this.loadoutName[%i];
+      %text = "@bind" @ 64+%i-50 @ ":" TAB %this.loadoutName[%i];
+
    %pieces = sLoadoutCode2Pieces(%this.loadoutCode[%i]);
    for(%f = 0; %f < getFieldCount(%pieces); %f++)
    {
       %field = getField(%pieces, %f);
       %piece = getWord(%field, 0);
       %count = getWord(%field, 1);
+      
+      %used = %this.inventory.pieceUsed[%piece];
+      %free = %this.inventory.pieceCount[%piece] - %used;
+      if(%free < %count)
+         %avail = "<color:888888>";
+
       switch(%piece)
       {
          case 0: %icon = "infantry";
@@ -1481,16 +1492,14 @@ function GameConnection::updateLeftHudMenu1(%this, %i)
          case 7: %icon = "magnum";
          case 8: %icon = "smg";
       }
-      %icons = "";
       while(%count > 0)
       {
          %icons = %icons @ "<bitmap:share/hud/alux/piece." @ %icon @ ".16x16.png>";
          %count--;
       }
-      %tmp = %tmp @ %icons;
    }
-   //%tmp = %tmp @ "\n";
-   return %tmp;
+
+   return "<spush>" @ %avail @ %text @ %icons @ "<spop>";
 }
 
 function GameConnection::updateLeftHudMenu(%this)

@@ -35,6 +35,8 @@ function GameBase::removePiecesFromPlay(%this)
       }
    }
 
+   %this.client.displayInventory();
+
    %this.zPiecesRemovedFromPlay = true;
 }
 
@@ -51,6 +53,7 @@ function GameBase::setLoadoutCode(%this, %loadoutcode)
       %count = getWord(%field, 1);
       %client.inventory.pieceUsed[%piece] += %count;
    }
+   %client.displayInventory();
 }
 
 // Called by script code
