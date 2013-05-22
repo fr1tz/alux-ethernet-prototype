@@ -848,6 +848,8 @@ function GameConnection::updateProxyThread(%this)
       %pos = getWords(%c, 1, 3);
       %normal = getWords(%c, 4, 6);
 
+      %client.proxy.basePos = %pos;
+      
       %transform = createOrientFromDir(%normal);
       %pos = VectorAdd(%pos, VectorScale(%normal, 0.25));
       %transform = setWord(%transform, 0, getWord(%pos, 0));

@@ -140,8 +140,8 @@ function FrmLight::onTrigger(%this, %obj, %triggerNum, %val)
 		MissionCleanup.add(%p);
 
       %p.setLoadoutCode(%obj.client.activeLoadout);
-      %p.setTargetPosition(%obj.client.proxy.getPosition());
-      %p.zTargetPosition = %obj.client.proxy.getPosition();
+      %p.setTargetPosition(%obj.client.proxy.basePos);
+      %p.zTargetPosition = %obj.client.proxy.basePos;
 
       %proxy = new StaticShape() {
 	      dataBlock = $Server::Game.form[getWord(%p.loadoutCode, 0)].proxy;
