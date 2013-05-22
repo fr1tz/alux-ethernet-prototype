@@ -118,6 +118,28 @@ function aiAddBlue(%weaponNum)
 	return %player;
 }
 
+function aiAddBoth(%weaponNum)
+{
+	%player = aiAdd(1, %weaponNum);
+ 	%player = aiAdd(2, %weaponNum);
+}
+
+function aiAddMultiple(%count, %weaponNum, %team)
+{
+   for(%i=0; %i<%count; %i++)
+   {
+      if(%weaponNum $= "")
+         %weaponNum = getRandom(5)+1;
+      if(%team $= "")
+      {
+         aiAdd(1, %weaponNum);
+         aiAdd(2, %weaponNum);
+      }
+      else
+         aiAdd(%team, %weaponNum);
+   }
+}
+
 function aiStartMove() {
 	for( %i = 0; %i < $aiPlayers.count(); %i++ ) {
 		xxx_aiStartMove($aiPlayers.getValue(%i));
@@ -218,7 +240,8 @@ function xxx_aiUpdateTarget(%player)
 	%position = %player.getPosition();
 	%radius = 500;
 
-	InitContainerRadiusSearch(%position, %radius, $TypeMasks::ShapeBaseObjectType);
+   %typeMask = $TypeMasks::PlayerObjectType | $TypeMasks::VehicleObjectType;
+	InitContainerRadiusSearch(%position, %radius, %typeMask);
 	while ((%targetObject = containerSearchNext()) != 0)
 	{
 		if( %targetObject.teamId > 0
@@ -249,9 +272,9 @@ function xxx_aiUpdateMove(%player)
 //	if (%heightdiff < 0) {
 //		%player.jump();
 //	}
-	if (%dmg < %dmgbuff) {
+	//if (%dmg < %dmgbuff) {
 		%player.setMoveDestination(%dest);
-	}
+	//}
 	%player.moveThread = schedule((getRandom(1)+1)*1000,%player,xxx_aiUpdateMove,%player);
 }
 
