@@ -75,6 +75,6 @@ function Etherform::updateVisuals(%this)
    %used = %client.inventory.pieceUsed[0];
    %free = %client.inventory.pieceCount[0] - %used;
    
-   %this.setDamageBufferLevel(%free > 0 ? 200 : 0);
+   %this.setDamageBufferLevel(%free >= 1 ? 200 : 0);
 }
 

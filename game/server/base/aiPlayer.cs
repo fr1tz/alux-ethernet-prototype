@@ -128,15 +128,16 @@ function aiAddMultiple(%count, %weaponNum, %team)
 {
    for(%i=0; %i<%count; %i++)
    {
-      if(%weaponNum $= "")
-         %weaponNum = getRandom(5)+1;
+      %wn = %weaponNum;
+      if(%wn $= "")
+         %wn = getRandom(5)+1;
       if(%team $= "")
       {
-         aiAdd(1, %weaponNum);
-         aiAdd(2, %weaponNum);
+         aiAdd(1, %wn);
+         aiAdd(2, %wn);
       }
       else
-         aiAdd(%team, %weaponNum);
+         aiAdd(%team, %wn);
    }
 }
 
