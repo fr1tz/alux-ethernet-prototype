@@ -1260,6 +1260,9 @@ function GameConnection::updateInventoryThread(%this)
          if(%this.player.getClassName() $= "Etherform")
             %this.player.updateVisuals();
       }
+      
+      if(mFloor(%newCount) > mFloor(%oldCount))
+         %this.displayInventory();
 
       %piece++;
    }
