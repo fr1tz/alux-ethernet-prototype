@@ -75,11 +75,11 @@ function GameConnection::loadDefaultLoadout(%this, %no)
    switch(%no)
    {
       case 1:
-         %this.loadoutName[%no] = "Missile";
-         %this.loadoutCode[%no] = "2";
-      case 2:
          %this.loadoutName[%no] = "Drone";
          %this.loadoutCode[%no] = "1";
+      case 2:
+         %this.loadoutName[%no] = "Missile";
+         %this.loadoutCode[%no] = "2";
       case 3:
          %this.loadoutName[%no] = "Crate";
          %this.loadoutCode[%no] = "3";
