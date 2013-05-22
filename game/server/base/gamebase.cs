@@ -26,6 +26,12 @@ function GameBase::removePiecesFromPlay(%this)
          %this.client.inventory.pieceUsed[%piece] -= %count;
          if(%this.zFormDestroyed)
             %this.client.inventory.pieceCount[%piece] -= %count;
+            
+         if(%piece == 0)
+         {
+            if(%this.client.player.getClassName() $= "Etherform")
+               %this.client.player.updateVisuals();
+         }
       }
    }
 

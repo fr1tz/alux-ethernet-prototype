@@ -38,21 +38,22 @@ datablock ParticleData(FrmLightDamageBufferEmitter_Particle)
 	gravityCoefficient	= 0.0;
 	inheritedVelFactor	= 0.0;
 	constantAcceleration = 0.0;
-	lifetimeMS			  = 500;
+	lifetimeMS			  = 300;
 	lifetimeVarianceMS	= 0;
-	colors[0]	  = "1.0 1.0 1.0 1.0";
-	colors[1]	  = "1.0 1.0 1.0 0.2";
+	colors[0]	  = "1.0 1.0 1.0 0.5";
+	colors[1]	  = "1.0 1.0 1.0 0.5";
 	colors[2]	  = "1.0 1.0 1.0 0.0";
 	sizes[0]		= 0.5;
 	sizes[1]		= 0.5;
-	sizes[2]		= 0.5;
+	sizes[2]		= 0.0;
 	times[0]		= 0.0;
-	times[1]		= 0.5;
+	times[1]		= 0.2;
 	times[2]		= 1.0;
 	spinRandomMin = 0.0;
 	spinRandomMax = 0.0;
-	textureName	= "share/textures/rotc/ring";
+	textureName	= "share/textures/rotc/corona";
 	allowLighting = false;
+   renderDot = true;
 };
 
 datablock ParticleEmitterData(FrmLightDamageBufferEmitter)
@@ -61,7 +62,7 @@ datablock ParticleEmitterData(FrmLightDamageBufferEmitter)
 	periodVarianceMS = 0;
 	ejectionVelocity = 5;
 	velocityVariance = 0;
-	ejectionOffset	= 0.0;
+	ejectionOffset	= 0.25;
 	thetaMin			= 0;
 	thetaMax			= 180;
 	phiReferenceVel  = 0;
