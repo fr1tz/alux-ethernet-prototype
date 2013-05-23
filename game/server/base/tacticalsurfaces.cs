@@ -26,7 +26,7 @@ function TacticalSurfaceData::create(%data)
 
 function TerritorySurface_find(%name)
 {
-	%group = nameToID("TerritorySurfaces");
+	%group = nameToID("EthPath");
 
 	if (%group != -1)
 	{
@@ -42,10 +42,10 @@ function TerritorySurface_find(%name)
 		}
 		else
 			error("TerritorySurfaces_call():" SPC
-				"no TacticalSurfaces found in TerritorySurfaces group!");
+				"no TacticalSurfaces found in EthPath group!");
 	}
 	else
-		error("TerritorySurfaces_call(): missing TerritorySurfaces group!");
+		error("TerritorySurfaces_call(): missing EthPath group!");
 
 	return -1;
 }
@@ -128,7 +128,7 @@ function TerritorySurfaces_repairTick()
 // to reset all the territory zones...
 function TerritorySurfaces_reset()
 {
-	%group = nameToID("TerritorySurfaces");
+	%group = nameToID("EthPath");
 
 	if (%group != -1)
 	{
@@ -138,24 +138,38 @@ function TerritorySurfaces_reset()
 				for (%i = 0; %i < %count; %i++)
 				{
 					%zone = %group.getObject(%i);
-					%zone.getDataBlock().reset(%zone);
+     
+               if(%i == 0)
+                  %zone.getDataBlock().setZoneOwner(%zone, 1);
+               else if(%i == %count-1)
+                  %zone.getDataBlock().setZoneOwner(%zone, 2);
+               else
+                  %zone.getDataBlock().setZoneOwner(%zone, 0);
+
+               %zone.zHasNeighbour = false;
+               if(%i > 0)
+                  %zone.zNeighbour[0] = %group.getObject(%i-1);
+               if(%i < %count-1)
+                  %zone.zNeighbour[1] = %group.getObject(%i+1);
+
+               //%zone.getDataBlock().updateOwner(%zone);
 				}
 				
 				TerritorySurfaces_repairTick();
 		}
 		else
 			error("TerritorySurfaces_reset():" SPC
-				"no TacticalSurfaces found in TerritorySurfaces group!");
+				"no TacticalSurfaces found in EthPath group!");
 	}
 	else
-		error("TerritorySurfaces_reset(): missing TerritorySurfaces group!");
+		error("TerritorySurfaces_reset(): missing EthPath group!");
 }
 
 //-----------------------------------------------------------------------------
 
 function TerritorySurfaces_call(%func)
 {
-	%group = nameToID("TerritorySurfaces");
+	%group = nameToID("EthPath");
 
 	if (%group != -1)
 	{
@@ -170,10 +184,10 @@ function TerritorySurfaces_call(%func)
 		}
 		else
 			error("TerritorySurfaces_call():" SPC
-				"no TacticalSurfaces found in TerritorySurfaces group!");
+				"no TacticalSurfaces found in EthPath group!");
 	}
 	else
-		error("TerritorySurfaces_call(): missing TerritorySurfaces group!");
+		error("TerritorySurfaces_call(): missing EthPath group!");
 }
 
 //-----------------------------------------------------------------------------
@@ -210,8 +224,9 @@ datablock TacticalSurfaceData(TerritorySurface)
 
 	colorChangeTimeMS = 500;
 
-	colors[0]  = "0.5 0.5 0.5 0.5"; // default
-	colors[1]  = "1.0 1.0 1.0 0.9"; // flash
+	colors[0]  = "1 1 1 0.25"; // default
+	colors[1]  = "1 1 1 0.9"; // flash
+	colors[2]  = "1 1 1 0.1"; // blocked
 
     texture = "share/textures/rotc/zone.grid";
 };
@@ -305,11 +320,12 @@ function TerritorySurface::onTick(%this, %zone)
 
 function TerritorySurface::updateOwner(%this, %zone)
 {
+   %oldTeamId = %zone.getTeamId();
 	%numConnections = 0;
 	%connectedToRed = false;
 	%connectedToBlue = false;
 
-	for(%i = 0; %i < 4; %i++)
+	for(%i = 0; %i < 2; %i++)
 	{
 		%z = %zone.zNeighbour[%i];
 		if(isObject(%z))
@@ -321,11 +337,7 @@ function TerritorySurface::updateOwner(%this, %zone)
 				%connectedToBlue = true;
 		}
 	}
-
-   // quick hack...
-	%connectedToRed = true;
-	%connectedToBlue = true;
-
+ 
 	if(%zone.zNumReds > 0 && %zone.zNumBlues == 0
 	&& %connectedToRed)
 	{
@@ -358,40 +370,30 @@ function TerritorySurface::updateOwner(%this, %zone)
 				%this.setZoneOwner(%zone, 1);
 		}			
 	}
-
-	%zone.zBlocked = false;
-
-	%color = 1;
-	if(!%zone.zHasNeighbour)
-	{
-		%color = 13;
-	}
-	else if(%zone.getTeamId() == 2 && %zone.zNumReds != 0)
-	{
-		%zone.zBlocked = true;
-		%color = 5;
-	}
+ 
+	%blocked = false;
+	if(%zone.getTeamId() == 2 && %zone.zNumReds != 0)
+		%blocked = true;
 	else if(%zone.getTeamId() == 1 && %zone.zNumBlues != 0)
-	{
-		%zone.zBlocked = true;
-		%color = 4;
-	}
-	else if(%zone.getTeamId() == 2)
-		%color = 3;
-	else if(%zone.getTeamId() == 1)
-		%color = 2;
+		%blocked = true;
 
-	//%zone.setColor(%color, %color, 1);
+ 	%color = 0;
+   if(%blocked)
+   	%color = 2;
+    
+	%zone.setColor(%color, %color, 1);
 
-	if(%color != %zone.zColor)
-		%zone.flash(%color + 5, %color + 5, 1);
-
-	%zone.zColor = %color;
+	if(%zone.getTeamId() != %oldTeamId || %blocked != %zone.zBlocked)
+      %zone.flash(1, 1, 1);
+         
+	%zone.zBlocked = %blocked;
 }
 
 function TerritorySurface::setZoneOwner(%this, %zone, %teamId)
 {
 	%oldTeamId = %zone.getTeamId();
+ 
+   //echo("TerritorySurface::setZoneOwner()" SPC %oldTeamId SPC "->" SPC %teamId);
 	
 	if(%teamId == %oldTeamId)
 		return;
@@ -446,75 +448,4 @@ function TerritorySurface::setZoneOwner(%this, %zone, %teamId)
 		
 	checkRoundEnd();
 }
-
-function TerritorySurface::reset(%this, %zone)
-{
-	if($Game::GameType == $Game::TeamJoust)
-	{
-		if($Game::TeamJoustState == 0)
-		{
-			%zone.setTeamId(%zone.initialOwner);
-			if(%zone.initiallyProtected)
-				%zone.isProtected = true;
-
-			if(%zone.getTeamId() == 0 || %zone.initiallyProtected)
-				%color = 7;
-			else
-				%color = 1 + %zone.getTeamId();
-			%zone.setColor(%color, %color, 1);
-		}
-		else if($Game::TeamJoustState == 1)
-		{
-			if(%zone.getTeamId() == 0 || %zone.initiallyProtected)
-				%zone.setColor(12, 12, 1);
-		}
-		else if($Game::TeamJoustState == 2)
-		{
-			if(%zone.getTeamId() == 0 || %zone.initiallyProtected)
-				%zone.setColor(11, 11, 1);
-		}
-		else if($Game::TeamJoustState == 3)
-		{
-			if(%zone.getTeamId() == 0 || %zone.initiallyProtected)
-			{
-				if(%zone.getTeamId() == 0)
-					%color = 13;
-				else if(%zone.initiallyProtected)
-					%color = 3 + %zone.getTeamId();
-				%zone.setColor(%color, %color, 1);
-			}
-		}
-
-		if($Game::TeamJoustState < 4)
-		{
-	  		if(%zone.getTeamId() == 0 || %zone.initiallyProtected)
-	  			%zone.flash(15, 15, 1);
-		}
-	}
-	else
-	{
-		%zone.zHasNeighbour = false;
-		for(%i = 0; %i < 4; %i++)
-		{	
-			%z = TerritorySurface_find(%zone.connection[%i]);
-			if(isObject(%z))
-			{
-				%zone.zNeighbour[%i] = %z;
-				%zone.zHasNeighbour = true;
-			}
-			else
-				%zone.zNeighbour[%i] = -1;
-		}
-	
-		if( %zone.initialOwner != 0 )
-			%this.setZoneOwner(%zone, %zone.initialOwner);
-		else
-			%this.setZoneOwner(%zone, 0);
-	
-		%zone.zProtected = %zone.initiallyProtected;
-	
-		%this.updateOwner(%zone);
-	}
-}
-
 

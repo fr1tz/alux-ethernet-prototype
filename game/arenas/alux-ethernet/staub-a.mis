@@ -1,0 +1,8 @@
+exec("./common.cs");
+$MissionInfo::Name = "Staub (A) \cp\c20.1\co";
+$MissionInfo::Desc = ""
+                   @ "(no description)"
+                   @ "";
+
+
+

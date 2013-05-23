@@ -287,7 +287,7 @@ function GameConnection::onRecordingDemo(%this, %isRecording)
    //---------------------------------------------------------------------------
 	// HACK HACK HACK: find way to update object colorizations
    // only for this client
-	%group = nameToID("TerritorySurfaces");
+	%group = nameToID("EthPath");
 	if(%group != -1)
 	{
 		%count = %group.getCount();
@@ -493,7 +493,7 @@ function GameConnection::joinTeam(%this, %teamId)
 		%obj = MissionCleanup.getObject(%idx);
       %obj.setTeamId(%obj.getTeamId());
 	}
-	%group = nameToID("TerritorySurfaces");
+	%group = nameToID("EthPath");
 	if(%group != -1)
 	{
 		%count = %group.getCount();
