@@ -373,6 +373,9 @@ function FrmSoldier::onAdd(%this, %obj)
 function FrmSoldier::onCollision(%this,%obj,%col,%vec,%vecLen)
 {
 	Parent::onCollision(%this,%obj,%col,%vec,%vecLen);
+ 
+   if(%obj.getDamageState() !$= "Enabled")
+      return;
 
    if(isObject(%obj.getObjectMount()))
       return;
@@ -677,4 +680,19 @@ function FrmSoldier::onAluxLeft(%this, %obj)
    if(isObject(%hoverpod))
       %hoverpod.getDataBlock().updateSSC(%hoverpod);
 }
+
+// Called from script
+function FrmSoldier::damage(%this, %obj, %sourceObject, %position, %damage, %damageType)
+{
+   Parent::damage(%this, %obj, %sourceObject, %position, %damage, %damageType);
+   if(%obj.getDamageState() $= "Disabled")
+   {
+      %hoverpod = %obj.getObjectMount();
+      if(isObject(%hoverpod))
+         %hoverpod.unmountObject(%obj);
+   }
+}
+
+
+
 
