@@ -226,7 +226,7 @@ datablock TacticalSurfaceData(TerritorySurface)
 
 	colors[0]  = "1 1 1 0.25"; // default
 	colors[1]  = "1 1 1 0.9"; // flash
-	colors[2]  = "1 1 1 0.1"; // blocked
+	colors[2]  = "1 1 1 0.5"; // dimmed
 
     texture = "share/textures/rotc/zone.grid";
 };
@@ -287,6 +287,8 @@ function TerritorySurface::onTick(%this, %zone)
 	if($Game::GameType == $Game::TeamJoust)
 		return;
 
+   %zone.zHasReds = false;
+   %zone.zHasBlues = false;
 	%zone.zNumReds = 0;
 	%zone.zNumBlues = 0;
 	
@@ -294,10 +296,6 @@ function TerritorySurface::onTick(%this, %zone)
 	{
 		%obj = %zone.getObject(%i);
   
-      //error(%obj.isCAT SPC %obj.getObjectMount());
-		if(!%obj.isCAT || isObject(%obj.getObjectMount()))
-			continue;
-	
 		if(%obj.getDamageState() !$= "Enabled")
 			continue;
 
@@ -310,11 +308,21 @@ function TerritorySurface::onTick(%this, %zone)
 			continue;
 	
 		if(%zone.zProtected && %obj.getTeamId() != %zone.getTeamId())
+      {
 			%obj.kill();
+      }
 		else if(%obj.getTeamId() == $Team1.teamId)
-			%zone.zNumReds++;
+      {
+         %zone.zHasReds = true;
+         if(%obj.isCAT && !isObject(%obj.getObjectMount()))
+			   %zone.zNumReds++;
+      }
 		else if(%obj.getTeamId() == $Team2.teamId)
-			%zone.zNumBlues++;
+      {
+         %zone.zHasBlues = true;
+         if(%obj.isCAT && !isObject(%obj.getObjectMount()))
+			   %zone.zNumBlues++;
+      }
 	}
 
 	%this.updateOwner(%zone);
@@ -373,14 +381,20 @@ function TerritorySurface::updateOwner(%this, %zone)
 		}			
 	}
  
-	%blocked = false;
-	if(%zone.getTeamId() == 2 && %zone.zNumReds != 0)
-		%blocked = true;
-	else if(%zone.getTeamId() == 1 && %zone.zNumBlues != 0)
-		%blocked = true;
+	//%blocked = false;
+	//if(%zone.getTeamId() == 2 && %zone.zNumReds != 0)
+	//	%blocked = true;
+	//else if(%zone.getTeamId() == 1 && %zone.zNumBlues != 0)
+	//	%blocked = true;
+ 
+	%dimmed = false;
+	if(%zone.getTeamId() == 2 && %zone.zHasReds)
+		%dimmed = true;
+	else if(%zone.getTeamId() == 1 && %zone.zHasBlues)
+		%dimmed = true;
 
  	%color = 0;
-   if(%blocked)
+   if(%dimmed)
    	%color = 2;
     
 	%zone.setColor(%color, %color, 1);
@@ -388,7 +402,7 @@ function TerritorySurface::updateOwner(%this, %zone)
 	if(%zone.getTeamId() != %oldTeamId)
       %zone.flash(1, 1, 1);
          
-	%zone.zBlocked = %blocked;
+	//%zone.zBlocked = %blocked;
 }
 
 function TerritorySurface::setZoneOwner(%this, %zone, %teamId)
