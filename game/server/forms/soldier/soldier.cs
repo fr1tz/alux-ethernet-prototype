@@ -369,6 +369,78 @@ function FrmSoldier::onAdd(%this, %obj)
    }
 }
 
+// callback function: called by engine
+function FrmSoldier::onCollision(%this,%obj,%col,%vec,%vecLen)
+{
+	Parent::onCollision(%this,%obj,%col,%vec,%vecLen);
+
+   if(isObject(%obj.getObjectMount()))
+      return;
+
+	%searchMask = $TypeMasks::PlayerObjectType;
+	%start = %obj.getPosition();
+	%end = VectorAdd(%start, "0 0 -1");
+
+	%scanTarg = ContainerRayCast(%start, %end, %searchMask, %obj);
+
+	if(%scanTarg)
+	{
+		%targetObject = firstWord(%scanTarg);
+      //error(%targetObject.getMountedObject(0));
+      //error(%targetObject.getDataBlock());
+      if(%targetObject.getDataBlock() == FrmHoverpod.getId()
+      && !isObject(%targetObject.getMountedObject(0)))
+      {
+   		//%player.mountVehicle(%targetObject);
+         %targetObject.mountObject(%obj, 0);
+      }
+	}
+	else
+	{
+		//echo("No object found");
+	}
+}
+
+function FrmSoldier::onTrigger(%this, %obj, %triggerNum, %val)
+{
+	// This method is invoked when the player receives a trigger
+	// move event.  The player automatically triggers slot 0 and
+	// slot 1 off of triggers # 0 & 1.  Trigger # 2 is also used
+	// as the jump key.
+ 
+   Parent::onTrigger(%this, %obj, %triggerNum, %val);
+   
+   if(!%val || %triggerNum != 2)
+      return;
+
+	%hoverpod = %obj.getObjectMount();
+   if(!isObject(%hoverpod))
+      return;
+      
+   %hoverpod.unmountObject(%obj);
+   
+   %pos = VectorAdd(%obj.getPosition(), "0 0 0");
+   %obj.setPosition(%pos);
+   %obj.setVelocity("0 0 0");
+   
+   %vec = %obj.getEyeVector();
+   %vec = VectorScale(%vec, 250);
+   %vec = setWord(%vec, 2, 750);
+   %obj.impulse(%pos, %vec);
+}
+
+// callback function: called by engine when player get's mounted
+function FrmSoldier::onMount(%this, %obj, %vehicle, %node)
+{
+   %vehicle.getDataBlock().updateSSC(%vehicle);
+}
+
+// callback function: called by engine when player get's unmounted
+function FrmSoldier::onUnmount(%this, %obj, %vehicle, %node)
+{
+   %vehicle.getDataBlock().updateSSC(%vehicle);
+}
+
 function FrmSoldier::canMaterialize(%this, %client, %pos, %normal, %transform)
 {
 	%ownTeamId = %client.player.getTeamId();
@@ -539,6 +611,8 @@ function FrmSoldier::reloadStop(%this, %obj)
 
 function FrmSoldier::special(%this, %obj, %nr)
 {
+   return; // mounting & unmounting hoverpods is now done by jumping
+
    if(%nr != 0)
       return;
 
@@ -586,18 +660,6 @@ function FrmSoldier::special(%this, %obj, %nr)
 	{
 		//echo("No object found");
 	}
-}
-
-// callback function: called by engine when player get's mounted
-function FrmSoldier::onMount(%this, %obj, %vehicle, %node)
-{
-   %vehicle.getDataBlock().updateSSC(%vehicle);
-}
-
-// callback function: called by engine when player get's unmounted
-function FrmSoldier::onUnmount(%this, %obj, %vehicle, %node)
-{
-   %vehicle.getDataBlock().updateSSC(%vehicle);
 }
 
 // Called from script
