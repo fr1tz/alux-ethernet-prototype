@@ -1,5 +1,5 @@
 exec("./common.cs");
-$MissionInfo::Name = "Staub \cp\c20.1\co";
+$MissionInfo::Name = "[DEFUNCT] Staub \cp\c20.1\co";
 $MissionInfo::Desc = ""
                    @ "(no description)"
                    @ "";
