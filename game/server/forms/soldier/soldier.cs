@@ -376,6 +376,9 @@ function FrmSoldier::onCollision(%this,%obj,%col,%vec,%vecLen)
  
    if(%obj.getDamageState() !$= "Enabled")
       return;
+      
+   if(%obj.zIgnoreHoverpods)
+      return;
 
    if(isObject(%obj.getObjectMount()))
       return;
@@ -419,6 +422,10 @@ function FrmSoldier::onTrigger(%this, %obj, %triggerNum, %val)
 	%hoverpod = %obj.getObjectMount();
    if(!isObject(%hoverpod))
       return;
+      
+   // Disable mounting hoverpods for a short time
+   %obj.zIgnoreHoverpods = true;
+   %obj.schedule(250, "setFieldValue", "zIgnoreHoverpods", false);
       
    %hoverpod.unmountObject(%obj);
    
