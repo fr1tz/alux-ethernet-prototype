@@ -1238,6 +1238,7 @@ function GameConnection::resetInventory(%this)
    %this.resetInventory1(6, 1, 1, 30); // Sniper
    %this.resetInventory1(7, 1, 1, 15); // Magnum
    %this.resetInventory1(8, 1, 1, 15); // SMG
+   %this.resetInventory1(9, 1, 1, 25); // Speeder
 }
 
 function GameConnection::updateInventoryThread(%this)
@@ -1330,7 +1331,7 @@ function GameConnection::updateTopHudMenuThread(%this)
 	if(%this.topHudMenu $= "invisible")
 		return;
 
-   %text = "<color:00FF00><tab:240,260,280,300,340,360,380,400,420,440>";
+   %text = "<color:00FF00><tab:240,260,280,300,320,360,380,400,420,440,460>";
 	%this.setHudMenuT(0, %text, 1, 1);
 	//%this.setHudMenuT(0, "\n<just:center><color:888888>Showing: ", 1, 1);
 	//%this.setHudMenuT(2, "(@bind66 to change)\n<just:left>", 1, 1);
@@ -1338,9 +1339,15 @@ function GameConnection::updateTopHudMenuThread(%this)
 
    %line1 = "";
    %line3 = "";
-   %piece = 0;
-   while(%this.inventory.pieceExists[%piece])
+   %pieceOrder = "0 9 1 2 3 4 5 6 7 8";
+   %j = 0;
+   while(%j < 100)
    {
+      %piece = getWord(%pieceOrder, %j);
+      
+      if(%this.inventory.pieceExists[%piece] $= "")
+         break;
+   
       %used = %this.inventory.pieceUsed[%piece];
       %free = %this.inventory.pieceCount[%piece] - %used;
 
@@ -1374,7 +1381,7 @@ function GameConnection::updateTopHudMenuThread(%this)
       }
       %line1 = %line1 TAB %free;
 
-      %piece++;
+      %j++;
    }
 
    %text = "<spush><font:arial:8>\n<spop>" @ %line1;
@@ -1382,6 +1389,7 @@ function GameConnection::updateTopHudMenuThread(%this)
 
    %icons1 = "\n" TAB
       "<bitmap:share/hud/alux/piece.infantry.16x16.png>" TAB
+      "<bitmap:share/hud/alux/piece.speeder.16x16.png>" TAB
       "<bitmap:share/hud/alux/piece.air.16x16.png>" TAB
       "<bitmap:share/hud/alux/piece.missile.16x16.png>" TAB
       "<bitmap:share/hud/alux/piece.box.16x16.png>";
@@ -1499,6 +1507,7 @@ function GameConnection::updateLeftHudMenu1(%this, %i)
          case 6: %icon = "sniper";
          case 7: %icon = "magnum";
          case 8: %icon = "smg";
+         case 9: %icon = "speeder";
       }
       while(%count > 0)
       {

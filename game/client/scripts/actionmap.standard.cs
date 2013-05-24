@@ -52,7 +52,7 @@ MoveMap.bind( keyboard, "lcontrol", trigger5 );
 //------------------------------------------------------------------------------
 
 MoveMap.bind( keyboard, "shift f", toggleTempZoomLevel );
-MoveMap.bind( keyboard, "f", tempZoom );
+//MoveMap.bind( keyboard, "f", tempZoom );
 MoveMap.bind(mouse, "zaxis", mouseZoom);
 
 //------------------------------------------------------------------------------
@@ -93,7 +93,7 @@ MoveMap.bind( keyboard, "e", action11 );
 MoveMap.bind( keyboard, "q", action12 );
 MoveMap.bind( keyboard, "r", action13 );
 moveMap.bind( mouse0, "shift button2", action14);
-MoveMap.bind( keyboard, "o", action15 );
+MoveMap.bind( keyboard, "f", action15 );
 MoveMap.bind( keyboard, "g", action16 );
 MoveMap.bind( keyboard, "x", action17 );
 MoveMap.bind( keyboard, "v", action18 );

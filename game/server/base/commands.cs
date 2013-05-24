@@ -48,6 +48,10 @@ function serverCmdPlayerAction(%client, %nr, %val)
          return;
       %form.reloadStart();
 	}
+	else if(%nr == 15 && %val)
+	{
+      %client.getControlObject().special(0);
+	}
 	else if(%nr == 17 && %val)
 	{		
       if(%client.leftHudMenu $= "dmenu")

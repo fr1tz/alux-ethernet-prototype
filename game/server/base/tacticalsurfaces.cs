@@ -293,7 +293,9 @@ function TerritorySurface::onTick(%this, %zone)
 	for(%i = 0; %i < %zone.getNumObjects(); %i++)
 	{
 		%obj = %zone.getObject(%i);
-		if(!%obj.isCAT)
+  
+      //error(%obj.isCAT SPC %obj.getObjectMount());
+		if(!%obj.isCAT || isObject(%obj.getObjectMount()))
 			continue;
 	
 		if(%obj.getDamageState() !$= "Enabled")

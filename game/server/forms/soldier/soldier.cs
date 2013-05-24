@@ -356,6 +356,9 @@ function FrmSoldier::onAdd(%this, %obj)
 {
    Parent::onAdd(%this, %obj);
    %obj.setEnergyLevel(%this.maxEnergy);
+   
+	%obj.isCAT = true;
+	%obj.getTeamObject().numCATs++;
 
    return;
 
@@ -536,6 +539,18 @@ function FrmSoldier::reloadStop(%this, %obj)
 
 function FrmSoldier::special(%this, %obj, %nr)
 {
+   if(%nr != 0)
+      return;
+
+	%hoverpod = %obj.getObjectMount();
+   if(isObject(%hoverpod))
+   {
+      if(VectorLen(%hoverpod.getVelocity()) > %hoverpod.getDataBlock().maxMountSpeed)
+         return;
+      %hoverpod.unmountObject(%obj);
+      return;
+   }
+      
 	// if the player is already mounted, re-mount him in the next free seat...
 	//if(%player.isMounted())
 	//{
@@ -561,8 +576,7 @@ function FrmSoldier::special(%this, %obj, %nr)
       //error(%targetObject.getMountedObject(0));
       //error(%targetObject.getDataBlock());
       if(%targetObject.getDataBlock() == FrmHoverpod.getId()
-      && !isObject(%targetObject.getMountedObject(0))
-      && %targetObject.getTeamId() == %obj.getTeamId())
+      && !isObject(%targetObject.getMountedObject(0)))
       {
    		//%player.mountVehicle(%targetObject);
          %targetObject.mountObject(%obj, 0);
@@ -575,7 +589,13 @@ function FrmSoldier::special(%this, %obj, %nr)
 }
 
 // callback function: called by engine when player get's mounted
-function FrmSoldier::onMount(%this,%obj,%vehicle,%node)
+function FrmSoldier::onMount(%this, %obj, %vehicle, %node)
+{
+   %vehicle.getDataBlock().updateSSC(%vehicle);
+}
+
+// callback function: called by engine when player get's unmounted
+function FrmSoldier::onUnmount(%this, %obj, %vehicle, %node)
 {
    %vehicle.getDataBlock().updateSSC(%vehicle);
 }

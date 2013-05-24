@@ -13,6 +13,7 @@
 // 6 Sniper
 // 7 Magnum
 // 8 SMG
+// 9 Speeder
 
 function sLoadoutcode2Pieces(%code)
 {
@@ -53,7 +54,7 @@ function sLoadoutcode2Pieces(%code)
    }
    else if(%arg1 == 6) // Hoverpod
    {
-      %pieces = "3 1";
+      %pieces = "9 1";
    }
    return %pieces;
 }
@@ -71,6 +72,7 @@ function sPiece2String(%piece)
       case 6: %icon = "Sniper";
       case 7: %icon = "Magnum";
       case 8: %icon = "SMG";
+      case 9: %icon = "Speeder";
    }
 }
 

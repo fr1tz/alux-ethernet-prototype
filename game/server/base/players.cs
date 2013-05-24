@@ -98,9 +98,6 @@ function PlayerData::onAdd(%this,%obj)
 	if(!isObject(%client))
 		return;
 
-	%obj.isCAT = true;
-	%obj.getTeamObject().numCATs++;
-
 	// Vehicle timeout
 	%obj.mountVehicle = true;
 
