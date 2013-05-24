@@ -385,7 +385,7 @@ function TerritorySurface::updateOwner(%this, %zone)
     
 	%zone.setColor(%color, %color, 1);
 
-	if(%zone.getTeamId() != %oldTeamId || %blocked != %zone.zBlocked)
+	if(%zone.getTeamId() != %oldTeamId)
       %zone.flash(1, 1, 1);
          
 	%zone.zBlocked = %blocked;
