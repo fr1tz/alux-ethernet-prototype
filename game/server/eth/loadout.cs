@@ -18,7 +18,7 @@ function sLoadoutcode2Pieces(%code)
 {
    %pieces = "";
    %arg1 = getWord(%code, 0);
-   if(%arg1 == 4)
+   if(%arg1 == 4) // Soldier
    {
       %pieces = "0 1";
       %arg2 = getWord(%code, 4);
@@ -37,19 +37,23 @@ function sLoadoutcode2Pieces(%code)
    }
    else if(%arg1 == 3)
    {
-      %pieces = "3 1";
+      %pieces = "3 1"; // Box
    }
    else if(%arg1 == 2)
    {
-      %pieces = "2 1";
+      %pieces = "2 1"; // Bumblebee
    }
-   else if(%arg1 == 1)
+   else if(%arg1 == 1) // Parrot
    {
       %pieces = "1 1";
    }
-   else if(%arg1 == 5)
+   else if(%arg1 == 5) // Pillar
    {
       %pieces = "3 2";
+   }
+   else if(%arg1 == 6) // Hoverpod
+   {
+      %pieces = "3 1";
    }
    return %pieces;
 }
@@ -86,6 +90,9 @@ function GameConnection::loadDefaultLoadout(%this, %no)
       case 4:
          %this.loadoutName[%no] = "Pillar";
          %this.loadoutCode[%no] = "5";
+      case 5:
+         %this.loadoutName[%no] = "Hoverpod";
+         %this.loadoutCode[%no] = "6";
       case 51:
          %this.loadoutName[%no] = "Pistol Only";
          %this.loadoutCode[%no] = "4 0 0 0 1";

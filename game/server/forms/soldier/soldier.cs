@@ -178,7 +178,7 @@ datablock PlayerData(FrmSoldier)
 	energyRechargeRate = 0.0;
 
 	skidSpeed = 20;
-	skidFactor = 0.4;
+	skidFactor = 4.0;
 
 	flyForce = 0;
 
@@ -532,5 +532,67 @@ function FrmSoldier::reloadStop(%this, %obj)
    %obj.reloadingImage = "";
    %obj.reloadingNewEnergyLevel = "";
    %obj.reloadingThread = "";
+}
+
+function FrmSoldier::special(%this, %obj, %nr)
+{
+	// if the player is already mounted, re-mount him in the next free seat...
+	//if(%player.isMounted())
+	//{
+	//	%vehicle = %player.getObjectMount();
+	//	%player.mountVehicle(%vehicle);
+	//	return;
+	//}
+ 
+	%selectRange = 4;
+	%searchMask = $TypeMasks::PlayerObjectType;
+	%pos = %obj.getEyePoint();
+	%eye = %obj.getEyeVector();
+	%eye = vectorNormalize(%eye);
+	%vec = vectorScale(%eye, %selectRange);
+
+	%end = vectorAdd(%vec, %pos);
+
+	%scanTarg = ContainerRayCast(%pos, %end, %searchMask, %obj);
+
+	if(%scanTarg)
+	{
+		%targetObject = firstWord(%scanTarg);
+      //error(%targetObject.getMountedObject(0));
+      //error(%targetObject.getDataBlock());
+      if(%targetObject.getDataBlock() == FrmHoverpod.getId()
+      && !isObject(%targetObject.getMountedObject(0))
+      && %targetObject.getTeamId() == %obj.getTeamId())
+      {
+   		//%player.mountVehicle(%targetObject);
+         %targetObject.mountObject(%obj, 0);
+      }
+	}
+	else
+	{
+		//echo("No object found");
+	}
+}
+
+// callback function: called by engine when player get's mounted
+function FrmSoldier::onMount(%this,%obj,%vehicle,%node)
+{
+   %vehicle.getDataBlock().updateSSC(%vehicle);
+}
+
+// Called from script
+function FrmSoldier::onAluxEnter(%this, %obj)
+{
+	%hoverpod = %obj.getObjectMount();
+   if(isObject(%hoverpod))
+      %hoverpod.getDataBlock().updateSSC(%hoverpod);
+}
+
+// Called from script
+function FrmSoldier::onAluxLeft(%this, %obj)
+{
+	%hoverpod = %obj.getObjectMount();
+   if(isObject(%hoverpod))
+      %hoverpod.getDataBlock().updateSSC(%hoverpod);
 }
 

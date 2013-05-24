@@ -43,13 +43,15 @@ function executeGameScripts()
 	exec("game/server/forms/soldier/exec.cs");
 	exec("game/server/forms/pillar/exec.cs");
 	exec("game/server/forms/soldierpod/exec.cs");
+	exec("game/server/forms/hoverpod/exec.cs");
    $Server::Game.form[0] = FrmLight;
    $Server::Game.form[1] = FrmParrot;
    $Server::Game.form[2] = FrmBumblebeeStatic;
    $Server::Game.form[3] = FrmCrate;
    $Server::Game.form[4] = FrmSoldier;
    $Server::Game.form[5] = FrmPillar;
-   $Server::Game.formCount = 5;
+   $Server::Game.form[6] = FrmHoverpod;
+   $Server::Game.formCount = 6;
    $Server::Game.weapon[1] = WpnBadgerImage;
    $Server::Game.weapon[2] = WpnStyckImage;
    $Server::Game.weapon[3] = WpnLaserhawkImage;

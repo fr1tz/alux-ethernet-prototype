@@ -617,6 +617,8 @@ function GameConnection::enterForm(%this)
       }
       %this.player = %closest;
       %this.control(%closest);
+      if(%closest.getDataBlock().isMethod("onAluxEnter"))
+         %closest.getDataBlock().onAluxEnter(%closest);
       %etherform.delete();
 
       %this.inventoryMode = "";
@@ -666,7 +668,7 @@ function GameConnection::leaveForm(%this, %obj, %dematerialize)
    %form = %this.player;
 	if(!isObject(%form) || %obj != %form)
 		return;
-
+  
 	//%tagged = %form.isTagged();
 	%pos = %form.getWorldBoxCenter();
 
@@ -699,6 +701,9 @@ function GameConnection::leaveForm(%this, %obj, %dematerialize)
 
 	%this.control(%obj);
 	%this.player = %obj;
+ 
+   if(%form.getDataBlock().isMethod("onAluxLeft"))
+      %form.getDataBlock().onAluxLeft(%form);
 	
 //	if(%tagged)
 //		%obj.setTagged();
