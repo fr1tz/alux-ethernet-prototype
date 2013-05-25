@@ -398,7 +398,16 @@ function FrmSoldier::onCollision(%this,%obj,%col,%vec,%vecLen)
       && !isObject(%targetObject.getMountedObject(0)))
       {
    		//%player.mountVehicle(%targetObject);
+         %pos = %targetObject.getPosition();
+         //%transform = %obj.getTransform();
+         //%transform = setWord(%transform, 0, getWord(%pos, 0));
+         //%transform = setWord(%transform, 1, getWord(%pos, 1));
+         //%transform = setWord(%transform, 2, getWord(%pos, 2));
+         //%transform = %pos SPC "0 0 1 3.14159";
+         %transform = %pos SPC "0 0 1 0";
+         %targetObject.setTransform(%transform);
          %targetObject.mountObject(%obj, 0);
+         //%obj.setTransform(%transform);
       }
 	}
 	else
