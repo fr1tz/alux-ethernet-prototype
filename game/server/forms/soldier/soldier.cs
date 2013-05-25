@@ -443,8 +443,8 @@ function FrmSoldier::onTrigger(%this, %obj, %triggerNum, %val)
    %obj.setVelocity("0 0 0");
    
    %vec = %obj.getEyeVector();
-   %vec = VectorScale(%vec, 250);
-   %vec = setWord(%vec, 2, 750);
+   %vec = VectorScale(%vec, 500);
+   %vec = setWord(%vec, 2, 250);
    %obj.impulse(%pos, %vec);
 }
 

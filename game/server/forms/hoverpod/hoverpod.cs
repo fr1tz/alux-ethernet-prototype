@@ -134,16 +134,16 @@ datablock PlayerData(FrmHoverpod)
 	runEnergyDrain = 0;
 	minRunEnergy = 0;
 	
-	slideForce = 100 * 90;
+	slideForce = 75 * 90;
 	slideEnergyDrain = 0;
 	minSlideEnergy = 0;
 
 //	maxForwardSpeed = 100;
 //	maxBackwardSpeed = 100;
 //	maxSideSpeed = 100;
-	maxForwardSpeedSliding = 25;
-	maxBackwardSpeedSliding = 25;
-	maxSideSpeedSliding = 25;
+	maxForwardSpeedSliding = 20;
+	maxBackwardSpeedSliding = 20;
+	maxSideSpeedSliding = 20;
 //	maxForwardSpeedMarching = 8;
 //	maxBackwardSpeedMarching = 8;
 //	maxSideSpeedMarching = 5;
