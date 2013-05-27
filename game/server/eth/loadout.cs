@@ -56,6 +56,10 @@ function sLoadoutcode2Pieces(%code)
    {
       %pieces = "9 1";
    }
+   else if(%arg1 == 7) // Hovercycle
+   {
+      %pieces = "9 1";
+   }
    return %pieces;
 }
 
@@ -95,6 +99,9 @@ function GameConnection::loadDefaultLoadout(%this, %no)
       case 5:
          %this.loadoutName[%no] = "Hoverpod";
          %this.loadoutCode[%no] = "6";
+      case 6:
+         %this.loadoutName[%no] = "Hovercycle";
+         %this.loadoutCode[%no] = "7";
       case 51:
          %this.loadoutName[%no] = "Pistol Only";
          %this.loadoutCode[%no] = "4 0 0 0 1";
