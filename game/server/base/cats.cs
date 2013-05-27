@@ -55,11 +55,11 @@ function StandardCat::useWeapon(%this, %obj, %nr)
 {
 	%client = %obj.client;
  
-	if(%client.numWeapons == 0)
-		return;
+//	if(%client.numWeapons == 0)
+//		return;
 
-	if(%nr > %client.numWeapons)
-		return;
+//	if(%nr > %client.numWeapons)
+//		return;
 
 	if(%nr == 0)
    {

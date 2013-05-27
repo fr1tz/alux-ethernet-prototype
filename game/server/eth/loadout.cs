@@ -215,65 +215,7 @@ function GameConnection::updateLoadout(%this)
 	%this.hasPermaboard = false;
 	%this.numVAMPs = 0;
 	%this.numRegenerators = 0;
-	for(%i = 1; %i <= 9; %i++)
-	{
-		if(%this.loadout[%i] $= "")
-			continue;
 
-		if(%this.loadout[%i] == $CatEquipment::Damper)
-		{
-			%this.hasDamper = true;
-		}
-		else if(%this.loadout[%i] == $CatEquipment::Anchor)
-		{
-			%this.hasAnchor = true;
-		}
-		else if(%this.loadout[%i] == $CatEquipment::Stabilizer)
-		{
-			%this.hasStabilizer = true;
-		}
-		else if(%this.loadout[%i] == $CatEquipment::SlasherDisc)
-		{
-			%this.hasSlasherDisc = true;
-		}
-		else if(%this.loadout[%i] == $CatEquipment::RepelDisc)
-		{
-			%this.hasRepelDisc = true;
-		}
-		else if(%this.loadout[%i] == $CatEquipment::ExplosiveDisc)
-		{
-			%this.hasExplosiveDisc = true;
-		}
-		else if(%this.loadout[%i] == $CatEquipment::Grenade)
-		{
-			%this.hasGrenade = true;
-		}
-		else if(%this.loadout[%i] == $CatEquipment::Bounce)
-		{
-			%this.hasBounce = true;
-		}
-		else if(%this.loadout[%i] == $CatEquipment::Etherboard)
-		{
-			%this.hasEtherboard = true;
-		}
-		else if(%this.loadout[%i] == $CatEquipment::Permaboard)
-		{
-			%this.hasPermaboard = true;
-		}
-		else if(%this.loadout[%i] == $CatEquipment::VAMP)
-		{
-			%this.numVAMPs++;
-		}
-		else if(%this.loadout[%i] == $CatEquipment::Regeneration)
-		{
-			%this.numRegenerators++;
-		}
-		else if(%this.loadout[%i] < $CatEquipment::SlasherDisc)
-		{
-			%this.weapons[%this.numWeapons] = %this.loadout[%i];
-			%this.numWeapons++;
-		}
-	}
    if(isObject(%this.proxy))
       %this.proxy.delete();
    %this.proxy = new StaticShape() {
