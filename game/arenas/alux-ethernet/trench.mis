@@ -1,0 +1,7 @@
+exec("./common.cs");
+$MissionInfo::Name = "Trench";
+$MissionInfo::Desc = "" @
+	"Minimalist simplistic linear map";
+
+
+
