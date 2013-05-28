@@ -3,6 +3,13 @@
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
+datablock AudioProfile(FrmSoldierSpawnExplosionSound)
+{
+	filename	 = "share/sounds/rotc/deploy1.wav";
+	description = AudioDefault3D;
+	preload = true;
+};
+
 datablock AudioProfile(FrmSoldierLeftFootSoftSound)
 {
 	filename	 = "share/sounds/rotc/footsteps2/lf.soft.wav";

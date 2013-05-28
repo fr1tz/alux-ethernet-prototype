@@ -217,7 +217,7 @@ function FrmSoldierpod::onImpact(%this, %obj, %col, %vec, %vecLen)
    //%client.proxy.setTransform("0 0 0");
    %player.setLoadoutCode(%obj.loadoutCode);
 
-   createExplosion(FrmCrateDematerializeExplosion, %player.getPosition(), "0 0 1");
+   createExplosion(FrmSoldierSpawnExplosion, %player.getPosition(), "0 0 1");
 
    if(%obj == %client.player)
    {
