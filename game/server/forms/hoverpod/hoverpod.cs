@@ -56,9 +56,10 @@ datablock PlayerData(FrmHoverpod)
    dtime = 5000; // script field: de-materialization time
    
    // script fields: can soldiers mount this vehicle?
-   mountable = true;
-   numMountPoints = 1;
-   maxMountSpeed = 10;
+   numSeats = 1;
+   //mountable = true;
+   //numMountPoints = 1;
+   //maxMountSpeed = 10;
 
    allowColorization = true;
 
@@ -459,3 +460,13 @@ function FrmHoverpod::updateSSC(%this, %obj)
       }
    }
 }
+
+// Called from script
+function FrmHoverpod::mountPassenger(%this, %obj, %passenger, %seat)
+{
+   %pos = %obj.getPosition();
+   %transform = %pos SPC "0 0 1 0";
+   %obj.setTransform(%transform);
+   %obj.mountObject(%passenger, 0);
+}
+

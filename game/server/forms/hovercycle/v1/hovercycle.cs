@@ -56,9 +56,10 @@ datablock HoverVehicleData(FrmHovercycle)
    dtime = 5000; // script field: de-materialization time
 
    // script fields: can soldiers mount this vehicle?
-   mountable = true;
-   numMountPoints = 1;
-   maxMountSpeed = 10;
+   numSeats = 1;
+   //mountable = true;
+   //numMountPoints = 1;
+   //maxMountSpeed = 10;
 
    allowColorization = true;
 
@@ -80,6 +81,7 @@ datablock HoverVehicleData(FrmHovercycle)
 	//debrisShapeName = "share/shapes/rotc/misc/debris1.white.dts";
 	//debris = ShapeDebris;
 	renderWhenDestroyed = false;
+	emap = true;
 
 	// *** Vehicle ***
 
@@ -113,12 +115,12 @@ datablock HoverVehicleData(FrmHovercycle)
 	mainThrustForce = 200.0*100;
 	reverseThrustForce = 20.0*100;
 	strafeThrustForce = 100.0*100;
-	floatingGravMag = 1; // factor applied to gravity when floating
+	floatingGravMag = 10; // factor applied to gravity when floating
 	floatingThrustFactor = 0.25; // factor applied to thrust force when floating
 	turboFactor = 1.0; // factor applied to thrust force when jetting
 	steeringForce = 50.0*100;
 	rollForce = 15.0*100;
-	pitchForce = 1.0*100;
+	pitchForce = 0.0*100;
 
 	// braking force  is applied only when not thrusting
 	// and the speed is less than brakingActivationSpeed
@@ -335,21 +337,16 @@ function FrmHovercycle::dematerializeFinish(%this, %obj)
 // Called from script
 function FrmHovercycle::updateSSC(%this, %obj)
 {
-   %soldier = %obj.getMountedObject(0);
-   if(isObject(%soldier) && isObject(%soldier.getControllingClient()))
-   {
-      %obj.ssc = new HoverPodController() {
-         client = %soldier.client;
-      };
-      MissionCleanup.add(%obj.ssc);
-   	%obj.useServerSideController(%obj.ssc);
-   }
-   else
-   {
-      if(isObject(%obj.ssc))
-      {
-         %obj.ssc.delete();
-         %obj.ssc = "";
-      }
-   }
+
+}
+
+// Called from script
+function FrmHovercycle::mountPassenger(%this, %obj, %passenger, %seat)
+{
+   %obj.mountObject(%passenger, 0);
+   %passenger.setControlObject(%obj);
+   %passenger.setTransform("0 0 0 0 0 1 0");
+   %passenger.setActionThread("scoutroot");
+   %passenger.setArmThread("scoutroot");
+   %passenger.unmountImage(0);
 }

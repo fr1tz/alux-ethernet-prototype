@@ -100,6 +100,7 @@ datablock TSShapeConstructor(FrmSoldierDts)
 	sequence45 = "fb/flyer.dsq flyer";
 
 	sequence55  = "b/slide.dsq slide";
+	sequence56 = "nm/scoutroot.dsq scoutroot";
 };
 
 datablock PlayerData(FrmSoldier)
@@ -377,43 +378,38 @@ function FrmSoldier::onCollision(%this,%obj,%col,%vec,%vecLen)
    if(%obj.getDamageState() !$= "Enabled")
       return;
       
-   if(%obj.zIgnoreHoverpods)
-      return;
-
    if(isObject(%obj.getObjectMount()))
       return;
 
-	%searchMask = $TypeMasks::PlayerObjectType;
+   if(%obj.zDontEnterVehicles)
+      return;
+ 
+   %data = %col.getDataBlock();
+   
+   if(%data.numSeats $= "" || %data.numSeats == 0)
+      return;
+      
+	%searchMask = $TypeMasks::TerrainObjectType | $TypeMasks::InteriorObjectType;
 	%start = %obj.getPosition();
-	%end = VectorAdd(%start, "0 0 -1");
-
+	%end = VectorAdd(%start, "0 0 -0.1");
 	%scanTarg = ContainerRayCast(%start, %end, %searchMask, %obj);
-
 	if(%scanTarg)
-	{
-		%targetObject = firstWord(%scanTarg);
-      //error(%targetObject.getMountedObject(0));
-      //error(%targetObject.getDataBlock());
-      if(%targetObject.getDataBlock() == FrmHoverpod.getId()
-      && !isObject(%targetObject.getMountedObject(0)))
+      return;
+
+   %node = -1;
+   for(%i = 0; %i < %data.numSeats; %i++)
+   {
+      if(!isObject(%col.getMountedObjectNode(%i)))
       {
-   		//%player.mountVehicle(%targetObject);
-         %pos = %targetObject.getPosition();
-         //%transform = %obj.getTransform();
-         //%transform = setWord(%transform, 0, getWord(%pos, 0));
-         //%transform = setWord(%transform, 1, getWord(%pos, 1));
-         //%transform = setWord(%transform, 2, getWord(%pos, 2));
-         //%transform = %pos SPC "0 0 1 3.14159";
-         %transform = %pos SPC "0 0 1 0";
-         %targetObject.setTransform(%transform);
-         %targetObject.mountObject(%obj, 0);
-         //%obj.setTransform(%transform);
+         %node = %i;
+         break;
       }
-	}
-	else
-	{
-		//echo("No object found");
-	}
+   }
+
+   if(%node == -1)
+      return;
+      
+   %data.mountPassenger(%col, %obj, %node);
 }
 
 function FrmSoldier::onTrigger(%this, %obj, %triggerNum, %val)
@@ -428,18 +424,21 @@ function FrmSoldier::onTrigger(%this, %obj, %triggerNum, %val)
    if(!%val || %triggerNum != 2)
       return;
 
-	%hoverpod = %obj.getObjectMount();
-   if(!isObject(%hoverpod))
+	%vehicle = %obj.getObjectMount();
+   if(!isObject(%vehicle))
       return;
-      
-   // Disable mounting hoverpods for a short time
-   %obj.zIgnoreHoverpods = true;
-   %obj.schedule(250, "setFieldValue", "zIgnoreHoverpods", false);
-      
-   %hoverpod.unmountObject(%obj);
+
+   // Disable mounting vehicle seats for a short time
+   %obj.zDontEnterVehicles = true;
+   %obj.schedule(1000, "setFieldValue", "zDontEnterVehicles", false);
+    
+   %vehicle.unmountObject(%obj);
+   %obj.clearControlObject();
+   if(!isObject(%obj.getMountedImage(0)))
+      %obj.useWeapon(1);
    
-   %pos = VectorAdd(%obj.getPosition(), "0 0 0");
-   %obj.setPosition(%pos);
+   //%pos = VectorAdd(%obj.getPosition(), "0 0 0");
+   //%obj.setPosition(%pos);
    %obj.setVelocity("0 0 0");
    
    %vec = %obj.getEyeVector();
@@ -684,17 +683,17 @@ function FrmSoldier::special(%this, %obj, %nr)
 // Called from script
 function FrmSoldier::onAluxEnter(%this, %obj)
 {
-	%hoverpod = %obj.getObjectMount();
-   if(isObject(%hoverpod))
-      %hoverpod.getDataBlock().updateSSC(%hoverpod);
+	%vehicle = %obj.getObjectMount();
+   if(isObject(%vehicle))
+      %vehicle.getDataBlock().updateSSC(%vehicle);
 }
 
 // Called from script
 function FrmSoldier::onAluxLeft(%this, %obj)
 {
-	%hoverpod = %obj.getObjectMount();
-   if(isObject(%hoverpod))
-      %hoverpod.getDataBlock().updateSSC(%hoverpod);
+	%vehicle = %obj.getObjectMount();
+   if(isObject(%vehicle))
+      %vehicle.getDataBlock().updateSSC(%vehicle);
 }
 
 // Called from script
@@ -703,12 +702,9 @@ function FrmSoldier::damage(%this, %obj, %sourceObject, %position, %damage, %dam
    Parent::damage(%this, %obj, %sourceObject, %position, %damage, %damageType);
    if(%obj.getDamageState() $= "Disabled")
    {
-      %hoverpod = %obj.getObjectMount();
-      if(isObject(%hoverpod))
-         %hoverpod.unmountObject(%obj);
+      %vehicle = %obj.getObjectMount();
+      if(isObject(%vehicle))
+         %vehicle.unmountObject(%obj);
    }
 }
-
-
-
 

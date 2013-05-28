@@ -47,9 +47,9 @@ datablock ParticleEmitterData(FrmHovercycleSlideContactTrailEmitter)
 
 datablock MultiNodeLaserBeamData(FrmHovercycleLaserTrail)
 {
-	hasLine   = false;
-	lineColor = "1.00 1.00 1.00 1.0";
-    lineWidth = 2.0;
+	hasLine   = true;
+	lineColor = "0.00 0.50 1.00 1.0";
+   lineWidth = 1.0;
 
 	hasInner = false;
 	innerColor = "0.00 1.00 0.00 1.0";
