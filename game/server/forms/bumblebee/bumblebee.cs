@@ -29,7 +29,7 @@ datablock StaticShapeData(FrmBumblebeeStatic)
 {
    proxy = FrmBumblebeeProxy; // script field
    spore = FrmBumblebeeSpore; // script field
-   btime = 5000; // script field: how long form is blocked after materialization
+   btime = 2000; // script field: how long form is blocked after materialization
    dtime = 5000; // script field: de-materialization time
 
    allowColorization = true;
@@ -103,6 +103,15 @@ function FrmBumblebeeStatic::onTrigger(%this, %obj, %triggerNum, %val)
    %client.control(%player);
    %client.player = %player;
    %static.delete();
+   
+   // Alert other team
+	%count = ClientGroup.getCount();
+	for(%cl= 0; %cl < %count; %cl++)
+   {
+		%c = ClientGroup.getObject(%cl);
+      if(%c.team.teamId != 0 && %c.team.teamId != %client.team.teamId)
+         %c.play2D(FrmBumblebeeLaunchAlertSound);
+   }
 }
 
 // Called from script
