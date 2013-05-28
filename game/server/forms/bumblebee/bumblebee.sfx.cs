@@ -19,7 +19,7 @@ datablock AudioProfile(FrmBumblebeeEngineSound)
 
 datablock AudioProfile(FrmBumblebeeExplosionSound)
 {
-	filename = "share/sounds/rotc/explosion7.wav";
+	filename = "share/sounds/rotc/explosion3.wav";
 	description = AudioFar3D;
 	preload = true;
 };
