@@ -120,7 +120,7 @@ function FrmLightProjectile::onExplode(%this,%obj,%pos,%normal,%fade,%dist,%expT
    %player.setLoadoutCode(%obj.loadoutCode);
    %player.inv[1] = getWord(%obj.loadoutCode, 4);
 
-   createExplosion(FrmCrateDematerializeExplosion, %player.getPosition(), "0 0 1");
+   createExplosion(FrmCrateMaterializeExplosion, %player.getPosition(), "0 0 1");
    %player.getDataBlock().materializeFx(%player);
 
    %player.zBlocked = true;
