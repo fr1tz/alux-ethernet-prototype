@@ -9,7 +9,7 @@
 //-----------------------------------------------------------------------------
 
 // Default mission for the server
-$Server::MissionFile = "game/arenas/alux-ethernet/staub.mis";
+$Server::MissionFile = "game/arenas/alux-ethernet/staub-a.mis";
 
 // Information about the server
 $Pref::Server::RegionMask = 2;
