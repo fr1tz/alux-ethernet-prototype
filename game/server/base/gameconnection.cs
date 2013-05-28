@@ -666,7 +666,7 @@ function GameConnection::leaveForm(%this, %obj, %dematerialize)
 
    // Can't leave a form we're not actually controlling
    %form = %this.player;
-	if(!isObject(%form) || %obj != %form)
+	if(isObject(%form) && %obj != %form)
 		return;
   
 	//%tagged = %form.isTagged();
@@ -688,8 +688,9 @@ function GameConnection::leaveForm(%this, %obj, %dematerialize)
 	};
    MissionCleanup.add(%obj);
 	
-	%obj.setTransform(%form.getTransform());
-	%obj.setTransform(%form.getWorldBoxCenter());
+	//%obj.setTransform(%form.getTransform());
+	//%obj.setTransform(%form.getWorldBoxCenter());
+   %obj.setTransform(%form.getEyeTransform());
 
 	%nrg = %form.getEnergyLevel();
    %maxdmg = %form.getDataBlock().maxDamage;
