@@ -78,6 +78,9 @@ function FrmBumblebeeStatic::onTrigger(%this, %obj, %triggerNum, %val)
 {
    if(%val)
       return;
+      
+   if(%obj.getDamageState() !$= "Enabled")
+      return;
 
    %client = %obj.client;
 
