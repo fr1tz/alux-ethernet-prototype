@@ -82,6 +82,13 @@ datablock HoverVehicleData(FrmHovercycle)
 	//debris = ShapeDebris;
 	renderWhenDestroyed = false;
 	emap = true;
+ 
+	shapeFxTexture[0] = "share/textures/alux/light.png";
+	shapeFxTexture[1] = "share/textures/alux/grid1.png";
+	shapeFxTexture[2] = "share/textures/alux/grid2.png";
+	shapeFxTexture[3] = "share/shapes/alux/light.png";
+	shapeFxTexture[4] = "share/textures/alux/blocked.png";
+	shapeFxColor[0] = "1.0 1.0 1.0 1.0";
 
 	// *** Vehicle ***
 
@@ -114,7 +121,7 @@ datablock HoverVehicleData(FrmHovercycle)
 
 	mainThrustForce = 200.0*100;
 	reverseThrustForce = 20.0*100;
-	strafeThrustForce = 100.0*100;
+	strafeThrustForce = 20.0*100;
 	floatingGravMag = 10; // factor applied to gravity when floating
 	floatingThrustFactor = 0.25; // factor applied to thrust force when floating
 	turboFactor = 1.0; // factor applied to thrust force when jetting
@@ -162,19 +169,22 @@ datablock HoverVehicleData(FrmHovercycle)
 	collDamageThresholdVel = 23;
 	collDamageMultiplier = 0.030;
 
-	//dustEmitter = CatSlideContactTrailEmitter;
-	triggerDustHeight = 2.5;
+   // Dust emitter
 	dustHeight = 1.0;
-	//dustTrailEmitter = CatSkidTrailEmitter0;
-	dustTrailOffset = "0.0 -1.0 0.5";
-	triggerTrailHeight = 3.6;
+	triggerDustHeight = 2.5;
+	//dustEmitter = FrmHovercycleDustEmitter;
+ 
+   // Dust trail emitter
+	triggerTrailHeight = 2.5;
 	dustTrailFreqMod = 15.0;
+ 	dustTrailOffset = "0.0 0.0 0.0";
+	//dustTrailEmitter = FrmHovercycleDustEmitter;
  
 	laserTrail[0] = FrmHovercycleLaserTrail;
 	laserTrail[1] = FrmHovercycleLaserTrail;
 
 	//jetSound = ScoutSqueelSound;
-	//engineSound = ScoutEngineSound;
+	engineSound = FrmHovercycleEngineSound;
 	//floatSound = ScoutThrustSound;
 	//softImpactSound = GravSoftImpactSound;
 	//hardImpactSound = HardImpactSound;

@@ -3,7 +3,10 @@
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
-datablock ParticleData(FrmHovercycleSlideContactTrailEmitter_Particle)
+//-----------------------------------------------------------------------------
+// Dust emitter
+
+datablock ParticleData(FrmHovercycleDustEmitter_Particle)
 {
 	dragCoefficient		= 1.0;
 	gravityCoefficient	= 0.0;
@@ -25,7 +28,7 @@ datablock ParticleData(FrmHovercycleSlideContactTrailEmitter_Particle)
 	allowLighting = false;
 };
 
-datablock ParticleEmitterData(FrmHovercycleSlideContactTrailEmitter)
+datablock ParticleEmitterData(FrmHovercycleDustEmitter)
 {
 	ejectionPeriodMS = 5;
 	periodVarianceMS = 0;
@@ -39,7 +42,7 @@ datablock ParticleEmitterData(FrmHovercycleSlideContactTrailEmitter)
 	overrideAdvances = false;
 	orientParticles  = false;
 	lifetimeMS		 = 0; // forever
-	particles = FrmHovercycleSlideContactTrailEmitter_Particle;
+	particles = FrmHovercycleDustEmitter_Particle;
 };
 
 //-----------------------------------------------------------------------------

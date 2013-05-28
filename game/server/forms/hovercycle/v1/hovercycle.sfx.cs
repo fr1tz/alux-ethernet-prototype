@@ -3,17 +3,10 @@
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
-datablock AudioProfile(FrmHovercycleSlideSound)
+datablock AudioProfile(FrmHovercycleEngineSound)
 {
-	filename	 = "share/sounds/rotc/slide2.wav";
-	description = AudioCloseLooping3D;
-	preload = true;
-};
-
-datablock AudioProfile(FrmHovercycleSlideContactSound)
-{
-	filename	 = "share/sounds/rotc/slide1.wav";
-	description = AudioCloseLooping3D;
+	filename	 = "share/sounds/rotc/slide3.wav";
+	description = AudioDefaultLooping3D;
 	preload = true;
 };
 
