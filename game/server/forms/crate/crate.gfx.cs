@@ -15,10 +15,10 @@ datablock ParticleData(FrmCrate_DamageEmitter_Particle)
 	constantAcceleration = 0.0;
 	lifetimeMS			  = 1000;
 	lifetimeVarianceMS	= 0;
-	textureName = "share/textures/alux/grid1";
-	colors[0]	  = "1.0 0.0 0.0 1.0";
-	colors[1]	  = "1.0 0.0 0.0 1.0";
-	colors[2]	  = "1.0 0.0 0.0 0.0";
+	textureName = "share/textures/rotc/corona";
+	colors[0]	  = "1.0 1.0 0.0 1.0";
+	colors[1]	  = "1.0 1.0 0.0 1.0";
+	colors[2]	  = "1.0 1.0 0.0 0.0";
 	sizes[0]		= 0.3;
 	sizes[1]		= 0.3;
 	sizes[2]		= 0.0;
@@ -44,7 +44,7 @@ datablock ParticleEmitterData(FrmCrate_DamageEmitter)
 	lifetimeMS		 = 0; // forever
 	lifetimeVarianceMS = 0;
 	overrideAdvances = false;
-	orientParticles  = true;
+	orientParticles  = false;
 	particles = "FrmCrate_DamageEmitter_Particle";
 };
 
