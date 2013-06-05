@@ -877,21 +877,34 @@ function GameConnection::updateProxyThread(%this)
       %client.spawnError = "";
 
    %x = getWord(%c,1);
-   if(true)
+   if(%x > 0)
    {
       //%r = %x - mFloor(%x);
+      %r = %x % 2;
+      if(%r < 1)
+         %x = mCeil(%x);
+      else
+         %x = mFloor(%x);
+   }
+   else
+   {
       %r = %x % 2;
       if(%r > 1)
          %x = mCeil(%x);
       else
          %x = mFloor(%x);
    }
-   //   %x = mFloor(%x);
-   //else
-   //   %x = mCeil(%x);
-   //%x -= (%x % 2);
    %y = getWord(%c,2);
-   if(true)
+   if(%y > 0)
+   {
+      //%r = %y - mFloor(%y);
+      %r = %y % 2;
+      if(%r < 1)
+         %y = mCeil(%y);
+      else
+         %y = mFloor(%y);
+   }
+   else
    {
       //%r = %y - mFloor(%y);
       %r = %y % 2;
@@ -900,11 +913,6 @@ function GameConnection::updateProxyThread(%this)
       else
          %y = mFloor(%y);
    }
-   //if(%y > 0)
-   //   %y = mFloor(%y);
-   //else
-   //   %y = mCeil(%y);
-   //%y -= (%y % 2);
    %z = getWord(%c,3);
    %pos = %x SPC %y SPC %z;
    %normal = getWords(%c, 4, 6);
