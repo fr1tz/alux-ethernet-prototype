@@ -434,9 +434,7 @@ function FrmSoldier::onTrigger(%this, %obj, %triggerNum, %val)
     
    %vehicle.unmountObject(%obj);
    %obj.clearControlObject();
-   if(!isObject(%obj.getMountedImage(0)))
-      %obj.useWeapon(1);
-   
+
    //%pos = VectorAdd(%obj.getPosition(), "0 0 0");
    //%obj.setPosition(%pos);
    %obj.setVelocity("0 0 0");
@@ -457,6 +455,8 @@ function FrmSoldier::onMount(%this, %obj, %vehicle, %node)
 function FrmSoldier::onUnmount(%this, %obj, %vehicle, %node)
 {
    %vehicle.getDataBlock().updateSSC(%vehicle);
+   if(!isObject(%obj.getMountedImage(0)))
+      %obj.useWeapon(1);
 }
 
 function FrmSoldier::canMaterialize(%this, %client, %pos, %normal, %transform)
