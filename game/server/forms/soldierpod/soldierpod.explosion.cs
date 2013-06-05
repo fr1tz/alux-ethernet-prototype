@@ -9,8 +9,8 @@ datablock ParticleData(FrmSoldierpodExplosion_Cloud)
 	gravityCoefficient	= 0;
 	inheritedVelFactor	= 0.025;
 
-	lifetimeMS			  = 1000;
-	lifetimeVarianceMS	= 0;
+	lifetimeMS			  = 2000;
+	lifetimeVarianceMS	= 500;
 
 	useInvAlpha =  false;
 	spinRandomMin = -200.0;
@@ -18,14 +18,14 @@ datablock ParticleData(FrmSoldierpodExplosion_Cloud)
 
 	textureName = "share/textures/rotc/corona.png";
 
-	colors[0]	  = "1.0 1.0 1.0 1.0";
-	colors[1]	  = "1.0 0.5 0.0 0.0";
-	colors[2]	  = "1.0 0.5 0.0 0.0";
-	sizes[0]		= 12.0;
-	sizes[1]		= 9.0;
-	sizes[2]		= 0.0;
+	colors[0]	  = "1.0 1.0 1.0 0.5";
+	colors[1]	  = "1.0 1.0 1.0 0.25";
+	colors[2]	  = "1.0 1.0 1.0 0.0";
+	sizes[0]		= 3.0;
+	sizes[1]		= 4.0;
+	sizes[2]		= 5.0;
 	times[0]		= 0.0;
-	times[1]		= 0.25;
+	times[1]		= 0.5;
 	times[2]		= 1.0;
 
 	allowLighting = false;
@@ -36,7 +36,7 @@ datablock ParticleEmitterData(FrmSoldierpodExplosion_CloudEmitter)
 	ejectionPeriodMS = 5;
 	periodVarianceMS = 0;
 
-	ejectionVelocity = 6.25;
+	ejectionVelocity = 1.0;
 	velocityVariance = 0.25;
 
 	thetaMin			= 0.0;
@@ -135,15 +135,15 @@ datablock ParticleEmitterData(FrmSoldierpodExplosion_SmokeEmitter)
 datablock ParticleData(FrmSoldierpodExplosion_Sparks)
 {
 	dragCoefficient		= 1;
-	gravityCoefficient	= 0.0;
-	inheritedVelFactor	= 0.2;
+	gravityCoefficient	= 3.0;
+	inheritedVelFactor	= 0.0;
 	constantAcceleration = 0.0;
-	lifetimeMS			  = 500;
-	lifetimeVarianceMS	= 350;
-	textureName			 = "share/textures/rotc/particle1.png";
-	colors[0]	  = "0.56 0.36 0.26 1.0";
-	colors[1]	  = "0.56 0.36 0.26 1.0";
-	colors[2]	  = "1.0 0.36 0.26 0.0";
+	lifetimeMS			  = 2000;
+	lifetimeVarianceMS	= 0;
+	textureName			 = "share/textures/rotc/corona";
+	colors[0]	  = "1 1 1 1.0";
+	colors[1]	  = "1 1 1 1.0";
+	colors[2]	  = "1 1 1 0.0";
 	sizes[0]		= 0.5;
 	sizes[1]		= 0.5;
 	sizes[2]		= 0.75;
@@ -157,7 +157,7 @@ datablock ParticleEmitterData(FrmSoldierpodExplosion_SparksEmitter)
 {
 	ejectionPeriodMS = 2;
 	periodVarianceMS = 0;
-	ejectionVelocity = 12;
+	ejectionVelocity = 20;
 	velocityVariance = 6.75;
 	ejectionOffset	= 0.0;
 	thetaMin			= 0;
@@ -166,7 +166,7 @@ datablock ParticleEmitterData(FrmSoldierpodExplosion_SparksEmitter)
 	phiVariance		= 360;
 	overrideAdvances = false;
 	orientParticles  = true;
-	lifetimeMS		 = 100;
+	lifetimeMS		 = 200;
 	particles = "FrmSoldierpodExplosion_Sparks";
 };
 
@@ -181,12 +181,12 @@ datablock ExplosionData(FrmSoldierpodExplosion)
 	lifetimeMS = 200;
 
 	particleEmitter = FrmSoldierpodExplosion_CloudEmitter;
-	particleDensity = 300;
-	particleRadius = 10;
+	particleDensity = 10;
+	particleRadius = 0.5;
 
-	//emitter[0] = FrmSoldierpodExplosion_DustEmitter;
-	//emitter[1] = FrmSoldierpodExplosion_SmokeEmitter;
-	//emitter[2] = FrmSoldierpodExplosion_SparksEmitter;
+   emitter[0] = FrmSoldierpodExplosion_SparksEmitter;
+	//emitter[1] = FrmSoldierpodExplosion_DustEmitter;
+	//emitter[2] = FrmSoldierpodExplosion_SmokeEmitter;
 
 	// Camera shake
 	shakeCamera = false;

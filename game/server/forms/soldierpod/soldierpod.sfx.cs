@@ -12,7 +12,7 @@ datablock AudioProfile(FrmSoldierpodEngineSound)
 
 datablock AudioProfile(FrmSoldierpodExplosionSound)
 {
-	filename = "share/sounds/rotc/explosion7.wav";
+	filename = "share/sounds/rotc/explosion1.wav";
 	description = AudioFar3D;
 	preload = true;
 };

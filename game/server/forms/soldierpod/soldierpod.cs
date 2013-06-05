@@ -312,7 +312,7 @@ function FrmSoldierpod::explode(%this, %obj)
 {
    %obj.client.onFormDestroyed(%obj);
    %pos = %obj.getPosition();
-   createExplosion(FrmCrateExplosion, %pos, "0 0 1");
+   createExplosion(FrmSoldierpodExplosion, %pos, "0 0 1");
    %obj.schedule(0, "delete");
 }
 
