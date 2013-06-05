@@ -262,7 +262,7 @@ function FrmSoldierpod::damage(%this, %obj, %sourceObject, %position, %damage, %
    if(%obj.getDamageState() $= "Destroyed")
       return;
 
-   %damage *= 2;
+   %damage *= 4;
 
    Parent::damage(%this, %obj, %sourceObject, %position, %damage, %damageType);
    
