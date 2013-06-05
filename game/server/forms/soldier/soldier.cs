@@ -686,6 +686,8 @@ function FrmSoldier::onAluxEnter(%this, %obj)
 	%vehicle = %obj.getObjectMount();
    if(isObject(%vehicle))
       %vehicle.getDataBlock().updateSSC(%vehicle);
+
+   %this.onTrigger(%obj, 5, false);
 }
 
 // Called from script
@@ -694,6 +696,8 @@ function FrmSoldier::onAluxLeft(%this, %obj)
 	%vehicle = %obj.getObjectMount();
    if(isObject(%vehicle))
       %vehicle.getDataBlock().updateSSC(%vehicle);
+
+   %this.onTrigger(%obj, 5, true);
 }
 
 // Called from script
