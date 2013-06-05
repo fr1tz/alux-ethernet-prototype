@@ -180,6 +180,8 @@ datablock HoverVehicleData(FrmHovercycle)
  	dustTrailOffset = "0.0 0.0 0.0";
 	//dustTrailEmitter = FrmHovercycleDustEmitter;
  
+   damageParticleEmitter = FrmCrate_DamageEmitter;
+ 
 	laserTrail[0] = FrmHovercycleLaserTrail;
 	laserTrail[1] = FrmHovercycleLaserTrail;
 
