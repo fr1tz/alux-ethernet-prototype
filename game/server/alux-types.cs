@@ -1,8 +1,8 @@
 //------------------------------------------------------------------------------
-// Alux Prototype
+// Alux Ethernet Prototype
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
-// Alux Prototype game types
+// Alux Ethernet Prototype game types
 $Game::Ethernet     = 1;
 

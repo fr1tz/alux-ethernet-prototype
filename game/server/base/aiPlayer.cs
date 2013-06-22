@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// Alux Prototype
+// Alux Ethernet Prototype
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
@@ -260,22 +260,76 @@ function xxx_aiUpdateTarget(%player)
 	%player.targetUpdateThread = schedule(2500,%player,xxx_aiUpdateTarget,%player);
 }
 
-function xxx_aiUpdateMove(%player)
+function xxx_aiFindMoveDestination(%player)
 {
-	%pos = %player.getPosition();
-	%dest = getTerrainLevel(getRandomHorizontalPos(%pos, 50));
-
-	//%heightdiff = getTerrainLevel(%pos) - getTerrainHeight(%desc);
-	%heightdiff = getTerrainHeight(getTerrainLevel(%pos)) - getTerrainHeight(%dest);
-	%dmg = %heightdiff * %player.getDataBlock().speedDamageScale;
-	%dmgbuff = %player.getDataBlock().damageBuffer;
-
-//	if (%heightdiff < 0) {
-//		%player.jump();
-//	}
-	//if (%dmg < %dmgbuff) {
-		%player.setMoveDestination(%dest);
-	//}
-	%player.moveThread = schedule((getRandom(1)+1)*1000,%player,xxx_aiUpdateMove,%player);
+   %player.zMoveDestination = "";
+   %pos = %player.getPosition();
+   %dist = 1;
+   %dest = "";
+	InitContainerRadiusSearch(%pos, %dist, $TypeMasks::TacticalSurfaceObjectType);
+   %zone = containerSearchNext();
+   if(%zone $= "")
+      return;
+      
+   if(%zone.getTeamId() == %player.getTeamId())
+      %dest = %zone.zNeighbour[%player.getTeamId() == 1 ? 1 : 0];
+      
+   //error(%zone SPC "->" SPC %dest);
+      
+   //error(%pos SPC "->" SPC %dest.getPosition());
+   %player.zMoveDestination = %dest;
 }
 
+function xxx_aiUpdateMove(%player)
+{
+//	%player.moveThread = schedule((getRandom(1)+1)*1000,%player,xxx_aiUpdateMove,%player);
+	%player.moveThread = schedule(500,%player,xxx_aiUpdateMove,%player);
+ 
+   %currPos = %player.getPosition();
+
+   %findNewMoveDestination = false;
+   if(!isObject(%player.zMoveDestination))
+   {
+      %findNewMoveDestination = true;
+   }
+   else
+   {
+      InitContainerRadiusSearch(%currPos, 1, $TypeMasks::TacticalSurfaceObjectType);
+      %zone = containerSearchNext();
+      if(%zone == %player.zMoveDestination && %zone.getTeamId() == %player.getTeamId())
+         %findNewMoveDestination = true;
+   }
+
+   if(%findNewMoveDestination)
+   {
+      xxx_aiFindMoveDestination(%player);
+      if(!isObject(%player.zMoveDestination))
+         return;
+   }
+
+   %targetPos = %player.zMoveDestination.getPosition();
+   //%targetPos = %player.getAimObject().getPosition();
+   //%targetPos = "-45 89 20";
+   %targetVec = VectorNormalize(VectorSub(%targetPos, %currPos));
+   %newPos = VectorAdd(%currPos, VectorScale(%targetVec, 10));
+
+   %player.setMoveDestination(%currPos);
+   %n = 2;
+   while(%n-- > 0)
+   {
+      %dest = getTerrainLevel(%newPos);
+      //error(%dest);
+      InitContainerRadiusSearch(%dest, 1, $TypeMasks::TacticalSurfaceObjectType);
+      %obj = containerSearchNext();
+      //error(%obj);
+      //error(%obj SPC "->" SPC %obj.aiIgnore);
+		if(%obj == 0 || %obj.aiIgnore) continue;
+
+	   %heightdiff = getWord(%currPos,2) - getWord(%dest,2);
+      //error(%heightdiff);
+	   if(%heightdiff < 100) {
+		   %player.setMoveDestination(%dest);
+         break;
+	   }
+   }
+}

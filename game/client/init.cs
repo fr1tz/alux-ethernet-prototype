@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// Alux Prototype
+// Alux Ethernet Prototype
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
@@ -61,7 +61,7 @@ function initClient()
 	// The canvas needs to be constructed before the gui scripts are
 	// run because many of the controls assume the canvas exists at
 	// load time.
-	initCanvas("Alux Prototype (" @ $GameVersionString @ ")");
+	initCanvas("Alux Ethernet Prototype (" @ $GameVersionString @ ")");
 
 	// execute the UI scripts
 	exec("./ui/init.cs");

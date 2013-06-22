@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------
-// Alux Prototype
+// Alux Ethernet Prototype
 // Copyright notices are in the file named COPYING.
 //------------------------------------------------------------------------------
 
@@ -8,7 +8,7 @@
 // Copyright (C) GarageGames.com, Inc.
 //-----------------------------------------------------------------------------
 
-$GameNameString = "alux-prototype";
+$GameNameString = "alux-ethernet-prototype";
 $GameVersionString = "ver1-dev";
 
 //------------------------------------------------------------------------------
